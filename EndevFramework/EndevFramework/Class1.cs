@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace EndevFramework
 {
@@ -10,5 +11,14 @@ namespace EndevFramework
         }
 
 
+        public void AddBinding(Control pControl, string pConfigLink)
+        {
+
+        }
+
+        public void AddBinding(ref object pControlProperty, Type pExpectedType, string pConfigLink)
+        {
+
+        }
     }
 }
