@@ -1,0 +1,13 @@
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\bin\Debug\TestForm.exe.config
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\bin\Debug\TestForm.exe
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\bin\Debug\TestForm.pdb
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\bin\Debug\EndevFramework.dll
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\bin\Debug\EndevFramework.pdb
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.Form1.resources
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.Properties.Resources.resources
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.csproj.GenerateResource.cache
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.csproj.CoreCompileInputs.cache
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.exe
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.pdb

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EndevFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,14 @@ namespace TestForm
         public Form1()
         {
             InitializeComponent();
+
+            BindingManager bm = new BindingManager();
+
+            bm.AddBinding(textBox1, "test");
+
+            bm.LoadBinding(@"C:\Users\zivi\Desktop\myIni.ini");
+
+            bm.FillBindings();
         }
     }
 }
