@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace EndevFramework
@@ -17,7 +18,7 @@ namespace EndevFramework
             public Type EFType { get; set; } = null;
             public string EFConfigKey { get; set; } = null;
             public string EFConfigValue { get; set; } = null;
-            public object EFControlProperty { get; set; } = null;
+            public string EFControlProperty { get; set; } = null;
             
 
             public BindingElement(Control pControl, string pConfigKey)
@@ -27,8 +28,9 @@ namespace EndevFramework
                 EFConfigKey = pConfigKey;
             }
 
-            public BindingElement(ref object pControlProperty, Type pExpectedType, string pConfigKey)
+            public BindingElement(Control pControl,string pControlProperty, Type pExpectedType, string pConfigKey)
             {
+                EFControl = pControl;
                 EFType = pExpectedType;
                 EFConfigKey = pConfigKey;
                 EFControlProperty = pControlProperty;
@@ -36,13 +38,19 @@ namespace EndevFramework
 
             public void Bind()
             {
-                if(EFControl != null)
+                if(EFControlProperty == null)
                 {
-                    (EFControl as TextBox).Text = EFConfigValue;
+                    if(EFControl.GetType() == typeof(TextBox)) (EFControl as TextBox).Text = EFConfigValue;
+
+
                 }
                 else
                 {
-
+                    PropertyInfo prop = EFControl.GetType().GetProperty(EFControlProperty);
+                    if (null != prop && prop.CanWrite)
+                    {
+                        prop.SetValue(EFControl, EFConfigValue, null);
+                    }
                 }
             }
         }
@@ -72,9 +80,9 @@ namespace EndevFramework
         /// <param name="pControlProperty">The control-property that should be bound, e.g. myLabel.Text</param>
         /// <param name="pExpectedType">The datatype the binding should expect</param>
         /// <param name="pConfigKey">The key for data-assigning in the Config-File</param>
-        public void AddBinding(ref object pControlProperty, Type pExpectedType, string pConfigKey)
+        public void AddBinding(Control pControl, string pControlProperty, Type pExpectedType, string pConfigKey)
         {
-            LBindingElements.Add(new BindingElement(ref pControlProperty, pExpectedType, pConfigKey));
+            LBindingElements.Add(new BindingElement(pControl, pControlProperty, pExpectedType, pConfigKey));
         }
 
         public void LoadBinding(string pConfigFile)

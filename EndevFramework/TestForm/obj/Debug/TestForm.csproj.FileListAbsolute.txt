@@ -11,3 +11,6 @@ C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.csproj.CopyComplete
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.exe
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\obj\Debug\TestForm.pdb
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\bin\Debug\MetroFramework.Design.dll
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\bin\Debug\MetroFramework.dll
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\TestForm\bin\Debug\MetroFramework.Fonts.dll

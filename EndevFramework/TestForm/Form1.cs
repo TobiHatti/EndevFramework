@@ -20,6 +20,7 @@ namespace TestForm
             BindingManager bm = new BindingManager();
 
             bm.AddBinding(textBox1, "test");
+            bm.AddBinding(metroTextBox1, "Text", typeof(string), "test2");
 
             bm.LoadBinding(@"C:\Users\zivi\Desktop\myIni.ini");
 
