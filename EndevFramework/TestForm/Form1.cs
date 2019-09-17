@@ -19,19 +19,17 @@ namespace TestForm
         {
             InitializeComponent();
 
+            bm.Bind(textBox1, "Text", "SimpleBind1");
+            bm.Bind(listBox1, "Items", "DataBind3");
             
 
-            bm.AddBinding(textBox1, "test");
-            bm.AddBinding(metroTextBox1, "Text", typeof(string), "test2");
-
-            bm.LoadBinding(@"C:\Users\zivi\Desktop\myIni.ini");
+            bm.LoadFromFile(@"C:\Users\zivi\Desktop\test.ini");
 
             bm.FillBindings();
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            bm.SaveBindings(@"C:\Users\zivi\Desktop\myIni.ini");
 
         }
     }

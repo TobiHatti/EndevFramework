@@ -7,10 +7,10 @@ C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramewor
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\bin\Debug\netstandard2.0\Accessibility.dll
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\bin\Debug\netstandard2.0\System.Deployment.dll
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\bin\Debug\netstandard2.0\System.Runtime.Serialization.Formatters.Soap.dll
-C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\obj\Debug\netstandard2.0\EndevFramework.csprojAssemblyReference.cache
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\obj\Debug\netstandard2.0\EndevFramework.csproj.CoreCompileInputs.cache
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\obj\Debug\netstandard2.0\EndevFramework.AssemblyInfoInputs.cache
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\obj\Debug\netstandard2.0\EndevFramework.AssemblyInfo.cs
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\obj\Debug\netstandard2.0\EndevFramework.csproj.CopyComplete
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\obj\Debug\netstandard2.0\EndevFramework.dll
 C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\obj\Debug\netstandard2.0\EndevFramework.pdb
+C:\Users\zivi\Desktop\Projekte (GIT)\EndevFramework\EndevFramework\EndevFramework\obj\Debug\netstandard2.0\EndevFramework.csprojAssemblyReference.cache
