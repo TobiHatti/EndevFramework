@@ -19,10 +19,11 @@ namespace EndevFrameworkNetworkCoreRev1
         //===================================================================================================================
 
         #region -=[- PROPERTIES -]=-
+        public const int BufferSize = 1048576;
         public Socket ServerSocket { get; private set; } = null;
         public int Port { get; private set; }
         public NetComClientList<NetComClientData> LClients { get; private set; } = new NetComClientList<NetComClientData>();
-        private byte[] Buffer { get; set; } = new byte[1048576];    // 1 MB
+        private byte[] Buffer { get; set; } = new byte[BufferSize];    // 1 MB
         private byte[] Data { get; set; } = null;
         public NetComInstructionQueue<string, Socket> IncommingInstructions { get; private set; } = new NetComInstructionQueue<string, Socket>();
         public NetComInstructionQueue<string, Socket> OutgoingInstructions { get; set; } = new NetComInstructionQueue<string, Socket>();
@@ -135,10 +136,12 @@ namespace EndevFrameworkNetworkCoreRev1
         {
             if (IncommingInstructions.Count > 0)
             {
-                Debug($"Processing next instruction...: {OutgoingInstructions[0].Key}", DebugParams);
+                Debug($"Processing next instruction...: {IncommingInstructions[0].Key}", DebugParams);
 
                 LibraryExec(ParseMessage(IncommingInstructions[0].Key), IncommingInstructions[0].Value);
                 IncommingInstructions.RemoveAt(0);
+
+                Start();
             }
         }
 
@@ -285,6 +288,8 @@ namespace EndevFrameworkNetworkCoreRev1
             Debug($"Incomming instruction from {clientSocket.GetHashCode()}: [{Encoding.ASCII.GetString(tmpBuffer)}]", DebugParams);
 
             IncommingInstructions.Add(Encoding.ASCII.GetString(tmpBuffer), clientSocket);
+
+            Start();
         }
 
         /// <summary>

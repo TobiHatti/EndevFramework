@@ -3,3 +3,8 @@ C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\EndevFrameworkNetwo
 C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\EndevFrameworkNetworkCoreRev1\obj\Debug\EndevFrameworkNetworkCoreRev1.csprojAssemblyReference.cache
 C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\EndevFrameworkNetworkCoreRev1\obj\Debug\EndevFrameworkNetworkCoreRev1.dll
 C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\EndevFrameworkNetworkCoreRev1\obj\Debug\EndevFrameworkNetworkCoreRev1.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\EndevFrameworkNetworkCoreRev1\bin\Debug\EndevFrameworkNetworkCoreRev1.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\EndevFrameworkNetworkCoreRev1\bin\Debug\EndevFrameworkNetworkCoreRev1.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\EndevFrameworkNetworkCoreRev1\obj\Debug\EndevFrameworkNetworkCoreRev1.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\EndevFrameworkNetworkCoreRev1\obj\Debug\EndevFrameworkNetworkCoreRev1.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\EndevFrameworkNetworkCoreRev1\obj\Debug\EndevFrameworkNetworkCoreRev1.pdb

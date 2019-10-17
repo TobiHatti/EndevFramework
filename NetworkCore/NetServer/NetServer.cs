@@ -29,10 +29,10 @@ namespace NetServer
             int i = 0;
             while(i < 100)
             {
-                server.SendToClient("[MyData:MyValue];[MyData2:MyValue2]", 0);
+                //server.SendToClient("[MyData:MyValue];[MyData2:MyValue2]", 0);
                 //server.Broadcast("[[UI i is brotkastl]]");
 
-                Thread.Sleep(500);
+                Thread.Sleep(3000);
             }
 
             Console.ReadLine();

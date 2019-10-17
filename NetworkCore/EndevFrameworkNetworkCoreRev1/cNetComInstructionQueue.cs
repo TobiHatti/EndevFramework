@@ -25,7 +25,11 @@ namespace EndevFrameworkNetworkCoreRev1
 
         public KeyValuePair<TInstruction,TSocket> this[int idx]
         {
-            get => new KeyValuePair<TInstruction, TSocket>(LInstructions[idx], LSocket[idx]);
+            get
+            {
+                if (LInstructions.Count > 0) return new KeyValuePair<TInstruction, TSocket>(LInstructions[idx], LSocket[idx]);
+                else return new KeyValuePair<TInstruction, TSocket>();
+            }
         }
 
         public void RemoveAt(int pIndex)

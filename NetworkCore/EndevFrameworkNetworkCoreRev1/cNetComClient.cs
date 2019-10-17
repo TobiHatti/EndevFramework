@@ -20,11 +20,12 @@ namespace EndevFrameworkNetworkCoreRev1
 
         #region -=[- PROPERTIES -]=-
 
+        public const int BufferSize = 1048576; // 1 MB
         public Socket ClientSocket { get; private set; } = null;
         public int Port { get; private set; }
         public IPAddress ServerIP { get; private set; } = IPAddress.Parse("127.0.0.1");
         public Dictionary<int, Socket> LClientSockets { get; private set; } = new Dictionary<int, Socket>();
-        private byte[] Buffer { get; set; } = new byte[1048576];    // 1 MB
+        private byte[] Buffer { get; set; } = new byte[BufferSize];    
         private byte[] Data { get; set; } = null;
         public NetComInstructionQueue<string, Socket> IncommingInstructions { get; private set; } = new NetComInstructionQueue<string, Socket>();
         public NetComInstructionQueue<string, Socket> OutgoingInstructions { get; set; } = new NetComInstructionQueue<string, Socket>();
@@ -142,7 +143,7 @@ namespace EndevFrameworkNetworkCoreRev1
             while (true)
             {
                 Debug("Start Listening...", DebugParams);
-                byte[] recBuffer = new byte[1048576];    // 1 MB
+                byte[] recBuffer = new byte[BufferSize];    
                 int rec = ClientSocket.Receive(recBuffer);
                 byte[] data = new byte[rec];
                 Array.Copy(recBuffer, data, rec);
@@ -212,14 +213,13 @@ namespace EndevFrameworkNetworkCoreRev1
 
         public void SendNextQueueItem()
         {
-            if (OutgoingInstructions.Count > 0 && Connected)
+            if (OutgoingInstructions.Count > 0)
             {
-                Connected = false;
-                Debug($"Start sending message to {OutgoingInstructions[0].Value.GetHashCode()}: [{OutgoingInstructions[0].Key}]", DebugParams);
+                Debug($"Start sending message to Server: [{OutgoingInstructions[0].Key}]", DebugParams);
 
                 Data = Encoding.ASCII.GetBytes(EncodeMessage(OutgoingInstructions[0].Key));
-                //OutgoingInstructions[0].Value.BeginSend(Data, 0, Data.Length, SocketFlags.None, new AsyncCallback(OnClientSend), OutgoingInstructions[0].Value);
-                Start();
+
+                ClientSocket.Send(Data);
 
                 OutgoingInstructions.RemoveAt(0);
             }
@@ -237,45 +237,10 @@ namespace EndevFrameworkNetworkCoreRev1
         /// Sends a message to a given client
         /// </summary>
         /// <param name="pMessage">Raw-Message to be sent</param>
-        /// <param name="pSocket">Client-Socket</param>
-        public void SendToClient(string pMessage, Socket pSocket)
+        public void SendToServer(string pMessage)
         {
-            if (pSocket != null && LClients.Authenticated(pSocket))
-            {
-                Debug($"Queueing message for {pSocket.GetHashCode()}: [{pMessage}]", DebugParams);
-                OutgoingInstructions.Add(pMessage, pSocket);
-            }
-        }
-
-        /// <summary>
-        /// Sends a message to a given client
-        /// </summary>
-        /// <param name="pMessage">Raw-Message to be sent</param>
-        /// <param name="pSocketHash">Hash of the clients socket</param>
-        public void SendToClient(string pMessage, long pSocketHash) => SendToClient(pMessage, LClients[pSocketHash].Socket);
-
-        /// <summary>
-        /// Sends a message to a given client
-        /// </summary>
-        /// <param name="pMessage">Raw-Message to be sent</param>
-        /// <param name="pIndex">Index of the client</param>
-        public void SendToClient(string pMessage, int pIndex) => SendToClient(pMessage, LClients[pIndex].Socket);
-
-        /// <summary>
-        /// Sends a message to a given client
-        /// </summary>
-        /// <param name="pMessage">Raw-Message to be sent</param>
-        /// <param name="pUsername">Username or Identifier of the clients socket</param>
-        public void SendToClient(string pMessage, string pUsername) => SendToClient(pMessage, LClients[pUsername].Socket);
-
-        /// <summary>
-        /// Broadcasts a message to all connected clients
-        /// </summary>
-        /// <param name="pMessage">Raw-Message to be sent</param>
-        public void Broadcast(string pMessage)
-        {
-            for (int i = 0; i < LClients.Count; i++)
-                SendToClient(pMessage, LClients[i].Socket);
+            Debug($"Queueing message for Server: [{pMessage}]", DebugParams);
+            OutgoingInstructions.Add(pMessage, null); 
         }
 
         #endregion
@@ -290,7 +255,7 @@ namespace EndevFrameworkNetworkCoreRev1
 
         #region -=[- CALLBACK METHODS -]=-
 
-
+        // Synchronus Operation - No callbacks needed?
 
         #endregion
 

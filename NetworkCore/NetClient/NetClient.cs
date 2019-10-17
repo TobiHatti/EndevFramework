@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NetClient
@@ -22,7 +23,16 @@ namespace NetClient
             client.Start();
             client.EnableListening();
             client.EnableProcessing();
-            //client.EnableSending();
+            client.EnableSending();
+
+            int i = 0;
+            while (i < 100)
+            {
+                client.SendToServer("[Reply:ReplyValue];[Reply2:ReplyValue2]");
+                //server.Broadcast("[[UI i is brotkastl]]");
+
+                Thread.Sleep(5000);
+            }
 
             Console.ReadLine();
         }
