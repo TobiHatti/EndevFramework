@@ -1,0 +1,9 @@
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetServer\bin\Release\NetServer.exe.config
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetServer\bin\Release\NetServer.exe
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetServer\bin\Release\NetServer.pdb
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetServer\bin\Release\EndevFrameworkNetworkCoreRev1.dll
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetServer\bin\Release\EndevFrameworkNetworkCoreRev1.pdb
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetServer\obj\Release\NetServer.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetServer\obj\Release\NetServer.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetServer\obj\Release\NetServer.exe
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetServer\obj\Release\NetServer.pdb

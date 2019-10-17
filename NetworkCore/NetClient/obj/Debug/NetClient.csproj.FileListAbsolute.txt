@@ -1,0 +1,9 @@
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetClient\bin\Debug\NetClient.exe.config
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetClient\bin\Debug\NetClient.exe
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetClient\bin\Debug\NetClient.pdb
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetClient\obj\Debug\NetClient.exe
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetClient\obj\Debug\NetClient.pdb
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetClient\bin\Debug\EndevFrameworkNetworkCoreRev1.dll
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetClient\bin\Debug\EndevFrameworkNetworkCoreRev1.pdb
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetClient\obj\Debug\NetClient.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\NetClient\obj\Debug\NetClient.csproj.CopyComplete

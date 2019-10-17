@@ -1,0 +1,5 @@
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\EndevFrameworkNetworkCoreRev1\bin\Release\EndevFrameworkNetworkCoreRev1.dll
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\EndevFrameworkNetworkCoreRev1\bin\Release\EndevFrameworkNetworkCoreRev1.pdb
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\EndevFrameworkNetworkCoreRev1\obj\Release\EndevFrameworkNetworkCoreRev1.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\EndevFrameworkNetworkCoreRev1\obj\Release\EndevFrameworkNetworkCoreRev1.dll
+C:\Users\zivi\Desktop\Projects\EndevFrameworkNetworkCoreRev1\EndevFrameworkNetworkCoreRev1\obj\Release\EndevFrameworkNetworkCoreRev1.pdb
