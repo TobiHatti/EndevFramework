@@ -1,0 +1,9 @@
+C:\Users\zivi\Desktop\Projects\EndevFrameworkGraphicCore\EndevFrameworkGraphicCore\bin\Debug\EndevFrameworkGraphicCore.exe.config
+C:\Users\zivi\Desktop\Projects\EndevFrameworkGraphicCore\EndevFrameworkGraphicCore\bin\Debug\EndevFrameworkGraphicCore.exe
+C:\Users\zivi\Desktop\Projects\EndevFrameworkGraphicCore\EndevFrameworkGraphicCore\bin\Debug\EndevFrameworkGraphicCore.pdb
+C:\Users\zivi\Desktop\Projects\EndevFrameworkGraphicCore\EndevFrameworkGraphicCore\obj\Debug\EndevFrameworkGraphicCore.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects\EndevFrameworkGraphicCore\EndevFrameworkGraphicCore\obj\Debug\EndevFrameworkGraphicCore.Form1.resources
+C:\Users\zivi\Desktop\Projects\EndevFrameworkGraphicCore\EndevFrameworkGraphicCore\obj\Debug\EndevFrameworkGraphicCore.Properties.Resources.resources
+C:\Users\zivi\Desktop\Projects\EndevFrameworkGraphicCore\EndevFrameworkGraphicCore\obj\Debug\EndevFrameworkGraphicCore.csproj.GenerateResource.cache
+C:\Users\zivi\Desktop\Projects\EndevFrameworkGraphicCore\EndevFrameworkGraphicCore\obj\Debug\EndevFrameworkGraphicCore.exe
+C:\Users\zivi\Desktop\Projects\EndevFrameworkGraphicCore\EndevFrameworkGraphicCore\obj\Debug\EndevFrameworkGraphicCore.pdb
