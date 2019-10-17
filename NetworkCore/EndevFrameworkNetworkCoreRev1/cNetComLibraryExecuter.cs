@@ -10,7 +10,7 @@ namespace EndevFrameworkNetworkCoreRev1
     {
         public static object[] Default(string pMessage, params object[] pParameters)
         {
-            return null;
+            return new object[] { pMessage };
         }
     }
 }

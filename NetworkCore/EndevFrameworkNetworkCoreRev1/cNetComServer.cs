@@ -138,10 +138,10 @@ namespace EndevFrameworkNetworkCoreRev1
             {
                 Debug($"Processing next instruction...: {IncommingInstructions[0].Key}", DebugParams);
 
-                LibraryExec(ParseMessage(IncommingInstructions[0].Key), IncommingInstructions[0].Value);
+                Debug(LibraryExec(ParseMessage(IncommingInstructions[0].Key), IncommingInstructions[0].Value)[0].ToString(), DebugParams);
                 IncommingInstructions.RemoveAt(0);
 
-                Start();
+               
             }
         }
 

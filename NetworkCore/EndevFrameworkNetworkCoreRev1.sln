@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetClient", "NetClient\NetC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetServer", "NetServer\NetServer.csproj", "{3AF67F29-FAC0-49C5-B69F-52C9800C3FA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetComMixedSyncClient", "NetComMixedSyncClient\NetComMixedSyncClient.csproj", "{32D8A9F4-48F6-41A6-80FB-6756459B546D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetComMixedSyncServer", "NetComMixedSyncServer\NetComMixedSyncServer.csproj", "{6199CCAB-D6B0-47AF-AB04-2436B5FAC0C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{3AF67F29-FAC0-49C5-B69F-52C9800C3FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AF67F29-FAC0-49C5-B69F-52C9800C3FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AF67F29-FAC0-49C5-B69F-52C9800C3FA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32D8A9F4-48F6-41A6-80FB-6756459B546D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32D8A9F4-48F6-41A6-80FB-6756459B546D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32D8A9F4-48F6-41A6-80FB-6756459B546D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32D8A9F4-48F6-41A6-80FB-6756459B546D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6199CCAB-D6B0-47AF-AB04-2436B5FAC0C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6199CCAB-D6B0-47AF-AB04-2436B5FAC0C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6199CCAB-D6B0-47AF-AB04-2436B5FAC0C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6199CCAB-D6B0-47AF-AB04-2436B5FAC0C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

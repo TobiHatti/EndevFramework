@@ -30,7 +30,7 @@ namespace NetServer
             while(i < 100)
             {
                 //server.SendToClient("[MyData:MyValue];[MyData2:MyValue2]", 0);
-                //server.Broadcast("[[UI i is brotkastl]]");
+                server.Broadcast("[[UI i is brotkastl]]");
 
                 Thread.Sleep(3000);
             }

@@ -185,9 +185,29 @@ namespace EndevFrameworkNetworkCoreRev1
 
                 LibraryExec(ParseMessage(IncommingInstructions[0].Key), IncommingInstructions[0].Value);
                 IncommingInstructions.RemoveAt(0);
+
+                Start();
             }
         }
 
+        public void Receive()
+        {
+            ClientSocket.BeginReceive(Buffer, 0, Buffer.Length, SocketFlags.None, new AsyncCallback(OnClientReceive), ClientSocket);
+        }
+
+        private void OnClientReceive(IAsyncResult AR)
+        {
+            Socket clientSocket = (Socket)AR.AsyncState;
+            int received = clientSocket.EndReceive(AR);
+            byte[] tmpBuffer = new byte[received];
+            Array.Copy(Buffer, tmpBuffer, received);
+
+            Debug($"Incomming instruction from Server: [{Encoding.ASCII.GetString(tmpBuffer)}]", DebugParams);
+
+            IncommingInstructions.Add(Encoding.ASCII.GetString(tmpBuffer), clientSocket);
+
+            Start();
+        }
         #endregion
 
         //-------------------------------------------------------------------------------------------------------------------
