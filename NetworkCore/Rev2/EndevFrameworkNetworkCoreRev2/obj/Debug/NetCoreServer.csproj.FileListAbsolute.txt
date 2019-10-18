@@ -1,0 +1,11 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\bin\Debug\NetCoreServer.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\bin\Debug\NetCoreServer.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\bin\Debug\NetCoreServer.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\bin\Debug\RabbitMQ.Client.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\bin\Debug\RabbitMQ.Client.xml
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\obj\Debug\NetCoreServer.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\obj\Debug\NetCoreServer.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\obj\Debug\NetCoreServer.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFrameworkNetworkCoreRev2\obj\Debug\NetCoreServer.pdb
