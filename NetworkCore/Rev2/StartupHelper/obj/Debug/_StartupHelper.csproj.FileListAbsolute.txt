@@ -1,0 +1,5 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\StartupHelper\bin\Debug\StartupHelper.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\StartupHelper\bin\Debug\StartupHelper.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\StartupHelper\bin\Debug\StartupHelper.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\StartupHelper\obj\Debug\StartupHelper.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\StartupHelper\obj\Debug\StartupHelper.pdb

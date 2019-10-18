@@ -8,3 +8,4 @@ C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\NetCoreClie
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\NetCoreClient\obj\Debug\NetCoreClient.csproj.CopyComplete
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\NetCoreClient\obj\Debug\NetCoreClient.exe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\NetCoreClient\obj\Debug\NetCoreClient.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\NetCoreClient\obj\Debug\NetCoreClient.csprojAssemblyReference.cache

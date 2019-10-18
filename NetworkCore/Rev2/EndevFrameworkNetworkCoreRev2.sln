@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreServer", "EndevFrame
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreClient", "NetCoreClient\NetCoreClient.csproj", "{9044D50F-BE4A-4CBE-8154-FEBE1092DE82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_StartupHelper", "StartupHelper\_StartupHelper.csproj", "{3B50B09F-8018-4DAF-AF6C-149E8EA36C0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9044D50F-BE4A-4CBE-8154-FEBE1092DE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9044D50F-BE4A-4CBE-8154-FEBE1092DE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9044D50F-BE4A-4CBE-8154-FEBE1092DE82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B50B09F-8018-4DAF-AF6C-149E8EA36C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B50B09F-8018-4DAF-AF6C-149E8EA36C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B50B09F-8018-4DAF-AF6C-149E8EA36C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B50B09F-8018-4DAF-AF6C-149E8EA36C0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
