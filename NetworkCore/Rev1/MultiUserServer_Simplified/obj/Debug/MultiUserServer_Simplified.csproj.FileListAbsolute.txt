@@ -1,0 +1,6 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserServer_Simplified\bin\Debug\MultiUserServer_Simplified.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserServer_Simplified\bin\Debug\MultiUserServer_Simplified.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserServer_Simplified\bin\Debug\MultiUserServer_Simplified.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserServer_Simplified\obj\Debug\MultiUserServer_Simplified.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserServer_Simplified\obj\Debug\MultiUserServer_Simplified.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserServer_Simplified\obj\Debug\MultiUserServer_Simplified.csprojAssemblyReference.cache

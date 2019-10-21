@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiUserServer", "MultiUse
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiUserClient", "MultiUserClient\MultiUserClient.csproj", "{60AAB2D9-54BC-4C8C-AC30-B96512BE2372}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiUserServer_Simplified", "MultiUserServer_Simplified\MultiUserServer_Simplified.csproj", "{9089468C-4B9C-4FBE-9873-A12DA3251BD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiUserClient_Simplified", "MultiUserClient_Simplified\MultiUserClient_Simplified.csproj", "{862EC66D-39BA-444A-BD61-A0D1F08B4934}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{60AAB2D9-54BC-4C8C-AC30-B96512BE2372}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60AAB2D9-54BC-4C8C-AC30-B96512BE2372}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60AAB2D9-54BC-4C8C-AC30-B96512BE2372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9089468C-4B9C-4FBE-9873-A12DA3251BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9089468C-4B9C-4FBE-9873-A12DA3251BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9089468C-4B9C-4FBE-9873-A12DA3251BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9089468C-4B9C-4FBE-9873-A12DA3251BD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{862EC66D-39BA-444A-BD61-A0D1F08B4934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{862EC66D-39BA-444A-BD61-A0D1F08B4934}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{862EC66D-39BA-444A-BD61-A0D1F08B4934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{862EC66D-39BA-444A-BD61-A0D1F08B4934}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
