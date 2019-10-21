@@ -19,11 +19,11 @@ namespace EndevFrameworkNetworkCoreRev1
         //===================================================================================================================
 
         #region -=[- PROPERTIES -]=-
-        public const int BufferSize = 1048576;
+        public const int BufferSize = 1048576;  // 1 MB
         public Socket ServerSocket { get; private set; } = null;
         public int Port { get; private set; }
         public NetComClientList<NetComClientData> LClients { get; private set; } = new NetComClientList<NetComClientData>();
-        private byte[] Buffer { get; set; } = new byte[BufferSize];    // 1 MB
+        private byte[] Buffer { get; set; } = new byte[BufferSize];    
         private byte[] Data { get; set; } = null;
         public NetComInstructionQueue<string, Socket> IncommingInstructions { get; private set; } = new NetComInstructionQueue<string, Socket>();
         public NetComInstructionQueue<string, Socket> OutgoingInstructions { get; set; } = new NetComInstructionQueue<string, Socket>();

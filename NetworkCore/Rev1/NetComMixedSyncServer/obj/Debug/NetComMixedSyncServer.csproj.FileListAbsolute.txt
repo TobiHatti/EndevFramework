@@ -7,3 +7,12 @@ C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComMixedSyncS
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComMixedSyncServer\obj\Debug\NetComMixedSyncServer.csproj.CopyComplete
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComMixedSyncServer\obj\Debug\NetComMixedSyncServer.exe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComMixedSyncServer\obj\Debug\NetComMixedSyncServer.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\NetComMixedSyncServer\bin\Debug\NetComMixedSyncServer.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\NetComMixedSyncServer\bin\Debug\NetComMixedSyncServer.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\NetComMixedSyncServer\bin\Debug\NetComMixedSyncServer.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\NetComMixedSyncServer\bin\Debug\EndevFrameworkNetworkCoreRev1.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\NetComMixedSyncServer\bin\Debug\EndevFrameworkNetworkCoreRev1.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\NetComMixedSyncServer\obj\Debug\NetComMixedSyncServer.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\NetComMixedSyncServer\obj\Debug\NetComMixedSyncServer.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\NetComMixedSyncServer\obj\Debug\NetComMixedSyncServer.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\NetComMixedSyncServer\obj\Debug\NetComMixedSyncServer.pdb
