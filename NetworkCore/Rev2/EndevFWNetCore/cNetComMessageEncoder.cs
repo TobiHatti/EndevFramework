@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace EndevFWNetCore
 {
-    class Program
+    public class NetComMessageEncoder
     {
-        static void Main(string[] args)
-        {
-        }
     }
 }
