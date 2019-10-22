@@ -3,3 +3,4 @@ C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserCl
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserClient_Simplified\bin\Debug\MultiUserClient_Simplified.pdb
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserClient_Simplified\obj\Debug\MultiUserClient_Simplified.exe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserClient_Simplified\obj\Debug\MultiUserClient_Simplified.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev1\MultiUserClient_Simplified\obj\Debug\MultiUserClient_Simplified.csprojAssemblyReference.cache

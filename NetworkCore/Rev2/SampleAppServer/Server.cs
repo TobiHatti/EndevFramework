@@ -23,7 +23,7 @@ namespace SampleAppServer
             while(true)
             {
                 server.SendToClient(0, $"Hallo i bin a test-Message N° {i++}");
-                Thread.Sleep(100);
+                Thread.Sleep(3333);
             }
 
         }

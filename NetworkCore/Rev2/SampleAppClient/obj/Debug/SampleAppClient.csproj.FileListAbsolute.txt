@@ -1,0 +1,9 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\SampleAppClient\bin\Debug\SampleAppClient.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\SampleAppClient\bin\Debug\SampleAppClient.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\SampleAppClient\bin\Debug\SampleAppClient.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\SampleAppClient\bin\Debug\EndevFWNetCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\SampleAppClient\bin\Debug\EndevFWNetCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\SampleAppClient\obj\Debug\SampleAppClient.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\SampleAppClient\obj\Debug\SampleAppClient.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\SampleAppClient\obj\Debug\SampleAppClient.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\SampleAppClient\obj\Debug\SampleAppClient.pdb
