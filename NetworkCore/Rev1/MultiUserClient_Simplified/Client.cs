@@ -14,7 +14,7 @@ namespace MultiUserClient_Simplified
         private static readonly Socket ClientSocket = new Socket
             (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        private const int PORT = 100;
+        private const int PORT = 2225;
 
         private static Thread receiveThread;
 

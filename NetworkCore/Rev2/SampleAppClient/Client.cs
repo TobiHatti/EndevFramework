@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EndevFWNetCore
+namespace SampleAppClient
 {
-    public class NetComExceptions
+    class Client
     {
-
+        static void Main(string[] args)
+        {
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace EndevFWNetCore
 {
     public class NetComDebugOutput
     {
+
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EndevFWNetCore
 {
-    public class NetComExceptions
+    public class NetComInstructionQueue
     {
 
     }
