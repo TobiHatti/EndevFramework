@@ -72,7 +72,7 @@ namespace MultiUserClient_Simplified
 
         private static void SendString(string text)
         {
-            byte[] buffer = Encoding.ASCII.GetBytes(text);
+            byte[] buffer = Encoding.UTF8.GetBytes(text);
             ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
         }
 
@@ -92,7 +92,7 @@ namespace MultiUserClient_Simplified
             if (received == 0) return;
             var data = new byte[received];
             Array.Copy(buffer, data, received);
-            string text = Encoding.ASCII.GetString(data);
+            string text = Encoding.UTF8.GetString(data);
             Console.WriteLine(text);
         }
 

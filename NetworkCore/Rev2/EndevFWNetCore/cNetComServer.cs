@@ -35,7 +35,7 @@ namespace EndevFWNetCore
 
         #region -=[- PROPERTIES -]=-
 
-        public int ThreadSleep { get; set; } = 100;
+        public int ThreadSleep { get; set; } = 0;
 
         public NetComInstructionQueue IncommingInstructions { get; private set; } = new NetComInstructionQueue();
         public NetComInstructionQueue OutgoingInstructions { get; private set; } = new NetComInstructionQueue();
@@ -156,6 +156,9 @@ namespace EndevFWNetCore
         private void ProcessNextInstruction()
         {
             // TODO
+            // Check if User is Authenticated
+            // Else Reply to Client with the same message as sent, 
+            // and the error that the user is not authenticated
         }
 
         private void InstructionSendingLoop()
@@ -171,17 +174,42 @@ namespace EndevFWNetCore
         {
             if (OutgoingInstructions.Count > 0)
             {
-                OutgoingInstructions[0].
-                Socket current = LClientList[0].Socket;
-
-                byte[] data = Encoding.UTF8.GetBytes("This is ä test-Message sent from server to client");
+                Socket current = OutgoingInstructions[0].Client.Socket;
+                byte[] data = Encoding.UTF8.GetBytes(OutgoingInstructions[0].Instruction);
                 current.Send(data);
 
-                Debug("Test-Message sent!", DebugParams);
+                Debug($"Sent Message to {OutgoingInstructions[0].Client.Username}: {OutgoingInstructions[0].Instruction}.", DebugParams);
+
+                OutgoingInstructions.RemoveAt(0);
             }
         }
 
         #endregion
+
+        //-------------------------------------------------------------------------------------------------------------------
+        //-         SENDING                                                                                                 -
+        //-------------------------------------------------------------------------------------------------------------------
+
+        public void SendToClient(Socket pSocket, string pMessage) => SendToClient(LClientList[pSocket], pMessage);
+        public void SendToClient(string pUsername, string pMessage) => SendToClient(LClientList[pUsername], pMessage);
+        public void SendToClient(int pIndex, string pMessage) => SendToClient(LClientList[pIndex], pMessage);
+        public void SendToClient(NetComClientListElement pClient, string pMessage)
+        {
+            if (pClient != null)
+            {
+                Debug($"Queueing message for {pClient.Username}: {pMessage}", DebugParams);
+                OutgoingInstructions.Add(pMessage, pClient);
+            }
+        }
+
+        public void Broadcast(string pMessage)
+        {
+            foreach(NetComClientListElement client in LClientList)
+            {
+                Debug($"Queueing message for {client.Username}: {pMessage}", DebugParams);
+                OutgoingInstructions.Add(pMessage, client);
+            }
+        }
 
         //===================================================================================================================
         //===================================================================================================================

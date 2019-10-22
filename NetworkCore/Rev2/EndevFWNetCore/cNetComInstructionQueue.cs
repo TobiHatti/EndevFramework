@@ -10,12 +10,12 @@ namespace EndevFWNetCore
     public class NetComInstructionQueueElement
     {
         public string Instruction { get; private set; } = null;
-        public Socket Socket { get; private set; } = null;
+        public NetComClientListElement Client { get; private set; } = null;
 
-        public NetComInstructionQueueElement(string pInstruction, Socket pSocket)
+        public NetComInstructionQueueElement(string pInstruction, NetComClientListElement pClient)
         {
             Instruction = pInstruction;
-            Socket = pSocket;
+            Client = pClient;
         }
     }
 
@@ -30,7 +30,11 @@ namespace EndevFWNetCore
 
         public NetComInstructionQueueElement this[int idx]
         {
-            get => LInstructions[idx];
+            get
+            {
+                if (LInstructions.Count > idx) return LInstructions[idx];
+                else return null;
+            }
         }
 
         public NetComInstructionQueueElement this[Socket pSocket]
@@ -38,14 +42,14 @@ namespace EndevFWNetCore
             get
             {
                 foreach (NetComInstructionQueueElement instruction in LInstructions)
-                    if (instruction.Socket == pSocket) return instruction;
+                    if (instruction.Client.Socket == pSocket) return instruction;
                 return null;
             }
         }
 
-        public void Add(string pInstruction, Socket pSocket)
+        public void Add(string pInstruction, NetComClientListElement pClient)
         {
-            LInstructions.Add(new NetComInstructionQueueElement(pInstruction, pSocket));
+            LInstructions.Add(new NetComInstructionQueueElement(pInstruction, pClient));
         }
 
         public void RemoveAt(int pIndex)

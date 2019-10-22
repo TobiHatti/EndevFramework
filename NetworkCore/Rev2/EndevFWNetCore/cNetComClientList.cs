@@ -43,7 +43,11 @@ namespace EndevFWNetCore
 
         public NetComClientListElement this[int idx]
         {
-            get => LClients[idx];
+            get
+            {
+                if (LClients.Count > idx) return LClients[idx];
+                else return null;
+            }
         }
 
         public NetComClientListElement this[string pUsername]

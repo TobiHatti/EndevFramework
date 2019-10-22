@@ -19,10 +19,11 @@ namespace SampleAppServer
 
             server.Start(); // Listening starts with server.Start();
 
+            int i = 0;
             while(true)
             {
-                server.SendTest();
-                Thread.Sleep(200);
+                server.SendToClient(0, $"Hallo i bin a test-Message N° {i++}");
+                Thread.Sleep(100);
             }
 
         }
