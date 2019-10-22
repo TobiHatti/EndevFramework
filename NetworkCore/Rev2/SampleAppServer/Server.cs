@@ -17,11 +17,10 @@ namespace SampleAppServer
 
             server.Debug = NetComDebugOutput.ToConsole;
 
-            server.Start();
+            server.Start(); // Listening starts with server.Start();
 
             while(true)
             {
-                
                 server.SendTest();
                 Thread.Sleep(200);
             }

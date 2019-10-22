@@ -7,36 +7,52 @@ using System.Threading.Tasks;
 
 namespace EndevFWNetCore
 {
+    public class NetComInstructionQueueElement
+    {
+        public string Instruction { get; private set; } = null;
+        public Socket Socket { get; private set; } = null;
+
+        public NetComInstructionQueueElement(string pInstruction, Socket pSocket)
+        {
+            Instruction = pInstruction;
+            Socket = pSocket;
+        }
+    }
+
     public class NetComInstructionQueue
     {
-        public List<string> LInstructions { get; set; } = new List<string>();
-        public List<Socket> LSocket { get; set; } = new List<Socket>();
+        private List<NetComInstructionQueueElement> LInstructions = new List<NetComInstructionQueueElement>();
 
         public int Count
         {
             get => LInstructions.Count;
         }
 
-        public void Add(string pInstruction, Socket pSocket)
+        public NetComInstructionQueueElement this[int idx]
         {
-            LInstructions.Add(pInstruction);
-            LSocket.Add(pSocket);
+            get => LInstructions[idx];
         }
 
-        public KeyValuePair<string, Socket> this[int idx]
+        public NetComInstructionQueueElement this[Socket pSocket]
         {
             get
             {
-                if (LInstructions.Count > idx && LSocket.Count > idx) return new KeyValuePair<string, Socket>(LInstructions[idx], LSocket[idx]);
-                else return new KeyValuePair<string, Socket>();
+                foreach (NetComInstructionQueueElement instruction in LInstructions)
+                    if (instruction.Socket == pSocket) return instruction;
+                return null;
             }
         }
+
+        public void Add(string pInstruction, Socket pSocket)
+        {
+            LInstructions.Add(new NetComInstructionQueueElement(pInstruction, pSocket));
+        }
+
         public void RemoveAt(int pIndex)
         {
-            if(LInstructions.Count > pIndex && LSocket.Count > pIndex)
+            if(LInstructions.Count > pIndex)
             {
                 LInstructions.RemoveAt(pIndex);
-                LSocket.RemoveAt(pIndex);
             }
         }
 

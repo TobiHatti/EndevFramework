@@ -34,7 +34,7 @@ namespace EndevFWNetCore
 
     public class NetComClientList : IEnumerable
     {
-        public List<NetComClientListElement> LClients = new List<NetComClientListElement>();
+        private List<NetComClientListElement> LClients = new List<NetComClientListElement>();
 
         public int Count
         {
@@ -74,18 +74,18 @@ namespace EndevFWNetCore
             LClients.Add(new NetComClientListElement(pSocket, pUsername, pPassword));
         }
 
-        public void Remove(int pIndex)
+        public void RemoveAt(int pIndex)
         {
             LClients.RemoveAt(pIndex);
         }
 
-        public void Remove(string pUsername)
+        public void RemoveAt(string pUsername)
         {
             for (int i = 0; i < LClients.Count; i++)
                 if (LClients[i].Username == pUsername) LClients.RemoveAt(i);
         }
 
-        public void Remove(Socket pSocket)
+        public void RemoveAt(Socket pSocket)
         {
             for (int i = 0; i < LClients.Count; i++)
                 if (LClients[i].Socket == pSocket) LClients.RemoveAt(i);

@@ -71,7 +71,7 @@ namespace EndevFWNetCore
         #region -=[- CONSTRUCTORS -]=-
 
         /// <summary>
-        /// Sets up and opens the given TCP-Port for communication
+        /// Creates a new TCP-Communication Server Object
         /// </summary>
         /// <param name="pPort">TCP-Port</param>
         public NetComServer(int pPort)
@@ -89,6 +89,9 @@ namespace EndevFWNetCore
 
         #region -=[- CALLABLE METHODS -]=-
 
+        /// <summary>
+        /// Initializes and Starts the Server
+        /// </summary>
         public void Start()
         {
             Debug("Setting up server...", DebugParams);
@@ -99,8 +102,17 @@ namespace EndevFWNetCore
             serverSocket.BeginAccept(AcceptCallback, null);
 
             Debug("Server setup complete!", DebugParams);
-        }
 
+            CommandProcessingThread = new Thread(InstructionProcessingLoop);
+            CommandProcessingThread.Start();
+
+            CommandSendingThread = new Thread(InstructionSendingLoop);
+            CommandSendingThread.Start();
+    }
+
+        /// <summary>
+        /// Sends a test-message to the first client connected
+        /// </summary>
         public void SendTest()
         {
             if (LClientList.Count > 0)
@@ -109,7 +121,8 @@ namespace EndevFWNetCore
 
                 byte[] data = Encoding.UTF8.GetBytes("This is ä test-Message sent from server to client");
                 current.Send(data);
-                Console.WriteLine("Test-Message Sent!");
+
+                Debug("Test-Message sent!", DebugParams);
             }
         }
 
@@ -119,13 +132,53 @@ namespace EndevFWNetCore
         /// </summary>
         public void Shutdown()
         {
+            Debug("Shutting down all connections...", DebugParams);
             foreach (NetComClientListElement client in LClientList)
             {
                 client.Socket.Shutdown(SocketShutdown.Both);
                 client.Socket.Close();
             }
 
+            Debug("Shutting down server...", DebugParams);
             serverSocket.Close();
+            Debug("Shutdown complete!", DebugParams);
+        }
+
+        private void InstructionProcessingLoop()
+        {
+            while(true)
+            {
+                ProcessNextInstruction();
+                Thread.Sleep(ThreadSleep);
+            }
+        }
+
+        private void ProcessNextInstruction()
+        {
+            // TODO
+        }
+
+        private void InstructionSendingLoop()
+        {
+            while(true)
+            {
+                SendNextInstruction();
+                Thread.Sleep(ThreadSleep);
+            }
+        }
+
+        private void SendNextInstruction()
+        {
+            if (OutgoingInstructions.Count > 0)
+            {
+                OutgoingInstructions[0].
+                Socket current = LClientList[0].Socket;
+
+                byte[] data = Encoding.UTF8.GetBytes("This is ä test-Message sent from server to client");
+                current.Send(data);
+
+                Debug("Test-Message sent!", DebugParams);
+            }
         }
 
         #endregion
@@ -138,6 +191,10 @@ namespace EndevFWNetCore
 
         #region -=[- CALLBACK METHODS -]=-
 
+        /// <summary>
+        /// Gets called when a connection is established
+        /// </summary>
+        /// <param name="AR">IAsyncResult</param>
         private void AcceptCallback(IAsyncResult AR)
         {
             Socket socket;
@@ -153,10 +210,14 @@ namespace EndevFWNetCore
 
             LClientList.Add(socket);
             socket.BeginReceive(Buffer, 0, Buffer.Length, SocketFlags.None, ReceiveCallback, socket);
-            Console.WriteLine("Client connected, waiting for request...");
+            Debug("New client connected!", DebugParams);
             serverSocket.BeginAccept(AcceptCallback, null);
         }
 
+        /// <summary>
+        /// Gets called when a message is received
+        /// </summary>
+        /// <param name="AR">IAsyncResult</param>
         private void ReceiveCallback(IAsyncResult AR)
         {
             Socket current = (Socket)AR.AsyncState;
@@ -168,20 +229,20 @@ namespace EndevFWNetCore
             }
             catch (SocketException)
             {
-                Console.WriteLine("Client forcefully disconnected");
+                Debug("Client forcefully disconnected.", DebugParams);
                 // Don't shutdown because the socket may be disposed and its disconnected anyway.
                 current.Close();
-                LClientList.Remove(current);
+                LClientList.RemoveAt(current);
                 return;
             }
 
             byte[] recBuf = new byte[received];
             Array.Copy(Buffer, recBuf, received);
-            string text = Encoding.ASCII.GetString(recBuf);
-            Console.WriteLine("Received Text: " + text);
+            string text = Encoding.UTF8.GetString(recBuf);
+
+            Debug("Received message: " + text, DebugParams);
 
             current.BeginReceive(Buffer, 0, Buffer.Length, SocketFlags.None, ReceiveCallback, current);
-
         }
 
         #endregion
