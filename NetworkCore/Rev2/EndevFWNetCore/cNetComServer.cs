@@ -37,8 +37,8 @@ namespace EndevFWNetCore
 
         public int ThreadSleep { get; set; } = 100;
 
-        public NetComInstructionQueue<string, Socket> IncommingInstructions { get; private set; } = new NetComInstructionQueue<string, Socket>();
-        public NetComInstructionQueue<string, Socket> OutgoingInstructions { get; private set; } = new NetComInstructionQueue<string, Socket>();
+        public NetComInstructionQueue IncommingInstructions { get; private set; } = new NetComInstructionQueue();
+        public NetComInstructionQueue OutgoingInstructions { get; private set; } = new NetComInstructionQueue();
         public NetComClientList LClientList { get; private set; } = new NetComClientList();
         #endregion
 
@@ -77,15 +77,6 @@ namespace EndevFWNetCore
         public NetComServer(int pPort)
         {
             Port = pPort;
-
-            Debug("Setting up server...", DebugParams);
-
-            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            serverSocket.Bind(new IPEndPoint(IPAddress.Any, Port));
-            serverSocket.Listen(0);
-            serverSocket.BeginAccept(AcceptCallback, null);
-
-            Debug("Server setup complete!", DebugParams);
         }
 
         #endregion
@@ -98,11 +89,23 @@ namespace EndevFWNetCore
 
         #region -=[- CALLABLE METHODS -]=-
 
+        public void Start()
+        {
+            Debug("Setting up server...", DebugParams);
+
+            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            serverSocket.Bind(new IPEndPoint(IPAddress.Any, Port));
+            serverSocket.Listen(0);
+            serverSocket.BeginAccept(AcceptCallback, null);
+
+            Debug("Server setup complete!", DebugParams);
+        }
+
         public void SendTest()
         {
             if (LClientList.Count > 0)
             {
-                Socket current = LClientList[0];
+                Socket current = LClientList[0].Socket;
 
                 byte[] data = Encoding.UTF8.GetBytes("This is ä test-Message sent from server to client");
                 current.Send(data);
@@ -116,10 +119,10 @@ namespace EndevFWNetCore
         /// </summary>
         public void Shutdown()
         {
-            foreach (Socket socket in LClientList)
+            foreach (NetComClientListElement client in LClientList)
             {
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
+                client.Socket.Shutdown(SocketShutdown.Both);
+                client.Socket.Close();
             }
 
             serverSocket.Close();

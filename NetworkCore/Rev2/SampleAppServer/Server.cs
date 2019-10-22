@@ -15,6 +15,10 @@ namespace SampleAppServer
 
             NetComServer server = new NetComServer(2225);
 
+            server.Debug = NetComDebugOutput.ToConsole;
+
+            server.Start();
+
             while(true)
             {
                 

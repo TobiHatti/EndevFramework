@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cNetComClient.cs" />
+    <Compile Include="cNetComClientList.cs" />
     <Compile Include="cNetComDebugOutput.cs" />
     <Compile Include="cNetComExceptions.cs" />
     <Compile Include="cNetComInstructionQueue.cs" />
