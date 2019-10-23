@@ -8,7 +8,7 @@ namespace EndevFWNetCore
 {
     public class NetComMessageEncoder
     {
-        public static string DefaultServer(string pMessage, NetComClientListElement pClient)
+        public static string DefaultServer(string pMessage, NetComClientData pClient)
         {
             return pMessage;
         }

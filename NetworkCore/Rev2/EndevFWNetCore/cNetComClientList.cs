@@ -8,41 +8,16 @@ using System.Threading.Tasks;
 
 namespace EndevFWNetCore
 {
-    public class NetComClientListElement
-    {
-        public Socket Socket { get; private set; } = null;
-        public string Username { get; private set; } = null;
-        public bool Authenticated { get; private set; } = false;
-        public string PublicKey { get; private set; } = null;
-
-        public NetComClientListElement(Socket pSocket, string pUsername) : this(pSocket, pUsername, null) { }
-
-        public NetComClientListElement(Socket pSocket, string pUsername, string pPassword)
-        {
-            Socket = pSocket;
-            Username = pUsername;
-
-            if (!string.IsNullOrEmpty(pPassword)) Authenticated = Authenticate(pPassword);
-            else Authenticated = false;
-        }
-
-        public bool Authenticate(string pPassword)
-        {
-            if (true) return true;
-            else return false;
-        }
-    }
-
     public class NetComClientList : IEnumerable
     {
-        private List<NetComClientListElement> LClients = new List<NetComClientListElement>();
+        private List<NetComClientData> LClients = new List<NetComClientData>();
 
         public int Count
         {
             get => LClients.Count;
         }
 
-        public NetComClientListElement this[int idx]
+        public NetComClientData this[int idx]
         {
             get
             {
@@ -51,21 +26,21 @@ namespace EndevFWNetCore
             }
         }
 
-        public NetComClientListElement this[string pUsername]
+        public NetComClientData this[string pUsername]
         {
             get
             {
-                foreach (NetComClientListElement client in LClients)
+                foreach (NetComClientData client in LClients)
                     if (client.Username == pUsername) return client;
                 return null;
             }
         }
 
-        public NetComClientListElement this[Socket pSocket]
+        public NetComClientData this[Socket pSocket]
         {
             get
             {
-                foreach (NetComClientListElement client in LClients)
+                foreach (NetComClientData client in LClients)
                     if (client.Socket == pSocket) return client;
                 return null;
             }
@@ -76,7 +51,7 @@ namespace EndevFWNetCore
 
         public void Add(Socket pSocket, string pUsername, string pPassword)
         {
-            LClients.Add(new NetComClientListElement(pSocket, pUsername, pPassword));
+            LClients.Add(new NetComClientData(pSocket, pUsername, pPassword));
         }
 
         public void RemoveAt(int pIndex)
@@ -98,7 +73,7 @@ namespace EndevFWNetCore
 
         public IEnumerator GetEnumerator()
         {
-            foreach (NetComClientListElement client in LClients)
+            foreach (NetComClientData client in LClients)
                 yield return client;
         }
     }

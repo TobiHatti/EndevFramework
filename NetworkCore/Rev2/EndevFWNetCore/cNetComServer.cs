@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using NCILib = EndevFWNetCore.NetComInstructionLib;
 
 namespace EndevFWNetCore
 {
@@ -51,11 +52,11 @@ namespace EndevFWNetCore
         public DebugOutput Debug { get; set; } = null;
         public object[] DebugParams { get; set; } = null;
         // Message Parser
-        public delegate string MessageParser(string pMessage, NetComClientListElement pClient);
+        public delegate string MessageParser(string pMessage, NetComClientData pClient);
         public MessageParser ParseMessage { get; set; } = null;
 
         // Message Encoder
-        public delegate string MessageEncoder(string pMessage, NetComClientListElement pClient);
+        public delegate string MessageEncoder(string pMessage, NetComClientData pClient);
         public MessageEncoder EncodeMessage { get; set; } = null;   
 
         // Authentication lookup
@@ -125,7 +126,7 @@ namespace EndevFWNetCore
         public void Shutdown()
         {
             Debug("Shutting down all connections...", DebugParams);
-            foreach (NetComClientListElement client in LClientList)
+            foreach (NetComClientData client in LClientList)
             {
                 client.Socket.Shutdown(SocketShutdown.Both);
                 client.Socket.Close();
@@ -146,7 +147,7 @@ namespace EndevFWNetCore
         public void SendToClient(Socket pSocket, string pMessage) => SendToClient(LClientList[pSocket], pMessage);
         public void SendToClient(string pUsername, string pMessage) => SendToClient(LClientList[pUsername], pMessage);
         public void SendToClient(int pIndex, string pMessage) => SendToClient(LClientList[pIndex], pMessage);
-        public void SendToClient(NetComClientListElement pClient, string pMessage)
+        public void SendToClient(NetComClientData pClient, string pMessage)
         {
             if (pClient != null)
             {
@@ -157,7 +158,7 @@ namespace EndevFWNetCore
 
         public void Broadcast(string pMessage)
         {
-            foreach (NetComClientListElement client in LClientList)
+            foreach (NetComClientData client in LClientList)
             {
                 Debug($"Queueing message for {client.Username}: {pMessage}", DebugParams);
                 OutgoingInstructions.Add(pMessage, client);
@@ -175,7 +176,7 @@ namespace EndevFWNetCore
         public void SendToClientRSA(Socket pSocket, string pMessage) => SendToClientRSA(LClientList[pSocket], pMessage);
         public void SendToClientRSA(string pUsername, string pMessage) => SendToClientRSA(LClientList[pUsername], pMessage);
         public void SendToClientRSA(int pIndex, string pMessage) => SendToClientRSA(LClientList[pIndex], pMessage);
-        public void SendToClientRSA(NetComClientListElement pClient, string pMessage)
+        public void SendToClientRSA(NetComClientData pClient, string pMessage)
         {
             if (pClient != null)
             {
@@ -186,7 +187,7 @@ namespace EndevFWNetCore
 
         public void BroadcastRSA(string pMessage)
         {
-            foreach (NetComClientListElement client in LClientList)
+            foreach (NetComClientData client in LClientList)
             {
                 Debug($"Queueing message for {client.Username}: {pMessage}", DebugParams);
                 OutgoingInstructions.AddRSA(pMessage, client);

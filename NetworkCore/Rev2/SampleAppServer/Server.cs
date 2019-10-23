@@ -13,6 +13,29 @@ namespace SampleAppServer
         static void Main(string[] args)
         {
 
+
+
+
+
+            string a = "Hallo ";
+            string b = "Betti ";
+            string c = null;
+            string d = "und caro";
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(a?.ToString());
+            sb.Append(b?.ToString());
+            sb.Append($"und de unnedige { c?.ToString()}");
+            sb.Append(d?.ToString());
+
+            Console.WriteLine(sb.ToString());
+
+
+            
+
+
+
             NetComServer server = new NetComServer(2225);
 
             server.Debug = NetComDebugOutput.ToConsole;
