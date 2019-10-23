@@ -54,15 +54,15 @@ namespace EndevFWNetCore
         public DebugOutput Debug { get; set; } = null;
         public object[] DebugParams { get; set; } = null;
         // Message Parser
-        public delegate string MessageParser(string pMessage, params object[] pParameters);
+        public delegate string MessageParser(string pMessage);
         public MessageParser ParseMessage { get; set; } = null;
 
         // Message Encoder
-        public delegate string MessageEncoder(string pMessage, params object[] pParameters);
+        public delegate string MessageEncoder(string pMessage);
         public MessageEncoder EncodeMessage { get; set; } = null;
 
         // Message Library
-        public delegate object[] MessageLibraryExec(string pMessageKey, params object[] pParameters);
+        public delegate object[] MessageLibraryExec(string pMessageKey);
         public MessageLibraryExec LibraryExec { get; set; } = null;
 
         #endregion
@@ -150,7 +150,7 @@ namespace EndevFWNetCore
                     byte[] buffer;
 
                     string instruction = OutgoingInstructions[0].Instruction;
-                    instruction = EncodeMessage(instruction, OutgoingInstructions[0].Client);
+                    instruction = EncodeMessage(instruction);
 
                     if (OutgoingInstructions[0].RSAEncrypted && ServerPublicKey != null)
                     {

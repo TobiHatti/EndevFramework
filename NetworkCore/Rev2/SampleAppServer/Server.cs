@@ -16,9 +16,9 @@ namespace SampleAppServer
             NetComServer server = new NetComServer(2225);
 
             server.Debug = NetComDebugOutput.ToConsole;
-            server.ParseMessage = NetComMessageParser.Default;
-            server.EncodeMessage = NetComMessageEncoder.Default;
-            server.LibraryExec = NetComLibraryExecuter.Default;
+            server.ParseMessage = NetComMessageParser.DefaultServer;
+            server.EncodeMessage = NetComMessageEncoder.DefaultServer;
+            server.LibraryExec = NetComLibraryExecuter.DefaultServer;
             server.AuthLookup = NetComAuthLookup.MySQL;
 
             server.Start(); // Listening starts with server.Start();

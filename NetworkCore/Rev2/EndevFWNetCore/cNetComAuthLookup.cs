@@ -8,7 +8,7 @@ namespace EndevFWNetCore
 {
     public class NetComAuthLookup
     {
-        public static bool MySQL(string pUsername, string pPassword, params object[] pParameters)
+        public static bool MySQL(string pUsername, string pPassword)
         {
             return true;
         }

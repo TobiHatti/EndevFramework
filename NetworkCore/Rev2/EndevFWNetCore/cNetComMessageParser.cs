@@ -8,7 +8,12 @@ namespace EndevFWNetCore
 {
     public class NetComMessageParser
     {
-        public static string Default(string pMessage, params object[] pParameters)
+        public static string DefaultServer(string pMessage, NetComClientListElement pClient)
+        {
+            return pMessage;
+        }
+
+        public static string DefaultClient(string pMessage)
         {
             return pMessage;
         }

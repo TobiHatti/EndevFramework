@@ -51,19 +51,19 @@ namespace EndevFWNetCore
         public DebugOutput Debug { get; set; } = null;
         public object[] DebugParams { get; set; } = null;
         // Message Parser
-        public delegate string MessageParser(string pMessage, params object[] pParameters);
+        public delegate string MessageParser(string pMessage, NetComClientListElement pClient);
         public MessageParser ParseMessage { get; set; } = null;
 
         // Message Encoder
-        public delegate string MessageEncoder(string pMessage, params object[] pParameters);
+        public delegate string MessageEncoder(string pMessage, NetComClientListElement pClient);
         public MessageEncoder EncodeMessage { get; set; } = null;   
 
         // Message Library
-        public delegate object[] MessageLibraryExec(string pMessageKey, params object[] pParameters);
+        public delegate object[] MessageLibraryExec(string pMessageKey, NetComClientListElement pClient);
         public MessageLibraryExec LibraryExec { get; set; } = null;
 
         // Authentication lookup
-        public delegate bool AuthenticationLookup(string pUsername, string pPassword, params object[] pParameters);
+        public delegate bool AuthenticationLookup(string pUsername, string pPassword);
         public AuthenticationLookup AuthLookup { get; set; } = null;
 
         #endregion
