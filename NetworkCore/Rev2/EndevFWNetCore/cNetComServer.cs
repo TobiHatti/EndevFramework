@@ -58,10 +58,6 @@ namespace EndevFWNetCore
         public delegate string MessageEncoder(string pMessage, NetComClientListElement pClient);
         public MessageEncoder EncodeMessage { get; set; } = null;   
 
-        // Message Library
-        public delegate object[] MessageLibraryExec(string pMessageKey, NetComClientListElement pClient);
-        public MessageLibraryExec LibraryExec { get; set; } = null;
-
         // Authentication lookup
         public delegate bool AuthenticationLookup(string pUsername, string pPassword);
         public AuthenticationLookup AuthLookup { get; set; } = null;

@@ -20,7 +20,6 @@ namespace SampleAppClient
             client.Debug = NetComDebugOutput.ToConsole;
             client.ParseMessage = NetComMessageParser.DefaultClient;
             client.EncodeMessage = NetComMessageEncoder.DefaultClient;
-            client.LibraryExec = NetComLibraryExecuter.DefaultClient;
 
             client.Start();
 

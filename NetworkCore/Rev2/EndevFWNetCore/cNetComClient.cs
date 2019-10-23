@@ -61,10 +61,6 @@ namespace EndevFWNetCore
         public delegate string MessageEncoder(string pMessage);
         public MessageEncoder EncodeMessage { get; set; } = null;
 
-        // Message Library
-        public delegate object[] MessageLibraryExec(string pMessageKey);
-        public MessageLibraryExec LibraryExec { get; set; } = null;
-
         #endregion
 
         //===================================================================================================================

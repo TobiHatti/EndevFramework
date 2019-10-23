@@ -46,11 +46,12 @@
     <Compile Include="cNetComClientList.cs" />
     <Compile Include="cNetComDebugOutput.cs" />
     <Compile Include="cNetComExceptions.cs" />
+    <Compile Include="cNetComInstructionLibBase.cs" />
+    <Compile Include="cNetComInstructionLibExtensionDefault.cs" />
     <Compile Include="cNetComInstructionQueue.cs" />
     <Compile Include="cNetComMessageEncoder.cs" />
     <Compile Include="cNetComMessageParser.cs" />
     <Compile Include="cNetComServer.cs" />
-    <Compile Include="cNetComLibraryExecuter.cs" />
     <Compile Include="cNetComRSAHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
