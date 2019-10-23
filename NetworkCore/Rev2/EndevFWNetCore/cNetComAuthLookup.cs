@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace EndevFWNetCore
 {
-    public class NetComMessageParser
+    public class NetComAuthLookup
     {
-        public static string Default(string pMessage, params object[] pParameters)
+        public static bool MySQL(string pUsername, string pPassword, params object[] pParameters)
         {
-            return pMessage;
+            return true;
         }
     }
 }

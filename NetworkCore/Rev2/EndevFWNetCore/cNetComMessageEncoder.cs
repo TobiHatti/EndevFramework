@@ -8,6 +8,9 @@ namespace EndevFWNetCore
 {
     public class NetComMessageEncoder
     {
-
+        public static string Default(string pMessage, params object[] pParameters)
+        {
+            return "{{" + pMessage + "}}";
+        }
     }
 }

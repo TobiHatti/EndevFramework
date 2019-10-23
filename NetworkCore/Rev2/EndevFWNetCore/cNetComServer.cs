@@ -61,6 +61,10 @@ namespace EndevFWNetCore
         public delegate object[] MessageLibraryExec(string pMessageKey, params object[] pParameters);
         public MessageLibraryExec LibraryExec { get; set; } = null;
 
+        // Authentication lookup
+        public delegate bool AuthenticationLookup(string pUsername, string pPassword, params object[] pParameters);
+        public AuthenticationLookup AuthLookup { get; set; } = null;
+
         #endregion
 
         //===================================================================================================================

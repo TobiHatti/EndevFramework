@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cNetComAuthLookup.cs" />
     <Compile Include="cNetComClient.cs" />
     <Compile Include="cNetComClientList.cs" />
     <Compile Include="cNetComDebugOutput.cs" />

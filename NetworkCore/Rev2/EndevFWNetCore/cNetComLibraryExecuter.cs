@@ -8,6 +8,9 @@ namespace EndevFWNetCore
 {
     public class NetComLibraryExecuter
     {
-
+        public static object[] Default(string pMessage, params object[] pParameters)
+        {
+            return new object[] { pMessage };
+        }
     }
 }

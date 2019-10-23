@@ -15,6 +15,10 @@ namespace SampleAppClient
             NetComClient client = new NetComClient("127.0.0.1", 2225, "TobiHatti", "Apfel123");
 
             client.Debug = NetComDebugOutput.ToConsole;
+            client.ParseMessage = NetComMessageParser.Default;
+            client.EncodeMessage = NetComMessageEncoder.Default;
+            client.LibraryExec = NetComLibraryExecuter.Default;
+
             client.Start();
 
             int i = 0;
