@@ -27,8 +27,8 @@ namespace SampleAppClient
             int i = 0;
             while (true)
             {
-                //client.Send($"Hallo i bin a test-Message N° {i++}");
-                //Thread.Sleep(2222);
+                client.SendRSA($"Hallo i bin a test-Message N° {i++}");
+                Thread.Sleep(2222);
             }
         }
     }

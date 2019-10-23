@@ -27,6 +27,7 @@ namespace EndevFWNetCore
 
         private string Username = null;
         private string Password = null;
+        private string ServerPublicKey = null;
 
         private Thread CommandProcessingThread = null;
         private Thread CommandSendingThread = null;
@@ -41,6 +42,8 @@ namespace EndevFWNetCore
         public int ThreadSleep { get; set; } = 0;
         public NetComInstructionQueue IncommingInstructions { get; private set; } = new NetComInstructionQueue();
         public NetComInstructionQueue OutgoingInstructions { get; private set; } = new NetComInstructionQueue();
+
+        public NetComRSAHandler RSA { get; private set; } = new NetComRSAHandler();
 
         #endregion
 
@@ -143,17 +146,25 @@ namespace EndevFWNetCore
         {
             if (OutgoingInstructions.Count > 0)
             {
-                try
-                {
-                    byte[] buffer = Encoding.UTF8.GetBytes(OutgoingInstructions[0].Instruction);
+
+                    byte[] buffer;
+
+                    string instruction = OutgoingInstructions[0].Instruction;
+                    instruction = EncodeMessage(instruction, OutgoingInstructions[0].Client);
+
+                    if (OutgoingInstructions[0].RSAEncrypted && ServerPublicKey != null)
+                    {
+                        buffer = Encoding.UTF8.GetBytes(RSA.Encrypt(instruction, OutgoingInstructions[0].Client.PublicKey));
+                    }
+                    else
+                    {
+                        buffer = Encoding.UTF8.GetBytes(instruction);
+                    }
+
                     ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
                     Debug($"Sent Message: {OutgoingInstructions[0].Instruction}.", DebugParams);
                     OutgoingInstructions.RemoveAt(0);
-                }
-                catch
-                {
-                    Debug($"An error occured whilst trying to send a message.", DebugParams);
-                }
+
             }
         }
 
@@ -211,14 +222,9 @@ namespace EndevFWNetCore
             OutgoingInstructions.Add(pMessage, null);
         }
 
-        //===================================================================================================================
-        //===================================================================================================================
-        //=         CALLBACK METHODS                                                                                        =
-        //===================================================================================================================
-        //===================================================================================================================
-
-        #region -=[- CALLBACK METHODS -]=-
-
-        #endregion
+        public void SendRSA(string pMessage)
+        {
+            OutgoingInstructions.AddRSA(pMessage, null);
+        }
     }
 }
