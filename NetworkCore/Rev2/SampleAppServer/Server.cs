@@ -26,7 +26,7 @@ namespace SampleAppServer
             int i = 0;
             while(true)
             {
-                server.SendToClient(0, $"Hallo i bin a test-Message N° {i++}");
+                server.SendToClientRSA(0, $"Hallo i bin a test-Message N° {i++}");
                 Thread.Sleep(3333);
             }
 

@@ -51,6 +51,7 @@
     <Compile Include="cNetComMessageParser.cs" />
     <Compile Include="cNetComServer.cs" />
     <Compile Include="cNetComLibraryExecuter.cs" />
+    <Compile Include="cNetComRSAHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

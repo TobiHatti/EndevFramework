@@ -11,11 +11,15 @@ namespace EndevFWNetCore
     {
         public string Instruction { get; private set; } = null;
         public NetComClientListElement Client { get; private set; } = null;
+        public bool RSAEncrypted { get; private set; } = false;
 
-        public NetComInstructionQueueElement(string pInstruction, NetComClientListElement pClient)
+        public NetComInstructionQueueElement(string pInstruction, NetComClientListElement pClient) : this(pInstruction, pClient, false) { }
+
+        public NetComInstructionQueueElement(string pInstruction, NetComClientListElement pClient, bool pRSAEncrypted)
         {
             Instruction = pInstruction;
             Client = pClient;
+            RSAEncrypted = pRSAEncrypted;
         }
     }
 
@@ -52,6 +56,10 @@ namespace EndevFWNetCore
             LInstructions.Add(new NetComInstructionQueueElement(pInstruction, pClient));
         }
 
+        public void AddRSA(string pInstruction, NetComClientListElement pClient)
+        {
+            LInstructions.Add(new NetComInstructionQueueElement(pInstruction, pClient, true));
+        }
         public void RemoveAt(int pIndex)
         {
             if(LInstructions.Count > pIndex)

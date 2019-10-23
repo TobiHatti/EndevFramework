@@ -13,6 +13,7 @@ namespace EndevFWNetCore
         public Socket Socket { get; private set; } = null;
         public string Username { get; private set; } = null;
         public bool Authenticated { get; private set; } = false;
+        public string PublicKey { get; private set; } = null;
 
         public NetComClientListElement(Socket pSocket, string pUsername) : this(pSocket, pUsername, null) { }
 

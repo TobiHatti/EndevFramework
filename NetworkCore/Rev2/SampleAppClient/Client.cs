@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace SampleAppClient
     {
         static void Main(string[] args)
         {
+
+
             NetComClient client = new NetComClient("127.0.0.1", 2225, "TobiHatti", "Apfel123");
 
             client.Debug = NetComDebugOutput.ToConsole;
@@ -24,8 +27,8 @@ namespace SampleAppClient
             int i = 0;
             while (true)
             {
-                client.Send($"Hallo i bin a test-Message N° {i++}");
-                Thread.Sleep(2222);
+                //client.Send($"Hallo i bin a test-Message N° {i++}");
+                //Thread.Sleep(2222);
             }
         }
     }
