@@ -13,7 +13,7 @@ namespace EndevFWNetCore
         public string Password { get; set; } = null;
         public string Instruction { get; set; } = null;
         public string Value { get; set; } = null;
-        public string Parameters { get; set; } = null;
+        public object[] Parameters { get; set; } = null;
         public string ReplyRequest { get; set; } = null;
 
         public virtual string Encode()
@@ -27,12 +27,22 @@ namespace EndevFWNetCore
             if(Password != null)     sb.Append($"[PASSWORD:{Password}],");
             if(Instruction != null)  sb.Append($"[INSTRUCTION:{Instruction}],");
             if(Value != null)        sb.Append($"[VALUE:{Value}],");
-            if(Parameters != null)   sb.Append($"[PARAMETERS:{Parameters}],");
+            if (Parameters != null)
+            {
+                sb.Append($"[PARAMETERS:");
+                foreach (object param in Parameters)
+                    sb.Append($"<{param.GetType().ToString()}={param.ToString()}>|");
+                sb.Append($"],");
+            }
             if(ReplyRequest != null) sb.Append($"[REPREQ:{ReplyRequest}],");
 
             sb.Append("};");
 
             return sb.ToString();
+
+
+            // Parameters: 
+            // [PARAMETERS:<System.Type.MyType:MyValie>,<...:...>,<...:...>]
         }
 
         public abstract void Execute();
