@@ -14,26 +14,21 @@ namespace EndevFWNetCore
         NONE
     }
 
-    public enum Instruction
-    {
-        NONE,
-        PREAUTH,
-        PLAINTEXT,
-        MESSAGEBOX,
-        NOTIFYBUTTON
-    }
-
     public abstract class NetComInstruction
     {
         public MessageType MsgType { get; set; } = MessageType.INSTRUCTION;
         public string Username { get; set; } = null;
         public string Password { get; set; } = null;
-        public Instruction Instruction { get; set; } = Instruction.NONE;
+        public string Instruction { get; set; } = null;
         public string Value { get; set; } = null;
         public object[] Parameters { get; set; } = null;
         public string ReplyRequest { get; set; } = null;
 
-        public NetComInstruction(INetComUser pUser)
+        public NetComInstruction(INetComUser pUser) : this(pUser, null, null, null) { }
+        public NetComInstruction(INetComUser pUser, string pValue) : this(pUser, pValue, null, null) { }
+        public NetComInstruction(INetComUser pUser, string pValue, object[] pParameters) : this(pUser, pValue, pParameters, null) { }
+        public NetComInstruction(INetComUser pUser, string pValue, string pReplyRequest) : this(pUser, pValue, null, pReplyRequest) { }
+        public NetComInstruction(INetComUser pUser, string pValue, object[] pParameters, string pReplyRequest)
         {
             MsgType = MessageType.INSTRUCTION;
             if (pUser.GetType() == typeof(NetComClient))
@@ -41,8 +36,18 @@ namespace EndevFWNetCore
                 Username = (pUser as NetComClient).Username;
                 Password = (pUser as NetComClient).Password;
             }
+
+            if (pUser.GetType() == typeof(NetComUserDummy))
+            {
+                Username = (pUser as NetComUserDummy).Username;
+                Password = (pUser as NetComUserDummy).Password;
+            }
+
+            Value = pValue;
+            Parameters = pParameters;
+            ReplyRequest = pReplyRequest;
         }
-        
+
         public virtual string Encode()
         {
             StringBuilder sb = new StringBuilder();
@@ -51,7 +56,7 @@ namespace EndevFWNetCore
             if(MsgType != MessageType.NONE)  sb.Append($"[MESSAGETYPE:{B64E(MsgType.ToString())}],");
             if(Username != null)     sb.Append($"[USERNAME:{B64E(Username)}],");
             if(Password != null)     sb.Append($"[PASSWORD:{B64E(Password)}],");
-            if(Instruction != Instruction.NONE)  sb.Append($"[INSTRUCTION:{B64E(Instruction.ToString())}],");
+            if(Instruction != null)  sb.Append($"[INSTRUCTION:{B64E(Instruction.ToString())}],");
             if(Value != null)        sb.Append($"[VALUE:{B64E(Value)}],");
             if (Parameters != null)
             {
@@ -85,7 +90,7 @@ namespace EndevFWNetCore
         public sealed override bool Equals(object obj) => base.Equals(obj);
         public sealed override int GetHashCode() => base.GetHashCode();
 
-        public static NetComInstruction[] Parse(INetComUser pLocalUser, string pNetComInstructionString)
+        public static IEnumerable<NetComInstruction> Parse(INetComUser pLocalUser, string pNetComInstructionString)
         {
             NetComRSAHandler RSA = null;
             
@@ -109,7 +114,7 @@ namespace EndevFWNetCore
                 MessageType messageType = MessageType.NONE;
                 string username = null;
                 string password = null;
-                Instruction instruction = Instruction.NONE;
+                string instruction = null;
                 string value = null;
                 List<string[]> parameters = new List<string[]>();
                 string replyrequest = null;
@@ -132,7 +137,7 @@ namespace EndevFWNetCore
                             password = B64D(instrParts[1]);
                             break;
                         case "INSTRUCTION":
-                            Enum.TryParse(B64D(instrParts[1]), out instruction);
+                            instruction = B64D(instrParts[1]);
                             break;
                         case "VALUE":
                             value = B64D(instrParts[1]);
@@ -149,6 +154,8 @@ namespace EndevFWNetCore
                             break;
                     }
                 }
+
+                yield return (NetComInstruction) Activator.CreateInstance(Type.GetType(instruction), new NetComUserDummy(username, password), value, parameters, replyrequest);
             }
         }
     }
