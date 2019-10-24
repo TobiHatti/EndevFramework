@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NCILib = EndevFWNetCore.NetComInstructionLib;
 
 namespace EndevFWNetCore
 {
@@ -45,31 +46,35 @@ namespace EndevFWNetCore
         public virtual string Encode()
         {
             StringBuilder sb = new StringBuilder();
-
             sb.Append("{");
 
-            if(MsgType != MessageType.NONE)  sb.Append($"[MESSAGETYPE:{MsgType.ToString()}],");
-            if(Username != null)     sb.Append($"[USERNAME:{Username}],");
-            if(Password != null)     sb.Append($"[PASSWORD:{Password}],");
-            if(Instruction != Instruction.NONE)  sb.Append($"[INSTRUCTION:{Instruction}],");
-            if(Value != null)        sb.Append($"[VALUE:{Value}],");
+            if(MsgType != MessageType.NONE)  sb.Append($"[MESSAGETYPE:{B64E(MsgType.ToString())}],");
+            if(Username != null)     sb.Append($"[USERNAME:{B64E(Username)}],");
+            if(Password != null)     sb.Append($"[PASSWORD:{B64E(Password)}],");
+            if(Instruction != Instruction.NONE)  sb.Append($"[INSTRUCTION:{B64E(Instruction.ToString())}],");
+            if(Value != null)        sb.Append($"[VALUE:{B64E(Value)}],");
             if (Parameters != null)
             {
                 sb.Append($"[PARAMETERS:");
                 foreach (object param in Parameters)
-                    sb.Append($"<{param.GetType().ToString()}={param.ToString()}>|");
+                    sb.Append($"<{B64E(param.GetType().ToString())}#{B64E(param.ToString())}>|");
                 sb.Append($"],");
             }
-            if(ReplyRequest != null) sb.Append($"[REPREQ:{ReplyRequest}],");
+            if(ReplyRequest != null) sb.Append($"[REPREQ:{B64E(ReplyRequest)}],");
 
             sb.Append("};");
 
             return sb.ToString();
 
-
             // Parameters: 
-            // [PARAMETERS:<System.Type.MyType:MyValie>,<...:...>,<...:...>]
+            // [PARAMETERS:<System.Type.MyType#MyValie>|<...#...>|<...#...>|],
         }
+
+        // Base64 Encode
+        private string B64E(string pPlainText) => Convert.ToBase64String(Encoding.UTF8.GetBytes(pPlainText));
+
+        // Base64 Decode
+        private static string B64D(string pBase64String) => Encoding.UTF8.GetString(Convert.FromBase64String(pBase64String));
 
         public abstract void Execute();
 
@@ -80,9 +85,71 @@ namespace EndevFWNetCore
         public sealed override bool Equals(object obj) => base.Equals(obj);
         public sealed override int GetHashCode() => base.GetHashCode();
 
-        public static NetComInstruction Parse(string pNetComInstructionString)
+        public static NetComInstruction[] Parse(INetComUser pLocalUser, string pNetComInstructionString)
         {
-            return null;
+            NetComRSAHandler RSA = null;
+            
+            string ncInstr = pNetComInstructionString;
+
+            if (pLocalUser.GetType() == typeof(NetComServer)) RSA = (pLocalUser as NetComServer).RSA;
+            if (pLocalUser.GetType() == typeof(NetComClient))  RSA = (pLocalUser as NetComClient).RSA;
+
+            // Check if Instruction is RSA-Encrypted
+            if(!pNetComInstructionString.StartsWith("{"))
+                ncInstr = RSA.Decrypt(ncInstr);
+
+
+            // Split up multiple commands (e.g. blocked buffer) 
+            foreach(string instr in ncInstr.Split(';'))
+            {
+                if (string.IsNullOrEmpty(instr)) continue;
+                
+                string tmpInstr = instr.TrimStart('{').TrimEnd('}');
+
+                MessageType messageType = MessageType.NONE;
+                string username = null;
+                string password = null;
+                Instruction instruction = Instruction.NONE;
+                string value = null;
+                List<string[]> parameters = new List<string[]>();
+                string replyrequest = null;
+
+                foreach (string instrObj in tmpInstr.Split(','))
+                {
+                    if (string.IsNullOrEmpty(instrObj)) continue;
+
+                    string[] instrParts = instrObj.TrimStart('[').TrimEnd(']').Split(':');
+
+                    switch(instrParts[0])
+                    {
+                        case "MESSAGETYPE":
+                            Enum.TryParse(B64D(instrParts[1]), out messageType);
+                            break;
+                        case "USERNAME":
+                            username = B64D(instrParts[1]);
+                            break;
+                        case "PASSWORD":
+                            password = B64D(instrParts[1]);
+                            break;
+                        case "INSTRUCTION":
+                            Enum.TryParse(B64D(instrParts[1]), out instruction);
+                            break;
+                        case "VALUE":
+                            value = B64D(instrParts[1]);
+                            break;
+                        case "PARAMETERS":
+                            foreach(string paramGroup in instrParts[1].Split('|'))
+                            {
+                                if (string.IsNullOrEmpty(paramGroup)) continue;
+                                parameters.Add(paramGroup.TrimStart('<').TrimEnd('>').Split('='));
+                            }
+                            break;
+                        case "REPREQ":
+                            replyrequest = instrParts[1];
+                            break;
+                    }
+                }
+            }
         }
     }
 }

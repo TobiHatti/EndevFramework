@@ -309,6 +309,9 @@ namespace EndevFWNetCore
             LClientList.Add(socket);
             socket.BeginReceive(Buffer, 0, Buffer.Length, SocketFlags.None, ReceiveCallback, socket);
             Debug("New client connected!", DebugParams);
+
+            SendToClient(socket, new NCILib.PreAuth(this));
+
             serverSocket.BeginAccept(AcceptCallback, null);
         }
 

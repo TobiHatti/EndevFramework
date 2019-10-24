@@ -11,6 +11,7 @@ namespace EndevFWNetCore
 
     public class NetComInstructionLib
     {
+        //==================================================================================================================
         public class PreAuth : NCI
         {
             public PreAuth(INetComUser pUser) : base(pUser)
