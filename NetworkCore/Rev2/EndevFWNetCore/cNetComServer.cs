@@ -44,6 +44,8 @@ namespace EndevFWNetCore
         public NetComClientList LClientList { get; private set; } = new NetComClientList();
         public NetComRSAHandler RSA { get; private set; } = new NetComRSAHandler();
 
+        public static INetComUser LocalUser { get; private set; } = null;
+
         #endregion
 
         #region -=[- DELEGATES -]=-
@@ -81,6 +83,8 @@ namespace EndevFWNetCore
         public NetComServer(int pPort)
         {
             Port = pPort;
+
+            NetComInstruction.LocalUser = this;
         }
 
         #endregion
@@ -343,7 +347,11 @@ namespace EndevFWNetCore
 
             Debug("Received message: " + text, DebugParams);
 
-            IncommingInstructions.Add(NetComInstruction.Parse(text), LClientList[current]);
+
+            NetComInstruction[] instructionList = NetComInstruction.Parse(this, text).ToArray();
+
+            foreach (NetComInstruction instr in instructionList)
+                IncommingInstructions.Add(instr, LClientList[current]);
 
             current.BeginReceive(Buffer, 0, Buffer.Length, SocketFlags.None, ReceiveCallback, current);
         }

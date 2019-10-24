@@ -14,6 +14,9 @@ namespace SampleAppClient
     {
         static void Main(string[] args)
         {
+            Type t = Type.GetType(typeof(NetComInstructionLib.PlainText).AssemblyQualifiedName);
+            Console.WriteLine();
+
             NetComClient client = new NetComClient("127.0.0.1", 2225, "TobiHatti", "Apfel123");
 
             client.Debug = NetComDebugOutput.ToConsole;

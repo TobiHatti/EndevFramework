@@ -70,9 +70,6 @@ namespace EndevFWNetCore
             sb.Append("};");
 
             return sb.ToString();
-
-            // Parameters: 
-            // [PARAMETERS:<System.Type.MyType#MyValie>|<...#...>|<...#...>|],
         }
 
         // Base64 Encode
@@ -85,10 +82,6 @@ namespace EndevFWNetCore
 
         // ToString is identical to Encode
         public sealed override string ToString() => Encode();
-
-        // Pure Cosmetic, so it doesn't show up when trying to override e.g. Encode()
-        public sealed override bool Equals(object obj) => base.Equals(obj);
-        public sealed override int GetHashCode() => base.GetHashCode();
 
         public static IEnumerable<NetComInstruction> Parse(INetComUser pLocalUser, string pNetComInstructionString)
         {
@@ -155,7 +148,7 @@ namespace EndevFWNetCore
                     }
                 }
 
-                yield return (NetComInstruction) Activator.CreateInstance(Type.GetType(instruction), new NetComUserDummy(username, password), value, parameters, replyrequest);
+                yield return (NetComInstruction) Activator.CreateInstance(Type.GetType(instruction), new NetComUserDummy(username, password, value) as INetComUser, value, parameters.ToArray(), replyrequest);
             }
         }
     }

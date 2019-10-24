@@ -14,20 +14,25 @@ namespace EndevFWNetCore
         //==================================================================================================================
         public class PreAuth : NCI
         {
+            private INetComUser user;
             public PreAuth(INetComUser pUser, string pVal, object[] pParam, string pRepReq) 
                 : this(pUser) { }
 
             public PreAuth(INetComUser pUser) : base(pUser)
             {
                 MsgType = MessageType.PREAUTH;
-                Instruction = this.GetType().Name;
+                Instruction = this.GetType().AssemblyQualifiedName;
 
                 if (pUser.GetType() == typeof(NetComServer)) Value = (pUser as NetComServer).RSA.PublicKey;
                 if (pUser.GetType() == typeof(NetComClient)) Value = (pUser as NetComClient).RSA.PublicKey;
+
+                user = pUser;
             }
 
-            public override void Execute() =>
-                throw new NetComNotImplementedException("*** Instruction [PreAuth] has not been implemented yet! ***");
+            public override void Execute()
+            {
+                Console.WriteLine("\r\n\r\nReceived Public-Key from Partner: \r\n\r\n" + (user as NetComUserDummy).PublicKey + "\r\n\r\n");
+            }
         }
 
 
@@ -39,10 +44,11 @@ namespace EndevFWNetCore
                 : this(pUser, pVal) { }
 
             public PlainText(INetComUser pUser, string pMessage) 
-                : base(pUser, pMessage) => Instruction = this.GetType().Name;
+                : base(pUser, pMessage) =>
+                Instruction = this.GetType().AssemblyQualifiedName;
 
             public override void Execute() =>
-                throw new NetComNotImplementedException("*** Instruction [PlainText] has not been implemented yet! ***");
+                Console.WriteLine("\r\n\r\n" + Value + "\r\n\r\n");
         }
 
         //==================================================================================================================
@@ -53,7 +59,7 @@ namespace EndevFWNetCore
                 : this(pUser, pVal, (string)pParam[0], (System.Windows.Forms.MessageBoxButtons)pParam[1], (System.Windows.Forms.MessageBoxIcon)pParam[2]) { }
 
             public MessageBox(INetComUser pUser, string pMessage, string pCaption, System.Windows.Forms.MessageBoxButtons pButtons, System.Windows.Forms.MessageBoxIcon pIcons) 
-                : base(pUser, pMessage, new object[] { pCaption, pButtons, pIcons }) => Instruction = this.GetType().Name;
+                : base(pUser, pMessage, new object[] { pCaption, pButtons, pIcons }) => Instruction = this.GetType().AssemblyQualifiedName;
 
             public override void Execute() => 
                 System.Windows.Forms.MessageBox.Show(
@@ -71,7 +77,7 @@ namespace EndevFWNetCore
                 : this(pUser, pVal) { }
 
             public DecoratedMessageBox(INetComUser pUser, string pMessage)
-                : base(pUser, pMessage) => Instruction = this.GetType().Name;
+                : base(pUser, pMessage) => Instruction = this.GetType().AssemblyQualifiedName;
 
             public override void Execute() =>
                 System.Windows.Forms.MessageBox.Show(Value);
@@ -85,7 +91,7 @@ namespace EndevFWNetCore
                 : this(pUser, pVal) { }
 
             public NotifyIcon(INetComUser pUser, string pMessage)
-                : base(pUser, pMessage) => Instruction = this.GetType().Name;
+                : base(pUser, pMessage) => Instruction = this.GetType().AssemblyQualifiedName;
 
             public override void Execute() => 
                 throw new NetComNotImplementedException("*** Instruction [NotyfiIcon] has not been implemented yet! ***");

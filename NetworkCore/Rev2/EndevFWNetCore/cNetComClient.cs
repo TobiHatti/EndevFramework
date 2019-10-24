@@ -123,6 +123,11 @@ namespace EndevFWNetCore
 
         private void ProcessNextInstruction()
         {
+            if (IncommingInstructions.Count > 0)
+            {
+                IncommingInstructions[0].Instruction.Execute();
+                IncommingInstructions.RemoveAt(0);
+            }
             // TODO
             // Check if User is Authenticated
             // Else Reply to Client with the same message as sent, 
@@ -186,7 +191,11 @@ namespace EndevFWNetCore
             string text = Encoding.UTF8.GetString(data);
 
             Debug("Received Message: " + text);
-            IncommingInstructions.Add(NetComInstruction.Parse(text), null);
+
+            NetComInstruction[] instructionList = NetComInstruction.Parse(this, text).ToArray();
+
+            foreach (NetComInstruction instr in instructionList)
+                IncommingInstructions.Add(instr, null);
         }
 
         private void TryConnect()
