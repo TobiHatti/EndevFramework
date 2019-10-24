@@ -6,26 +6,52 @@ using System.Threading.Tasks;
 
 namespace EndevFWNetCore
 {
+    public enum MessageType
+    {
+        INSTRUCTION,
+        PREAUTH,
+        NONE
+    }
+
+    public enum Instruction
+    {
+        NONE,
+        PREAUTH,
+        PLAINTEXT,
+        MESSAGEBOX,
+        NOTIFYBUTTON
+    }
+
     public abstract class NetComInstruction
     {
-        public string MessageType { get; set; } = null;
+        public MessageType MsgType { get; set; } = MessageType.INSTRUCTION;
         public string Username { get; set; } = null;
         public string Password { get; set; } = null;
-        public string Instruction { get; set; } = null;
+        public Instruction Instruction { get; set; } = Instruction.NONE;
         public string Value { get; set; } = null;
         public object[] Parameters { get; set; } = null;
         public string ReplyRequest { get; set; } = null;
 
+        public NetComInstruction(INetComUser pUser)
+        {
+            MsgType = MessageType.INSTRUCTION;
+            if (pUser.GetType() == typeof(NetComClient))
+            {
+                Username = (pUser as NetComClient).Username;
+                Password = (pUser as NetComClient).Password;
+            }
+        }
+        
         public virtual string Encode()
         {
             StringBuilder sb = new StringBuilder();
 
             sb.Append("{");
 
-            if(MessageType != null)  sb.Append($"[MESSAGETYPE:{MessageType}],");
+            if(MsgType != MessageType.NONE)  sb.Append($"[MESSAGETYPE:{MsgType.ToString()}],");
             if(Username != null)     sb.Append($"[USERNAME:{Username}],");
             if(Password != null)     sb.Append($"[PASSWORD:{Password}],");
-            if(Instruction != null)  sb.Append($"[INSTRUCTION:{Instruction}],");
+            if(Instruction != Instruction.NONE)  sb.Append($"[INSTRUCTION:{Instruction}],");
             if(Value != null)        sb.Append($"[VALUE:{Value}],");
             if (Parameters != null)
             {

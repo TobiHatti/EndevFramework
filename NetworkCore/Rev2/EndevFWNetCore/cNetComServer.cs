@@ -13,7 +13,7 @@ using NCI = EndevFWNetCore.NetComInstruction;
 namespace EndevFWNetCore
 {
 #pragma warning disable 0168
-    public class NetComServer
+    public class NetComServer : INetComUser
     {
         //===================================================================================================================
         //===================================================================================================================

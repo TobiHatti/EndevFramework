@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EndevFWNetCore
 {
-    public class NetComClient
+    public class NetComClient : INetComUser
     {
         //===================================================================================================================
         //===================================================================================================================
@@ -25,8 +25,7 @@ namespace EndevFWNetCore
         private IPAddress ServerIP = null;
         private Socket ClientSocket = null;
 
-        private string Username = null;
-        private string Password = null;
+        
         private string ServerPublicKey = null;
 
         private Thread CommandProcessingThread = null;
@@ -39,10 +38,11 @@ namespace EndevFWNetCore
 
         #region -=[- PROPERTIES -]=-
 
+        public string Username { get; private set; } = null;
+        public string Password { get; private set; } = null;
         public int ThreadSleep { get; set; } = 0;
         public NetComInstructionQueue IncommingInstructions { get; private set; } = new NetComInstructionQueue();
         public NetComInstructionQueue OutgoingInstructions { get; private set; } = new NetComInstructionQueue();
-
         public NetComRSAHandler RSA { get; private set; } = new NetComRSAHandler();
 
         #endregion

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using NCILib = EndevFWNetCore.NetComInstructionLib;
 
 namespace SampleAppServer
 {
@@ -12,30 +13,6 @@ namespace SampleAppServer
     {
         static void Main(string[] args)
         {
-
-
-
-
-
-            string a = "Hallo ";
-            string b = "Betti ";
-            string c = null;
-            string d = "und caro";
-
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append(a?.ToString());
-            sb.Append(b?.ToString());
-            sb.Append($"und de unnedige { c?.ToString()}");
-            sb.Append(d?.ToString());
-
-            Console.WriteLine(sb.ToString());
-
-
-            
-
-
-
             NetComServer server = new NetComServer(2225);
 
             server.Debug = NetComDebugOutput.ToConsole;
@@ -48,7 +25,7 @@ namespace SampleAppServer
             int i = 0;
             while(true)
             {
-                server.SendToClientRSA(0, $"Hallo i bin a test-Message N° {i++}");
+                server.SendToClientRSA(0, new NCILib.PlainText(server, $"Hallo i bin a test-Message N° {i++}"));
                 Thread.Sleep(3333);
             }
 
