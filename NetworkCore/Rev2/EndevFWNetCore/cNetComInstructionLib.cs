@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NCIB = EndevFWNetCore.NetComInstructionBase;
+using NCI = EndevFWNetCore.NetComInstruction;
 
 namespace EndevFWNetCore
 {
     public class NetComInstructionLib
     {
-        public class PlainText : NCIB
+        public class PlainText : NCI
         {
             public override void Execute() =>
                 throw new NetComNotImplementedException("*** Instruction [PlainText] has not been implemented yet! ***");
         }
         
-        public class MessageBox : NCIB
+        public class MessageBox : NCI
         {
             public override void Execute() => 
                 System.Windows.Forms.MessageBox.Show(
@@ -25,7 +25,7 @@ namespace EndevFWNetCore
                 (System.Windows.Forms.MessageBoxIcon) Parameters[2]);
         }
 
-        public class NotifyIcon : NCIB
+        public class NotifyIcon : NCI
         {
             public override void Execute() => 
                 throw new NetComNotImplementedException("*** Instruction [NotyfiIcon] has not been implemented yet! ***");

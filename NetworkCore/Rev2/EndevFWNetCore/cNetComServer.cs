@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using NCILib = EndevFWNetCore.NetComInstructionLib;
+using NCI = EndevFWNetCore.NetComInstruction;
 
 namespace EndevFWNetCore
 {
@@ -144,24 +145,24 @@ namespace EndevFWNetCore
         //-------------------------------------------------------------------------------------------------------------------
 
         #region -=[- SENDING UNENCRYPTED -]=-
-        public void SendToClient(Socket pSocket, string pMessage) => SendToClient(LClientList[pSocket], pMessage);
-        public void SendToClient(string pUsername, string pMessage) => SendToClient(LClientList[pUsername], pMessage);
-        public void SendToClient(int pIndex, string pMessage) => SendToClient(LClientList[pIndex], pMessage);
-        public void SendToClient(NetComClientData pClient, string pMessage)
+        public void SendToClient(Socket pSocket, NetComInstruction pInstruction) => SendToClient(LClientList[pSocket], pInstruction);
+        public void SendToClient(string pUsername, NetComInstruction pInstruction) => SendToClient(LClientList[pUsername], pInstruction);
+        public void SendToClient(int pIndex, NetComInstruction pInstruction) => SendToClient(LClientList[pIndex], pInstruction);
+        public void SendToClient(NetComClientData pClient, NetComInstruction pInstruction)
         {
             if (pClient != null)
             {
-                Debug($"Queueing message for {pClient.Username}: {pMessage}", DebugParams);
-                OutgoingInstructions.Add(pMessage, pClient);
+                Debug($"Queueing message for {pClient.Username}: {pInstruction}", DebugParams);
+                OutgoingInstructions.Add(pInstruction, pClient);
             }
         }
 
-        public void Broadcast(string pMessage)
+        public void Broadcast(NetComInstruction pInstruction)
         {
             foreach (NetComClientData client in LClientList)
             {
-                Debug($"Queueing message for {client.Username}: {pMessage}", DebugParams);
-                OutgoingInstructions.Add(pMessage, client);
+                Debug($"Queueing message for {client.Username}: {pInstruction}", DebugParams);
+                OutgoingInstructions.Add(pInstruction, client);
             }
         }
 
@@ -173,24 +174,24 @@ namespace EndevFWNetCore
 
         #region -=[- SENDING ENCRYPTED -]=-
 
-        public void SendToClientRSA(Socket pSocket, string pMessage) => SendToClientRSA(LClientList[pSocket], pMessage);
-        public void SendToClientRSA(string pUsername, string pMessage) => SendToClientRSA(LClientList[pUsername], pMessage);
-        public void SendToClientRSA(int pIndex, string pMessage) => SendToClientRSA(LClientList[pIndex], pMessage);
-        public void SendToClientRSA(NetComClientData pClient, string pMessage)
+        public void SendToClientRSA(Socket pSocket, NetComInstruction pInstruction) => SendToClientRSA(LClientList[pSocket], pInstruction);
+        public void SendToClientRSA(string pUsername, NetComInstruction pInstruction) => SendToClientRSA(LClientList[pUsername], pInstruction);
+        public void SendToClientRSA(int pIndex, NetComInstruction pInstruction) => SendToClientRSA(LClientList[pIndex], pInstruction);
+        public void SendToClientRSA(NetComClientData pClient, NetComInstruction pInstruction)
         {
             if (pClient != null)
             {
-                Debug($"Queueing message for {pClient.Username}: {pMessage}", DebugParams);
-                OutgoingInstructions.AddRSA(pMessage, pClient);
+                Debug($"Queueing message for {pClient.Username}: {pInstruction}", DebugParams);
+                OutgoingInstructions.AddRSA(pInstruction, pClient);
             }
         }
 
-        public void BroadcastRSA(string pMessage)
+        public void BroadcastRSA(NetComInstruction pInstruction)
         {
             foreach (NetComClientData client in LClientList)
             {
-                Debug($"Queueing message for {client.Username}: {pMessage}", DebugParams);
-                OutgoingInstructions.AddRSA(pMessage, client);
+                Debug($"Queueing message for {client.Username}: {pInstruction}", DebugParams);
+                OutgoingInstructions.AddRSA(pInstruction, client);
             }
         }
 
@@ -249,9 +250,9 @@ namespace EndevFWNetCore
                     Socket current = OutgoingInstructions[0].Client.Socket;
                     byte[] data;
 
-                    string instruction = OutgoingInstructions[0].Instruction;
+                    string instruction = OutgoingInstructions[0].Instruction.Encode();
 
-                    instruction = EncodeMessage(instruction, OutgoingInstructions[0].Client);
+                    //instruction = EncodeMessage(instruction, OutgoingInstructions[0].Client);
 
                     if (OutgoingInstructions[0].RSAEncrypted && OutgoingInstructions[0].Client.PublicKey != null)
                     {
@@ -339,7 +340,7 @@ namespace EndevFWNetCore
 
             Debug("Received message: " + text, DebugParams);
 
-            IncommingInstructions.Add(text, LClientList[current]);
+            IncommingInstructions.Add(NetComInstruction.Parse(text), LClientList[current]);
 
             current.BeginReceive(Buffer, 0, Buffer.Length, SocketFlags.None, ReceiveCallback, current);
         }

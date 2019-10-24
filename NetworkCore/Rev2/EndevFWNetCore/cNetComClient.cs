@@ -145,8 +145,9 @@ namespace EndevFWNetCore
 
                     byte[] buffer;
 
-                    string instruction = OutgoingInstructions[0].Instruction;
-                    instruction = EncodeMessage(instruction);
+                    string instruction = OutgoingInstructions[0].Instruction.Encode();
+                    
+                    //instruction = EncodeMessage(instruction);
 
                     if (OutgoingInstructions[0].RSAEncrypted && ServerPublicKey != null)
                     {
@@ -185,7 +186,7 @@ namespace EndevFWNetCore
             string text = Encoding.UTF8.GetString(data);
 
             Debug("Received Message: " + text);
-            IncommingInstructions.Add(text, null);
+            IncommingInstructions.Add(NetComInstruction.Parse(text), null);
         }
 
         private void TryConnect()
@@ -213,14 +214,14 @@ namespace EndevFWNetCore
         //-         SENDING                                                                                                 -
         //-------------------------------------------------------------------------------------------------------------------
 
-        public void Send(string pMessage)
+        public void Send(NetComInstruction pInstruction)
         {
-            OutgoingInstructions.Add(pMessage, null);
+            OutgoingInstructions.Add(pInstruction, null);
         }
 
-        public void SendRSA(string pMessage)
+        public void SendRSA(NetComInstruction pInstruction)
         {
-            OutgoingInstructions.AddRSA(pMessage, null);
+            OutgoingInstructions.AddRSA(pInstruction, null);
         }
     }
 }

@@ -48,7 +48,7 @@
     <Compile Include="cNetComClientList.cs" />
     <Compile Include="cNetComDebugOutput.cs" />
     <Compile Include="cNetComException.cs" />
-    <Compile Include="cNetComInstructionBase.cs" />
+    <Compile Include="cNetComInstruction.cs" />
     <Compile Include="cNetComInstructionLib.cs" />
     <Compile Include="cNetComInstructionQueue.cs" />
     <Compile Include="cNetComMessageEncoder.cs" />

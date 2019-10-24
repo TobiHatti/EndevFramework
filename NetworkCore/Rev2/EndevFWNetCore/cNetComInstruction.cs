@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EndevFWNetCore
 {
-    public abstract class NetComInstructionBase
+    public abstract class NetComInstruction
     {
         public string MessageType { get; set; } = null;
         public string Username { get; set; } = null;
@@ -53,5 +53,10 @@ namespace EndevFWNetCore
         // Pure Cosmetic, so it doesn't show up when trying to override e.g. Encode()
         public sealed override bool Equals(object obj) => base.Equals(obj);
         public sealed override int GetHashCode() => base.GetHashCode();
+
+        public static NetComInstruction Parse(string pNetComInstructionString)
+        {
+            return null;
+        }
     }
 }
