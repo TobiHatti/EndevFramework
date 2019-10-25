@@ -29,17 +29,22 @@ namespace EndevFWNetCore
                 user = pUser;
             }
 
-            public override void Execute()
+            public override void Execute(NetComClientData pClient = null)
             {
-                if(NetComUser.LocalUser.GetType() == typeof(NetComServer))
+                if(NetComUser.LocalUser.GetType() == typeof(NetComServer) && pClient != null)
                 {
-                   // (NetComUser.LocalUser as NetComServer).LClientList[(user as NetComUserDummy).Username].PublicKey = (user as NetComUserDummy).PublicKey;
+                    (NetComUser.LocalUser as NetComServer).LClientList[pClient.Socket].SetUsername((user as NetComUserDummy).Username);
+
+                    (NetComUser.LocalUser as NetComServer).LClientList[pClient.Socket].SetPublicKey((user as NetComUserDummy).PublicKey);
                 }
 
                 if (NetComUser.LocalUser.GetType() == typeof(NetComClient))
                 {
                     (NetComUser.LocalUser as NetComClient).ServerPublicKey = (user as NetComUserDummy).PublicKey;
+
+                    (NetComUser.LocalUser as NetComClient).Send(new NetComInstructionLib.PreAuth(NetComUser.LocalUser as NetComClient));
                 }
+
                 Console.WriteLine("\r\n\r\nReceived Public-Key from Partner: \r\n\r\n" + (user as NetComUserDummy).PublicKey + "\r\n\r\n");
             }
         }
@@ -56,7 +61,7 @@ namespace EndevFWNetCore
                 : base(pUser, pMessage) =>
                 Instruction = this.GetType().AssemblyQualifiedName;
 
-            public override void Execute() =>
+            public override void Execute(NetComClientData pClient = null) =>
                 Console.WriteLine("\r\n\r\n" + Value + "\r\n\r\n");
         }
 
@@ -70,7 +75,7 @@ namespace EndevFWNetCore
             public MessageBox(NetComUser pUser, string pMessage, string pCaption, System.Windows.Forms.MessageBoxButtons pButtons, System.Windows.Forms.MessageBoxIcon pIcons) 
                 : base(pUser, pMessage, new object[] { pCaption, pButtons, pIcons }) => Instruction = this.GetType().AssemblyQualifiedName;
 
-            public override void Execute() => 
+            public override void Execute(NetComClientData pClient = null) => 
                 System.Windows.Forms.MessageBox.Show(
                 (string) Value, 
                 (string) Parameters[0], 
@@ -88,7 +93,7 @@ namespace EndevFWNetCore
             public DecoratedMessageBox(NetComUser pUser, string pMessage)
                 : base(pUser, pMessage) => Instruction = this.GetType().AssemblyQualifiedName;
 
-            public override void Execute() =>
+            public override void Execute(NetComClientData pClient = null) =>
                 System.Windows.Forms.MessageBox.Show(Value);
         }
 
@@ -102,7 +107,7 @@ namespace EndevFWNetCore
             public NotifyIcon(NetComUser pUser, string pMessage)
                 : base(pUser, pMessage) => Instruction = this.GetType().AssemblyQualifiedName;
 
-            public override void Execute() => 
+            public override void Execute(NetComClientData pClient = null) => 
                 throw new NetComNotImplementedException("*** Instruction [NotyfiIcon] has not been implemented yet! ***");
         }
 

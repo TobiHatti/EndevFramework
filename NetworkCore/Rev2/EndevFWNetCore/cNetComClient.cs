@@ -148,26 +148,24 @@ namespace EndevFWNetCore
         {
             if (OutgoingInstructions.Count > 0)
             {
+                byte[] buffer;
 
-                    byte[] buffer;
+                string instruction;
 
-                    string instruction = OutgoingInstructions[0].Instruction.Encode();
-                    
-                    //instruction = EncodeMessage(instruction);
+                if (OutgoingInstructions[0].RSAEncrypted && ServerPublicKey != null)
+                {
+                    instruction = OutgoingInstructions[0].Instruction.Encode(true, ServerPublicKey);
+                }
+                else
+                {
+                    instruction = OutgoingInstructions[0].Instruction.Encode(false);
+                }
 
-                    if (OutgoingInstructions[0].RSAEncrypted && ServerPublicKey != null)
-                    {
-                        buffer = Encoding.UTF8.GetBytes(RSA.Encrypt(instruction, ServerPublicKey));
-                    }
-                    else
-                    {
-                        buffer = Encoding.UTF8.GetBytes(instruction);
-                    }
+                buffer = Encoding.UTF8.GetBytes(instruction);
 
-                    ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
-                    Debug($"Sent Message: {OutgoingInstructions[0].Instruction}.", DebugParams);
-                    OutgoingInstructions.RemoveAt(0);
-
+                ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+                Debug($"Sent Message: {instruction}.", DebugParams);
+                OutgoingInstructions.RemoveAt(0);
             }
         }
 

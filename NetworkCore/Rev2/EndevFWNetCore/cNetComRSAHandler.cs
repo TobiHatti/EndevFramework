@@ -26,7 +26,7 @@ namespace EndevFWNetCore
         public string Decrypt(string data)
         {
             var rsa = new RSACryptoServiceProvider();
-            var dataArray = data.Split(new char[] { ',' });
+            var dataArray = data.Split(new char[] { '-' });
             byte[] dataByte = new byte[dataArray.Length];
             for (int i = 0; i < dataArray.Length; i++)
             {
@@ -53,7 +53,7 @@ namespace EndevFWNetCore
                 sb.Append(x);
 
                 if (item < length)
-                    sb.Append(",");
+                    sb.Append("-");
             }
             return sb.ToString();
         }

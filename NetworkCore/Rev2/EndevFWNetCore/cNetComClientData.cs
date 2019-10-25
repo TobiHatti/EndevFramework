@@ -30,5 +30,9 @@ namespace EndevFWNetCore
             if (true) return true;
             else return false;
         }
+
+        public void SetPublicKey(string pPublicKey) => PublicKey = pPublicKey;
+
+        public void SetUsername(string pUsername) => Username = pUsername;
     }
 }

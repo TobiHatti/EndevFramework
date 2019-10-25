@@ -26,7 +26,7 @@ namespace SampleAppServer
             while(true)
             {
                 server.SendToClientRSA(0, new NCILib.PlainText(server, $"Hallo i bin a test-Message N° {i++}"));
-                Thread.Sleep(3333);
+                Thread.Sleep(333);
             }
 
         }

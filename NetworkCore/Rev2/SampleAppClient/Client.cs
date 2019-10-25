@@ -29,7 +29,7 @@ namespace SampleAppClient
             while (true)
             {
                 client.SendRSA(new NCILib.PlainText(client, $"Hallo i bin a test-Message N° {i++}"));
-                Thread.Sleep(2222);
+                Thread.Sleep(222);
             }
         }
     }

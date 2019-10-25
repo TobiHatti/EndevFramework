@@ -218,6 +218,12 @@ namespace EndevFWNetCore
 
         private void ProcessNextInstruction()
         {
+            if (IncommingInstructions.Count > 0)
+            {
+            
+                IncommingInstructions[0]?.Instruction.Execute(IncommingInstructions[0]?.Client);
+                IncommingInstructions.RemoveAt(0);
+            }
 
             // TODO
             // Check if User is Authenticated
@@ -246,22 +252,18 @@ namespace EndevFWNetCore
         {
             if (OutgoingInstructions.Count > 0)
             {
-                try
-                {
-                    Socket current = OutgoingInstructions[0].Client.Socket;
+          
+                    Socket current = OutgoingInstructions[0]?.Client?.Socket;
                     byte[] data;
 
-                    string instruction = OutgoingInstructions[0].Instruction.Encode();
-
-                    //instruction = EncodeMessage(instruction, OutgoingInstructions[0].Client);
 
                     if (OutgoingInstructions[0].RSAEncrypted && OutgoingInstructions[0].Client.PublicKey != null)
                     {
-                        data = Encoding.UTF8.GetBytes(RSA.Encrypt(instruction, OutgoingInstructions[0].Client.PublicKey));
+                        data = Encoding.UTF8.GetBytes(OutgoingInstructions[0].Instruction.Encode(true, OutgoingInstructions[0].Client.PublicKey));
                     }
                     else
                     {
-                        data = Encoding.UTF8.GetBytes(instruction);
+                        data = Encoding.UTF8.GetBytes(OutgoingInstructions[0].Instruction.Encode(false));
                     }
 
                     current.Send(data);
@@ -269,11 +271,7 @@ namespace EndevFWNetCore
                     Debug($"Sent Message to {OutgoingInstructions[0].Client.Username}: {OutgoingInstructions[0].Instruction}.", DebugParams);
 
                     OutgoingInstructions.RemoveAt(0);
-                }
-                catch
-                {
-                    Debug("An error occured whilst trying to send the message.",DebugParams);
-                }
+             
  
             }
         }

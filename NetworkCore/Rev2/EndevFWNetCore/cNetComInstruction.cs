@@ -48,14 +48,22 @@ namespace EndevFWNetCore
             ReplyRequest = pReplyRequest;
         }
 
-        public virtual string Encode()
+        public virtual string Encode(bool pRSAEncrypt = false, string pPartnerPublicKey = null)
         {
             StringBuilder sb = new StringBuilder();
+
+            if(pRSAEncrypt) sb.Append("RSA");
             sb.Append("{");
 
             if(MsgType != MessageType.NONE)  sb.Append($"[MESSAGETYPE:{B64E(MsgType.ToString())}],");
             if(Username != null)     sb.Append($"[USERNAME:{B64E(Username)}],");
-            if(Password != null)     sb.Append($"[PASSWORD:{B64E(Password)}],");
+
+            if (Password != null)
+            {
+                if (pRSAEncrypt) sb.Append($"[PASSWORD:{NetComUser.LocalUser.RSA.Encrypt(B64E(Password), pPartnerPublicKey)}],");
+                else sb.Append($"[PASSWORD:{B64E(Password)}],");
+            }
+               
             if(Instruction != null)  sb.Append($"[INSTRUCTION:{B64E(Instruction.ToString())}],");
             if(Value != null)        sb.Append($"[VALUE:{B64E(Value)}],");
             if (Parameters != null)
@@ -78,10 +86,10 @@ namespace EndevFWNetCore
         // Base64 Decode
         private static string B64D(string pBase64String) => Encoding.UTF8.GetString(Convert.FromBase64String(pBase64String));
 
-        public abstract void Execute();
+        public abstract void Execute(NetComClientData pClient = null);
 
         // ToString is identical to Encode
-        public sealed override string ToString() => Encode();
+        public sealed override string ToString() => Encode(false);
 
         public static IEnumerable<NetComInstruction> Parse(NetComUser pLocalUser, string pNetComInstructionString)
         {
@@ -89,19 +97,19 @@ namespace EndevFWNetCore
             
             string ncInstr = pNetComInstructionString;
 
+            bool rsaMessage = false;
+
             if (pLocalUser.GetType() == typeof(NetComServer)) RSA = (pLocalUser as NetComServer).RSA;
             if (pLocalUser.GetType() == typeof(NetComClient))  RSA = (pLocalUser as NetComClient).RSA;
-
-            // Check if Instruction is RSA-Encrypted
-            if(!pNetComInstructionString.StartsWith("{"))
-                ncInstr = RSA.Decrypt(ncInstr);
-
 
             // Split up multiple commands (e.g. blocked buffer) 
             foreach(string instr in ncInstr.Split(';'))
             {
                 if (string.IsNullOrEmpty(instr)) continue;
-                
+
+                // Check if Instruction is RSA-Encrypted
+                if (pNetComInstructionString.StartsWith("RSA")) rsaMessage = true;
+
                 string tmpInstr = instr.TrimStart('{').TrimEnd('}');
 
                 MessageType messageType = MessageType.NONE;
@@ -127,7 +135,8 @@ namespace EndevFWNetCore
                             username = B64D(instrParts[1]);
                             break;
                         case "PASSWORD":
-                            password = B64D(instrParts[1]);
+                            if (rsaMessage) password = B64D(RSA.Decrypt(instrParts[1]));
+                            else password = B64D(instrParts[1]);
                             break;
                         case "INSTRUCTION":
                             instruction = B64D(instrParts[1]);
