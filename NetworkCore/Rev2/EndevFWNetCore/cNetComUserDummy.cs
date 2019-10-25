@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EndevFWNetCore
 {
-    public class NetComUserDummy : INetComUser
+    public class NetComUserDummy : NetComUser
     {
         public string Username { get; set; } = null;
         public string Password { get; set; } = null;

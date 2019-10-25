@@ -14,11 +14,11 @@ namespace EndevFWNetCore
         //==================================================================================================================
         public class PreAuth : NCI
         {
-            private INetComUser user;
-            public PreAuth(INetComUser pUser, string pVal, object[] pParam, string pRepReq) 
+            private NetComUser user;
+            public PreAuth(NetComUser pUser, string pVal, object[] pParam, string pRepReq) 
                 : this(pUser) { }
 
-            public PreAuth(INetComUser pUser) : base(pUser)
+            public PreAuth(NetComUser pUser) : base(pUser)
             {
                 MsgType = MessageType.PREAUTH;
                 Instruction = this.GetType().AssemblyQualifiedName;
@@ -31,6 +31,15 @@ namespace EndevFWNetCore
 
             public override void Execute()
             {
+                if(NetComUser.LocalUser.GetType() == typeof(NetComServer))
+                {
+                   // (NetComUser.LocalUser as NetComServer).LClientList[(user as NetComUserDummy).Username].PublicKey = (user as NetComUserDummy).PublicKey;
+                }
+
+                if (NetComUser.LocalUser.GetType() == typeof(NetComClient))
+                {
+                    (NetComUser.LocalUser as NetComClient).ServerPublicKey = (user as NetComUserDummy).PublicKey;
+                }
                 Console.WriteLine("\r\n\r\nReceived Public-Key from Partner: \r\n\r\n" + (user as NetComUserDummy).PublicKey + "\r\n\r\n");
             }
         }
@@ -40,10 +49,10 @@ namespace EndevFWNetCore
 
         public class PlainText : NCI
         {
-            public PlainText(INetComUser pUser, string pVal, object[] pParam, string pRepReq) 
+            public PlainText(NetComUser pUser, string pVal, object[] pParam, string pRepReq) 
                 : this(pUser, pVal) { }
 
-            public PlainText(INetComUser pUser, string pMessage) 
+            public PlainText(NetComUser pUser, string pMessage) 
                 : base(pUser, pMessage) =>
                 Instruction = this.GetType().AssemblyQualifiedName;
 
@@ -55,10 +64,10 @@ namespace EndevFWNetCore
 
         public class MessageBox : NCI
         {
-            public MessageBox(INetComUser pUser, string pVal, object[] pParam, string pRepReq) 
+            public MessageBox(NetComUser pUser, string pVal, object[] pParam, string pRepReq) 
                 : this(pUser, pVal, (string)pParam[0], (System.Windows.Forms.MessageBoxButtons)pParam[1], (System.Windows.Forms.MessageBoxIcon)pParam[2]) { }
 
-            public MessageBox(INetComUser pUser, string pMessage, string pCaption, System.Windows.Forms.MessageBoxButtons pButtons, System.Windows.Forms.MessageBoxIcon pIcons) 
+            public MessageBox(NetComUser pUser, string pMessage, string pCaption, System.Windows.Forms.MessageBoxButtons pButtons, System.Windows.Forms.MessageBoxIcon pIcons) 
                 : base(pUser, pMessage, new object[] { pCaption, pButtons, pIcons }) => Instruction = this.GetType().AssemblyQualifiedName;
 
             public override void Execute() => 
@@ -73,10 +82,10 @@ namespace EndevFWNetCore
 
         public class DecoratedMessageBox : NCI
         {
-            public DecoratedMessageBox(INetComUser pUser, string pVal, object[] pParam, string pRepReq) 
+            public DecoratedMessageBox(NetComUser pUser, string pVal, object[] pParam, string pRepReq) 
                 : this(pUser, pVal) { }
 
-            public DecoratedMessageBox(INetComUser pUser, string pMessage)
+            public DecoratedMessageBox(NetComUser pUser, string pMessage)
                 : base(pUser, pMessage) => Instruction = this.GetType().AssemblyQualifiedName;
 
             public override void Execute() =>
@@ -87,10 +96,10 @@ namespace EndevFWNetCore
 
         public class NotifyIcon : NCI
         {
-            public NotifyIcon(INetComUser pUser, string pVal, object[] pParam, string pRepReq)
+            public NotifyIcon(NetComUser pUser, string pVal, object[] pParam, string pRepReq)
                 : this(pUser, pVal) { }
 
-            public NotifyIcon(INetComUser pUser, string pMessage)
+            public NotifyIcon(NetComUser pUser, string pMessage)
                 : base(pUser, pMessage) => Instruction = this.GetType().AssemblyQualifiedName;
 
             public override void Execute() => 

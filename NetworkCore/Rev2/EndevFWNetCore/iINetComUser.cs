@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace EndevFWNetCore
 {
-    public interface INetComUser
+    public interface INetComUsersdf
     {
+        
+
     }
 }

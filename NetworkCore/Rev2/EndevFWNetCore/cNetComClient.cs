@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EndevFWNetCore
 {
-    public class NetComClient : INetComUser
+    public class NetComClient : NetComUser
     {
         //===================================================================================================================
         //===================================================================================================================
@@ -26,7 +26,7 @@ namespace EndevFWNetCore
         private Socket ClientSocket = null;
 
         
-        private string ServerPublicKey = null;
+        
 
         private Thread CommandProcessingThread = null;
         private Thread CommandSendingThread = null;
@@ -41,10 +41,9 @@ namespace EndevFWNetCore
         public string Username { get; private set; } = null;
         public string Password { get; private set; } = null;
         public int ThreadSleep { get; set; } = 0;
+        public string ServerPublicKey { get; set; } = null;
         public NetComInstructionQueue IncommingInstructions { get; private set; } = new NetComInstructionQueue();
         public NetComInstructionQueue OutgoingInstructions { get; private set; } = new NetComInstructionQueue();
-        public NetComRSAHandler RSA { get; private set; } = new NetComRSAHandler();
-
         #endregion
 
         #region -=[- DELEGATES -]=-
@@ -78,6 +77,8 @@ namespace EndevFWNetCore
 
             Username = pUsername;
             Password = pPassword;
+
+            NetComUser.LocalUser = this;
         }
 
         #endregion
@@ -156,7 +157,7 @@ namespace EndevFWNetCore
 
                     if (OutgoingInstructions[0].RSAEncrypted && ServerPublicKey != null)
                     {
-                        buffer = Encoding.UTF8.GetBytes(RSA.Encrypt(instruction, OutgoingInstructions[0].Client.PublicKey));
+                        buffer = Encoding.UTF8.GetBytes(RSA.Encrypt(instruction, ServerPublicKey));
                     }
                     else
                     {

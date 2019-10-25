@@ -13,7 +13,7 @@ using NCI = EndevFWNetCore.NetComInstruction;
 namespace EndevFWNetCore
 {
 #pragma warning disable 0168
-    public class NetComServer : INetComUser
+    public class NetComServer : NetComUser
     {
         //===================================================================================================================
         //===================================================================================================================
@@ -42,10 +42,6 @@ namespace EndevFWNetCore
         public NetComInstructionQueue IncommingInstructions { get; private set; } = new NetComInstructionQueue();
         public NetComInstructionQueue OutgoingInstructions { get; private set; } = new NetComInstructionQueue();
         public NetComClientList LClientList { get; private set; } = new NetComClientList();
-        public NetComRSAHandler RSA { get; private set; } = new NetComRSAHandler();
-
-        public static INetComUser LocalUser { get; private set; } = null;
-
         #endregion
 
         #region -=[- DELEGATES -]=-
@@ -84,7 +80,7 @@ namespace EndevFWNetCore
         {
             Port = pPort;
 
-            NetComInstruction.LocalUser = this;
+            NetComUser.LocalUser = this;
         }
 
         #endregion
@@ -222,6 +218,7 @@ namespace EndevFWNetCore
 
         private void ProcessNextInstruction()
         {
+
             // TODO
             // Check if User is Authenticated
             // Else Reply to Client with the same message as sent, 

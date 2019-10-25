@@ -24,11 +24,11 @@ namespace EndevFWNetCore
         public object[] Parameters { get; set; } = null;
         public string ReplyRequest { get; set; } = null;
 
-        public NetComInstruction(INetComUser pUser) : this(pUser, null, null, null) { }
-        public NetComInstruction(INetComUser pUser, string pValue) : this(pUser, pValue, null, null) { }
-        public NetComInstruction(INetComUser pUser, string pValue, object[] pParameters) : this(pUser, pValue, pParameters, null) { }
-        public NetComInstruction(INetComUser pUser, string pValue, string pReplyRequest) : this(pUser, pValue, null, pReplyRequest) { }
-        public NetComInstruction(INetComUser pUser, string pValue, object[] pParameters, string pReplyRequest)
+        public NetComInstruction(NetComUser pUser) : this(pUser, null, null, null) { }
+        public NetComInstruction(NetComUser pUser, string pValue) : this(pUser, pValue, null, null) { }
+        public NetComInstruction(NetComUser pUser, string pValue, object[] pParameters) : this(pUser, pValue, pParameters, null) { }
+        public NetComInstruction(NetComUser pUser, string pValue, string pReplyRequest) : this(pUser, pValue, null, pReplyRequest) { }
+        public NetComInstruction(NetComUser pUser, string pValue, object[] pParameters, string pReplyRequest)
         {
             MsgType = MessageType.INSTRUCTION;
             if (pUser.GetType() == typeof(NetComClient))
@@ -83,7 +83,7 @@ namespace EndevFWNetCore
         // ToString is identical to Encode
         public sealed override string ToString() => Encode();
 
-        public static IEnumerable<NetComInstruction> Parse(INetComUser pLocalUser, string pNetComInstructionString)
+        public static IEnumerable<NetComInstruction> Parse(NetComUser pLocalUser, string pNetComInstructionString)
         {
             NetComRSAHandler RSA = null;
             
@@ -148,7 +148,7 @@ namespace EndevFWNetCore
                     }
                 }
 
-                yield return (NetComInstruction) Activator.CreateInstance(Type.GetType(instruction), new NetComUserDummy(username, password, value) as INetComUser, value, parameters.ToArray(), replyrequest);
+                yield return (NetComInstruction) Activator.CreateInstance(Type.GetType(instruction), new NetComUserDummy(username, password, value) as NetComUser, value, parameters.ToArray(), replyrequest);
             }
         }
     }
