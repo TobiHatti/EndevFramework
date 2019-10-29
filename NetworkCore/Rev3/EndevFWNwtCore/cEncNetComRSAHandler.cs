@@ -7,6 +7,16 @@ using System.Threading.Tasks;
 namespace EndevFWNwtCore
 {
     /// <summary>
+    /// Contains the public and the 
+    /// private key of an user
+    /// </summary>
+    public struct RSAKeyPair
+    {
+        public string PrivateKey;
+        public string PublicKey;
+    }
+
+    /// <summary>
     /// =====================================   <para />
     /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
     /// SUB-PACKAGE: Encoding-Handlers          <para />
@@ -18,6 +28,6 @@ namespace EndevFWNwtCore
     /// </summary>
     public class RSAHandler
     {
-
+       
     }
 }
