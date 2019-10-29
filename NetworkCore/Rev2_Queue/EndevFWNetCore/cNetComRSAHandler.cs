@@ -35,14 +35,16 @@ namespace EndevFWNetCore
 
             rsa.FromXmlString(PrivateKey);
             var decryptedByte = rsa.Decrypt(dataByte, false);
-            return encoder.GetString(decryptedByte);
+            return Encoding.Unicode.GetString(decryptedByte);
+            //return encoder.GetString(decryptedByte);
         }
 
         public string Encrypt(string data, string pPartnerPublicKey)
         {
             var rsa = new RSACryptoServiceProvider();
             rsa.FromXmlString(pPartnerPublicKey);
-            var dataToEncrypt = encoder.GetBytes(data);
+            var dataToEncrypt = Encoding.Unicode.GetBytes(data);
+            //var dataToEncrypt = encoder.GetBytes(data);
             var encryptedByteArray = rsa.Encrypt(dataToEncrypt, false).ToArray();
             var length = encryptedByteArray.Count();
             var item = 0;
