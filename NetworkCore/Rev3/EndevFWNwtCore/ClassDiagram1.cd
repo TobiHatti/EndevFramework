@@ -8,28 +8,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.Base64Handler">
-    <Position X="11.5" Y="1.75" Width="1.5" />
+    <Position X="13.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cEncNetComBase64Handler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.RSAHandler">
-    <Position X="11.5" Y="0.5" Width="1.5" />
+    <Position X="11.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAABAAAAAA=</HashCode>
       <FileName>cEncNetComRSAHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComException">
-    <Position X="14" Y="0.5" Width="1.5" />
+    <Position X="14" Y="0.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComNotImplementedException">
-    <Position X="14" Y="2" Width="2.75" />
+    <Position X="14" Y="2" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
@@ -65,21 +65,21 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="EndevFWNwtCore.NetComCData">
-    <Position X="5.25" Y="1.75" Width="1.5" />
+    <Position X="5.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComCData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComClient">
-    <Position X="3" Y="3.25" Width="1.5" />
+    <Position X="3" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.ClientList" BaseTypeListCollapsed="true">
-    <Position X="5.5" Y="3.5" Width="1.5" />
+    <Position X="5.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComClientList.cs</FileName>
@@ -87,14 +87,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="EndevFWNwtCore.NetComOperator">
-    <Position X="1.75" Y="1.75" Width="1.5" />
+    <Position X="1.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComServer">
-    <Position X="0.75" Y="3.25" Width="1.5" />
+    <Position X="0.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
