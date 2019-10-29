@@ -25,9 +25,6 @@ namespace EndevFWNetCore
         private IPAddress ServerIP = null;
         private Socket ClientSocket = null;
 
-        
-        
-
         private Thread CommandProcessingThread = null;
         private Thread CommandSendingThread = null;
         private Thread CommandReceptionThread = null;
@@ -189,7 +186,9 @@ namespace EndevFWNetCore
             Array.Copy(Buffer, data, received);
             string text = Encoding.UTF8.GetString(data);
 
-            Debug("Received Message: " + text);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Debug("Received Message: " + text, DebugParams);
+            Console.ForegroundColor = ConsoleColor.White;
 
             NetComInstruction[] instructionList = NetComInstruction.Parse(this, text).ToArray();
 

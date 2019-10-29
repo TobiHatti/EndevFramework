@@ -152,8 +152,16 @@ namespace EndevFWNetCore
         {
             if (pClient != null)
             {
-                Debug($"Queueing message for {pClient.Username}: {pInstruction}", DebugParams);
-                OutgoingInstructions.Add(pInstruction, pClient);
+                byte[] data;
+
+                if (pInstruction.RSAEncrypted && pInstruction.Client.PublicKey != null)
+                    data = Encoding.UTF8.GetBytes(pInstruction.Encode(true, pInstruction.Client.PublicKey));
+                else
+                    data = Encoding.UTF8.GetBytes(pInstruction.Encode(false));
+
+                pClient.Send(data);
+
+                Debug($"Sent Message to {pInstruction.Username}: {pInstruction.Instruction}.", DebugParams);
             }
         }
 
@@ -161,8 +169,16 @@ namespace EndevFWNetCore
         {
             foreach (NetComClientData client in LClientList)
             {
-                Debug($"Queueing message for {client.Username}: {pInstruction}", DebugParams);
-                OutgoingInstructions.Add(pInstruction, client);
+                byte[] data;
+
+                if (pInstruction.RSAEncrypted && pInstruction.Client.PublicKey != null)
+                    data = Encoding.UTF8.GetBytes(pInstruction.Encode(true, pInstruction.Client.PublicKey));
+                else
+                    data = Encoding.UTF8.GetBytes(pInstruction.Encode(false));
+
+                client.Send(data);
+
+                Debug($"Sent Message to {pInstruction.Username}: {pInstruction.Instruction}.", DebugParams);
             }
         }
 
@@ -252,27 +268,19 @@ namespace EndevFWNetCore
         {
             if (OutgoingInstructions.Count > 0)
             {
-          
-                    Socket current = OutgoingInstructions[0]?.Client?.Socket;
-                    byte[] data;
+                Socket current = OutgoingInstructions[0]?.Client?.Socket;
+                byte[] data;
 
+                if (OutgoingInstructions[0].RSAEncrypted && OutgoingInstructions[0].Client.PublicKey != null) 
+                    data = Encoding.UTF8.GetBytes(OutgoingInstructions[0].Instruction.Encode(true, OutgoingInstructions[0].Client.PublicKey));
+                else
+                    data = Encoding.UTF8.GetBytes(OutgoingInstructions[0].Instruction.Encode(false));
 
-                    if (OutgoingInstructions[0].RSAEncrypted && OutgoingInstructions[0].Client.PublicKey != null)
-                    {
-                        data = Encoding.UTF8.GetBytes(OutgoingInstructions[0].Instruction.Encode(true, OutgoingInstructions[0].Client.PublicKey));
-                    }
-                    else
-                    {
-                        data = Encoding.UTF8.GetBytes(OutgoingInstructions[0].Instruction.Encode(false));
-                    }
+                current.Send(data);
 
-                    current.Send(data);
+                Debug($"Sent Message to {OutgoingInstructions[0].Client.Username}: {OutgoingInstructions[0].Instruction}.", DebugParams);
 
-                    Debug($"Sent Message to {OutgoingInstructions[0].Client.Username}: {OutgoingInstructions[0].Instruction}.", DebugParams);
-
-                    OutgoingInstructions.RemoveAt(0);
-             
- 
+                OutgoingInstructions.RemoveAt(0);
             }
         }
 
@@ -340,7 +348,9 @@ namespace EndevFWNetCore
             Array.Copy(Buffer, recBuf, received);
             string text = Encoding.UTF8.GetString(recBuf);
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Debug("Received message: " + text, DebugParams);
+            Console.ForegroundColor = ConsoleColor.White;
 
 
             NetComInstruction[] instructionList = NetComInstruction.Parse(this, text).ToArray();

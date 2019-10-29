@@ -1,0 +1,15 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFWNetCore\bin\Debug\EndevFWNetCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFWNetCore\bin\Debug\EndevFWNetCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFWNetCore\obj\Debug\EndevFWNetCore.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFWNetCore\obj\Debug\EndevFWNetCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2\EndevFWNetCore\obj\Debug\EndevFWNetCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2_NoQueue\EndevFWNetCore\bin\Debug\EndevFWNetCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2_NoQueue\EndevFWNetCore\bin\Debug\EndevFWNetCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2_NoQueue\EndevFWNetCore\obj\Debug\EndevFWNetCore.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2_NoQueue\EndevFWNetCore\obj\Debug\EndevFWNetCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2_NoQueue\EndevFWNetCore\obj\Debug\EndevFWNetCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2_Queue\EndevFWNetCore\bin\Debug\EndevFWNetCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2_Queue\EndevFWNetCore\bin\Debug\EndevFWNetCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2_Queue\EndevFWNetCore\obj\Debug\EndevFWNetCore.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2_Queue\EndevFWNetCore\obj\Debug\EndevFWNetCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev2_Queue\EndevFWNetCore\obj\Debug\EndevFWNetCore.pdb
