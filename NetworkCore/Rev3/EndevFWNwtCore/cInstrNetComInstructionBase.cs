@@ -12,7 +12,8 @@ namespace EndevFWNwtCore
     /// SUB-PACKAGE: Instruction-Objects        <para />
     /// =====================================   <para />
     /// DESCRIPTION:                            <para />
-    /// 
+    /// Provides the base-foundation for NetCom-
+    /// Instructions.
     /// </summary>
     public abstract class InstructionBase
     {

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DD0DA5D1-ADF8-4080-928F-01A06AA74F6E}</ProjectGuid>
+    <ProjectGuid>{30FAEDF9-F030-4BC3-888E-84C5EF8BE8AD}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SampleAppServer</RootNamespace>
-    <AssemblyName>SampleAppServer</AssemblyName>
+    <RootNamespace>SampleStartupAssist</RootNamespace>
+    <AssemblyName>SampleStartupAssist</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cServer.cs" />
+    <Compile Include="cStartup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

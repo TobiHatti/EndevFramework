@@ -7,7 +7,13 @@ using System.Threading.Tasks;
 namespace EndevFWNwtCore
 {
     /// <summary>
-    /// Basic object for NetCom-Operators (Client/Server)
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: User-Objects               <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Basic object for NetCom-Operators 
+    /// (Client/Server)
     /// </summary>
     public abstract class NetComOperator : NetComUser
     {

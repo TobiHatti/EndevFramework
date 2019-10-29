@@ -1,0 +1,4 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\EndevFWNwtCore\bin\Debug\EndevFWNwtCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\EndevFWNwtCore\bin\Debug\EndevFWNwtCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\EndevFWNwtCore\obj\Debug\EndevFWNwtCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\EndevFWNwtCore\obj\Debug\EndevFWNwtCore.pdb
