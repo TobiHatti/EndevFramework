@@ -19,6 +19,11 @@ namespace EndevFWNwtCore
     /// </summary>
     public class InstructionLibraryExtension : InstructionLibraryBase
     {
-        
+         
+
+        class MyInstr : ISB
+        {
+
+        }
     }
 }

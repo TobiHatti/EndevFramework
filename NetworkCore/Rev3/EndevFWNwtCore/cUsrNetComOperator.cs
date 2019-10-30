@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EndevFWNwtCore
@@ -26,8 +27,12 @@ namespace EndevFWNwtCore
 
         protected InstructionQueue incommingInstructions = new InstructionQueue();
         protected InstructionQueue outgoingInstructions = new InstructionQueue();
-        
-        
 
+        protected delegate void DebuggingOutput(string pDebugMessage, params object[] pParameters);
+        protected DebuggingOutput Debug = null;
+        protected object[] debugParams = null;
+
+        protected Thread instructionProcessingThread = null;
+        protected Thread instructionSendingThread = null;
     }
 }

@@ -17,6 +17,11 @@ namespace EndevFWNwtCore
     /// </summary>
     public class NetComServer : NetComOperator
     {
-        
+        private ClientList LClients = new ClientList();
+
+        public NetComServer(int pPort)
+        {
+            port = pPort;
+        }
     }
 }

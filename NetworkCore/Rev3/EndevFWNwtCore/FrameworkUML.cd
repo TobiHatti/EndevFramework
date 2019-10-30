@@ -36,21 +36,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionBase">
-    <Position X="8" Y="1.75" Width="1.5" />
+    <Position X="8.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionLibraryBase">
-    <Position X="5.5" Y="5.5" Width="1.75" />
+    <Position X="5.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionLibraryBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionLibraryExtension">
-    <Position X="5.5" Y="7" Width="2.25" />
+    <Position X="5.5" Y="1.75" Width="2.25" />
+    <NestedTypes>
+      <Class Name="EndevFWNwtCore.InstructionLibraryExtension.MyInstr" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryExtension.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionLibraryExtension.cs</FileName>
@@ -65,16 +72,16 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="EndevFWNwtCore.NetComCData">
-    <Position X="5.25" Y="3.5" Width="1.5" />
+    <Position X="0.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComCData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComClient">
-    <Position X="3" Y="5.25" Width="1.5" />
+    <Position X="1.75" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -87,21 +94,31 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="EndevFWNwtCore.NetComOperator">
-    <Position X="1.75" Y="3.5" Width="1.5" />
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="EndevFWNwtCore.NetComOperator.DebuggingOutput" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cUsrNetComOperator.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAiAAABAAIAABAA=</HashCode>
+      <HashCode>AAAAAAAAQAAIAIAAAAAAAAAAAAAAAAiAAABAAIAgBAg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComServer">
-    <Position X="0.75" Y="5.25" Width="1.5" />
+    <Position X="3.75" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComUser">
-    <Position X="3" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQIAQAAAAAAAAAAAAACAACAAAAAAAA=</HashCode>
       <FileName>cUsrNetComUser.cs</FileName>
