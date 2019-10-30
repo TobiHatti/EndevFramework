@@ -34,5 +34,24 @@ namespace EndevFWNwtCore
 
         protected Thread instructionProcessingThread = null;
         protected Thread instructionSendingThread = null;
+
+        public void AsyncInstructionSendingLoop()
+        {
+            while(/*......*/ true)
+            {
+
+            }
+        }
+
+        public void AsyncInstructionProcessingLoop()
+        {
+            while (/*......*/ true)
+            {
+
+            }
+        }
+
+        public abstract void AsyncInstructionSendNext();
+        public abstract void AsyncInstructionProcessNext();
     }
 }

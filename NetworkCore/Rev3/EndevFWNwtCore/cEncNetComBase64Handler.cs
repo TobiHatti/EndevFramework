@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Segment Complete [Last Modified 30.10.2019]
+
 namespace EndevFWNwtCore
 {
     /// <summary>
@@ -16,6 +18,22 @@ namespace EndevFWNwtCore
     /// </summary>
     public class Base64Handler
     {
+        /// <summary>
+        /// Converts a string into a 
+        /// Base64-encoded string.
+        /// </summary>
+        /// <param name="pPlainText">Plain text to be encoded</param>
+        /// <returns>Base64-Encoded string</returns>
+        private string B64E(string pPlainText) 
+            => Convert.ToBase64String(Encoding.UTF8.GetBytes(pPlainText));
 
+        /// <summary>
+        /// Decodes a base64-encoded string into
+        /// a readable plain-text string
+        /// </summary>
+        /// <param name="pBase64String">Base64 string to be decoded</param>
+        /// <returns>Plain text string</returns>
+        private static string B64D(string pBase64String) 
+            => Encoding.UTF8.GetString(Convert.FromBase64String(pBase64String));
     }
 }

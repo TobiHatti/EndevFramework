@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Segment Complete [Last Modified 29.10.2019]
+
 namespace EndevFWNwtCore
 {
     /// <summary>
