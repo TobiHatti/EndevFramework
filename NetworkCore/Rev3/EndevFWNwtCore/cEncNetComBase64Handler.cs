@@ -24,7 +24,7 @@ namespace EndevFWNwtCore
         /// </summary>
         /// <param name="pPlainText">Plain text to be encoded</param>
         /// <returns>Base64-Encoded string</returns>
-        private string B64E(string pPlainText) 
+        public static string Encode(string pPlainText) 
             => Convert.ToBase64String(Encoding.UTF8.GetBytes(pPlainText));
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace EndevFWNwtCore
         /// </summary>
         /// <param name="pBase64String">Base64 string to be decoded</param>
         /// <returns>Plain text string</returns>
-        private static string B64D(string pBase64String) 
+        public static string Decode(string pBase64String) 
             => Encoding.UTF8.GetString(Convert.FromBase64String(pBase64String));
     }
 }
