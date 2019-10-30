@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EndevFWNwtCore\EndevFWNetCore.csproj">
+      <Project>{7FACA40E-FF37-499B-A185-873CB98CB538}</Project>
+      <Name>EndevFWNetCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

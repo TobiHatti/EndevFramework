@@ -47,7 +47,7 @@
     <Compile Include="cEncNetComRSAHandler.cs" />
     <Compile Include="cExcNetComExceptions.cs" />
     <Compile Include="cInstrNetComInstructionBase.cs" />
-    <Compile Include="cInstrNetComInstructionLibraryBase.cs" />
+    <Compile Include="cInstrNetComInstructionLibraryEssentials.cs" />
     <Compile Include="cInstrNetComInstructionLibraryExtension.cs" />
     <Compile Include="cInstrNetComInstructionQueue.cs" />
     <Compile Include="cUsrNetComCData.cs" />

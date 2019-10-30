@@ -17,13 +17,9 @@ namespace EndevFWNwtCore
     /// Instructions must inherit ISB 
     /// (InstructionBase) class
     /// </summary>
-    public class InstructionLibraryExtension : InstructionLibraryBase
+    public class InstructionLibraryExtension : InstructionLibraryEssentials
     {
          
 
-        class MyInstr : ISB
-        {
-
-        }
     }
 }

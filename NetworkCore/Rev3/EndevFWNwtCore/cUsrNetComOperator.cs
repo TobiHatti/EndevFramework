@@ -23,10 +23,10 @@ namespace EndevFWNwtCore
         protected int port = 2225;
 
         protected const int bufferSize = 1024;
-        protected byte[] buffer = new byte[bufferSize];
+        protected volatile byte[] buffer = new byte[bufferSize];
 
-        protected InstructionQueue incommingInstructions = new InstructionQueue();
-        protected InstructionQueue outgoingInstructions = new InstructionQueue();
+        protected volatile InstructionQueue incommingInstructions = new InstructionQueue();
+        protected volatile InstructionQueue outgoingInstructions = new InstructionQueue();
 
         protected delegate void DebuggingOutput(string pDebugMessage, params object[] pParameters);
         protected DebuggingOutput Debug = null;
@@ -39,7 +39,7 @@ namespace EndevFWNwtCore
         {
             while(/*......*/ true)
             {
-
+                AsyncInstructionSendNext();
             }
         }
 
@@ -53,5 +53,7 @@ namespace EndevFWNwtCore
 
         public abstract void AsyncInstructionSendNext();
         public abstract void AsyncInstructionProcessNext();
+
+        
     }
 }

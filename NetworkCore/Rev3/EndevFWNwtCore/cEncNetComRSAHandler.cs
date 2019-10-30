@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-// Segment Complete [Last Modified 29.10.2019]
+// Segment Complete [Last Modified 30.10.2019]
 
 namespace EndevFWNwtCore
 {
@@ -32,6 +32,7 @@ namespace EndevFWNwtCore
     public class RSAHandler
     {
         private static char RSAByteDelimiter = '-';
+        private static UnicodeEncoding encoder = new UnicodeEncoding();
 
         /// <summary>
         /// Generates a unique key-pair for RSA-encryption
@@ -57,7 +58,7 @@ namespace EndevFWNwtCore
         {
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
             rsa.FromXmlString(pPartnerPublicKey);
-            byte[] dataToEncrypt = Encoding.Unicode.GetBytes(pData);
+            byte[] dataToEncrypt = encoder.GetBytes(pData);
             byte[] encryptedByteArray = rsa.Encrypt(dataToEncrypt, false).ToArray();
             int length = encryptedByteArray.Count();
             int item = 0;
@@ -88,7 +89,52 @@ namespace EndevFWNwtCore
             }
             rsa.FromXmlString(pLocalPrivateKey);
             byte[] decryptedByte = rsa.Decrypt(dataByte, false);
-            return Encoding.Unicode.GetString(decryptedByte);
+            return encoder.GetString(decryptedByte);
+        }
+
+        /// <summary>
+        /// Creates a SHA256-Based signature using the senders private key
+        /// </summary>
+        /// <param name="pLocalPrivateKey">Private-Key of the sender</param>
+        /// <param name="pData">String used for the signature</param>
+        /// <returns>The encrypted data-String</returns>
+        public static string Sign(string pLocalPrivateKey, string pData)
+        {
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            rsa.FromXmlString(pLocalPrivateKey);
+            byte[] dataToEncrypt = encoder.GetBytes(pData);
+            byte[] encryptedByteArray = rsa.SignData(dataToEncrypt, new SHA256CryptoServiceProvider()).ToArray();
+            int length = encryptedByteArray.Count();
+            int item = 0;
+            StringBuilder sb = new StringBuilder();
+            foreach (byte x in encryptedByteArray)
+            {
+                item++;
+                sb.Append(x);
+                if (item < length) sb.Append(RSAByteDelimiter);
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Checks if the signature of the partner is valid
+        /// </summary>
+        /// <param name="pPartnerPublicKey">Public-Key of the user (sender)</param>
+        /// <param name="pOriginalMessage">Original, unencrypted signature</param>
+        /// <param name="pSignedMessage">RSA-Encrypted Signature</param>
+        /// <returns></returns>
+        public static bool Verify(string pPartnerPublicKey, string pOriginalMessage, string pSignedMessage)
+        {
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            string[] dataArray = pSignedMessage.Split(new char[] { RSAByteDelimiter });
+            byte[] dataByte = new byte[dataArray.Length];
+            for (int i = 0; i < dataArray.Length; i++)
+            {
+                dataByte[i] = Convert.ToByte(dataArray[i]);
+            }
+            rsa.FromXmlString(pPartnerPublicKey);
+
+            return rsa.VerifyData(encoder.GetBytes(pOriginalMessage), new SHA256CryptoServiceProvider(), dataByte);
         }
     }
 }

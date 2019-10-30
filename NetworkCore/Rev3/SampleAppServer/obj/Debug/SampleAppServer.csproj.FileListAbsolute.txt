@@ -3,3 +3,7 @@ C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppSe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\bin\Debug\SampleAppServer.pdb
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\obj\Debug\SampleAppServer.exe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\obj\Debug\SampleAppServer.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\obj\Debug\SampleAppServer.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\bin\Debug\EndevFWNwtCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\bin\Debug\EndevFWNwtCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\obj\Debug\SampleAppServer.csproj.CopyComplete

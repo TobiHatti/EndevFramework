@@ -29,7 +29,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComNotImplementedException">
-    <Position X="9.25" Y="4.75" Width="3.75" />
+    <Position X="9.5" Y="5.5" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
@@ -38,15 +38,15 @@
   <Class Name="EndevFWNwtCore.InstructionBase">
     <Position X="8.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAABAAAQEAAAAAAEAAAAAACAACAAAAgCAAAA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.InstructionLibraryBase">
+  <Class Name="EndevFWNwtCore.InstructionLibraryEssentials">
     <Position X="5.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>cInstrNetComInstructionLibraryBase.cs</FileName>
+      <FileName>cInstrNetComInstructionLibraryEssentials.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionLibraryExtension">
@@ -79,7 +79,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComClient">
-    <Position X="1.75" Y="6" Width="1.5" />
+    <Position X="1.25" Y="6.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
@@ -94,7 +94,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="EndevFWNwtCore.NetComOperator">
-    <Position X="2.75" Y="0.5" Width="1.5" />
+    <Position X="2.75" Y="0.5" Width="2.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -111,7 +111,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComServer">
-    <Position X="3.75" Y="6" Width="1.5" />
+    <Position X="4.5" Y="6.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAIAAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>

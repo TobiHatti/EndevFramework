@@ -17,6 +17,6 @@ namespace EndevFWNwtCore
     /// </summary>
     public class NetComCData : NetComUser
     {
-
+        
     }
 }
