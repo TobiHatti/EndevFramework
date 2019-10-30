@@ -19,7 +19,7 @@ namespace EndevFWNwtCore
     /// </summary>
     public class InstructionLibraryExtension : InstructionLibraryEssentials
     {
-         
+
 
     }
 }

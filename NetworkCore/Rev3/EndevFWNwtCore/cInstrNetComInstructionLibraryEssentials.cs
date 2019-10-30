@@ -19,6 +19,14 @@ namespace EndevFWNwtCore
     /// </summary>
     public class InstructionLibraryEssentials
     {
+        public class MySampleInstruction : ISB
+        {
+            public MySampleInstruction(NetComUser pUser, string pValue) : base(pUser, pValue, null) { }
 
+            public override void Execute()
+            {
+                System.Windows.Forms.MessageBox.Show("Yo i is msg-boxxy");
+            }
+        }
     }
 }

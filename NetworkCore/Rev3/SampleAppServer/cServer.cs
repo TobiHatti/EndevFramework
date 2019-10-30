@@ -18,9 +18,20 @@ namespace SampleAppServer
             Console.WriteLine("=            S E R V E R          =");
             Console.WriteLine("===================================\r\n");
 
+            NetComUser user = new NetComUser();
+            NetComUser rec = new NetComUser();
+            
+
+            InstructionBase instr = new InstructionLibraryExtension.MySampleInstruction(user, "Hallo");
+
+            string msgString = instr.Encode(rec);
+
+            Console.WriteLine(msgString);
 
 
+            InstructionBase[] result = InstructionOperations.Parse(msgString).ToArray();
 
+            instr.Execute();
 
 
             RSAKeyPair user1 = RSAHandler.GenerateKeyPair();

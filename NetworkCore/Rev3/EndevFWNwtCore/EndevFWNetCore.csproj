@@ -49,6 +49,7 @@
     <Compile Include="cInstrNetComInstructionBase.cs" />
     <Compile Include="cInstrNetComInstructionLibraryEssentials.cs" />
     <Compile Include="cInstrNetComInstructionLibraryExtension.cs" />
+    <Compile Include="cInstrNetComInstructionOperations.cs" />
     <Compile Include="cInstrNetComInstructionQueue.cs" />
     <Compile Include="cUsrNetComCData.cs" />
     <Compile Include="cUsrNetComClient.cs" />
