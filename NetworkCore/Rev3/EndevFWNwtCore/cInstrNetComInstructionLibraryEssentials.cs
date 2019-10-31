@@ -25,7 +25,7 @@ namespace EndevFWNwtCore
 
             public override void Execute()
             {
-                System.Windows.Forms.MessageBox.Show("Yo i is msg-boxxy");
+                System.Windows.Forms.MessageBox.Show(value);
             }
         }
     }

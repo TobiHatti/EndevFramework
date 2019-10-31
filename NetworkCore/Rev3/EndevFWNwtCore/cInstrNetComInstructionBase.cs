@@ -51,15 +51,14 @@ namespace EndevFWNwtCore
 
             if (rsaEncryption) sb.Append("RSA:");
 
-            sb.Append("{");
 
             // User Data
-            if (user?.RSAKeys.PublicKey != null) innersb.Append($"[PUK:{Base64Handler.Encode(user?.RSAKeys.PublicKey)}],");
-            if (user?.Username != null) innersb.Append($"[USR:{Base64Handler.Encode(user?.Username)}],");
+            if (user?.RSAKeys.PublicKey != null) innersb.Append($"PUK:{Base64Handler.Encode(user?.RSAKeys.PublicKey)},");
+            if (user?.Username != null) innersb.Append($"USR:{Base64Handler.Encode(user?.Username)},");
             if (user?.Password != null)
             {
-                if(rsaEncryption) innersb.Append($"[PSW:{RSAHandler.Encrypt(pReceiver?.RSAKeys.PublicKey, user?.Password)}],");
-                else innersb.Append($"[PSW:{Base64Handler.Encode(user?.Password)}],");
+                if(rsaEncryption) innersb.Append($"PSW:{RSAHandler.Encrypt(pReceiver?.RSAKeys.PublicKey, user?.Password)},");
+                else innersb.Append($"PSW:{Base64Handler.Encode(user?.Password)},");
             }
             
             // Signature
@@ -67,24 +66,24 @@ namespace EndevFWNwtCore
             {
                 Guid signature = Guid.NewGuid();
 
-                innersb.Append($"[SGP:{Base64Handler.Encode(signature.ToString())}],");
-                innersb.Append($"[SGP:{RSAHandler.Sign(user?.RSAKeys.PrivateKey, signature.ToString())}],");
+                innersb.Append($"SGP:{Base64Handler.Encode(signature.ToString())},");
+                innersb.Append($"SGP:{RSAHandler.Sign(user?.RSAKeys.PrivateKey, signature.ToString())},");
             }
 
             // Actuall data
-            if(instruction != null) innersb.Append($"[INS:{Base64Handler.Encode(instruction)}],");
-            if(value != null)       innersb.Append($"[VAL:{Base64Handler.Encode(value)}],");
+            if(instruction != null) innersb.Append($"INS:{Base64Handler.Encode(instruction)},");
+            if(value != null)       innersb.Append($"VAL:{Base64Handler.Encode(value)},");
 
             if (parameters != null)
             {
-                innersb.Append($"[PAR:");
+                innersb.Append($"PAR:");
                 foreach (object param in parameters)
-                    innersb.Append($"<{Base64Handler.Encode(param.GetType().AssemblyQualifiedName)}#{Base64Handler.Encode(param.ToString())}>|");
-                innersb.Append($"],");
+                    innersb.Append($"{Base64Handler.Encode(param.GetType().AssemblyQualifiedName)}#{Base64Handler.Encode(param.ToString())}|");
+                innersb.Append($",");
             }
 
             sb.Append(Base64Handler.Encode(innersb.ToString()));
-            sb.Append("};");
+            sb.Append(";");
 
             return sb.ToString();
         }

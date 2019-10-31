@@ -22,16 +22,29 @@ namespace SampleAppServer
             NetComUser rec = new NetComUser();
             
 
-            InstructionBase instr = new InstructionLibraryExtension.MySampleInstruction(user, "Hallo");
+            InstructionBase instr1 = new InstructionLibraryExtension.MySampleInstruction(user, "Hallo");
+            InstructionBase instr2 = new InstructionLibraryExtension.MySampleInstruction(user, "i");
+            InstructionBase instr3 = new InstructionLibraryExtension.MySampleInstruction(user, "bin");
+            InstructionBase instr4 = new InstructionLibraryExtension.MySampleInstruction(user, "da");
+            InstructionBase instr5 = new InstructionLibraryExtension.MySampleInstruction(user, "Adam");
+            InstructionBase instr6 = new InstructionLibraryExtension.MySampleInstruction(user, "aus");
+            InstructionBase instr7 = new InstructionLibraryExtension.MySampleInstruction(user, "Tirol");
 
-            string msgString = instr.Encode(rec);
+            string msgString = instr1.Encode(rec);
+            msgString += instr2.Encode(rec);
+            msgString += instr3.Encode(rec);
+            msgString += instr4.Encode(rec);
+            msgString += instr5.Encode(rec);
+            msgString += instr6.Encode(rec);
+            msgString += instr7.Encode(rec);
 
             Console.WriteLine(msgString);
 
 
-            InstructionBase[] result = InstructionOperations.Parse(msgString).ToArray();
+            InstructionBase[] result = InstructionOperations.Parse(user, null, msgString).ToArray();
 
-            instr.Execute();
+            foreach (InstructionBase res in result)
+                res.Execute();
 
 
             RSAKeyPair user1 = RSAHandler.GenerateKeyPair();
