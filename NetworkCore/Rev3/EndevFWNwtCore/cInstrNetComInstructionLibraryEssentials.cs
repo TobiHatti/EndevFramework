@@ -28,5 +28,20 @@ namespace EndevFWNwtCore
                 System.Windows.Forms.MessageBox.Show(value);
             }
         }
+
+        public class MyParamInstruction : ISB
+        {
+            public MyParamInstruction(NetComUser pUser, string pValue, params object[] pParameters)
+                : base(pUser, pValue, pParameters) { }
+
+            public MyParamInstruction(NetComUser pUser, string pValue, string myValue, int myNumber, char myCharacter) 
+                : this(pUser, pValue, new object[] { myValue, myNumber, myCharacter }) { }
+
+           
+            public override void Execute()
+            {
+                System.Windows.Forms.MessageBox.Show(value);
+            }
+        }
     }
 }

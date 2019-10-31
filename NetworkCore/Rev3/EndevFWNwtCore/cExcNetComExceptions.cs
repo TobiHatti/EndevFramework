@@ -70,4 +70,20 @@ namespace EndevFWNwtCore
         public NetComAuthenticationException(string message) : base(message) { }
         public NetComAuthenticationException(string message, Exception innerException) : base(message, innerException) { }
     }
+
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Exceptions                 <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Provides a exception that can be thrown
+    /// when a parsing error occures
+    /// </summary>
+    public class NetComParsingException : NetComException
+    {
+        public NetComParsingException() { }
+        public NetComParsingException(string message) : base(message) { }
+        public NetComParsingException(string message, Exception innerException) : base(message, innerException) { }
+    }
 }

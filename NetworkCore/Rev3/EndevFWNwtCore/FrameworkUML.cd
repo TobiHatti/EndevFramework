@@ -36,7 +36,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionBase">
-    <Position X="7.5" Y="6.25" Width="1.5" />
+    <Position X="7.25" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAQAAAAAAAAAAAAAACAACAAAAACAAQA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
@@ -48,6 +48,11 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MyParamInstruction">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
       <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MySampleInstruction">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
@@ -80,7 +85,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Delegate Name="EndevFWNwtCore.NetComCData.AuthenticationTool" Collapsed="true">
+      <Delegate Name="EndevFWNwtCore.NetComCData.AuthenticationTool">
         <TypeIdentifier>
           <NewMemberFileName>cUsrNetComCData.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -92,7 +97,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComClient">
-    <Position X="1.5" Y="7.25" Width="2.25" />
+    <Position X="1.5" Y="7.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
@@ -124,7 +129,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComServer">
-    <Position X="4.5" Y="7.25" Width="2.25" />
+    <Position X="4.5" Y="7.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAIAAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
@@ -162,6 +167,13 @@
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionOperations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndevFWNwtCore.NetComParsingException">
+    <Position X="10.75" Y="4" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

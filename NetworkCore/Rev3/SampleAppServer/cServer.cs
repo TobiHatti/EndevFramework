@@ -26,6 +26,7 @@ namespace SampleAppServer
             InstructionBase instr2 = new InstructionLibraryExtension.MySampleInstruction(user, "i");
             InstructionBase instr3 = new InstructionLibraryExtension.MySampleInstruction(user, "bin");
             InstructionBase instr4 = new InstructionLibraryExtension.MySampleInstruction(user, "da");
+            InstructionBase instrX = new InstructionLibraryExtension.MyParamInstruction(user, "da", "Test", 32, 'L');
             InstructionBase instr5 = new InstructionLibraryExtension.MySampleInstruction(user, "Adam");
             InstructionBase instr6 = new InstructionLibraryExtension.MySampleInstruction(user, "aus");
             InstructionBase instr7 = new InstructionLibraryExtension.MySampleInstruction(user, "Tirol");
@@ -35,6 +36,7 @@ namespace SampleAppServer
             msgString += instr3.Encode(rec);
             msgString += instr4.Encode(rec);
             msgString += instr5.Encode(rec);
+            msgString += instrX.Encode(rec);
             msgString += instr6.Encode(rec);
             msgString += instr7.Encode(rec);
 

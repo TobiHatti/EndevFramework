@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+
+// Segment Complete [Last Modified 31.10.2019]
 
 namespace EndevFWNwtCore
 {
@@ -17,6 +20,8 @@ namespace EndevFWNwtCore
             {
                 foreach (string encodedInstruction in pInstructionString.Split(';'))
                 {
+                    if (string.IsNullOrEmpty(encodedInstruction)) continue;
+
                     string username = null;
                     string password = null;
                     string instruction = null;
@@ -27,9 +32,7 @@ namespace EndevFWNwtCore
                     string publicKey = null;
                     NetComUser user = null;
 
-                    if (string.IsNullOrEmpty(encodedInstruction)) continue;
-
-                    // [RSA:]<Base64>
+                    // RSA:<Base64>
 
                     bool rsaEncoded = false;
 
@@ -71,7 +74,39 @@ namespace EndevFWNwtCore
                             case "INS": instruction = Base64Handler.Decode(encodedSegmentParts[1]); break;
                             case "VAL": value = Base64Handler.Decode(encodedSegmentParts[1]); break;
                             case "PAR": 
-                            
+                                    
+                                foreach(string paramGroup in encodedSegmentParts[1].Split('|'))
+                                {
+                                    if (string.IsNullOrEmpty(paramGroup)) continue;
+
+                                    string[] paramParts = paramGroup.Split('#');
+
+                                    string paramTypeStr = Base64Handler.Decode(paramParts[0]);
+                                    string paramValueStr = Base64Handler.Decode(paramParts[1]);
+
+                                    Type paramType = Type.GetType(paramTypeStr);
+
+                                    try
+                                    {
+                                        object convParam = null;
+                                        TypeConverter converter = TypeDescriptor.GetConverter(paramType);
+                                        if (converter != null)
+                                        {
+                                            convParam = converter.ConvertFromString(paramValueStr);
+                                        }
+                                        else convParam = null;
+
+                                        parameters.Add(convParam);
+
+                                    }
+                                    catch (NotSupportedException)
+                                    {
+                                        throw new NetComParsingException($"*** Could not parse the following parameter: Type: {paramTypeStr}, Value: {paramValueStr} ***");
+                                    }
+
+                                    
+                                }
+
                                 break;
                         }
                     }
@@ -99,9 +134,9 @@ namespace EndevFWNwtCore
                         user.SetUserData(username, password, publicKey);
                     }
 
-                    if(value == null && parameters.Count == 0) 
+                    if (value == null && parameters.Count == 0)
                         yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user);
-                    else if(parameters.Count == 0)
+                    else if (parameters.Count == 0)
                         yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, value);
                     else
                         yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, value, parameters.ToArray());
