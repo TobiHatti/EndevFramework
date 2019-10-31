@@ -13,12 +13,13 @@ namespace EndevFWNwtCore
     /// SUB-PACKAGE: Instruction-Objects        <para />
     /// =====================================   <para />
     /// DESCRIPTION:                            <para />
-    /// Contains custom-purpose instructions.   <para />
-    /// Instructions must inherit ISB 
-    /// (InstructionBase) class
+    /// Stores instruction and 
+    /// assigns them to a socket
     /// </summary>
     public class InstructionQueue : IEnumerable
     {
+
+
         public IEnumerator GetEnumerator()
         {
             throw new NetComNotImplementedException();
