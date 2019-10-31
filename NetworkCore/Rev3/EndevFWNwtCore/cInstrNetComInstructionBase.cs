@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Segment Complete [Last Modified 30.10.2019]
+
 namespace EndevFWNwtCore
 {
     /// <summary>
@@ -34,13 +36,6 @@ namespace EndevFWNwtCore
         /// Executes the instruction
         /// </summary>
         public abstract void Execute();
-
-        /// <summary>
-        /// Encodes the message and returns it as a string
-        /// </summary>
-        /// <returns>The encoded string</returns>
-        public sealed override string ToString()
-            => Encode(null);
 
         /// <summary>
         /// Encodes the message and returns it as a string

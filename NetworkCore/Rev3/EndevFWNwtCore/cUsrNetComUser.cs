@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,11 +18,25 @@ namespace EndevFWNwtCore
     /// </summary>
     public class NetComUser
     {
-        protected Socket localSocket = null;
-        protected bool authenticated = false;
+        public Socket LocalSocket { get; protected set; } = null;
+        
 
-        public string Username { get; private set; } = null;
-        public string Password { get; private set; } = null;
-        public RSAKeyPair RSAKeys { get; private set; } 
+        public string Username { get; protected set; } = null;
+        public string Password { get; protected set; } = null;
+        public RSAKeyPair RSAKeys { get; protected set; }
+
+        public void SetUserData(string pUsername, string pPassword, string pPublicKey = null)
+        {
+            Username = pUsername;
+            Password = pPassword;
+
+            if(pPublicKey != null)
+            {
+                RSAKeyPair keys = new RSAKeyPair();
+                keys.PublicKey = null;
+                keys.PrivateKey = pPublicKey;
+                RSAKeys = keys;
+            }
+        }
     }
 }

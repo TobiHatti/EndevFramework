@@ -38,4 +38,36 @@ namespace EndevFWNwtCore
         public NetComNotImplementedException(string message) : base(message) { }
         public NetComNotImplementedException(string message, Exception innerException) : base(message, innerException) { }
     }
+
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Exceptions                 <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Provides a exception that can be thrown
+    /// when a packets signature is invalid
+    /// </summary>
+    public class NetComSignatureException : NetComException
+    {
+        public NetComSignatureException() { }
+        public NetComSignatureException(string message) : base(message) { }
+        public NetComSignatureException(string message, Exception innerException) : base(message, innerException) { }
+    }
+
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Exceptions                 <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Provides a exception that can be thrown
+    /// when a client-authentication fails
+    /// </summary>
+    public class NetComAuthenticationException : NetComException
+    {
+        public NetComAuthenticationException() { }
+        public NetComAuthenticationException(string message) : base(message) { }
+        public NetComAuthenticationException(string message, Exception innerException) : base(message, innerException) { }
+    }
 }

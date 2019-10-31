@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ISB = EndevFWNwtCore.InstructionBase;
 
+// Segment Complete [Last Modified 30.10.2019]
+
 namespace EndevFWNwtCore
 {
     /// <summary>
