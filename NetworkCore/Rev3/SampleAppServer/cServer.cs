@@ -22,6 +22,9 @@ namespace SampleAppServer
 
             NetComServer server = new NetComServer(2225);
 
+            server.SetDebugOutput(DebugOutput.ToConsole);
+
+            server.Start();
 
             Console.ReadKey();
 

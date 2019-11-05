@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace EndevFWNwtCore
     /// </summary>
     public class NetComClient : NetComOperator
     {
-        private Thread instructionReceptionThread = null;
+        private volatile Thread instructionReceptionThread = null;
 
         public NetComClient(string pServerIP, int pPort)
         {
@@ -27,14 +28,66 @@ namespace EndevFWNwtCore
             serverIP = IPAddress.Parse(pServerIP);
         }
 
+
+        public void Start()
+        {
+            Debug("Setting up client...");
+            LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Debug("Client setup complete!");
+
+            TryConnect();
+
+            instructionProcessingThread = new Thread(AsyncInstructionProcessNext);
+            instructionProcessingThread.Start();
+
+            instructionSendingThread = new Thread(AsyncInstructionSendNext);
+            instructionSendingThread.Start();
+
+            instructionReceptionThread = new Thread(AsyncInstructionReceiveNext);
+            instructionReceptionThread.Start();
+        }
+
+        private void TryConnect()
+        {
+            int attempts = 0;
+            while (!LocalSocket.Connected)
+            {
+                try
+                {
+                    attempts++;
+                    Console.WriteLine("Connection attempt " + attempts);
+
+                    LocalSocket.Connect(serverIP, port);
+                }
+                catch (SocketException)
+                {
+
+                }
+            }
+        }
+
+        protected void AsyncInstructionReceptionLoop()
+        {
+            while (true)
+            {
+                AsyncInstructionReceiveNext();
+            }
+        }
+
+
         protected override void AsyncInstructionProcessNext()
         {
-            throw new NotImplementedException();
+
         }
 
         protected override void AsyncInstructionSendNext()
         {
-            throw new NotImplementedException();
+
+        }
+        
+        protected void AsyncInstructionReceiveNext()
+        {
+
         }
     }
 }
