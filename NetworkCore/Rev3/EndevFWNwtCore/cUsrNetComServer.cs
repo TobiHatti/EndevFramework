@@ -105,7 +105,7 @@ namespace EndevFWNwtCore
             InstructionBase[] instructionList = InstructionOperations.Parse(this, current, text, LClients).ToArray();
 
             foreach (InstructionBase instr in instructionList)
-                incommingInstructions.Add(instr, LClients[current]);
+                incommingInstructions.Add(instr);
 
             current.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, current);
         }
