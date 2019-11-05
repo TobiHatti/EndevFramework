@@ -25,6 +25,11 @@ namespace EndevFWNwtCore
         public string Password { get; protected set; } = null;
         public RSAKeyPair RSAKeys { get; protected set; }
 
+        public void SetUserSocket(Socket pSocket)
+        {
+            LocalSocket = pSocket;
+        }
+
         public void SetUserData(string pUsername, string pPassword, string pPublicKey = null)
         {
             Username = pUsername;

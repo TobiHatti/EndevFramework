@@ -55,9 +55,38 @@ namespace EndevFWNwtCore
             }
         }
 
+        public void Add(Socket pSocket) => Add(pSocket, null, null);
+        public void Add(Socket pSocket, string pUsername) => Add(pSocket, pUsername, null);
+
+        public void Add(Socket pSocket, string pUsername, string pPassword)
+        {
+            NetComCData cData = new NetComCData();
+            cData.SetUserSocket(pSocket);
+            LClients.Add(cData);
+        }
+
+
+        public void Remove(int pIndex)
+        {
+            LClients.RemoveAt(pIndex);
+        }
+
+        public void Remove(string pUsername)
+        {
+            for (int i = 0; i < LClients.Count; i++)
+                if (LClients[i].Username == pUsername) LClients.RemoveAt(i);
+        }
+
+        public void Remove(Socket pSocket)
+        {
+            for (int i = 0; i < LClients.Count; i++)
+                if (LClients[i].LocalSocket == pSocket) LClients.RemoveAt(i);
+        }
+
         public IEnumerator GetEnumerator()
         {
-            throw new NetComNotImplementedException();
+            foreach (NetComCData client in LClients)
+                yield return client;
         }
     }
 }

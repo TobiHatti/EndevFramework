@@ -25,8 +25,8 @@ namespace EndevFWNwtCore
         protected const int bufferSize = 1024;
         protected volatile byte[] buffer = new byte[bufferSize];
 
-        protected volatile InstructionQueue incommingInstructions = new InstructionQueue();
-        protected volatile InstructionQueue outgoingInstructions = new InstructionQueue();
+        protected volatile List<InstructionBase> incommingInstructions = new List<InstructionBase>();
+        protected volatile List<InstructionBase> outgoingInstructions = new List<InstructionBase>();
 
         protected delegate void DebuggingOutput(string pDebugMessage, params object[] pParameters);
         protected DebuggingOutput Debug = null;
