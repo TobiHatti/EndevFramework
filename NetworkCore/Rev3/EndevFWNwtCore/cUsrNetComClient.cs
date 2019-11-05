@@ -27,12 +27,12 @@ namespace EndevFWNwtCore
             serverIP = IPAddress.Parse(pServerIP);
         }
 
-        public override void AsyncInstructionProcessNext()
+        protected override void AsyncInstructionProcessNext()
         {
             throw new NotImplementedException();
         }
 
-        public override void AsyncInstructionSendNext()
+        protected override void AsyncInstructionSendNext()
         {
             throw new NotImplementedException();
         }

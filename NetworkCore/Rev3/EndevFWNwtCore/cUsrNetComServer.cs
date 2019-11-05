@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EndevFWNwtCore
@@ -27,22 +28,56 @@ namespace EndevFWNwtCore
             serverIP = IPAddress.Any;
         }
 
-        public override void AsyncInstructionSendNext()
+        protected override void AsyncInstructionSendNext()
         {
             throw new NotImplementedException();
         }
 
-        public override void AsyncInstructionProcessNext()
+        protected override void AsyncInstructionProcessNext()
         {
             throw new NotImplementedException();
         }
 
 
+        /// <summary>
+        /// Initializes and Starts the Server
+        /// </summary>
+        public void Start()
+        {
+            Debug("Setting up server...");
+
+            LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            LocalSocket.Bind(new IPEndPoint(IPAddress.Any, port));
+            LocalSocket.Listen(0);
+            LocalSocket.BeginAccept(AcceptCallback, null);
+
+            Debug("Server setup complete!");
 
 
+            instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
+            instructionProcessingThread.Start();
 
+            instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
+            instructionSendingThread.Start();
+        }
 
+        /// <summary>
+        /// Properly closes all connections 
+        /// and shuts down the server
+        /// </summary>
+        public void Shutdown()
+        {
+            Debug("Shutting down all connections...");
+            foreach (NetComCData client in LClients)
+            {
+                client.LocalSocket.Shutdown(SocketShutdown.Both);
+                client.LocalSocket.Close();
+            }
 
+            Debug("Shutting down server...");
+            LocalSocket.Close();
+            Debug("Shutdown complete!");
+        }
 
         /// <summary>
         /// Gets called when a connection is established
@@ -64,7 +99,7 @@ namespace EndevFWNwtCore
             LClients.Add(socket);
 
             socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, socket);
-            Debug("New client connected!", debugParams);
+            Debug("New client connected!");
 
             //SendToClient(socket, new NCILib.PreAuth(this));
 
@@ -86,7 +121,7 @@ namespace EndevFWNwtCore
             }
             catch (SocketException)
             {
-                Debug("Client forcefully disconnected.", debugParams);
+                Debug("Client forcefully disconnected.");
                 // Don't shutdown because the socket may be disposed and its disconnected anyway.
                 current.Close();
                 LClients.Remove(current);
@@ -98,7 +133,7 @@ namespace EndevFWNwtCore
             string text = Encoding.UTF8.GetString(recBuf);
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Debug("Received message: " + text, debugParams);
+            Debug("Received message: " + text);
             Console.ForegroundColor = ConsoleColor.White;
 
 

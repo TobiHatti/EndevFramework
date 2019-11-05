@@ -29,30 +29,42 @@ namespace EndevFWNwtCore
         protected volatile List<InstructionBase> outgoingInstructions = new List<InstructionBase>();
 
         protected delegate void DebuggingOutput(string pDebugMessage, params object[] pParameters);
-        protected DebuggingOutput Debug = null;
+        protected DebuggingOutput DebugCom = null;
         protected object[] debugParams = null;
 
-        protected Thread instructionProcessingThread = null;
-        protected Thread instructionSendingThread = null;
+        protected volatile Thread instructionProcessingThread = null;
+        protected volatile Thread instructionSendingThread = null;
 
-        public void AsyncInstructionSendingLoop()
+        protected volatile int threadIdleTime = 100;
+
+        
+        protected void Debug(string pMessage)
         {
-            while(/*......*/ true)
+            DebugCom(pMessage, debugParams);
+        }
+
+        protected void AsyncInstructionSendingLoop()
+        {
+            while(true)
             {
-                AsyncInstructionSendNext();
+                if (outgoingInstructions.Count > 0) 
+                    AsyncInstructionSendNext();
+                Thread.Sleep(threadIdleTime);
             }
         }
 
-        public void AsyncInstructionProcessingLoop()
+        protected void AsyncInstructionProcessingLoop()
         {
-            while (/*......*/ true)
+            while (true)
             {
-
+                if (incommingInstructions.Count > 0)
+                    AsyncInstructionProcessNext();
+                Thread.Sleep(threadIdleTime);
             }
         }
 
-        public abstract void AsyncInstructionSendNext();
-        public abstract void AsyncInstructionProcessNext();
+        protected abstract void AsyncInstructionSendNext();
+        protected abstract void AsyncInstructionProcessNext();
 
         
     }
