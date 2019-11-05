@@ -23,7 +23,6 @@ namespace EndevFWNwtCore
         protected int port = 2225;
 
         protected const int bufferSize = 1024;
-        protected volatile byte[] buffer = new byte[bufferSize];
 
         protected volatile List<InstructionBase> incommingInstructions = new List<InstructionBase>();
         protected volatile List<InstructionBase> outgoingInstructions = new List<InstructionBase>();

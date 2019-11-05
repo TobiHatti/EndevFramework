@@ -66,6 +66,11 @@ namespace EndevFWNwtCore
             }
         }
 
+        public void Send(InstructionBase pInstruction)
+        {
+            outgoingInstructions.Add(pInstruction);
+        }
+
         protected void AsyncInstructionReceptionLoop()
         {
             while (true)
@@ -82,7 +87,13 @@ namespace EndevFWNwtCore
 
         protected override void AsyncInstructionSendNext()
         {
+            byte[] buffer;
 
+            buffer = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
+
+            LocalSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+            Debug($"Sent Message: {instruction}.", DebugParams);
+            OutgoingInstructions.RemoveAt(0);
         }
         
         protected void AsyncInstructionReceiveNext()

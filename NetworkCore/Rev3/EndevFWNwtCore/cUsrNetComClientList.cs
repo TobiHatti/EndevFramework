@@ -57,7 +57,6 @@ namespace EndevFWNwtCore
 
         public void Add(Socket pSocket) => Add(pSocket, null, null);
         public void Add(Socket pSocket, string pUsername) => Add(pSocket, pUsername, null);
-
         public void Add(Socket pSocket, string pUsername, string pPassword)
         {
             NetComCData cData = new NetComCData();

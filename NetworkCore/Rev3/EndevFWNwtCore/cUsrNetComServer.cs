@@ -86,6 +86,7 @@ namespace EndevFWNwtCore
         private void AcceptCallback(IAsyncResult AR)
         {
             Socket socket;
+            byte[] buffer = new byte[bufferSize];
 
             try
             {
@@ -112,6 +113,7 @@ namespace EndevFWNwtCore
         /// <param name="AR">IAsyncResult</param>
         private void ReceiveCallback(IAsyncResult AR)
         {
+            byte[] buffer = new byte[bufferSize];
             Socket current = (Socket)AR.AsyncState;
             int received;
 
