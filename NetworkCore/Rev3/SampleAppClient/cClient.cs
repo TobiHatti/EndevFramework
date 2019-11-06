@@ -36,7 +36,7 @@ namespace SampleAppClient
 
             while(true)
             {
-                client.Send(new InstructionLibraryEssentials.MyStabilityTest(client, null, ""));
+                client.Send(new InstructionLibraryEssentials.MyStabilityTest(client, null));
                 Thread.Sleep(new Random().Next(300, 3000));
             }
             

@@ -19,11 +19,12 @@ namespace EndevFWNwtCore
     {
         public delegate bool AuthenticationTool(string pUsername, string pPassword);
         private AuthenticationTool AuthLookup = null;
-
-
-
         protected bool authenticated = false;
 
+        /// <summary>
+        /// Sets the tool used for authenticating users.
+        /// </summary>
+        /// <param name="pLookupTool">Lookup-Method for user-authentication</param>
         public void SetAuthenticationTool(AuthenticationTool pLookupTool)
         {
             AuthLookup = pLookupTool;

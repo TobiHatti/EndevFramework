@@ -61,13 +61,9 @@ namespace EndevFWNwtCore
                 try
                 {
                     Debug("Connection attempt " + attempts++);
-
                     LocalSocket.Connect(serverIP, port);
                 }
-                catch (SocketException)
-                {
-
-                }
+                catch (SocketException) { }
             }
 
             Debug($"Connection successfull! Required {attempts} attempts");
@@ -82,10 +78,7 @@ namespace EndevFWNwtCore
 
         protected void AsyncInstructionReceptionLoop()
         {
-            while (true)
-            {
-                AsyncInstructionReceiveNext();
-            }
+            while (true) AsyncInstructionReceiveNext();
         }
 
 
@@ -102,8 +95,6 @@ namespace EndevFWNwtCore
 
             LocalSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
             Debug($"Sent Message: {outgoingInstructions[0].ToString()}");
-            Debug($"Sent Message: {outgoingInstructions[0].Encode()}");
-
             outgoingInstructions.RemoveAt(0);
         }
         

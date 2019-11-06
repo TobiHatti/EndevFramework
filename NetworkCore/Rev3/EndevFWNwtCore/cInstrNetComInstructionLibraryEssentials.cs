@@ -19,19 +19,27 @@ namespace EndevFWNwtCore
     /// </summary>
     public class InstructionLibraryEssentials
     {
+        /// <summary>
+        /// Basic Test-Instruction to check if 
+        /// instruction reach the receiver
+        /// </summary>
         public class MyStabilityTest : ISB
         {
-            public MyStabilityTest(NetComUser pSender, NetComUser pReceiver, string pValue) : base(pSender, pReceiver, pValue, null) { }
+            public MyStabilityTest(NetComUser pSender, NetComUser pReceiver) : base(pSender, pReceiver, null, null) { }
 
             public override void Execute()
             {
-                Console.WriteLine($"INSTRUCTION EXECUTION");
+                Console.WriteLine($"INSTRUCTION RECEIVED!");
             }
         }
 
+        /// <summary>
+        /// Basic Test-Instruction to create a basic 
+        /// messagebox with a custom message
+        /// </summary>
         public class MySampleInstruction : ISB
         {
-            public MySampleInstruction(NetComUser pSender, NetComUser pReceiver, string pValue) : base(pSender, pReceiver, pValue, null) { }
+            public MySampleInstruction(NetComUser pSender, NetComUser pReceiver, string pMessage) : base(pSender, pReceiver, pMessage, null) { }
 
             public override void Execute()
             {
@@ -39,6 +47,10 @@ namespace EndevFWNwtCore
             }
         }
 
+        /// <summary>
+        /// Basic Test-Instruction to check if parameters
+        /// are processed correctly
+        /// </summary>
         public class MyParamInstruction : ISB
         {
             public MyParamInstruction(NetComUser pSender, NetComUser pReceiver, string pValue, params object[] pParameters)

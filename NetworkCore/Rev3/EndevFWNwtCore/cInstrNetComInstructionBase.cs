@@ -19,23 +19,37 @@ namespace EndevFWNwtCore
     /// </summary>
     public abstract class InstructionBase
     {
-        public static string InstructionSetVersion { get; set; } = "1.0";
-
-        public static string FrameworkVersion { get; } = "1.1 R3";
-
         protected NetComUser sender = null;
         protected NetComUser receiver = null;
-
         
         protected string instruction = null;
         protected string sInstruction = null;
         protected string value = null;
         protected object[] parameters = null;
 
-        public InstructionBase(NetComUser pUser, NetComUser pReceiver, string pValue = null, params object[] pParameters)
+        /// <summary>
+        /// Version of the currently used Instruction-Set (Instruction-Library)
+        /// </summary>
+        public static string InstructionSetVersion { get; set; } = "1.0";
+
+        /// <summary>
+        /// Current version of the Framework
+        /// </summary>
+        public static string FrameworkVersion { get; } = "1.1 R3";
+
+
+        /// <summary>
+        /// Provides a base for new custom instructions, or 
+        /// operates as a common interface for instructions 
+        /// </summary>
+        /// <param name="pSender">Sender (local user) of the instruction</param>
+        /// <param name="pReceiver">Receiver (remote user) of the instruction</param>
+        /// <param name="pValue">Value of the instruction. Can be used as required.</param>
+        /// <param name="pParameters">Parameters of the instruction. Can be used as required</param>
+        public InstructionBase(NetComUser pSender, NetComUser pReceiver, string pValue = null, params object[] pParameters)
         {
             receiver = pReceiver;
-            sender = pUser;
+            sender = pSender;
             value = pValue;
             parameters = pParameters;
             instruction = this.GetType().AssemblyQualifiedName;
@@ -43,12 +57,12 @@ namespace EndevFWNwtCore
         }
 
         /// <summary>
-        /// Executes the instruction
+        /// Executes the instruction.
         /// </summary>
         public abstract void Execute();
 
         /// <summary>
-        /// Encodes the message and returns it as a string
+        /// Encodes the message and returns it as a string.
         /// </summary>
         /// <returns>The encoded string</returns>
         public string Encode()
@@ -101,6 +115,10 @@ namespace EndevFWNwtCore
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Returns the instructions data formated.
+        /// </summary>
+        /// <returns>The formated Instruction-string</returns>
         public sealed override string ToString()
         {
             bool isRSAEncrypted = false;
@@ -137,6 +155,10 @@ namespace EndevFWNwtCore
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Sets the public-key of the receiver.
+        /// </summary>
+        /// <param name="pPublicKey">Public-key of the receiver</param>
         public void SetReceiverPublicKey(string pPublicKey)
         {
             if(receiver == null)

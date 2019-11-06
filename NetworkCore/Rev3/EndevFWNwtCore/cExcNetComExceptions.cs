@@ -94,7 +94,7 @@ namespace EndevFWNwtCore
     /// =====================================   <para />
     /// DESCRIPTION:                            <para />
     /// Provides a exception that can be thrown
-    /// when a parsing error occures
+    /// when version error or violation occures
     /// </summary>
     public class NetComVersionException : NetComException
     {

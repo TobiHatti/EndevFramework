@@ -10,8 +10,26 @@ using System.Threading.Tasks;
 
 namespace EndevFWNwtCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Instruction-Objects        <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Contains operations for manpulating 
+    /// and changing instructions.
+    /// </summary>
     public class InstructionOperations
     {
+        /// <summary>
+        /// Parses an encoded instruction-string and returns 
+        /// all instruction-objects included in the string
+        /// </summary>
+        /// <param name="pLocalUser">Local user</param>
+        /// <param name="pReceptionSocket">Remote user, from which the instruction was received</param>
+        /// <param name="pInstructionString">Encoded instruction-string. Can contain multiple instructions.</param>
+        /// <param name="pServerClientList">Client-List for authentication (NetComServer only!)</param>
+        /// <returns></returns>
         public static IEnumerable<InstructionBase> Parse(NetComUser pLocalUser, Socket pReceptionSocket, string pInstructionString, ClientList pServerClientList = null)
         {
             //  RSA:<Base64>;RSA:<Base64>;
