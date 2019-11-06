@@ -22,7 +22,7 @@ namespace SampleStartupAssist
 
             Process.Start(serverPath);
 
-
+            Environment.Exit(0);
         }
     }
 }

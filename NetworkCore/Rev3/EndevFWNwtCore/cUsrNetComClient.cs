@@ -21,6 +21,7 @@ namespace EndevFWNwtCore
     public class NetComClient : NetComOperator
     {
         private volatile Thread instructionReceptionThread = null;
+        private string serverPublicKey = null;
 
         public NetComClient(string pServerIP, int pPort)
         {
@@ -37,14 +38,19 @@ namespace EndevFWNwtCore
 
             TryConnect();
 
-            instructionProcessingThread = new Thread(AsyncInstructionProcessNext);
+            Debug("Starting Background-Process: Instruction-Processing...");
+            instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
             instructionProcessingThread.Start();
 
-            instructionSendingThread = new Thread(AsyncInstructionSendNext);
+            Debug("Starting Background-Process: Instruction-Sending...");
+            instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
             instructionSendingThread.Start();
 
-            instructionReceptionThread = new Thread(AsyncInstructionReceiveNext);
+            Debug("Starting Background-Process: Instruction-Receiving...");
+            instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
             instructionReceptionThread.Start();
+
+            Debug("Successfully started all background-processes!");
         }
 
         private void TryConnect()
@@ -54,8 +60,7 @@ namespace EndevFWNwtCore
             {
                 try
                 {
-                    attempts++;
-                    Console.WriteLine("Connection attempt " + attempts);
+                    Debug("Connection attempt " + attempts++);
 
                     LocalSocket.Connect(serverIP, port);
                 }
@@ -64,10 +69,14 @@ namespace EndevFWNwtCore
 
                 }
             }
+
+            Debug($"Connection successfull! Required {attempts} attempts");
         }
 
         public void Send(InstructionBase pInstruction)
         {
+            pInstruction.SetReceiverPublicKey(serverPublicKey);
+
             outgoingInstructions.Add(pInstruction);
         }
 
@@ -88,12 +97,12 @@ namespace EndevFWNwtCore
         protected override void AsyncInstructionSendNext()
         {
             byte[] buffer;
-            NetComUser serverPseudo = new NetComUser();
 
             buffer = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
 
             LocalSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
-            Debug($"Sent Message: {outgoingInstructions[0].ToString()}.");
+            Debug($"Sent Message: {outgoingInstructions[0].ToString()}");
+            Debug($"Sent Message: {outgoingInstructions[0].Encode()}");
 
             outgoingInstructions.RemoveAt(0);
         }

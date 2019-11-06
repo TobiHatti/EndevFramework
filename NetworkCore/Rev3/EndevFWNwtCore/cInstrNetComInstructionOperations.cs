@@ -107,8 +107,6 @@ namespace EndevFWNwtCore
                                     {
                                         throw new NetComParsingException($"*** Could not parse the following parameter: Type: {paramTypeStr}, Value: {paramValueStr} ***");
                                     }
-
-                                    
                                 }
 
                                 break;
@@ -147,11 +145,11 @@ namespace EndevFWNwtCore
                     }
 
                     if (value == null && parameters.Count == 0)
-                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user);
+                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, null);
                     else if (parameters.Count == 0)
-                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, value);
+                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, null, value);
                     else
-                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, value, parameters.ToArray());
+                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, null, value, parameters.ToArray());
                 }
             }
         }

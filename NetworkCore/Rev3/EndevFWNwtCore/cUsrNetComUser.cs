@@ -38,8 +38,8 @@ namespace EndevFWNwtCore
             if(pPublicKey != null)
             {
                 RSAKeyPair keys = new RSAKeyPair();
-                keys.PublicKey = null;
-                keys.PrivateKey = pPublicKey;
+                keys.PublicKey = pPublicKey;
+                keys.PrivateKey = null;
                 RSAKeys = keys;
             }
         }

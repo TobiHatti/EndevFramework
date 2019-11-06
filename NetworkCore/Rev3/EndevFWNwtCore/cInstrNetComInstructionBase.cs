@@ -119,15 +119,15 @@ namespace EndevFWNwtCore
             sb.AppendLine($"RSA-Encrypted: {isRSAEncrypted}");
             sb.AppendLine($"RSA-Signed: {isRSASigned}");
 
-            if (sender?.Username != null) sb.AppendLine($"Username :{sender?.Username},");
-            if (sender?.Password != null) sb.AppendLine($"Password :{sender?.Password},");
+            if (sender?.Username != null) sb.AppendLine($"Username: {sender?.Username}");
+            if (sender?.Password != null) sb.AppendLine($"Password: {sender?.Password}");
 
-            if (instruction != null) sb.AppendLine($"Instruction :{sInstruction},");
-            if (value != null) sb.AppendLine($"Value :{value},");
+            if (instruction != null) sb.AppendLine($"Instruction: {sInstruction}");
+            if (value != null) sb.AppendLine($"Value: {value}");
 
             if (parameters != null)
             {
-                sb.AppendLine($"Parameters:");
+                sb.AppendLine($"Parameters: ");
                 foreach (object param in parameters)
                     sb.AppendLine($" - {param.ToString()} [{param.GetType().Name}]");
             }
@@ -135,6 +135,16 @@ namespace EndevFWNwtCore
             sb.AppendLine("");
 
             return sb.ToString();
+        }
+
+        public void SetReceiverPublicKey(string pPublicKey)
+        {
+            if(receiver == null)
+            {
+                receiver = new NetComUser();
+            }
+
+            receiver.SetUserData("", "", pPublicKey);
         }
     }
 }
