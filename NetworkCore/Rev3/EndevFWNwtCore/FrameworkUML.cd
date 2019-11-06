@@ -58,6 +58,11 @@
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MyStabilityTest" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>

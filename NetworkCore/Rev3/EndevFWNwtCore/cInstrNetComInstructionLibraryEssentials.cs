@@ -19,6 +19,20 @@ namespace EndevFWNwtCore
     /// </summary>
     public class InstructionLibraryEssentials
     {
+        public class MyStabilityTest : ISB
+        {
+            public MyStabilityTest(NetComUser pSender, NetComUser pReceiver, string pValue) : base(pSender, pReceiver, pValue, null) { }
+
+            public override void Execute()
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.BackgroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine($"INTEGRITY OK!");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+        }
+
         public class MySampleInstruction : ISB
         {
             public MySampleInstruction(NetComUser pSender, NetComUser pReceiver, string pValue) : base(pSender, pReceiver, pValue, null) { }

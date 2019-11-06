@@ -20,6 +20,7 @@ namespace EndevFWNwtCore
     /// </summary>
     public class NetComServer : NetComOperator
     {
+        
         private ClientList LClients = new ClientList();
 
         public NetComServer(int pPort)
@@ -35,7 +36,8 @@ namespace EndevFWNwtCore
 
         protected override void AsyncInstructionProcessNext()
         {
-            //throw new NotImplementedException();
+            incommingInstructions[0].Execute();
+            incommingInstructions.RemoveAt(0);
         }
 
 
@@ -141,6 +143,8 @@ namespace EndevFWNwtCore
 
             foreach (InstructionBase instr in instructionList)
                 incommingInstructions.Add(instr);
+
+            
 
             current.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, current);
         }
