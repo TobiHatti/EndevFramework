@@ -21,7 +21,7 @@ namespace EndevFWNwtCore
     {
         public static string InstructionSetVersion { get; set; } = "1.0";
 
-        protected static string frameworkVersion = "1.1 R3";
+        public static string FrameworkVersion { get; } = "1.1 R3";
 
         protected NetComUser sender = null;
         protected NetComUser receiver = null;
@@ -62,7 +62,7 @@ namespace EndevFWNwtCore
             if (rsaEncryption) sb.Append("RSA:");
 
             // Version Data (Framework and instructionset)
-            innersb.Append($"FWV:{Base64Handler.Encode(frameworkVersion)},");
+            innersb.Append($"FWV:{Base64Handler.Encode(FrameworkVersion)},");
             innersb.Append($"ISV:{Base64Handler.Encode(InstructionSetVersion)},");
 
             // User Data
@@ -113,7 +113,7 @@ namespace EndevFWNwtCore
 
             sb.AppendLine("");
             sb.AppendLine("=================================");
-            sb.AppendLine($"Endev NetCore {frameworkVersion} Instruction");
+            sb.AppendLine($"Endev NetCore {FrameworkVersion} Instruction");
             sb.AppendLine($"Instruction-Set Version {InstructionSetVersion}");
             sb.AppendLine("=================================");
             sb.AppendLine($"RSA-Encrypted: {isRSAEncrypted}");

@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="EndevFWNwtCore.DebugOutput">
-    <Position X="0.75" Y="8" Width="1.5" />
+    <Position X="17.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>cDbgNetComDebugOutput.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.Base64Handler">
-    <Position X="2.5" Y="8" Width="1.5" />
+    <Position X="2.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>cEncNetComBase64Handler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.RSAHandler">
-    <Position X="4.25" Y="8" Width="1.75" />
+    <Position X="0.5" Y="8.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAARAQAAAAAAAAAAAAACAAAAAABQAAAAA=</HashCode>
       <FileName>cEncNetComRSAHandler.cs</FileName>
@@ -38,7 +38,7 @@
   <Class Name="EndevFWNwtCore.InstructionBase">
     <Position X="11.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAABAAAQAAAAAAAAAAAAAACAACAAAAACAAQA=</HashCode>
+      <HashCode>AAgAAAAAAARAAAQECIAAAAAAAAAAACAADAAAAACAAAA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -163,8 +163,15 @@
       <FileName>cInstrNetComInstructionOperations.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComParsingException">
+  <Class Name="EndevFWNwtCore.NetComVersionException">
     <Position X="8.5" Y="10" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cExcNetComExceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndevFWNwtCore.NetComParsingException">
+    <Position X="4.75" Y="10" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>

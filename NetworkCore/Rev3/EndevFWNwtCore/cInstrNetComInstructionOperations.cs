@@ -22,6 +22,8 @@ namespace EndevFWNwtCore
                 {
                     if (string.IsNullOrEmpty(encodedInstruction)) continue;
 
+                    string frameworkVersion = null;
+                    string instructionsetVersion = null;
                     string username = null;
                     string password = null;
                     string instruction = null;
@@ -60,6 +62,8 @@ namespace EndevFWNwtCore
 
                         switch(encodedSegmentParts[0])
                         {
+                            case "FWV": frameworkVersion = Base64Handler.Decode(encodedSegmentParts[1]); break;
+                            case "ISV": instructionsetVersion = Base64Handler.Decode(encodedSegmentParts[1]); break;
                             case "PUK": publicKey = Base64Handler.Decode(encodedSegmentParts[1]); break;
                             case "USR": username = Base64Handler.Decode(encodedSegmentParts[1]); break;
                             case "PSW": 
@@ -110,6 +114,14 @@ namespace EndevFWNwtCore
                                 break;
                         }
                     }
+
+                    // Check instructionset-version
+                    if (InstructionBase.InstructionSetVersion != instructionsetVersion)
+                        throw new NetComVersionException($"*** The received package uses a different verion of the Instruction-Set! Local version: {InstructionBase.InstructionSetVersion} - Senders version: {instructionsetVersion} ***");
+
+                    // Check framework-version
+                    if (InstructionBase.FrameworkVersion != frameworkVersion)
+                        throw new NetComVersionException($"*** The received package was built using a different verion of the Framework! Local version: {InstructionBase.FrameworkVersion} - Senders version: {frameworkVersion} ***");
 
                     // Check signature
                     if (rsaEncoded && !RSAHandler.Verify(publicKey, signaturePlain, signatureRSA)) 
