@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,7 +29,9 @@ namespace SampleAppClient
             Console.WriteLine($"=           C L I E N T - {clientNr}       =");
             Console.WriteLine("===================================\r\n");
 
-            NetComClient client = new NetComClient("127.0.0.1", 2225);
+            Console.WriteLine(Dns.GetHostAddresses("endev.ddns.net")[0].ToString());
+
+            NetComClient client = new NetComClient(Dns.GetHostAddresses("endev.ddns.net")[0].ToString(), 2225);
 
             client.SetDebugOutput(DebugOutput.ToConsole);
 

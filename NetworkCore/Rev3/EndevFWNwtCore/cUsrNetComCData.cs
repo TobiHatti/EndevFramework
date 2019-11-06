@@ -57,11 +57,7 @@ namespace EndevFWNwtCore
             if (AuthLookup != null) authenticated = AuthLookup(Username, Password);
             else throw new NetComAuthenticationException("*** The Authentication-Method has not been setin NetComCData ***");
 
-           
-
             return authenticated;
         }
-
-
     }
 }

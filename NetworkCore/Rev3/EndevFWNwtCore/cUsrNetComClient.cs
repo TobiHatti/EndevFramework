@@ -23,6 +23,11 @@ namespace EndevFWNwtCore
         private volatile Thread instructionReceptionThread = null;
         private string serverPublicKey = null;
 
+        /// <summary>
+        /// Creates a new NetCom-client instance.
+        /// </summary>
+        /// <param name="pServerIP">IP of the server</param>
+        /// <param name="pPort">TCP port of the server</param>
         public NetComClient(string pServerIP, int pPort)
         {
             port = pPort;
@@ -39,16 +44,16 @@ namespace EndevFWNwtCore
             TryConnect();
 
             Debug("Starting Background-Process: Instruction-Processing...");
-            instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
-            instructionProcessingThread.Start();
+            //instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
+            //instructionProcessingThread.Start();
 
             Debug("Starting Background-Process: Instruction-Sending...");
-            instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
-            instructionSendingThread.Start();
+            //instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
+            //instructionSendingThread.Start();
 
             Debug("Starting Background-Process: Instruction-Receiving...");
-            instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
-            instructionReceptionThread.Start();
+            //instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
+            //instructionReceptionThread.Start();
 
             Debug("Successfully started all background-processes!");
         }
