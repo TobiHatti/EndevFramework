@@ -23,15 +23,10 @@ namespace SampleAppServer
 
             NetComServer server = new NetComServer(2225);
 
-            server.SetDebugOutput(DebugOutput.Disable);
+            server.SetDebugOutput(DebugOutput.ToConsole);
 
             server.Start();
 
-            while(true)
-            {
-                Console.WriteLine($"[{NetComServer.queue} Enqueued]");
-                Thread.Sleep(10);
-            }
 
 
             Console.ReadKey();

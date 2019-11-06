@@ -144,9 +144,20 @@ namespace EndevFWNwtCore
             foreach (InstructionBase instr in instructionList)
                 incommingInstructions.Add(instr);
 
-            
 
-            current.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, current);
+            try
+            {
+                current.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, current);
+            }
+            catch (SocketException)
+            {
+                Debug("Client forcefully disconnected.");
+                // Don't shutdown because the socket may be disposed and its disconnected anyway.
+                current.Close();
+                LClients.Remove(current);
+                return;
+            }
+
         }
 
     }

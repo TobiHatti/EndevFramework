@@ -33,7 +33,15 @@ namespace EndevFWNwtCore
         /// </summary>
         /// <param name="pBase64String">Base64 string to be decoded</param>
         /// <returns>Plain text string</returns>
-        public static string Decode(string pBase64String) 
-            => Encoding.UTF8.GetString(Convert.FromBase64String(pBase64String));
+        public static string Decode(string pBase64String, string pOnErrorReturn = null)
+        {
+            if(pOnErrorReturn == null) return Encoding.UTF8.GetString(Convert.FromBase64String(pBase64String)); 
+            else
+            {
+                try { return Encoding.UTF8.GetString(Convert.FromBase64String(pBase64String)); }
+                catch { return pOnErrorReturn; }
+            }
+        }
+            
     }
 }

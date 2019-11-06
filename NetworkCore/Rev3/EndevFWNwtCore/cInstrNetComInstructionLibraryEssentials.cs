@@ -25,11 +25,7 @@ namespace EndevFWNwtCore
 
             public override void Execute()
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine($"INTEGRITY OK!");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = ConsoleColor.Black;
+                Console.WriteLine($"INSTRUCTION EXECUTION");
             }
         }
 

@@ -58,7 +58,7 @@
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MyStabilityTest" Collapsed="true">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MyStabilityTest">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -77,7 +77,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionQueue" BaseTypeListCollapsed="true">
-    <Position X="11.75" Y="4.5" Width="1.5" />
+    <Position X="11.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAABAACAAAAAQAAAAAAAAAAAAAAAAAAAI=</HashCode>
       <FileName>cInstrNetComInstructionQueue.cs</FileName>
@@ -129,7 +129,7 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAJAAAAQAAYCIAAAAAAAAAAAAAAAAiAAABCAIJgBAg=</HashCode>
+      <HashCode>AAAJAAAAQAAYCIAAAABAAAAAAAAAAAiAAABCAIJgBAg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>

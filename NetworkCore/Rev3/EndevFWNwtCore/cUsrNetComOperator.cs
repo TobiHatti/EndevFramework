@@ -22,7 +22,7 @@ namespace EndevFWNwtCore
         protected IPAddress serverIP = null;
         protected int port = 2225;
 
-        protected const int bufferSize = 1024;
+        protected const int bufferSize = 10240;
         protected volatile byte[] buffer = new byte[bufferSize];
 
         protected volatile List<InstructionBase> incommingInstructions = new List<InstructionBase>();
@@ -68,7 +68,7 @@ namespace EndevFWNwtCore
                 queue = incommingInstructions.Count;
 
                 if (incommingInstructions.Count > 0)
-                    AsyncInstructionProcessNext();
+                   AsyncInstructionProcessNext();
                 else
                     Thread.Sleep(threadIdleTime);
             }

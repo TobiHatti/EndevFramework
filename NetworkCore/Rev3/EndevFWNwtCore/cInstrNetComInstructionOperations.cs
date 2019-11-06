@@ -47,8 +47,17 @@ namespace EndevFWNwtCore
                     }
 
                     // <Base64>
-
-                    string decodedInstruction = Base64Handler.Decode(encInstr);
+                    string decodedInstruction;
+                    try
+                    {
+                        decodedInstruction = Base64Handler.Decode(encInstr);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Could not parse instruction!");
+                        continue;
+                    }
+                      
 
                     // INS:B64,VAL:B64,PAR:B64#B64|B64#B64|,
 
@@ -62,21 +71,21 @@ namespace EndevFWNwtCore
 
                         switch(encodedSegmentParts[0])
                         {
-                            case "FWV": frameworkVersion = Base64Handler.Decode(encodedSegmentParts[1]); break;
-                            case "ISV": instructionsetVersion = Base64Handler.Decode(encodedSegmentParts[1]); break;
-                            case "PUK": publicKey = Base64Handler.Decode(encodedSegmentParts[1]); break;
-                            case "USR": username = Base64Handler.Decode(encodedSegmentParts[1]); break;
+                            case "FWV": frameworkVersion = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
+                            case "ISV": instructionsetVersion = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
+                            case "PUK": publicKey = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
+                            case "USR": username = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
                             case "PSW": 
                                 if(rsaEncoded)
                                     password = RSAHandler.Decrypt(pLocalUser.RSAKeys.PrivateKey, encodedSegmentParts[1]); 
                                 break;
-                            case "SGP": signaturePlain = Base64Handler.Decode(encodedSegmentParts[1]); break;
+                            case "SGP": signaturePlain = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
                             case "SGC":
                                 if (rsaEncoded)
                                     signatureRSA = encodedSegmentParts[1]; 
                                 break;
-                            case "INS": instruction = Base64Handler.Decode(encodedSegmentParts[1]); break;
-                            case "VAL": value = Base64Handler.Decode(encodedSegmentParts[1]); break;
+                            case "INS": instruction = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
+                            case "VAL": value = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
                             case "PAR": 
                                     
                                 foreach(string paramGroup in encodedSegmentParts[1].Split('|'))
@@ -85,8 +94,8 @@ namespace EndevFWNwtCore
 
                                     string[] paramParts = paramGroup.Split('#');
 
-                                    string paramTypeStr = Base64Handler.Decode(paramParts[0]);
-                                    string paramValueStr = Base64Handler.Decode(paramParts[1]);
+                                    string paramTypeStr = Base64Handler.Decode(paramParts[0], "ERROR");
+                                    string paramValueStr = Base64Handler.Decode(paramParts[1], "ERROR");
 
                                     Type paramType = Type.GetType(paramTypeStr);
 
