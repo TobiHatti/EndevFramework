@@ -19,11 +19,16 @@ namespace EndevFWNwtCore
     /// </summary>
     public abstract class InstructionBase
     {
+        public static string InstructionSetVersion { get; set; } = "1.0";
+
+        protected static string frameworkVersion = "1.1 R3";
+
         protected NetComUser sender = null;
         protected NetComUser receiver = null;
 
         
         protected string instruction = null;
+        protected string sInstruction = null;
         protected string value = null;
         protected object[] parameters = null;
 
@@ -33,7 +38,8 @@ namespace EndevFWNwtCore
             sender = pUser;
             value = pValue;
             parameters = pParameters;
-            instruction = this.GetType().AssemblyQualifiedName;   
+            instruction = this.GetType().AssemblyQualifiedName;
+            sInstruction = this.GetType().Name;
         }
 
         /// <summary>
@@ -55,6 +61,9 @@ namespace EndevFWNwtCore
 
             if (rsaEncryption) sb.Append("RSA:");
 
+            // Version Data (Framework and instructionset)
+            innersb.Append($"FWV:{Base64Handler.Encode(frameworkVersion)},");
+            innersb.Append($"ISV:{Base64Handler.Encode(InstructionSetVersion)},");
 
             // User Data
             if (sender?.RSAKeys.PublicKey != null) innersb.Append($"PUK:{Base64Handler.Encode(sender?.RSAKeys.PublicKey)},");
@@ -94,7 +103,38 @@ namespace EndevFWNwtCore
 
         public sealed override string ToString()
         {
+            bool isRSAEncrypted = false;
+            bool isRSASigned = false;
+
             StringBuilder sb = new StringBuilder();
+
+            if (receiver?.RSAKeys.PublicKey != null) isRSAEncrypted = true;
+            if (sender?.RSAKeys.PrivateKey != null) isRSASigned = true;
+
+            sb.AppendLine("");
+            sb.AppendLine("=================================");
+            sb.AppendLine($"Endev NetCore {frameworkVersion} Instruction");
+            sb.AppendLine($"Instruction-Set Version {InstructionSetVersion}");
+            sb.AppendLine("=================================");
+            sb.AppendLine($"RSA-Encrypted: {isRSAEncrypted}");
+            sb.AppendLine($"RSA-Signed: {isRSASigned}");
+
+            if (sender?.Username != null) sb.AppendLine($"Username :{sender?.Username},");
+            if (sender?.Password != null) sb.AppendLine($"Password :{sender?.Password},");
+
+            if (instruction != null) sb.AppendLine($"Instruction :{sInstruction},");
+            if (value != null) sb.AppendLine($"Value :{value},");
+
+            if (parameters != null)
+            {
+                sb.AppendLine($"Parameters:");
+                foreach (object param in parameters)
+                    sb.AppendLine($" - {param.ToString()} [{param.GetType().Name}]");
+            }
+
+            sb.AppendLine("");
+
+            return sb.ToString();
         }
     }
 }
