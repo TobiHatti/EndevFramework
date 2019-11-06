@@ -76,14 +76,6 @@
       <FileName>cInstrNetComInstructionLibraryExtension.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.InstructionQueue" BaseTypeListCollapsed="true">
-    <Position X="11.75" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAABAACAAAAAQAAAAAAAAAAAAAAAAAAAI=</HashCode>
-      <FileName>cInstrNetComInstructionQueue.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.204" Collapsed="true" />
-  </Class>
   <Class Name="EndevFWNwtCore.NetComCData">
     <Position X="0.5" Y="3.25" Width="2" />
     <Compartments>
