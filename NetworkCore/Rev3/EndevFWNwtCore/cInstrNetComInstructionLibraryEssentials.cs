@@ -21,7 +21,7 @@ namespace EndevFWNwtCore
     {
         public class MySampleInstruction : ISB
         {
-            public MySampleInstruction(NetComUser pUser, string pValue) : base(pUser, pValue, null) { }
+            public MySampleInstruction(NetComUser pSender, NetComUser pReceiver, string pValue) : base(pSender, pReceiver, pValue, null) { }
 
             public override void Execute()
             {
@@ -31,11 +31,11 @@ namespace EndevFWNwtCore
 
         public class MyParamInstruction : ISB
         {
-            public MyParamInstruction(NetComUser pUser, string pValue, params object[] pParameters)
-                : base(pUser, pValue, pParameters) { }
+            public MyParamInstruction(NetComUser pSender, NetComUser pReceiver, string pValue, params object[] pParameters)
+                : base(pSender, pReceiver, pValue, pParameters) { }
 
-            public MyParamInstruction(NetComUser pUser, string pValue, string myValue, int myNumber, char myCharacter) 
-                : this(pUser, pValue, new object[] { myValue, myNumber, myCharacter }) { }
+            public MyParamInstruction(NetComUser pSender, NetComUser pReceiver, string pValue, string myValue, int myNumber, char myCharacter) 
+                : this(pSender, pReceiver, pValue, new object[] { myValue, myNumber, myCharacter }) { }
 
            
             public override void Execute()

@@ -72,7 +72,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionQueue" BaseTypeListCollapsed="true">
-    <Position X="11.75" Y="3.25" Width="1.5" />
+    <Position X="11.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAABAACAAAAAQAAAAAAAAAAAAAAAAAAAI=</HashCode>
       <FileName>cInstrNetComInstructionQueue.cs</FileName>
@@ -99,7 +99,7 @@
   <Class Name="EndevFWNwtCore.NetComClient">
     <Position X="6" Y="3.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAACAAAAAAAAAAAAAAAAIAAAQAAAAAAAoAEAA=</HashCode>
+      <HashCode>AAABAAAAACAAAAAAAEAAAAAAAAIAAAQAAAAAAAoAEAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -124,7 +124,7 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAJAAAAQAAYCIAAAAAAAAAAAAAAAAiAAABCAIJgBAg=</HashCode>
+      <HashCode>AAAJAAAAQAAYCIAAAAAAAAAAAAAAAAiAAAACAIJgBAg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>

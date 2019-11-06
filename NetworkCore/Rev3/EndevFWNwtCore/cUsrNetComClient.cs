@@ -88,12 +88,14 @@ namespace EndevFWNwtCore
         protected override void AsyncInstructionSendNext()
         {
             byte[] buffer;
+            NetComUser serverPseudo = new NetComUser();
 
             buffer = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
 
             LocalSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
-            Debug($"Sent Message: {instruction}.", DebugParams);
-            OutgoingInstructions.RemoveAt(0);
+            Debug($"Sent Message: {outgoingInstructions[0].ToString()}.");
+
+            outgoingInstructions.RemoveAt(0);
         }
         
         protected void AsyncInstructionReceiveNext()

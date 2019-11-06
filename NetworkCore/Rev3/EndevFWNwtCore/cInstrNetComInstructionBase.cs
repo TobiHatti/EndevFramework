@@ -19,14 +19,18 @@ namespace EndevFWNwtCore
     /// </summary>
     public abstract class InstructionBase
     {
-        protected NetComUser user = null;
+        protected NetComUser sender = null;
+        protected NetComUser receiver = null;
+
+        
         protected string instruction = null;
         protected string value = null;
         protected object[] parameters = null;
 
-        public InstructionBase(NetComUser pUser, string pValue = null, params object[] pParameters)
+        public InstructionBase(NetComUser pUser, NetComUser pReceiver, string pValue = null, params object[] pParameters)
         {
-            user = pUser;
+            receiver = pReceiver;
+            sender = pUser;
             value = pValue;
             parameters = pParameters;
             instruction = this.GetType().AssemblyQualifiedName;   
@@ -41,10 +45,10 @@ namespace EndevFWNwtCore
         /// Encodes the message and returns it as a string
         /// </summary>
         /// <returns>The encoded string</returns>
-        public string Encode(NetComUser pReceiver)
+        public string Encode()
         {
             bool rsaEncryption = false;
-            if (pReceiver.RSAKeys.PublicKey != null) rsaEncryption = true;
+            if (receiver.RSAKeys.PublicKey != null) rsaEncryption = true;
 
             StringBuilder innersb = new StringBuilder();
             StringBuilder sb = new StringBuilder();
@@ -53,21 +57,21 @@ namespace EndevFWNwtCore
 
 
             // User Data
-            if (user?.RSAKeys.PublicKey != null) innersb.Append($"PUK:{Base64Handler.Encode(user?.RSAKeys.PublicKey)},");
-            if (user?.Username != null) innersb.Append($"USR:{Base64Handler.Encode(user?.Username)},");
-            if (user?.Password != null)
+            if (sender?.RSAKeys.PublicKey != null) innersb.Append($"PUK:{Base64Handler.Encode(sender?.RSAKeys.PublicKey)},");
+            if (sender?.Username != null) innersb.Append($"USR:{Base64Handler.Encode(sender?.Username)},");
+            if (sender?.Password != null)
             {
-                if(rsaEncryption) innersb.Append($"PSW:{RSAHandler.Encrypt(pReceiver?.RSAKeys.PublicKey, user?.Password)},");
-                else innersb.Append($"PSW:{Base64Handler.Encode(user?.Password)},");
+                if(rsaEncryption) innersb.Append($"PSW:{RSAHandler.Encrypt(receiver?.RSAKeys.PublicKey, sender?.Password)},");
+                else innersb.Append($"PSW:{Base64Handler.Encode(sender?.Password)},");
             }
             
             // Signature
-            if(user?.RSAKeys.PrivateKey != null)
+            if(sender?.RSAKeys.PrivateKey != null)
             {
                 Guid signature = Guid.NewGuid();
 
                 innersb.Append($"SGP:{Base64Handler.Encode(signature.ToString())},");
-                innersb.Append($"SGP:{RSAHandler.Sign(user?.RSAKeys.PrivateKey, signature.ToString())},");
+                innersb.Append($"SGP:{RSAHandler.Sign(sender?.RSAKeys.PrivateKey, signature.ToString())},");
             }
 
             // Actuall data
@@ -86,6 +90,11 @@ namespace EndevFWNwtCore
             sb.Append(";");
 
             return sb.ToString();
+        }
+
+        public sealed override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
         }
     }
 }
