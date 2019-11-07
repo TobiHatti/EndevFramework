@@ -21,12 +21,44 @@ namespace EndevFWNwtCore
     public class NetComServer : NetComOperator
     {
         
-        private ClientList LClients = new ClientList();
+        public class InternalClientList
+        {
+            private NetComServer server = null;
+            public InternalClientList(NetComServer pServer)
+            {
+                server = pServer;
+            }
 
+            public NetComUser this[int idx]
+            {
+                get => server.LClients[idx];
+            }
+
+            public NetComUser this[string pUsername]
+            {
+                get
+                {
+                    return null;
+                }
+            }
+
+            public NetComUser this[Socket pSocket]
+            {
+                get
+                {
+                    return null;
+                }
+            }
+        }
+
+        private ClientList LClients = new ClientList();
+        public InternalClientList ConnectedClients { get; } 
         public NetComServer(int pPort)
         {
             port = pPort;
             serverIP = IPAddress.Any;
+
+            ConnectedClients = new InternalClientList(this);
         }
 
         protected override void AsyncInstructionSendNext()
@@ -101,7 +133,7 @@ namespace EndevFWNwtCore
             LClients.Add(socket);
 
             socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, socket);
-            Debug("New client connected!");
+            Debug("New client connected.");
 
             //SendToClient(socket, new NCILib.PreAuth(this));
 
@@ -123,7 +155,7 @@ namespace EndevFWNwtCore
             }
             catch (SocketException)
             {
-                Debug("Client forcefully disconnected.");
+                Debug("Client disconnected > Connection lost.");
                 // Don't shutdown because the socket may be disposed and its disconnected anyway.
                 current.Close();
                 LClients.Remove(current);
@@ -151,7 +183,7 @@ namespace EndevFWNwtCore
             }
             catch (SocketException)
             {
-                Debug("Client forcefully disconnected.");
+                Debug("Client disconnected > Connection lost.");
                 // Don't shutdown because the socket may be disposed and its disconnected anyway.
                 current.Close();
                 LClients.Remove(current);

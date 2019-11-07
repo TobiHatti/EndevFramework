@@ -36,29 +36,29 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionBase">
-    <Position X="11.75" Y="0.5" Width="1.5" />
+    <Position X="12" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAARgAAQECIAAAAAAAAAAACAADAAAAACAAAA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionLibraryEssentials">
-    <Position X="13.5" Y="0.5" Width="3" />
+    <Position X="13.75" Y="0.5" Width="3" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MyStabilityTest">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
       <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MySampleInstruction">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
       <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MyParamInstruction">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MyStabilityTest">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -94,14 +94,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComClient">
-    <Position X="6" Y="3.75" Width="2.5" />
+    <Position X="9.25" Y="3.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAABAAgAACAAAAAAAEAAAAAAAAIAAAQAAAAAAAoAEAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.ClientList" BaseTypeListCollapsed="true">
-    <Position X="8.75" Y="0.5" Width="2.25" />
+    <Position X="9.25" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAABAACAAABAQAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComClientList.cs</FileName>
@@ -126,9 +126,19 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComServer">
-    <Position X="6" Y="0.5" Width="2.25" />
+    <Position X="6" Y="0.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="EndevFWNwtCore.NetComServer.InternalClientList">
+        <TypeIdentifier>
+          <NewMemberFileName>cUsrNetComServer.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAABAAAAACAAAAAAAAAAAQAAAAAQAAAAAAAAAAIgAAA=</HashCode>
+      <HashCode>AAABAAAAACAAAAAAAAAAAQAAAAAQgAAAAAAAAAIgAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
     </TypeIdentifier>
   </Class>

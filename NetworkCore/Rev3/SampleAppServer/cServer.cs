@@ -27,7 +27,9 @@ namespace SampleAppServer
 
             server.Start();
 
-
+            // The server can send to a range of connected clients, wich can be selected in the server.ConnectedClients-Property
+            server.Send(new InstructionLibraryEssentials.MyStabilityTest(server, server.ConnectedClients["Hallo"]));
+            server.Send(new InstructionLibraryEssentials.MyStabilityTest(server, server.ConnectedClients[1]));
 
             Console.ReadKey();
 
