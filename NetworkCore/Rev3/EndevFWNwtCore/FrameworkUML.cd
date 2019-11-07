@@ -130,15 +130,8 @@
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Class Name="EndevFWNwtCore.NetComServer.InternalClientList">
-        <TypeIdentifier>
-          <NewMemberFileName>cUsrNetComServer.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAABAAAAACAAAAAAAAAAAQAAAAAQgAAAAAAAAAIgAAA=</HashCode>
+      <HashCode>AAABAAAAACAAAAAAAAAAAQAAAAAAgAAAAAAAAAIgAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -20,45 +20,12 @@ namespace EndevFWNwtCore
     /// </summary>
     public class NetComServer : NetComOperator
     {
-        
-        public class InternalClientList
-        {
-            private NetComServer server = null;
-            public InternalClientList(NetComServer pServer)
-            {
-                server = pServer;
-            }
+        public ClientList ConnectedClients { get; } = new ClientList();
 
-            public NetComUser this[int idx]
-            {
-                get => server.LClients[idx];
-            }
-
-            public NetComUser this[string pUsername]
-            {
-                get
-                {
-                    return null;
-                }
-            }
-
-            public NetComUser this[Socket pSocket]
-            {
-                get
-                {
-                    return null;
-                }
-            }
-        }
-
-        private ClientList LClients = new ClientList();
-        public InternalClientList ConnectedClients { get; } 
         public NetComServer(int pPort)
         {
             port = pPort;
             serverIP = IPAddress.Any;
-
-            ConnectedClients = new InternalClientList(this);
         }
 
         protected override void AsyncInstructionSendNext()
@@ -102,7 +69,7 @@ namespace EndevFWNwtCore
         public void Shutdown()
         {
             Debug("Shutting down all connections...");
-            foreach (NetComCData client in LClients)
+            foreach (NetComCData client in ConnectedClients)
             {
                 client.LocalSocket.Shutdown(SocketShutdown.Both);
                 client.LocalSocket.Close();
@@ -130,7 +97,7 @@ namespace EndevFWNwtCore
                 return;
             }
 
-            LClients.Add(socket);
+            ConnectedClients.Add(socket);
 
             socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, socket);
             Debug("New client connected.");
@@ -158,7 +125,7 @@ namespace EndevFWNwtCore
                 Debug("Client disconnected > Connection lost.");
                 // Don't shutdown because the socket may be disposed and its disconnected anyway.
                 current.Close();
-                LClients.Remove(current);
+                ConnectedClients.Remove(current);
                 return;
             }
 
@@ -171,7 +138,7 @@ namespace EndevFWNwtCore
             Console.ForegroundColor = ConsoleColor.White;
 
 
-            InstructionBase[] instructionList = InstructionOperations.Parse(this, current, text, LClients).ToArray();
+            InstructionBase[] instructionList = InstructionOperations.Parse(this, current, text, ConnectedClients).ToArray();
 
             foreach (InstructionBase instr in instructionList)
                 incommingInstructions.Add(instr);
@@ -186,7 +153,7 @@ namespace EndevFWNwtCore
                 Debug("Client disconnected > Connection lost.");
                 // Don't shutdown because the socket may be disposed and its disconnected anyway.
                 current.Close();
-                LClients.Remove(current);
+                ConnectedClients.Remove(current);
                 return;
             }
 
