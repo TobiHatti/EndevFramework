@@ -20,7 +20,7 @@ namespace SampleStartupAssist
 
             //Process.Start(serverPath);
 
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
             for (int i = 0; i < clientCount; i++)
             {

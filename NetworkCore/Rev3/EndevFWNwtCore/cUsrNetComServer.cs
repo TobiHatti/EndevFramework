@@ -30,7 +30,16 @@ namespace EndevFWNwtCore
 
         protected override void AsyncInstructionSendNext()
         {
-            throw new NotImplementedException();
+            Socket current = outgoingInstructions[0]?.Receiver.LocalSocket;
+            byte[] data;
+
+            data = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
+
+            current.Send(data);
+
+            Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.");
+
+            outgoingInstructions.RemoveAt(0);
         }
 
         protected override void AsyncInstructionProcessNext()
@@ -163,7 +172,7 @@ namespace EndevFWNwtCore
         {
             if (pInstruction.Receiver != null)
             {
-                Debug($"Queueing message for {pInstruction.Receiver.ToString()}: {pInstruction}");
+                Debug($"Queueing message for {pInstruction.Receiver.ToString()}.");
                 outgoingInstructions.Add(pInstruction);
             }
         }
@@ -174,9 +183,16 @@ namespace EndevFWNwtCore
             foreach(NetComUser user in ConnectedClients)
             {
                 tmpInstruction = pInstruction.Clone();
-                Debug($"Queueing message for {pInstruction.Receiver.ToString()}: {pInstruction}");
-                outgoingInstructions.Add(pInstruction);
+                tmpInstruction.Receiver = user;
+
+                Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                outgoingInstructions.Add(tmpInstruction);
             }
         }
+
+        // SendGroup() - An benutzergruppen senden
+        // SendList() - An mehrere clients senden
+
+
     }
 }

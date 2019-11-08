@@ -20,7 +20,7 @@ namespace EndevFWNwtCore
     public abstract class InstructionBase
     {
         protected NetComUser sender = null;
-        public NetComUser Receiver { get; private set; } = null;
+        public NetComUser Receiver { get; set; } = null;
         
         protected string instruction = null;
         protected string sInstruction = null;
@@ -172,7 +172,14 @@ namespace EndevFWNwtCore
 
         public InstructionBase Clone()
         {
-            InstructionBase retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction));
+            InstructionBase retInstr = null;
+
+            if (value == null && parameters == null)
+                retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), sender, Receiver);
+            else if (parameters == null)
+                retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), sender, Receiver, value);
+            else
+                retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), sender, Receiver, value, parameters);
 
             retInstr.instruction = instruction;
             retInstr.sInstruction = sInstruction;

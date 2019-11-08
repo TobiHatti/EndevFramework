@@ -28,8 +28,16 @@ namespace SampleAppServer
             server.Start();
 
             // The server can send to a range of connected clients, wich can be selected in the server.ConnectedClients-Property
-            server.Send(new ILE.MyStabilityTest(server, server.ConnectedClients["Tobias"]));
-            server.Send(new ILE.MyStabilityTest(server, server.ConnectedClients[1]));
+            //server.Send(new ILE.MyStabilityTest(server, server.ConnectedClients["Tobias"]));
+            while(true)
+            {
+                server.Send(new ILE.MyStabilityTest(server, server.ConnectedClients[0]));
+
+                server.Broadcast(new ILE.MySampleInstruction(server, null, "Broadcast"));
+
+                Thread.Sleep(1000);
+            }
+            
 
             Console.ReadKey();
 
