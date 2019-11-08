@@ -159,5 +159,24 @@ namespace EndevFWNwtCore
 
         }
 
+        public void Send(InstructionBase pInstruction)
+        {
+            if (pInstruction.Receiver != null)
+            {
+                Debug($"Queueing message for {pInstruction.Receiver.ToString()}: {pInstruction}");
+                outgoingInstructions.Add(pInstruction);
+            }
+        }
+
+        public void Broadcast(InstructionBase pInstruction)
+        {
+            InstructionBase tmpInstruction = null;
+            foreach(NetComUser user in ConnectedClients)
+            {
+                tmpInstruction = pInstruction.Clone();
+                Debug($"Queueing message for {pInstruction.Receiver.ToString()}: {pInstruction}");
+                outgoingInstructions.Add(pInstruction);
+            }
+        }
     }
 }

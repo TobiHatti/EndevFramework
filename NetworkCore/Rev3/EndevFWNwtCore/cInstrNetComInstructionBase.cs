@@ -20,7 +20,7 @@ namespace EndevFWNwtCore
     public abstract class InstructionBase
     {
         protected NetComUser sender = null;
-        protected NetComUser receiver = null;
+        public NetComUser Receiver { get; private set; } = null;
         
         protected string instruction = null;
         protected string sInstruction = null;
@@ -48,10 +48,11 @@ namespace EndevFWNwtCore
         /// <param name="pParameters">Parameters of the instruction. Can be used as required</param>
         public InstructionBase(NetComUser pSender, NetComUser pReceiver, string pValue = null, params object[] pParameters)
         {
-            receiver = pReceiver;
+            Receiver = pReceiver;
             sender = pSender;
             value = pValue;
             parameters = pParameters;
+
             instruction = this.GetType().AssemblyQualifiedName;
             sInstruction = this.GetType().Name;
         }
@@ -68,7 +69,7 @@ namespace EndevFWNwtCore
         public string Encode()
         {
             bool rsaEncryption = false;
-            if (receiver.RSAKeys.PublicKey != null) rsaEncryption = true;
+            if (Receiver.RSAKeys.PublicKey != null) rsaEncryption = true;
 
             StringBuilder innersb = new StringBuilder();
             StringBuilder sb = new StringBuilder();
@@ -84,7 +85,7 @@ namespace EndevFWNwtCore
             if (sender?.Username != null) innersb.Append($"USR:{Base64Handler.Encode(sender?.Username)},");
             if (sender?.Password != null)
             {
-                if(rsaEncryption) innersb.Append($"PSW:{RSAHandler.Encrypt(receiver?.RSAKeys.PublicKey, sender?.Password)},");
+                if(rsaEncryption) innersb.Append($"PSW:{RSAHandler.Encrypt(Receiver?.RSAKeys.PublicKey, sender?.Password)},");
                 else innersb.Append($"PSW:{Base64Handler.Encode(sender?.Password)},");
             }
             
@@ -126,7 +127,7 @@ namespace EndevFWNwtCore
 
             StringBuilder sb = new StringBuilder();
 
-            if (receiver?.RSAKeys.PublicKey != null) isRSAEncrypted = true;
+            if (Receiver?.RSAKeys.PublicKey != null) isRSAEncrypted = true;
             if (sender?.RSAKeys.PrivateKey != null) isRSASigned = true;
 
             sb.AppendLine("");
@@ -161,12 +162,26 @@ namespace EndevFWNwtCore
         /// <param name="pPublicKey">Public-key of the receiver</param>
         public void SetReceiverPublicKey(string pPublicKey)
         {
-            if(receiver == null)
+            if(Receiver == null)
             {
-                receiver = new NetComUser();
+                Receiver = new NetComUser();
             }
 
-            receiver.SetUserData("", "", pPublicKey);
+            Receiver.SetUserData("", "", pPublicKey);
+        }
+
+        public InstructionBase Clone()
+        {
+            InstructionBase retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction));
+
+            retInstr.instruction = instruction;
+            retInstr.sInstruction = sInstruction;
+            retInstr.sender = sender;
+            retInstr.Receiver = Receiver;
+            retInstr.value = value;
+            retInstr.parameters = parameters;
+            
+            return retInstr;
         }
     }
 }

@@ -43,5 +43,10 @@ namespace EndevFWNwtCore
                 RSAKeys = keys;
             }
         }
+
+        public override string ToString()
+        {
+            return Username;
+        }
     }
 }

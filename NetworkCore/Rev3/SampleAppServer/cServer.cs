@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using ILE = EndevFWNwtCore.InstructionLibraryExtension;
 namespace SampleAppServer
 {
     class Server
@@ -28,8 +28,8 @@ namespace SampleAppServer
             server.Start();
 
             // The server can send to a range of connected clients, wich can be selected in the server.ConnectedClients-Property
-            server.Send(new InstructionLibraryEssentials.MyStabilityTest(server, server.ConnectedClients["Hallo"]));
-            server.Send(new InstructionLibraryEssentials.MyStabilityTest(server, server.ConnectedClients[1]));
+            server.Send(new ILE.MyStabilityTest(server, server.ConnectedClients["Tobias"]));
+            server.Send(new ILE.MyStabilityTest(server, server.ConnectedClients[1]));
 
             Console.ReadKey();
 
