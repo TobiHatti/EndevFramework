@@ -1,5 +1,6 @@
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleStartupAssist\bin\Debug\SampleStartupAssist.exe.config
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleStartupAssist\bin\Debug\SampleStartupAssist.exe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleStartupAssist\bin\Debug\SampleStartupAssist.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleStartupAssist\obj\Debug\SampleStartupAssist.csprojAssemblyReference.cache
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleStartupAssist\obj\Debug\SampleStartupAssist.exe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleStartupAssist\obj\Debug\SampleStartupAssist.pdb

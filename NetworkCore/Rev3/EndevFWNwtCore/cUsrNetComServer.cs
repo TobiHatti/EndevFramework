@@ -42,13 +42,6 @@ namespace EndevFWNwtCore
             outgoingInstructions.RemoveAt(0);
         }
 
-        protected override void AsyncInstructionProcessNext()
-        {
-            incommingInstructions[0].Execute();
-            incommingInstructions.RemoveAt(0);
-        }
-
-
         /// <summary>
         /// Initializes and Starts the Server
         /// </summary>

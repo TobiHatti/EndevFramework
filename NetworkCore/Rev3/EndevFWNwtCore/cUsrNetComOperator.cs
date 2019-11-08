@@ -75,7 +75,11 @@ namespace EndevFWNwtCore
         }
 
         protected abstract void AsyncInstructionSendNext();
-        protected abstract void AsyncInstructionProcessNext();
+        protected void AsyncInstructionProcessNext()
+        {
+            incommingInstructions[0].Execute();
+            incommingInstructions.RemoveAt(0);
+        }
 
     }
 }

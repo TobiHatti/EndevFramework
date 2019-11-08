@@ -102,7 +102,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAABAAgAACAAAAAAAEAAAAAAAAIAAAQAAAAAAAoAEAA=</HashCode>
+      <HashCode>AAABAAgAACAAAAAAAEAAAAAAAAIAAAQAAAAAAAgAEAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -137,7 +137,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAABAAAAACCAAAAAAEAAAQAAAAAAgAAAAAAAAAIgAAA=</HashCode>
+      <HashCode>AAABAAAAACCAAAAAAEAAAQAAAAAAgAAAAAAAAAAgAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -44,16 +44,16 @@ namespace EndevFWNwtCore
             TryConnect();
 
             Debug("Starting Background-Process: Instruction-Processing...");
-            //instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
-            //instructionProcessingThread.Start();
+            instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
+            instructionProcessingThread.Start();
 
             Debug("Starting Background-Process: Instruction-Sending...");
-            //instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
-            //instructionSendingThread.Start();
+            instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
+            instructionSendingThread.Start();
 
             Debug("Starting Background-Process: Instruction-Receiving...");
-            //instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
-            //instructionReceptionThread.Start();
+            instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
+            instructionReceptionThread.Start();
 
             Debug("Successfully started all background-processes!");
         }
@@ -86,12 +86,6 @@ namespace EndevFWNwtCore
             while (true) AsyncInstructionReceiveNext();
         }
 
-
-        protected override void AsyncInstructionProcessNext()
-        {
-
-        }
-
         protected override void AsyncInstructionSendNext()
         {
             byte[] buffer;
@@ -105,7 +99,21 @@ namespace EndevFWNwtCore
         
         protected void AsyncInstructionReceiveNext()
         {
+            buffer = new byte[bufferSize];
 
+            int received = LocalSocket.Receive(buffer, SocketFlags.None);
+            if (received == 0) return;
+
+            byte[] data = new byte[received];
+            Array.Copy(buffer, data, received);
+            string text = Encoding.UTF8.GetString(data);
+
+            Debug("Received Message: " + text);
+
+            InstructionBase[] instructionList = InstructionOperations.Parse(this, null, text).ToArray();
+
+            foreach (InstructionBase instr in instructionList)
+                incommingInstructions.Add(instr);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace SampleStartupAssist
             Console.WriteLine("Amount of clients: ");
             var clientCount = Convert.ToInt32(Console.ReadLine());
 
-            //Process.Start(serverPath);
+            Process.Start(serverPath);
 
             Thread.Sleep(3000);
 
@@ -27,9 +27,6 @@ namespace SampleStartupAssist
                 Process.Start(clientPath, $"{i + 1}");
                 Thread.Sleep(1000);
             }
-                
-
-            
 
             Environment.Exit(0);
         }
