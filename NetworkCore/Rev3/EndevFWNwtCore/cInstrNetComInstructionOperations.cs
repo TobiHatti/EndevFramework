@@ -21,6 +21,9 @@ namespace EndevFWNwtCore
     /// </summary>
     public class InstructionOperations
     {
+        public static bool ForceInstructionsetVersion { get; set; } = false;
+        public static bool ForceFrameworkVersion { get; set; } = false;
+
         /// <summary>
         /// Parses an encoded instruction-string and returns 
         /// all instruction-objects included in the string
@@ -139,13 +142,13 @@ namespace EndevFWNwtCore
                                 break;
                         }
                     }
-
+                    
                     // Check instructionset-version
-                    if (InstructionBase.InstructionSetVersion != instructionsetVersion)
+                    if (ForceInstructionsetVersion && InstructionBase.InstructionSetVersion != instructionsetVersion)
                         throw new NetComVersionException($"*** The received package uses a different verion of the Instruction-Set! Local version: {InstructionBase.InstructionSetVersion} - Senders version: {instructionsetVersion} ***");
 
                     // Check framework-version
-                    if (InstructionBase.FrameworkVersion != frameworkVersion)
+                    if (ForceFrameworkVersion && InstructionBase.FrameworkVersion != frameworkVersion)
                         throw new NetComVersionException($"*** The received package was built using a different verion of the Framework! Local version: {InstructionBase.FrameworkVersion} - Senders version: {frameworkVersion} ***");
 
                     // Check signature

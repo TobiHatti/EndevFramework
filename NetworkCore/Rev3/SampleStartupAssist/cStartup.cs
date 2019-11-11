@@ -19,7 +19,6 @@ namespace SampleStartupAssist
 
             //Process.Start(serverPath);
 
-            Thread.Sleep(3000);
 
             while (true)
             {

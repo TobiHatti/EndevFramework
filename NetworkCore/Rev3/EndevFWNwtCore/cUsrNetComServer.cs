@@ -176,7 +176,7 @@ namespace EndevFWNwtCore
             {
                 Debug("Authentication-Error (Instruction-Parsing).");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Debug($"Error occured (Instruction-Parsing). ({errorCtr})");
                 errorCtr++;
@@ -214,10 +214,10 @@ namespace EndevFWNwtCore
             {
                 lock (ConnectedClients)
                 {
-                    foreach (NetComUser user in ConnectedClients)
+                    for(int i = 0; i < ConnectedClients.Count; i++)
                     {
                         tmpInstruction = pInstruction.Clone();
-                        tmpInstruction.Receiver = user;
+                        tmpInstruction.Receiver = ConnectedClients[i];
 
                         Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
                         outgoingInstructions.Add(tmpInstruction);
@@ -231,6 +231,7 @@ namespace EndevFWNwtCore
             }
         }
 
+        // TODO:
         // SendGroup() - An benutzergruppen senden
         // SendList() - An mehrere clients senden
 

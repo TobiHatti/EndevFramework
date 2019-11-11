@@ -82,7 +82,7 @@ namespace EndevFWNwtCore
             incommingInstructions[0].Execute();
             incommingInstructions.RemoveAt(0);
             processedCount++;
-            Debug($"Processed Instruction ({processedCount})");
+            Debug($"Processed Instruction ({processedCount} - Success-Rate: {(float)(1-((float)errorCtr / (float)processedCount)) * 100}%)");
         }
 
     }

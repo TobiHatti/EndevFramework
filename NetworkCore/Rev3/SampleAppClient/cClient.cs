@@ -55,7 +55,7 @@ namespace SampleAppClient
             {
                 // Clients can only send directly to the server, so the receiver is set to null
                 client.Send(new InstructionLibraryEssentials.MyStabilityTest(client, null));
-                Thread.Sleep(new Random().Next(30, 300));
+                Thread.Sleep(new Random().Next(500, 1000));
             }
             
 
