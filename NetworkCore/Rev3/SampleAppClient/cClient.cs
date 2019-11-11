@@ -34,7 +34,15 @@ namespace SampleAppClient
             //NetComClient client = new NetComClient(Dns.GetHostAddresses("endev.ddns.net")[0].ToString(), 2225);
             NetComClient client = new NetComClient("127.0.0.1", 2225);
 
-            client.Login("TobiHatti", "Apfel123");
+            
+
+            Console.Write("Username: ");
+            string username = Console.ReadLine();
+
+            Console.Write("Password: ");
+            string password = Console.ReadLine();
+
+            client.Login(username, password);
 
             client.SetDebugOutput(DebugOutput.ToConsole);
 

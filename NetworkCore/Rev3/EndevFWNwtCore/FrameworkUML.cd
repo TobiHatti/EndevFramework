@@ -53,16 +53,6 @@
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MySampleInstruction">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MyParamInstruction">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
       <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationServer2Client" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>

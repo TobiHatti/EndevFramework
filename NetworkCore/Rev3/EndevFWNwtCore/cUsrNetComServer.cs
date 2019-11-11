@@ -50,6 +50,7 @@ namespace EndevFWNwtCore
             current.Send(data);
 
             Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.");
+            Debug(outgoingInstructions[0].ToString());
 
             outgoingInstructions.RemoveAt(0);
         }
@@ -149,7 +150,8 @@ namespace EndevFWNwtCore
             string text = Encoding.UTF8.GetString(recBuf);
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Debug("Received message: " + text);
+            //Debug("Received message: " + text);
+            Debug("Received message.");
             Console.ForegroundColor = ConsoleColor.White;
 
 

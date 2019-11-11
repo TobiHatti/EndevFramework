@@ -35,7 +35,7 @@ namespace SampleAppServer
             {
                 server.Send(new ILE.MyStabilityTest(server, server.ConnectedClients[0]));
 
-                //server.Broadcast(new ILE.MySampleInstruction(server, null, "Broadcast"));
+                server.Broadcast(new ILE.MySampleInstruction(server, null, "Broadcast"));
 
                 Thread.Sleep(1000);
             }

@@ -101,7 +101,10 @@ namespace EndevFWNwtCore
             buffer = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
 
             LocalSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
-            Debug($"Sent Message: {outgoingInstructions[0].ToString()}");
+
+            Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.");
+            Debug(outgoingInstructions[0].ToString());
+
             outgoingInstructions.RemoveAt(0);
         }
         
@@ -116,7 +119,7 @@ namespace EndevFWNwtCore
             Array.Copy(buffer, data, received);
             string text = Encoding.UTF8.GetString(data);
 
-            Debug("Received Message: " + text);
+            Debug("Received Message.");
 
             InstructionBase[] instructionList = InstructionOperations.Parse(this, null, text).ToArray();
 

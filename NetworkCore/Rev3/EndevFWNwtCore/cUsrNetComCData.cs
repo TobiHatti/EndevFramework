@@ -38,10 +38,6 @@ namespace EndevFWNwtCore
         /// <returns>True if the authentication was sucessfull</returns>
         public bool Authenticate(string pPassword, string pUsername = null)
         {
-            // for development: 
-            return true;
-
-
             if (Password == pPassword && Username == pUsername && authenticated) return true;
 
             if (Password != pPassword) authenticated = false;
