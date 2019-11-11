@@ -18,14 +18,14 @@ namespace EndevFWNwtCore
     public class NetComCData : NetComUser
     {
         public delegate bool AuthenticationTool(string pUsername, string pPassword);
-        private AuthenticationTool AuthLookup = null;
+        private static AuthenticationTool AuthLookup = null;
         protected bool authenticated = false;
 
         /// <summary>
         /// Sets the tool used for authenticating users.
         /// </summary>
         /// <param name="pLookupTool">Lookup-Method for user-authentication</param>
-        public void SetAuthenticationTool(AuthenticationTool pLookupTool)
+        public static void SetAuthenticationTool(AuthenticationTool pLookupTool)
         {
             AuthLookup = pLookupTool;
         }

@@ -36,14 +36,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionBase">
-    <Position X="10.75" Y="4" Width="2.25" />
+    <Position X="10.5" Y="3.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAARgAAQECIAAAAAAAAAEAKAACAAAAACIABA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionLibraryEssentials">
-    <Position X="13.75" Y="0.5" Width="3" />
+    <Position X="13.5" Y="0.5" Width="3" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -53,12 +53,12 @@
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationServer2Client" Collapsed="true">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationServer2Client">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationClient2Server" Collapsed="true">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationClient2Server">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -70,7 +70,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionLibraryExtension">
-    <Position X="17" Y="0.5" Width="2.25" />
+    <Position X="16.75" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionLibraryExtension.cs</FileName>
@@ -163,7 +163,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionOperations">
-    <Position X="17" Y="1.75" Width="2.75" />
+    <Position X="16.75" Y="1.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionOperations.cs</FileName>
@@ -181,6 +181,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndevFWNwtCore.AuthenticationTools">
+    <Position X="13.75" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cAuthNetComAuthenticationTools.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

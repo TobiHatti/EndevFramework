@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cAuthNetComAuthenticationTools.cs" />
     <Compile Include="cDbgNetComDebugOutput.cs" />
     <Compile Include="cEncNetComBase64Handler.cs" />
     <Compile Include="cEncNetComRSAHandler.cs" />

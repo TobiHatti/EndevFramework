@@ -154,11 +154,18 @@ namespace EndevFWNwtCore
             Debug("Received message.");
             Console.ForegroundColor = ConsoleColor.White;
 
+            InstructionBase[] instructionList = null;
 
-            InstructionBase[] instructionList = InstructionOperations.Parse(this, current, text, ConnectedClients).ToArray();
-
-            foreach (InstructionBase instr in instructionList)
-                incommingInstructions.Add(instr);
+            try
+            {
+                instructionList = InstructionOperations.Parse(this, current, text, ConnectedClients).ToArray();
+                foreach (InstructionBase instr in instructionList)
+                    incommingInstructions.Add(instr);
+            }
+            catch(NetComAuthenticationException authEx)
+            {
+                Debug("Authentication-Error.");
+            }
 
 
             try

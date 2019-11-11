@@ -25,6 +25,8 @@ namespace SampleAppServer
 
             server.SetDebugOutput(DebugOutput.ToConsole);
 
+            NetComCData.SetAuthenticationTool(AuthenticationTools.DebugAuth);
+
             server.Start();
 
             // The server can send to a range of connected clients, wich can be selected in the server.ConnectedClients-Property
@@ -35,7 +37,7 @@ namespace SampleAppServer
             {
                 server.Send(new ILE.MyStabilityTest(server, server.ConnectedClients[0]));
 
-                server.Broadcast(new ILE.MySampleInstruction(server, null, "Broadcast"));
+                server.Broadcast(new ILE.MyStabilityTest(server, null));
 
                 Thread.Sleep(1000);
             }

@@ -32,12 +32,12 @@ namespace NetComServerInstruction
 
             // 1) Send a message to a single connected client
 
-            int connectedClientIndex = 0;
-            InstructionBase instruction1 = new InstructionLibraryEssentials.MySampleInstruction
-                (server, server.ConnectedClients[connectedClientIndex], "Hello world.");
+            //int connectedClientIndex = 0;
+            //InstructionBase instruction1 = new InstructionLibraryEssentials.MyStabilityTest
+            //    (server, server.ConnectedClients[connectedClientIndex], "Hello world.");
 
 
-            server.Send(instruction1);
+            //server.Send(instruction1);
         }
     }
 }
