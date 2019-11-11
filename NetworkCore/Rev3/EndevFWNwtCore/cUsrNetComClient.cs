@@ -121,10 +121,23 @@ namespace EndevFWNwtCore
 
             Debug("Received Message.");
 
-            InstructionBase[] instructionList = InstructionOperations.Parse(this, null, text).ToArray();
+            InstructionBase[] instructionList = null;
 
-            foreach (InstructionBase instr in instructionList)
-                incommingInstructions.Add(instr);
+            try
+            {
+                instructionList = InstructionOperations.Parse(this, null, text).ToArray();
+                foreach (InstructionBase instr in instructionList)
+                    incommingInstructions.Add(instr);
+            }
+            catch (NetComAuthenticationException authEx)
+            {
+                Debug("Authentication-Error.");
+            }
+            catch (Exception)
+            {
+                Debug($"Error occured. ({errorCtr})");
+                errorCtr++;
+            }
         }
 
         public void SetServerRSA(string pPublicRSAKey)

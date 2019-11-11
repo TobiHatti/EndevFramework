@@ -97,8 +97,8 @@
     <Position X="7.25" Y="4.25" Width="2.75" />
     <InheritanceLine Type="EndevFWNwtCore.NetComOperator" FixedFromPoint="true">
       <Path>
-        <Point X="6.75" Y="5.125" />
-        <Point X="7.25" Y="5.125" />
+        <Point X="6.75" Y="5.411" />
+        <Point X="7.25" Y="5.411" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -127,7 +127,7 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAJAAAAQAAYCIAAAABAAAAAAAAAAAiAAABCAIJgBAg=</HashCode>
+      <HashCode>AAAJAAAAQAAYCIAAAABAAAAAAAAQAAiAAABCAIJgBAg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>

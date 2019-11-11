@@ -47,7 +47,14 @@ namespace EndevFWNwtCore
 
             data = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
 
-            current.Send(data);
+            try
+            {
+                current.Send(data);
+            }
+            catch
+            {
+                Debug("Client disconnected > Connection lost.");
+            }
 
             Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.");
             Debug(outgoingInstructions[0].ToString());
@@ -83,11 +90,14 @@ namespace EndevFWNwtCore
         /// </summary>
         public void Shutdown()
         {
-            Debug("Shutting down all connections...");
-            foreach (NetComCData client in ConnectedClients)
+            lock (ConnectedClients)
             {
-                client.LocalSocket.Shutdown(SocketShutdown.Both);
-                client.LocalSocket.Close();
+                Debug("Shutting down all connections...");
+                foreach (NetComCData client in ConnectedClients)
+                {
+                    client.LocalSocket.Shutdown(SocketShutdown.Both);
+                    client.LocalSocket.Close();
+                }
             }
 
             Debug("Shutting down server...");
@@ -164,7 +174,12 @@ namespace EndevFWNwtCore
             }
             catch(NetComAuthenticationException authEx)
             {
-                Debug("Authentication-Error.");
+                Debug("Authentication-Error (Instruction-Parsing).");
+            }
+            catch(Exception)
+            {
+                Debug($"Error occured (Instruction-Parsing). ({errorCtr})");
+                errorCtr++;
             }
 
 
@@ -195,13 +210,24 @@ namespace EndevFWNwtCore
         public void Broadcast(InstructionBase pInstruction)
         {
             InstructionBase tmpInstruction = null;
-            foreach(NetComUser user in ConnectedClients)
+            try
             {
-                tmpInstruction = pInstruction.Clone();
-                tmpInstruction.Receiver = user;
+                lock (ConnectedClients)
+                {
+                    foreach (NetComUser user in ConnectedClients)
+                    {
+                        tmpInstruction = pInstruction.Clone();
+                        tmpInstruction.Receiver = user;
 
-                Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
-                outgoingInstructions.Add(tmpInstruction);
+                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                        outgoingInstructions.Add(tmpInstruction);
+                    }
+                }
+            }
+            catch
+            {
+                Debug("Broadcast-Error.");
+                errorCtr++;
             }
         }
 

@@ -31,18 +31,19 @@ namespace SampleAppClient
 
             Console.WriteLine(Dns.GetHostAddresses("endev.ddns.net")[0].ToString());
 
-            //NetComClient client = new NetComClient(Dns.GetHostAddresses("endev.ddns.net")[0].ToString(), 2225);
-            NetComClient client = new NetComClient("127.0.0.1", 2225);
+            NetComClient client = new NetComClient(Dns.GetHostAddresses("endev.ddns.net")[0].ToString(), 2225);
+            //NetComClient client = new NetComClient("127.0.0.1", 2225);
 
             
 
             Console.Write("Username: ");
-            string username = Console.ReadLine();
+            //string username = Console.ReadLine();
 
             Console.Write("Password: ");
-            string password = Console.ReadLine();
+            //string password = Console.ReadLine();
 
-            client.Login(username, password);
+            //client.Login(username, password);
+            client.Login("Tobias", "1");
 
             client.SetDebugOutput(DebugOutput.ToConsole);
 
@@ -54,7 +55,7 @@ namespace SampleAppClient
             {
                 // Clients can only send directly to the server, so the receiver is set to null
                 client.Send(new InstructionLibraryEssentials.MyStabilityTest(client, null));
-                Thread.Sleep(new Random().Next(300, 3000));
+                Thread.Sleep(new Random().Next(30, 300));
             }
             
 

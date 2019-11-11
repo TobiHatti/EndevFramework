@@ -21,8 +21,10 @@ namespace EndevFWNwtCore
     {
         protected IPAddress serverIP = null;
         protected int port = 2225;
+        protected int errorCtr = 0;
+        protected int processedCount = 0;
 
-        protected const int bufferSize = 102400; // 100KB (KiB)
+        protected const int bufferSize = 10240000; // 100KB (KiB)
         protected volatile byte[] buffer = new byte[bufferSize];
 
         protected volatile List<InstructionBase> incommingInstructions = new List<InstructionBase>();
@@ -79,6 +81,8 @@ namespace EndevFWNwtCore
         {
             incommingInstructions[0].Execute();
             incommingInstructions.RemoveAt(0);
+            processedCount++;
+            Debug($"Processed Instruction ({processedCount})");
         }
 
     }

@@ -15,17 +15,23 @@ namespace SampleStartupAssist
             var clientPath = @"..\..\..\SampleAppClient\bin\Debug\SampleAppClient.exe";
             var serverPath = @"..\..\..\SampleAppServer\bin\Debug\SampleAppServer.exe";
 
-            Console.WriteLine("Amount of clients: ");
-            var clientCount = Convert.ToInt32(Console.ReadLine());
+            
 
-            Process.Start(serverPath);
+            //Process.Start(serverPath);
 
             Thread.Sleep(3000);
 
-            for (int i = 0; i < clientCount; i++)
+            while (true)
             {
-                Process.Start(clientPath, $"{i + 1}");
-                Thread.Sleep(1000);
+
+                Console.Write("Amount of clients: ");
+                var clientCount = Convert.ToInt32(Console.ReadLine());
+
+                for (int i = 0; i < clientCount; i++)
+                {
+                    Process.Start(clientPath, $"{i + 1}");
+                    Thread.Sleep(500);
+                }
             }
 
             Environment.Exit(0);
