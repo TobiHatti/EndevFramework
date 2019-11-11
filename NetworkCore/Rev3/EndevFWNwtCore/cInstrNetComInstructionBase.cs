@@ -19,7 +19,7 @@ namespace EndevFWNwtCore
     /// </summary>
     public abstract class InstructionBase
     {
-        protected NetComUser sender = null;
+        public NetComUser Sender { get; private set; } = null;
         public NetComUser Receiver { get; set; } = null;
         
         protected string instruction = null;
@@ -49,7 +49,7 @@ namespace EndevFWNwtCore
         public InstructionBase(NetComUser pSender, NetComUser pReceiver, string pValue = null, params object[] pParameters)
         {
             Receiver = pReceiver;
-            sender = pSender;
+            Sender = pSender;
             value = pValue;
             parameters = pParameters;
 
@@ -68,6 +68,17 @@ namespace EndevFWNwtCore
         /// <returns>The encoded string</returns>
         public string Encode()
         {
+
+            if(this.GetType() == typeof(InstructionLibraryEssentials.__AuthenticationServer2Client))
+            {
+                return EncodeAuthenticationS2C();
+            }
+            if(this.GetType() == typeof(InstructionLibraryEssentials.__AuthenticationClient2Server))
+            {
+                return EncodeAuthenticationC2S();
+            }
+
+
             bool rsaEncryption = false;
             if (Receiver.RSAKeys.PublicKey != null) rsaEncryption = true;
 
@@ -81,21 +92,21 @@ namespace EndevFWNwtCore
             innersb.Append($"ISV:{Base64Handler.Encode(InstructionSetVersion)},");
 
             // User Data
-            if (sender?.RSAKeys.PublicKey != null) innersb.Append($"PUK:{Base64Handler.Encode(sender?.RSAKeys.PublicKey)},");
-            if (sender?.Username != null) innersb.Append($"USR:{Base64Handler.Encode(sender?.Username)},");
-            if (sender?.Password != null)
+            if (Sender?.RSAKeys.PublicKey != null) innersb.Append($"PUK:{Base64Handler.Encode(Sender?.RSAKeys.PublicKey)},");
+            if (Sender?.Username != null) innersb.Append($"USR:{Base64Handler.Encode(Sender?.Username)},");
+            if (Sender?.Password != null)
             {
-                if(rsaEncryption) innersb.Append($"PSW:{RSAHandler.Encrypt(Receiver?.RSAKeys.PublicKey, sender?.Password)},");
-                else innersb.Append($"PSW:{Base64Handler.Encode(sender?.Password)},");
+                if(rsaEncryption) innersb.Append($"PSW:{RSAHandler.Encrypt(Receiver?.RSAKeys.PublicKey, Sender?.Password)},");
+                else innersb.Append($"PSW:{Base64Handler.Encode(Sender?.Password)},");
             }
             
             // Signature
-            if(sender?.RSAKeys.PrivateKey != null)
+            if(Sender?.RSAKeys.PrivateKey != null)
             {
                 Guid signature = Guid.NewGuid();
 
                 innersb.Append($"SGP:{Base64Handler.Encode(signature.ToString())},");
-                innersb.Append($"SGP:{RSAHandler.Sign(sender?.RSAKeys.PrivateKey, signature.ToString())},");
+                innersb.Append($"SGC:{RSAHandler.Sign(Sender?.RSAKeys.PrivateKey, signature.ToString())},");
             }
 
             // Actuall data
@@ -116,6 +127,40 @@ namespace EndevFWNwtCore
             return sb.ToString();
         }
 
+        private string EncodeAuthenticationS2C()
+        {
+            StringBuilder innersb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
+
+            innersb.Append($"FWV:{Base64Handler.Encode(FrameworkVersion)},");
+            innersb.Append($"ISV:{Base64Handler.Encode(InstructionSetVersion)},");
+            innersb.Append($"PUK:{Base64Handler.Encode(Sender?.RSAKeys.PublicKey)},");
+            innersb.Append($"USR:{Base64Handler.Encode("Server")},");
+            innersb.Append($"INS:{Base64Handler.Encode(instruction)},");
+
+            sb.Append(Base64Handler.Encode(innersb.ToString()));
+            sb.Append(";");
+
+            return sb.ToString();
+        }
+
+        private string EncodeAuthenticationC2S()
+        {
+            StringBuilder innersb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
+
+            innersb.Append($"FWV:{Base64Handler.Encode(FrameworkVersion)},");
+            innersb.Append($"ISV:{Base64Handler.Encode(InstructionSetVersion)},");
+            innersb.Append($"PUK:{Base64Handler.Encode(Sender?.RSAKeys.PublicKey)},");
+            innersb.Append($"USR:{Base64Handler.Encode(Sender?.Username)},");
+            innersb.Append($"INS:{Base64Handler.Encode(instruction)},");
+
+            sb.Append(Base64Handler.Encode(innersb.ToString()));
+            sb.Append(";");
+
+            return sb.ToString();
+        }
+
         /// <summary>
         /// Returns the instructions data formated.
         /// </summary>
@@ -128,7 +173,7 @@ namespace EndevFWNwtCore
             StringBuilder sb = new StringBuilder();
 
             if (Receiver?.RSAKeys.PublicKey != null) isRSAEncrypted = true;
-            if (sender?.RSAKeys.PrivateKey != null) isRSASigned = true;
+            if (Sender?.RSAKeys.PrivateKey != null) isRSASigned = true;
 
             sb.AppendLine("");
             sb.AppendLine("=================================");
@@ -138,8 +183,8 @@ namespace EndevFWNwtCore
             sb.AppendLine($"RSA-Encrypted: {isRSAEncrypted}");
             sb.AppendLine($"RSA-Signed: {isRSASigned}");
 
-            if (sender?.Username != null) sb.AppendLine($"Username: {sender?.Username}");
-            if (sender?.Password != null) sb.AppendLine($"Password: {sender?.Password}");
+            if (Sender?.Username != null) sb.AppendLine($"Username: {Sender?.Username}");
+            if (Sender?.Password != null) sb.AppendLine($"Password: {Sender?.Password}");
 
             if (instruction != null) sb.AppendLine($"Instruction: {sInstruction}");
             if (value != null) sb.AppendLine($"Value: {value}");
@@ -175,15 +220,15 @@ namespace EndevFWNwtCore
             InstructionBase retInstr = null;
 
             if (value == null && parameters == null)
-                retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), sender, Receiver);
+                retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), Sender, Receiver);
             else if (parameters == null)
-                retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), sender, Receiver, value);
+                retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), Sender, Receiver, value);
             else
-                retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), sender, Receiver, value, parameters);
+                retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), Sender, Receiver, value, parameters);
 
             retInstr.instruction = instruction;
             retInstr.sInstruction = sInstruction;
-            retInstr.sender = sender;
+            retInstr.Sender = Sender;
             retInstr.Receiver = Receiver;
             retInstr.value = value;
             retInstr.parameters = parameters;

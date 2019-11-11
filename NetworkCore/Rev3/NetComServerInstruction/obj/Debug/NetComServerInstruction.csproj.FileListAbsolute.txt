@@ -1,0 +1,9 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComServerInstruction\bin\Debug\NetComServerInstruction.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComServerInstruction\bin\Debug\NetComServerInstruction.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComServerInstruction\bin\Debug\NetComServerInstruction.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComServerInstruction\bin\Debug\EndevFWNwtCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComServerInstruction\bin\Debug\EndevFWNwtCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComServerInstruction\obj\Debug\NetComServerInstruction.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComServerInstruction\obj\Debug\NetComServerInstruction.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComServerInstruction\obj\Debug\NetComServerInstruction.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComServerInstruction\obj\Debug\NetComServerInstruction.pdb

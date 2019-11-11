@@ -45,7 +45,7 @@ namespace EndevFWNwtCore
             debugParams = pDebugParameters;
         }
 
-        protected void Debug(string pMessage)
+        public void Debug(string pMessage)
         {
             DebugCom(pMessage, debugParams);
         }
@@ -75,7 +75,7 @@ namespace EndevFWNwtCore
         }
 
         protected abstract void AsyncInstructionSendNext();
-        protected void AsyncInstructionProcessNext()
+        protected virtual void AsyncInstructionProcessNext()
         {
             incommingInstructions[0].Execute();
             incommingInstructions.RemoveAt(0);

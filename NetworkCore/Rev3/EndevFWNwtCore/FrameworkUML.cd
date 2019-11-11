@@ -38,7 +38,7 @@
   <Class Name="EndevFWNwtCore.InstructionBase">
     <Position X="10.75" Y="4" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAARgAAQECIAAAAAAAAAEACAACAAAAACAABA=</HashCode>
+      <HashCode>gAAAAAAAAARgAAQECIAAAAAAAAAEAKAACAAAAACIABA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -59,6 +59,16 @@
         </TypeIdentifier>
       </Class>
       <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MyParamInstruction">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationServer2Client" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationClient2Server" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -102,7 +112,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAABAAgAACAAAAAAAEAAAAAAAAIAAAQAAAAAAAgAEAA=</HashCode>
+      <HashCode>AAABAAgAACAAAAAAAEAAAAAAAAIBAAQAAAAQAAgAEAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -137,7 +147,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAABAAAAACCAAAAAAEAAAQAAAAAAgAAAAAAAAAAgAAA=</HashCode>
+      <HashCode>AAABAAAAACCAAAAAAEAAAQAAAAAAgAAAAAAACAAgAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
     </TypeIdentifier>
   </Class>

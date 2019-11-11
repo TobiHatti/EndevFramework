@@ -34,11 +34,15 @@ namespace SampleAppClient
             //NetComClient client = new NetComClient(Dns.GetHostAddresses("endev.ddns.net")[0].ToString(), 2225);
             NetComClient client = new NetComClient("127.0.0.1", 2225);
 
+            client.Login("TobiHatti", "Apfel123");
+
             client.SetDebugOutput(DebugOutput.ToConsole);
 
             client.Start();
 
-            while(true)
+            Thread.Sleep(3000);
+
+            while (true)
             {
                 // Clients can only send directly to the server, so the receiver is set to null
                 client.Send(new InstructionLibraryEssentials.MyStabilityTest(client, null));

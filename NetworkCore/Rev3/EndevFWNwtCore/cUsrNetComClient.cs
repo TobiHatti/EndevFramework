@@ -30,10 +30,18 @@ namespace EndevFWNwtCore
         /// <param name="pPort">TCP port of the server</param>
         public NetComClient(string pServerIP, int pPort)
         {
+            RSAKeys = RSAHandler.GenerateKeyPair();
             port = pPort;
             serverIP = IPAddress.Parse(pServerIP);
+
+
         }
 
+        public void Login(string pUsername, string pPassword)
+        {
+            Username = pUsername;
+            Password = pPassword;
+        }
 
         public void Start()
         {
@@ -114,6 +122,11 @@ namespace EndevFWNwtCore
 
             foreach (InstructionBase instr in instructionList)
                 incommingInstructions.Add(instr);
+        }
+
+        public void SetServerRSA(string pPublicRSAKey)
+        {
+            serverPublicKey = pPublicRSAKey;
         }
     }
 }

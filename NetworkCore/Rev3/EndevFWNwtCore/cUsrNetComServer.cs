@@ -21,12 +21,24 @@ namespace EndevFWNwtCore
     public class NetComServer : NetComOperator
     {
         public ClientList ConnectedClients { get; } = new ClientList();
+        public NetComUser CurrentProcessingClient 
+        { 
+            get
+            {
+                if (incommingInstructions.Count > 0) return incommingInstructions[0].Sender;
+                else return null;
+            }
+        }
 
         public NetComServer(int pPort)
         {
             port = pPort;
             serverIP = IPAddress.Any;
+
+            RSAKeys = RSAHandler.GenerateKeyPair();
         }
+
+  
 
         protected override void AsyncInstructionSendNext()
         {
@@ -105,6 +117,7 @@ namespace EndevFWNwtCore
             Debug("New client connected.");
 
             //SendToClient(socket, new NCILib.PreAuth(this));
+            Send(new InstructionLibraryEssentials.__AuthenticationServer2Client(this, ConnectedClients[socket]));
 
             LocalSocket.BeginAccept(AcceptCallback, null);
         }

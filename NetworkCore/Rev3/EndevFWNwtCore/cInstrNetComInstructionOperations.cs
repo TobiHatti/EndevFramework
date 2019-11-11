@@ -172,11 +172,11 @@ namespace EndevFWNwtCore
                     }
 
                     if (value == null && parameters.Count == 0)
-                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, null);
+                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser);
                     else if (parameters.Count == 0)
-                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, null, value);
+                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value);
                     else
-                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, null, value, parameters.ToArray());
+                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value, parameters.ToArray());
                 }
             }
         }
