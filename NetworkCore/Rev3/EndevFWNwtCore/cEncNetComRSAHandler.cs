@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 // Segment Complete [Last Modified 30.10.2019]
 
-namespace EndevFWNwtCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// Contains the public and the 

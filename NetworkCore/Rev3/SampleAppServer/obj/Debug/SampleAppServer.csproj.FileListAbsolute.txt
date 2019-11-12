@@ -1,8 +1,8 @@
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\bin\Debug\SampleAppServer.exe.config
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\bin\Debug\SampleAppServer.exe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\bin\Debug\SampleAppServer.pdb
-C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\bin\Debug\EndevFWNwtCore.dll
-C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\bin\Debug\EndevFWNwtCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\bin\Debug\EndevFrameworkNetworkCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\bin\Debug\EndevFrameworkNetworkCore.pdb
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\obj\Debug\SampleAppServer.csprojAssemblyReference.cache
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\obj\Debug\SampleAppServer.csproj.CopyComplete
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\SampleAppServer\obj\Debug\SampleAppServer.exe

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 // Segment Complete [Last Modified 30.10.2019]
 
-namespace EndevFWNwtCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// =====================================   <para />

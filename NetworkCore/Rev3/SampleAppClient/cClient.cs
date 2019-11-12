@@ -1,4 +1,4 @@
-﻿using EndevFWNwtCore;
+﻿using EndevFrameworkNetworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,4 @@
-﻿using EndevFWNwtCore;
+﻿using EndevFrameworkNetworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,12 +71,12 @@ namespace NetComServerInstruction
             // 4) Send a message to a pre-defined group of clients 
 
             // Create a new user-group if not existent yet
-            NetComGroups.NewGroup("SampleUserGroup");
+            server.UserGroups.NewGroup("SampleUserGroup");
 
             // Add users to the user-group
-            NetComGroups["SampleUserGroup"].AddConnectedUser(server.ConnectedClients[0]);
-            NetComGroups["SampleUserGroup"].AddConnectedUser(server.ConnectedClients[6]);
-            NetComGroups["SampleUserGroup"].AddUserTemplate("SomeUsername");
+            server.UserGroups["SampleUserGroup"].AddUser(server.ConnectedClients[0]);
+            server.UserGroups["SampleUserGroup"].AddUser(server.ConnectedClients[6]);
+            server.UserGroups["SampleUserGroup"].AddUser("SomeUsername");
 
             // Users can be directly added to a group when they are connected, 
             //or they can be added using a username and get assigned to the group as soon as they connect.
@@ -89,7 +89,7 @@ namespace NetComServerInstruction
             InstructionBase instruction4 = new InstructionLibraryEssentials.SimpleMessageBox
                 (server, null, "Hello world.");
 
-            server.GroupSend(instruction4, NetComGroups["SampleUserGroup"]);
+            server.GroupSend(instruction4, server.UserGroups["SampleUserGroup"]);
 
 
         }

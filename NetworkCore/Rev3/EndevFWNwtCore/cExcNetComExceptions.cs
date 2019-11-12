@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 // Segment Complete [Last Modified 29.10.2019]
 
-namespace EndevFWNwtCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// =====================================   <para />

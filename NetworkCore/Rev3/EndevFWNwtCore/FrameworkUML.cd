@@ -1,94 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="EndevFWNwtCore.DebugOutput">
-    <Position X="17.5" Y="6" Width="1.75" />
+  <Class Name="EndevFrameworkNetworkCore.DebugOutput">
+    <Position X="21" Y="11.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>cDbgNetComDebugOutput.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.Base64Handler">
-    <Position X="3.25" Y="8.75" Width="1.5" />
+  <Class Name="EndevFrameworkNetworkCore.Base64Handler">
+    <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>cEncNetComBase64Handler.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.RSAHandler">
-    <Position X="0.5" Y="8.75" Width="2.5" />
+  <Class Name="EndevFrameworkNetworkCore.RSAHandler">
+    <Position X="9.5" Y="2" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAARAQAAAAAAAAAAAAACAAAAAABQAAAAA=</HashCode>
       <FileName>cEncNetComRSAHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComException">
-    <Position X="5" Y="8.25" Width="3" />
+  <Class Name="EndevFrameworkNetworkCore.NetComException">
+    <Position X="22.5" Y="2" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComNotImplementedException">
-    <Position X="8.25" Y="8.25" Width="3.75" />
+  <Class Name="EndevFrameworkNetworkCore.NetComNotImplementedException">
+    <Position X="21.75" Y="0.5" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.InstructionBase">
-    <Position X="10.5" Y="3.5" Width="2.5" />
+  <Class Name="EndevFrameworkNetworkCore.InstructionBase">
+    <Position X="13.5" Y="3.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAARgAAQECIAAAAAAAAAEAKAACAAAAACIABA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.InstructionLibraryEssentials">
-    <Position X="13.5" Y="0.5" Width="3" />
+  <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials">
+    <Position X="16.5" Y="0.5" Width="3" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.TestSample" Collapsed="true">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.AuthenticationClient2Server">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.SimpleMessageBox" Collapsed="true">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.TestSample">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.NofityIcon" Collapsed="true">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToConsole">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.AuthenticationClient2Server" Collapsed="true">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.NofityIcon">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.AuthenticationServer2Client" Collapsed="true">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToOutputStream">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.ToConsole" Collapsed="true">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.SimpleMessageBox">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.ToConsoleColored" Collapsed="true">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToConsoleColored">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.RichMessageBox" Collapsed="true">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.AuthenticationServer2Client">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.ToOutputStream" Collapsed="true">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.RichMessageBox">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -99,20 +99,20 @@
       <FileName>cInstrNetComInstructionLibraryEssentials.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.InstructionLibraryExtension">
-    <Position X="16.75" Y="0.5" Width="2.25" />
+  <Class Name="EndevFrameworkNetworkCore.InstructionLibraryExtension">
+    <Position X="13.75" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionLibraryExtension.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComCData">
-    <Position X="0.5" Y="3.5" Width="2.5" />
+  <Class Name="EndevFrameworkNetworkCore.NetComCData">
+    <Position X="6.75" Y="9.5" Width="2.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Delegate Name="EndevFWNwtCore.NetComCData.AuthenticationTool">
+      <Delegate Name="EndevFrameworkNetworkCore.NetComCData.AuthenticationTool">
         <TypeIdentifier>
           <NewMemberFileName>cUsrNetComCData.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -123,34 +123,20 @@
       <FileName>cUsrNetComCData.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComClient">
-    <Position X="7.25" Y="4.5" Width="2.75" />
-    <InheritanceLine Type="EndevFWNwtCore.NetComOperator" FixedFromPoint="true">
-      <Path>
-        <Point X="6.75" Y="5.889" />
-        <Point X="7.25" Y="5.889" />
-      </Path>
-    </InheritanceLine>
+  <Class Name="EndevFrameworkNetworkCore.NetComClient">
+    <Position X="3.75" Y="9.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAABAAgAACAAAAAAAEAAAAAAAAIBAAQAAAAQAAgAEAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.ClientList" BaseTypeListCollapsed="true">
-    <Position X="10.25" Y="0.5" Width="3" />
-    <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAABAACAAABAQAAAAQAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>cUsrNetComClientList.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="EndevFWNwtCore.NetComOperator">
-    <Position X="3.5" Y="0.5" Width="3.25" />
+  <Class Name="EndevFrameworkNetworkCore.NetComOperator">
+    <Position X="0.5" Y="0.5" Width="3.25" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Delegate Name="EndevFWNwtCore.NetComOperator.DebuggingOutput">
+      <Delegate Name="EndevFrameworkNetworkCore.NetComOperator.DebuggingOutput">
         <TypeIdentifier>
           <NewMemberFileName>cUsrNetComOperator.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -161,63 +147,86 @@
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComServer">
-    <Position X="7.25" Y="0.5" Width="2.75" />
+  <Class Name="EndevFrameworkNetworkCore.NetComServer">
+    <Position X="0.75" Y="9.5" Width="2.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAABAAAAACSAAAAAAEAAAQAAAAAAgAAAAAAACAAgAAA=</HashCode>
+      <HashCode>AAABAAAAACSAAAAAQEAAAQAAAAAAgAAAAAAACAAgAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComUser">
-    <Position X="1" Y="0.5" Width="1.75" />
+  <Class Name="EndevFrameworkNetworkCore.NetComUser">
+    <Position X="4" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQEAQAAAAAAAAAAAIACAAAAAAAgACA=</HashCode>
       <FileName>cUsrNetComUser.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComSignatureException">
-    <Position X="12" Y="10" Width="3.5" />
+  <Class Name="EndevFrameworkNetworkCore.NetComSignatureException">
+    <Position X="20.25" Y="4" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComAuthenticationException">
-    <Position X="15.75" Y="10" Width="3.75" />
+  <Class Name="EndevFrameworkNetworkCore.NetComAuthenticationException">
+    <Position X="20" Y="5.5" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.InstructionOperations">
-    <Position X="16.75" Y="1.75" Width="2.75" />
+  <Class Name="EndevFrameworkNetworkCore.InstructionOperations">
+    <Position X="13.25" Y="1.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAgAgAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionOperations.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComVersionException">
-    <Position X="8.5" Y="10" Width="3.25" />
+  <Class Name="EndevFrameworkNetworkCore.NetComVersionException">
+    <Position X="20.5" Y="7" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.NetComParsingException">
-    <Position X="5" Y="10" Width="3.25" />
+  <Class Name="EndevFrameworkNetworkCore.NetComParsingException">
+    <Position X="20.75" Y="8.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="EndevFWNwtCore.AuthenticationTools">
-    <Position X="17.5" Y="4.5" Width="1.75" />
+  <Class Name="EndevFrameworkNetworkCore.AuthenticationTools">
+    <Position X="23" Y="11.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cAuthNetComAuthenticationTools.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndevFrameworkNetworkCore.NetComGroups">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAIABAACAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cUsrNetComGroups.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EndevFrameworkNetworkCore.ClientList">
+    <Position X="9.5" Y="9.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAABAACAAABAQAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cUsrNetComClientList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EndevFrameworkNetworkCore.UserGroup">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cUsrNetComUserGroup.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

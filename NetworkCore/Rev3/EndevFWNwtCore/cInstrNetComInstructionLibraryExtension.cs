@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ISB = EndevFWNwtCore.InstructionBase;
+using ISB = EndevFrameworkNetworkCore.InstructionBase;
 
 // Segment Complete [Last Modified 30.10.2019]
 
-namespace EndevFWNwtCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// =====================================   <para />

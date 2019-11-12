@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EndevFWNwtCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// =====================================   <para />
@@ -21,6 +21,7 @@ namespace EndevFWNwtCore
     public class NetComServer : NetComOperator
     {
         public ClientList ConnectedClients { get; } = new ClientList();
+        public NetComGroups UserGroups { get; } = new NetComGroups();
         internal NetComUser CurrentProcessingClient 
         { 
             get
@@ -218,11 +219,11 @@ namespace EndevFWNwtCore
 
         public void Broadcast(InstructionBase pInstruction)
         {
-            try
+            lock (ConnectedClients)
             {
-                lock (ConnectedClients)
+                for(int i = 0; i < ConnectedClients.Count; i++)
                 {
-                    for(int i = 0; i < ConnectedClients.Count; i++)
+                    try
                     {
                         InstructionBase tmpInstruction = pInstruction.Clone();
                         tmpInstruction.Receiver = ConnectedClients[i];
@@ -230,18 +231,45 @@ namespace EndevFWNwtCore
                         Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
                         outgoingInstructions.Add(tmpInstruction);
                     }
+                    catch
+                    {
+                        Debug("Broadcast-Error.");
+                        errorCtr++;
+                    }
                 }
             }
-            catch
+        }
+
+        public void ListSend(InstructionBase pInstruction, params NetComUser[] pUsers)
+        {
+            lock (ConnectedClients)
             {
-                Debug("Broadcast-Error.");
-                errorCtr++;
+                for (int i = 0; i < pUsers.Length; i++)
+                {
+                    try
+                    {
+                        InstructionBase tmpInstruction = pInstruction.Clone();
+                        tmpInstruction.Receiver = pUsers[i];
+
+                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                        outgoingInstructions.Add(tmpInstruction);
+                    }
+                    catch
+                    {
+                        Debug("ListSend-Error.");
+                        errorCtr++;
+                    }
+                }
             }
+        }
+
+        public void GroupSend(InstructionBase pInstruction, UserGroup pGroup)
+        {
+
         }
 
         // TODO:
         // SendGroup() - An benutzergruppen senden
-        // SendList() - An mehrere clients senden
 
 
     }
