@@ -48,12 +48,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationServer2Client" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationClient2Server" Collapsed="true">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.TestSample" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -63,12 +58,32 @@
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.RichMessageBox" Collapsed="true">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationServer2Client" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.TestSample" Collapsed="true">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.NofityIcon" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.ToConsole" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationClient2Server" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.ToConsoleColored" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.RichMessageBox" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>

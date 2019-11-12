@@ -40,7 +40,9 @@ namespace EndevFWNwtCore
         }
 
         /// <summary>
-        /// For Internal use only
+        /// For Internal use only.
+        /// Provides authentication-date for the 
+        /// server sent from the server.
         /// </summary>
         internal class __AuthenticationClient2Server : ISB
         {
@@ -69,6 +71,136 @@ namespace EndevFWNwtCore
             }
         }
 
+        /// <summary>
+        /// Writes a message directly to the console.
+        /// </summary>
+        public class ToConsole : ISB
+        {
+            public ToConsole(NetComUser pSender, NetComUser pReceiver, string pValue) : base(pSender, pReceiver, pValue, null) { }
+
+            public override void Execute()
+            {
+                Console.WriteLine(value);
+            }
+        }
+
+        /// <summary>
+        /// Writes a message directly to the console.
+        /// Formats the text with a custom foreground- 
+        /// and background-color.
+        /// </summary>
+        public class ToConsoleColored : ISB
+        {
+            public ToConsoleColored(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
+                : base(pSender, pReceiver, pValue, pParameters) { }
+
+            public ToConsoleColored(NetComUser pSender, NetComUser pReceiver, string pValue, ConsoleColor pForegroundColor, ConsoleColor pBackgroundColor) 
+                : base(pSender, pReceiver, pValue, null) 
+            {
+                object[] prm = new object[2];
+
+                switch(pForegroundColor)
+                {
+                    case ConsoleColor.Black: prm[0] = "FG0"; break;
+                    case ConsoleColor.Blue: prm[0] = "FG1"; break;
+                    case ConsoleColor.Cyan: prm[0] = "FG2"; break;
+                    case ConsoleColor.DarkBlue: prm[0] = "FG3"; break;
+                    case ConsoleColor.DarkCyan: prm[0] = "FG4"; break;
+                    case ConsoleColor.DarkGray: prm[0] = "FG5"; break;
+                    case ConsoleColor.DarkGreen: prm[0] = "FG6"; break;
+                    case ConsoleColor.DarkMagenta: prm[0] = "FG7"; break;
+                    case ConsoleColor.DarkRed: prm[0] = "FG8"; break;
+                    case ConsoleColor.DarkYellow: prm[0] = "FG9"; break;
+                    case ConsoleColor.Gray: prm[0] = "FGA"; break;
+                    case ConsoleColor.Green: prm[0] = "FGB"; break;
+                    case ConsoleColor.Magenta: prm[0] = "FGC"; break;
+                    case ConsoleColor.Red: prm[0] = "FGD"; break;
+                    case ConsoleColor.White: prm[0] = "FGE"; break;
+                    case ConsoleColor.Yellow: prm[0] = "FGF"; break;
+                }
+
+                switch (pBackgroundColor)
+                {
+                    case ConsoleColor.Black: prm[1] = "BG0"; break;
+                    case ConsoleColor.Blue: prm[1] = "BG1"; break;
+                    case ConsoleColor.Cyan: prm[1] = "BG2"; break;
+                    case ConsoleColor.DarkBlue: prm[1] = "BG3"; break;
+                    case ConsoleColor.DarkCyan: prm[1] = "BG4"; break;
+                    case ConsoleColor.DarkGray: prm[1] = "BG5"; break;
+                    case ConsoleColor.DarkGreen: prm[1] = "BG6"; break;
+                    case ConsoleColor.DarkMagenta: prm[1] = "BG7"; break;
+                    case ConsoleColor.DarkRed: prm[1] = "BG8"; break;
+                    case ConsoleColor.DarkYellow: prm[1] = "BG9"; break;
+                    case ConsoleColor.Gray: prm[1] = "BGA"; break;
+                    case ConsoleColor.Green: prm[1] = "BGB"; break;
+                    case ConsoleColor.Magenta: prm[1] = "BGC"; break;
+                    case ConsoleColor.Red: prm[1] = "BGD"; break;
+                    case ConsoleColor.White: prm[1] = "BGE"; break;
+                    case ConsoleColor.Yellow: prm[1] = "BGF"; break;
+                }
+
+                parameters = prm;
+            }
+
+            public override void Execute()
+            {
+                ConsoleColor oldForeground = Console.ForegroundColor;
+                ConsoleColor oldBackground = Console.BackgroundColor;
+                ConsoleColor newForground = ConsoleColor.White;
+                ConsoleColor newBackground = ConsoleColor.Black;
+
+                switch(parameters[0])
+                {
+                    case "FG0": newForground = ConsoleColor.Black; break;
+                    case "FG1": newForground = ConsoleColor.Blue;  break;
+                    case "FG2": newForground = ConsoleColor.Cyan; break;
+                    case "FG3": newForground = ConsoleColor.DarkBlue; break;
+                    case "FG4": newForground = ConsoleColor.DarkCyan; break;
+                    case "FG5": newForground = ConsoleColor.DarkGray; break;
+                    case "FG6": newForground = ConsoleColor.DarkGreen; break;
+                    case "FG7": newForground = ConsoleColor.DarkMagenta; break;
+                    case "FG8": newForground = ConsoleColor.DarkRed; break;
+                    case "FG9": newForground = ConsoleColor.DarkYellow; break;
+                    case "FGA": newForground = ConsoleColor.Gray; break;
+                    case "FGB": newForground = ConsoleColor.Green; break;
+                    case "FGC": newForground = ConsoleColor.Magenta; break;
+                    case "FGD": newForground = ConsoleColor.Red; break;
+                    case "FGE": newForground = ConsoleColor.White; break;
+                    case "FGF": newForground = ConsoleColor.Yellow; break;
+                }
+
+                switch (parameters[1])
+                {
+                    case "BG0": newBackground = ConsoleColor.Black; break;
+                    case "BG1": newBackground = ConsoleColor.Blue; break;
+                    case "BG2": newBackground = ConsoleColor.Cyan; break;
+                    case "BG3": newBackground = ConsoleColor.DarkBlue; break;
+                    case "BG4": newBackground = ConsoleColor.DarkCyan; break;
+                    case "BG5": newBackground = ConsoleColor.DarkGray; break;
+                    case "BG6": newBackground = ConsoleColor.DarkGreen; break;
+                    case "BG7": newBackground = ConsoleColor.DarkMagenta; break;
+                    case "BG8": newBackground = ConsoleColor.DarkRed; break;
+                    case "BG9": newBackground = ConsoleColor.DarkYellow; break;
+                    case "BGA": newBackground = ConsoleColor.Gray; break;
+                    case "BGB": newBackground = ConsoleColor.Green; break;
+                    case "BGC": newBackground = ConsoleColor.Magenta; break;
+                    case "BGD": newBackground = ConsoleColor.Red; break;
+                    case "BGE": newBackground = ConsoleColor.White; break;
+                    case "BGF": newBackground = ConsoleColor.Yellow; break;
+                }
+
+                Console.ForegroundColor = newForground;
+                Console.BackgroundColor = newBackground;
+                Console.WriteLine(value);
+                Console.ForegroundColor = oldForeground;
+                Console.BackgroundColor = oldBackground;
+            }
+        }
+
+        /// <summary>
+        /// Sends a message to the output-stream 
+        /// of the receiver.
+        /// </summary>
         public class ToOutputStream : ISB
         {
             public ToOutputStream(NetComUser pSender, NetComUser pReceiver, string pMessage)
@@ -80,6 +212,9 @@ namespace EndevFWNwtCore
             }
         }
 
+        /// <summary>
+        /// Shows a simple messagebox to the receiver.
+        /// </summary>
         public class SimpleMessageBox : ISB
         {
             public SimpleMessageBox(NetComUser pSender, NetComUser pReceiver, string pMessage)
@@ -92,6 +227,9 @@ namespace EndevFWNwtCore
             }
         }
 
+        /// <summary>
+        /// Shows a formated messagebox to the receiver
+        /// </summary>
         public class RichMessageBox : ISB
         {
             public RichMessageBox(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
@@ -198,8 +336,27 @@ namespace EndevFWNwtCore
             }
         }
 
-        
+        /// <summary>
+        /// TODO:
+        /// Shows a notification-bubble on the receiver's
+        /// screen
+        /// </summary>
+        public class NofityIcon : ISB
+        {
+            public NofityIcon(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
+                   : base(pSender, pReceiver, pValue, pParameters) { }
 
+            public NofityIcon(NetComUser pSender, NetComUser pReceiver, string pMessage, string pCaption, System.Windows.Forms.MessageBoxButtons pButtons, System.Windows.Forms.MessageBoxIcon pIcon)
+                : base(pSender, pReceiver, pMessage, null)
+            {
+
+            }
+
+            public override void Execute()
+            {
+                throw new NotImplementedException();
+            }
+        }
 
     }
 }
