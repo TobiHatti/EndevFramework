@@ -18,19 +18,17 @@ namespace EndevFWNwtCore
     /// </summary>
     public class NetComUser
     {
-        public Socket LocalSocket { get; protected set; } = null;
-        
+        internal Socket LocalSocket { get; set; } = null;
+        internal string Username { get; set; } = null;
+        internal string Password { get; set; } = null;
+        internal RSAKeyPair RSAKeys { get; set; }
 
-        public string Username { get; protected set; } = null;
-        public string Password { get; protected set; } = null;
-        public RSAKeyPair RSAKeys { get; protected set; }
-
-        public void SetUserSocket(Socket pSocket)
+        internal void SetUserSocket(Socket pSocket)
         {
             LocalSocket = pSocket;
         }
 
-        public void SetUserData(string pUsername, string pPassword, string pPublicKey = null)
+        internal void SetUserData(string pUsername, string pPassword, string pPublicKey = null)
         {
             Username = pUsername;
             Password = pPassword;

@@ -61,7 +61,6 @@ namespace SampleAppClient
                 client.Send(new InstructionLibraryEssentials.ToOutputStream(client, null, "Hallo"));
 
 
-
                 Thread.Sleep(new Random().Next(500, 1000));
             }
             

@@ -37,7 +37,7 @@ namespace EndevFWNwtCore
         protected volatile Thread instructionProcessingThread = null;
         protected volatile Thread instructionSendingThread = null;
 
-        public List<string> OutputStream { get; } = new List<string>();
+        internal List<string> OutputStream { get; } = new List<string>();
 
         protected volatile int threadIdleTime = 100;
 
@@ -51,7 +51,7 @@ namespace EndevFWNwtCore
             debugParams = pDebugParameters;
         }
 
-        public void Debug(string pMessage)
+        internal void Debug(string pMessage)
         {
             DebugCom(pMessage, debugParams);
         }
@@ -87,6 +87,15 @@ namespace EndevFWNwtCore
             incommingInstructions.RemoveAt(0);
             processedCount++;
             Debug($"Processed Instruction ({processedCount} - Success-Rate: {(float)(1-((float)errorCtr / (float)processedCount)) * 100}%)");
+        }
+
+        public string ReadOutputStream()
+        {
+            if (OutputStream.Count == 0) return null;
+
+            string retval = OutputStream[0];
+            OutputStream.RemoveAt(0);
+            return retval;
         }
 
     }

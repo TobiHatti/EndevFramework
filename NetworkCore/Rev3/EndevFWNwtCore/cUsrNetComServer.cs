@@ -21,7 +21,7 @@ namespace EndevFWNwtCore
     public class NetComServer : NetComOperator
     {
         public ClientList ConnectedClients { get; } = new ClientList();
-        public NetComUser CurrentProcessingClient 
+        internal NetComUser CurrentProcessingClient 
         { 
             get
             {

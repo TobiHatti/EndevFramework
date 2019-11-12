@@ -48,27 +48,27 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.MyStabilityTest">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationServer2Client" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationServer2Client">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationClient2Server" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationClient2Server">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.SimpleMessageBox">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.SimpleMessageBox" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
       <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.RichMessageBox" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.TestSample" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -112,8 +112,8 @@
     <Position X="7.25" Y="4.5" Width="2.75" />
     <InheritanceLine Type="EndevFWNwtCore.NetComOperator" FixedFromPoint="true">
       <Path>
-        <Point X="6.75" Y="5.747" />
-        <Point X="7.25" Y="5.747" />
+        <Point X="6.75" Y="5.889" />
+        <Point X="7.25" Y="5.889" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -142,7 +142,7 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAJAAAAQAAYCIAAAABAEAAAAAAQAAiAAABCAIJgBAg=</HashCode>
+      <HashCode>AAAJAAAAQAAYCIAAAABAEAAAAAAQAAiAgABCAIJgBAg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>

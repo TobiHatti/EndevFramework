@@ -20,21 +20,11 @@ namespace EndevFWNwtCore
     public class InstructionLibraryEssentials
     {
         /// <summary>
-        /// Basic Test-Instruction to check if 
-        /// instruction reach the receiver
+        /// For Internal use only.
+        /// Provides authentication-data for the 
+        /// client sent from the server.
         /// </summary>
-        public class MyStabilityTest : ISB
-        {
-            public MyStabilityTest(NetComUser pSender, NetComUser pReceiver) : base(pSender, pReceiver, null, null) { }
-
-            public override void Execute()
-            {
-                (Receiver as NetComOperator).Debug($"SAMPLE-INSTRUCTION RECEIVED!");
-            }
-        }
-
-
-        public class __AuthenticationServer2Client : ISB
+        internal class __AuthenticationServer2Client : ISB
         {
             public __AuthenticationServer2Client(NetComUser pSender, NetComUser pReceiver, string pValue)
                 : base(pSender, pReceiver, pValue, null) { }
@@ -49,7 +39,10 @@ namespace EndevFWNwtCore
             }
         }
 
-        public class __AuthenticationClient2Server : ISB
+        /// <summary>
+        /// For Internal use only
+        /// </summary>
+        internal class __AuthenticationClient2Server : ISB
         {
             public __AuthenticationClient2Server(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters) 
                 : base(pSender, pReceiver, pValue, pParameters) { }
@@ -59,6 +52,31 @@ namespace EndevFWNwtCore
             public override void Execute()
             {
                 (Receiver as NetComServer).CurrentProcessingClient.SetUserData(parameters[0].ToString(), "", value);
+            }
+        }
+
+        /// <summary>
+        /// Basic Test-Instruction to check if 
+        /// instruction reach the receiver
+        /// </summary>
+        public class TestSample : ISB
+        {
+            public TestSample(NetComUser pSender, NetComUser pReceiver) : base(pSender, pReceiver, null, null) { }
+
+            public override void Execute()
+            {
+                (Receiver as NetComOperator).Debug($"SAMPLE-INSTRUCTION RECEIVED!");
+            }
+        }
+
+        public class ToOutputStream : ISB
+        {
+            public ToOutputStream(NetComUser pSender, NetComUser pReceiver, string pMessage)
+                : base(pSender, pReceiver, pMessage, null) { }
+
+            public override void Execute()
+            {
+                (Receiver as NetComOperator).OutputStream.Add(value);
             }
         }
 
@@ -180,16 +198,7 @@ namespace EndevFWNwtCore
             }
         }
 
-        public class ToOutputStream : ISB
-        {
-            public ToOutputStream(NetComUser pSender, NetComUser pReceiver, string pMessage)
-                : base(pSender, pReceiver, pMessage, null) { }
-
-            public override void Execute()
-            {
-                (Receiver as NetComOperator).OutputStream.Add(value);
-            }
-        }
+        
 
 
     }

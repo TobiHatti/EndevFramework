@@ -35,11 +35,12 @@ namespace SampleAppServer
 
             while(true)
             {
-                server.Send(new ILE.MyStabilityTest(server, server.ConnectedClients[new Random().Next(0, server.ConnectedClients.Count)]));
-                
+                server.Send(new ILE.TestSample(server, server.ConnectedClients[new Random().Next(0, server.ConnectedClients.Count)]));
+
                 Thread.Sleep(1000);
 
-                server.Broadcast(new ILE.MyStabilityTest(server, null));
+                server.Broadcast(new ILE.TestSample(server, null));
+                server.Broadcast(new ILE.TestSample(server, null));
 
                 Thread.Sleep(1000);
             }

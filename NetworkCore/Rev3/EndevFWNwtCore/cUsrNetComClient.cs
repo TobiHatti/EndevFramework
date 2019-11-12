@@ -140,7 +140,7 @@ namespace EndevFWNwtCore
             }
         }
 
-        public void SetServerRSA(string pPublicRSAKey)
+        internal void SetServerRSA(string pPublicRSAKey)
         {
             serverPublicKey = pPublicRSAKey;
         }
