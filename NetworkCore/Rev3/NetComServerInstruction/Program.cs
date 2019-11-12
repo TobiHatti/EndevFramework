@@ -41,12 +41,57 @@ namespace NetComServerInstruction
 
             // 1) Send a message to a single connected client
 
-            int connectedClientIndex = 0;
+            // Connected clients can be selected using the server.ConnectedClients-Property.
+
             InstructionBase instruction1 = new InstructionLibraryEssentials.SimpleMessageBox
-                (server, server.ConnectedClients[connectedClientIndex], "Hello world.");
+                (server, server.ConnectedClients[0], "Hello world.");
+
+            // As soon as server.Send(...) gets called, the instruction is queued for sending and gets 
+            // sent out as soon as the instruction-preprocessing is done.
+            server.Send(instruction1);
+
+            // 2) Send a message to all connected clients (Broadcast)
+
+            // When creating a broadcast-message, the receiver-argument gets set to 'null'
+
+            InstructionBase instruction2 = new InstructionLibraryEssentials.SimpleMessageBox
+                (server, null, "Hello world.");
+
+            server.Broadcast(instruction2);
+
+            // 3) Send a message to a list of clients 
+
+            // When creating a list-message, the receiver-argument gets set to 'null'
+
+            InstructionBase instruction3 = new InstructionLibraryEssentials.SimpleMessageBox
+                (server, null, "Hello world.");
+
+            server.ListSend(instruction3, server.ConnectedClients[0], server.ConnectedClients["SampleUser01"]);
+
+            // 4) Send a message to a pre-defined group of clients 
+
+            // Create a new user-group if not existent yet
+            NetComGroups.NewGroup("SampleUserGroup");
+
+            // Add users to the user-group
+            NetComGroups["SampleUserGroup"].AddConnectedUser(server.ConnectedClients[0]);
+            NetComGroups["SampleUserGroup"].AddConnectedUser(server.ConnectedClients[6]);
+            NetComGroups["SampleUserGroup"].AddUserTemplate("SomeUsername");
+
+            // Users can be directly added to a group when they are connected, 
+            //or they can be added using a username and get assigned to the group as soon as they connect.
+
+            // To save and load groups from a file, use the NetcomGroups.Load-Method (before server.Start()) and 
+            // the NetComGroups.Save()-Method
+
+            // When creating a group-message, the receiver-argument gets set to 'null'
+
+            InstructionBase instruction4 = new InstructionLibraryEssentials.SimpleMessageBox
+                (server, null, "Hello world.");
+
+            server.GroupSend(instruction4, NetComGroups["SampleUserGroup"]);
 
 
-            //server.Send(instruction1);
         }
     }
 }
