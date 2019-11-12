@@ -25,7 +25,7 @@ namespace SampleAppServer
 
             server.SetDebugOutput(DebugOutput.ToConsole);
 
-            NetComCData.SetAuthenticationTool(AuthenticationTools.DebugAuth);
+            server.SetAuthenticationTool(AuthenticationTools.DebugAuth);
 
             server.Start();
 

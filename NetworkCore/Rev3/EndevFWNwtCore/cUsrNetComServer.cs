@@ -38,7 +38,16 @@ namespace EndevFWNwtCore
             RSAKeys = RSAHandler.GenerateKeyPair();
         }
 
-  
+
+        /// <summary>
+        /// Sets the tool used for authenticating users.
+        /// </summary>
+        /// <param name="pLookupTool">Lookup-Method for user-authentication</param>
+        public void SetAuthenticationTool(NetComCData.AuthenticationTool pLookupTool)
+        {
+            NetComCData.AuthLookup = pLookupTool;
+        }
+
 
         protected override void AsyncInstructionSendNext()
         {

@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.Base64Handler">
-    <Position X="3.5" Y="8" Width="1.5" />
+    <Position X="3.25" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>cEncNetComBase64Handler.cs</FileName>
@@ -63,6 +63,16 @@
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.SimpleMessageBox">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.RichMessageBox" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -89,12 +99,12 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAAAAIAAAAAAIAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAIAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>cUsrNetComCData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComClient">
-    <Position X="7.25" Y="4.25" Width="2.75" />
+    <Position X="7.25" Y="4.5" Width="2.75" />
     <InheritanceLine Type="EndevFWNwtCore.NetComOperator" FixedFromPoint="true">
       <Path>
         <Point X="6.75" Y="5.411" />
@@ -137,12 +147,12 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAABAAAAACCAAAAAAEAAAQAAAAAAgAAAAAAACAAgAAA=</HashCode>
+      <HashCode>AAABAAAAACSAAAAAAEAAAQAAAAAAgAAAAAAACAAgAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComUser">
-    <Position X="0.5" Y="0.5" Width="1.75" />
+    <Position X="1" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQEAQAAAAAAAAAAAIACAAAAAAAgACA=</HashCode>
       <FileName>cUsrNetComUser.cs</FileName>
@@ -165,7 +175,7 @@
   <Class Name="EndevFWNwtCore.InstructionOperations">
     <Position X="16.75" Y="1.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAgAgAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionOperations.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -184,7 +194,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.AuthenticationTools">
-    <Position X="13.75" Y="6.25" Width="1.75" />
+    <Position X="17.5" Y="4.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cAuthNetComAuthenticationTools.cs</FileName>

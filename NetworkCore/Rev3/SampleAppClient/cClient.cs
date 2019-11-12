@@ -31,8 +31,8 @@ namespace SampleAppClient
 
             Console.WriteLine(Dns.GetHostAddresses("endev.ddns.net")[0].ToString());
 
-            NetComClient client = new NetComClient(Dns.GetHostAddresses("endev.ddns.net")[0].ToString(), 2225);
-            //NetComClient client = new NetComClient("127.0.0.1", 2225);
+            //NetComClient client = new NetComClient(Dns.GetHostAddresses("endev.ddns.net")[0].ToString(), 2225);
+            NetComClient client = new NetComClient("127.0.0.1", 2225);
 
             
 
@@ -54,7 +54,10 @@ namespace SampleAppClient
             while (true)
             {
                 // Clients can only send directly to the server, so the receiver is set to null
-                client.Send(new InstructionLibraryEssentials.MyStabilityTest(client, null));
+                //client.Send(new InstructionLibraryEssentials.MyStabilityTest(client, null));
+
+                client.Send(new InstructionLibraryEssentials.RichMessageBox(client, null, "Hallo", "Titel", System.Windows.Forms.MessageBoxButtons.OKCancel, System.Windows.Forms.MessageBoxIcon.Hand));
+
                 Thread.Sleep(new Random().Next(500, 1000));
             }
             
