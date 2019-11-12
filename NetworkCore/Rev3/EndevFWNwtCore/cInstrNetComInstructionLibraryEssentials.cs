@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using ISB = EndevFWNwtCore.InstructionBase;
@@ -24,18 +25,18 @@ namespace EndevFWNwtCore
         /// Provides authentication-data for the 
         /// client sent from the server.
         /// </summary>
-        internal class __AuthenticationServer2Client : ISB
+        internal class AuthenticationServer2Client : ISB
         {
-            public __AuthenticationServer2Client(NetComUser pSender, NetComUser pReceiver, string pValue)
+            public AuthenticationServer2Client(NetComUser pSender, NetComUser pReceiver, string pValue)
                 : base(pSender, pReceiver, pValue, null) { }
 
-            public __AuthenticationServer2Client(NetComUser pSender, NetComUser pReceiver) 
+            public AuthenticationServer2Client(NetComUser pSender, NetComUser pReceiver) 
                 : base(pSender, pReceiver, pSender.RSAKeys.PublicKey, null) { }
 
             public override void Execute()
             {
                 (Receiver as NetComClient).SetServerRSA(value);
-                (Receiver as NetComClient).Send(new InstructionLibraryEssentials.__AuthenticationClient2Server(Receiver, null));
+                (Receiver as NetComClient).Send(new InstructionLibraryEssentials.AuthenticationClient2Server(Receiver, null));
             }
         }
 
@@ -44,11 +45,11 @@ namespace EndevFWNwtCore
         /// Provides authentication-date for the 
         /// server sent from the server.
         /// </summary>
-        internal class __AuthenticationClient2Server : ISB
+        internal class AuthenticationClient2Server : ISB
         {
-            public __AuthenticationClient2Server(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters) 
+            public AuthenticationClient2Server(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters) 
                 : base(pSender, pReceiver, pValue, pParameters) { }
-            public __AuthenticationClient2Server(NetComUser pSender, NetComUser pReceiver) 
+            public AuthenticationClient2Server(NetComUser pSender, NetComUser pReceiver) 
                 : base(pSender, pReceiver, pSender.RSAKeys.PublicKey, new object[] { pSender.Username }) { }
 
             public override void Execute()
@@ -232,7 +233,7 @@ namespace EndevFWNwtCore
         /// </summary>
         public class RichMessageBox : ISB
         {
-            public RichMessageBox(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
+            internal RichMessageBox(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
                 : base(pSender, pReceiver, pValue, pParameters) { }
 
             public RichMessageBox(NetComUser pSender, NetComUser pReceiver, string pMessage, string pCaption, System.Windows.Forms.MessageBoxButtons pButtons, System.Windows.Forms.MessageBoxIcon pIcon)
@@ -343,9 +344,9 @@ namespace EndevFWNwtCore
         /// </summary>
         public class NofityIcon : ISB
         {
-            public NofityIcon(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
+            internal NofityIcon(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
                    : base(pSender, pReceiver, pValue, pParameters) { }
-
+            
             public NofityIcon(NetComUser pSender, NetComUser pReceiver, string pMessage, string pCaption, System.Windows.Forms.MessageBoxButtons pButtons, System.Windows.Forms.MessageBoxIcon pIcon)
                 : base(pSender, pReceiver, pMessage, null)
             {

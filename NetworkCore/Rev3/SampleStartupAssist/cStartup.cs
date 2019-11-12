@@ -33,7 +33,9 @@ namespace SampleStartupAssist
                 }
             }
 
+#pragma warning disable 0162
             Environment.Exit(0);
+#pragma warning restore 0162
         }
     }
 }

@@ -22,21 +22,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComException">
-    <Position X="16.5" Y="8.25" Width="3" />
+    <Position X="5" Y="8.25" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComNotImplementedException">
-    <Position X="12.5" Y="8.25" Width="3.75" />
+    <Position X="8.25" Y="8.25" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.InstructionBase">
-    <Position X="10.5" Y="3.5" Width="2.25" />
+    <Position X="10.5" Y="3.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAARgAAQECIAAAAAAAAAEAKAACAAAAACIABA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
@@ -58,22 +58,22 @@
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationServer2Client" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
       <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.NofityIcon" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.ToConsole" Collapsed="true">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.AuthenticationClient2Server" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.__AuthenticationClient2Server" Collapsed="true">
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.AuthenticationServer2Client" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.ToConsole" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -186,7 +186,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFWNwtCore.NetComAuthenticationException">
-    <Position X="15.5" Y="10" Width="3.75" />
+    <Position X="15.75" Y="10" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>

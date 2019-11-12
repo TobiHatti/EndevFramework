@@ -63,11 +63,12 @@ namespace SampleAppClient
 
                 Thread.Sleep(new Random().Next(500, 1000));
             }
-            
 
+#pragma warning disable 0162
             Console.WriteLine("Done.");
 
             Console.ReadKey();
+#pragma warning restore 0162
         }
     }
 }

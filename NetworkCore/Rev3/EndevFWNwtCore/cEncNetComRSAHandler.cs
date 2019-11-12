@@ -31,8 +31,8 @@ namespace EndevFWNwtCore
     /// </summary>
     public class RSAHandler
     {
-        private static char RSAByteDelimiter = '-';
-        private static UnicodeEncoding encoder = new UnicodeEncoding();
+        private static readonly char RSAByteDelimiter = '-';
+        private static readonly UnicodeEncoding encoder = new UnicodeEncoding();
 
         /// <summary>
         /// Generates a unique key-pair for RSA-encryption
@@ -41,9 +41,11 @@ namespace EndevFWNwtCore
         public static RSAKeyPair GenerateKeyPair()
         {
             RSAKeyPair keys = new RSAKeyPair();
-            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-            keys.PublicKey = RSA.ToXmlString(false);
-            keys.PrivateKey = RSA.ToXmlString(true);
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            {
+                keys.PublicKey = RSA.ToXmlString(false);
+                keys.PrivateKey = RSA.ToXmlString(true);
+            }
 
             return keys;
         }
@@ -56,20 +58,22 @@ namespace EndevFWNwtCore
         /// <returns>The encrypted data-string</returns>
         public static string Encrypt(string pPartnerPublicKey, string pData)
         {
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(pPartnerPublicKey);
-            byte[] dataToEncrypt = encoder.GetBytes(pData);
-            byte[] encryptedByteArray = rsa.Encrypt(dataToEncrypt, false).ToArray();
-            int length = encryptedByteArray.Count();
-            int item = 0;
-            StringBuilder sb = new StringBuilder();
-            foreach (byte x in encryptedByteArray)
+            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
             {
-                item++;
-                sb.Append(x);
-                if (item < length) sb.Append(RSAByteDelimiter);
+                rsa.FromXmlString(pPartnerPublicKey);
+                byte[] dataToEncrypt = encoder.GetBytes(pData);
+                byte[] encryptedByteArray = rsa.Encrypt(dataToEncrypt, false).ToArray();
+                int length = encryptedByteArray.Count();
+                int item = 0;
+                StringBuilder sb = new StringBuilder();
+                foreach (byte x in encryptedByteArray)
+                {
+                    item++;
+                    sb.Append(x);
+                    if (item < length) sb.Append(RSAByteDelimiter);
+                }
+                return sb.ToString();
             }
-            return sb.ToString();
         }
 
         /// <summary>
@@ -80,16 +84,18 @@ namespace EndevFWNwtCore
         /// <returns>The decrypted string</returns>
         public static string Decrypt(string pLocalPrivateKey, string pData)
         {
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            string[] dataArray = pData.Split(new char[] { RSAByteDelimiter });
-            byte[] dataByte = new byte[dataArray.Length];
-            for (int i = 0; i < dataArray.Length; i++)
+            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
             {
-                dataByte[i] = Convert.ToByte(dataArray[i]);
+                string[] dataArray = pData.Split(new char[] { RSAByteDelimiter });
+                byte[] dataByte = new byte[dataArray.Length];
+                for (int i = 0; i < dataArray.Length; i++)
+                {
+                    dataByte[i] = Convert.ToByte(dataArray[i]);
+                }
+                rsa.FromXmlString(pLocalPrivateKey);
+                byte[] decryptedByte = rsa.Decrypt(dataByte, false);
+                return encoder.GetString(decryptedByte);
             }
-            rsa.FromXmlString(pLocalPrivateKey);
-            byte[] decryptedByte = rsa.Decrypt(dataByte, false);
-            return encoder.GetString(decryptedByte);
         }
 
         /// <summary>
@@ -100,20 +106,22 @@ namespace EndevFWNwtCore
         /// <returns>The encrypted data-String</returns>
         public static string Sign(string pLocalPrivateKey, string pData)
         {
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(pLocalPrivateKey);
-            byte[] dataToEncrypt = encoder.GetBytes(pData);
-            byte[] encryptedByteArray = rsa.SignData(dataToEncrypt, new SHA256CryptoServiceProvider()).ToArray();
-            int length = encryptedByteArray.Count();
-            int item = 0;
-            StringBuilder sb = new StringBuilder();
-            foreach (byte x in encryptedByteArray)
+            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
             {
-                item++;
-                sb.Append(x);
-                if (item < length) sb.Append(RSAByteDelimiter);
+                rsa.FromXmlString(pLocalPrivateKey);
+                byte[] dataToEncrypt = encoder.GetBytes(pData);
+                byte[] encryptedByteArray = rsa.SignData(dataToEncrypt, new SHA256CryptoServiceProvider()).ToArray();
+                int length = encryptedByteArray.Count();
+                int item = 0;
+                StringBuilder sb = new StringBuilder();
+                foreach (byte x in encryptedByteArray)
+                {
+                    item++;
+                    sb.Append(x);
+                    if (item < length) sb.Append(RSAByteDelimiter);
+                }
+                return sb.ToString();
             }
-            return sb.ToString();
         }
 
         /// <summary>
@@ -125,16 +133,18 @@ namespace EndevFWNwtCore
         /// <returns></returns>
         public static bool Verify(string pPartnerPublicKey, string pOriginalMessage, string pSignedMessage)
         {
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            string[] dataArray = pSignedMessage.Split(new char[] { RSAByteDelimiter });
-            byte[] dataByte = new byte[dataArray.Length];
-            for (int i = 0; i < dataArray.Length; i++)
+            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
             {
-                dataByte[i] = Convert.ToByte(dataArray[i]);
-            }
-            rsa.FromXmlString(pPartnerPublicKey);
+                string[] dataArray = pSignedMessage.Split(new char[] { RSAByteDelimiter });
+                byte[] dataByte = new byte[dataArray.Length];
+                for (int i = 0; i < dataArray.Length; i++)
+                {
+                    dataByte[i] = Convert.ToByte(dataArray[i]);
+                }
+                rsa.FromXmlString(pPartnerPublicKey);
 
-            return rsa.VerifyData(encoder.GetBytes(pOriginalMessage), new SHA256CryptoServiceProvider(), dataByte);
+                return rsa.VerifyData(encoder.GetBytes(pOriginalMessage), new SHA256CryptoServiceProvider(), dataByte);
+            }
         }
     }
 }

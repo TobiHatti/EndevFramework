@@ -44,10 +44,10 @@ namespace SampleAppServer
 
                 Thread.Sleep(1000);
             }
-            
 
+#pragma warning disable 0162
             Console.ReadKey();
-
+#pragma warning restore 0162
         }
     }
 }

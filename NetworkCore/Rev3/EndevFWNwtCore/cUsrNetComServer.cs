@@ -137,7 +137,7 @@ namespace EndevFWNwtCore
             Debug("New client connected.");
 
             //SendToClient(socket, new NCILib.PreAuth(this));
-            Send(new InstructionLibraryEssentials.__AuthenticationServer2Client(this, ConnectedClients[socket]));
+            Send(new InstructionLibraryEssentials.AuthenticationServer2Client(this, ConnectedClients[socket]));
 
             LocalSocket.BeginAccept(AcceptCallback, null);
         }
@@ -181,7 +181,7 @@ namespace EndevFWNwtCore
                 foreach (InstructionBase instr in instructionList)
                     incommingInstructions.Add(instr);
             }
-            catch(NetComAuthenticationException authEx)
+            catch(NetComAuthenticationException)
             {
                 Debug("Authentication-Error (Instruction-Parsing).");
             }
@@ -218,14 +218,13 @@ namespace EndevFWNwtCore
 
         public void Broadcast(InstructionBase pInstruction)
         {
-            InstructionBase tmpInstruction = null;
             try
             {
                 lock (ConnectedClients)
                 {
                     for(int i = 0; i < ConnectedClients.Count; i++)
                     {
-                        tmpInstruction = pInstruction.Clone();
+                        InstructionBase tmpInstruction = pInstruction.Clone();
                         tmpInstruction.Receiver = ConnectedClients[i];
 
                         Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");

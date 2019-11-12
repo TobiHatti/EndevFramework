@@ -120,16 +120,13 @@ namespace EndevFWNwtCore
             string text = Encoding.UTF8.GetString(data);
 
             Debug("Received Message.");
-
-            InstructionBase[] instructionList = null;
-
             try
             {
-                instructionList = InstructionOperations.Parse(this, null, text).ToArray();
+                InstructionBase[] instructionList = InstructionOperations.Parse(this, null, text).ToArray();
                 foreach (InstructionBase instr in instructionList)
                     incommingInstructions.Add(instr);
             }
-            catch (NetComAuthenticationException authEx)
+            catch (NetComAuthenticationException)
             {
                 Debug("Authentication-Error.");
             }

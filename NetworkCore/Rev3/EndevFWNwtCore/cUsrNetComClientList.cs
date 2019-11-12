@@ -19,7 +19,7 @@ namespace EndevFWNwtCore
     /// </summary>
     public class ClientList : IEnumerable
     {
-        private List<NetComCData> LClients = new List<NetComCData>();
+        private readonly List<NetComCData> LClients = new List<NetComCData>();
 
         public int Count
         {
@@ -28,7 +28,7 @@ namespace EndevFWNwtCore
 
         public NetComCData this[int idx]
         {
-            get
+            get 
             {
                 if (LClients.Count > idx) return LClients[idx];
                 else return null;
@@ -60,6 +60,7 @@ namespace EndevFWNwtCore
         public void Add(Socket pSocket, string pUsername, string pPassword)
         {
             NetComCData cData = new NetComCData();
+            cData.SetUserData(pUsername, pPassword);
             cData.SetUserSocket(pSocket);
             LClients.Add(cData);
         }

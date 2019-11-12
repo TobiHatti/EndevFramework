@@ -69,11 +69,11 @@ namespace EndevFWNwtCore
         public string Encode()
         {
 
-            if(this.GetType() == typeof(InstructionLibraryEssentials.__AuthenticationServer2Client))
+            if(this.GetType() == typeof(InstructionLibraryEssentials.AuthenticationServer2Client))
             {
                 return EncodeAuthenticationS2C();
             }
-            if(this.GetType() == typeof(InstructionLibraryEssentials.__AuthenticationClient2Server))
+            if(this.GetType() == typeof(InstructionLibraryEssentials.AuthenticationClient2Server))
             {
                 return EncodeAuthenticationC2S();
             }
@@ -217,8 +217,7 @@ namespace EndevFWNwtCore
 
         public InstructionBase Clone()
         {
-            InstructionBase retInstr = null;
-
+            InstructionBase retInstr;
             if (value == null && parameters == null)
                 retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), Sender, Receiver);
             else if (parameters == null)
