@@ -56,7 +56,11 @@ namespace SampleAppClient
                 // Clients can only send directly to the server, so the receiver is set to null
                 //client.Send(new InstructionLibraryEssentials.MyStabilityTest(client, null));
 
-                client.Send(new InstructionLibraryEssentials.RichMessageBox(client, null, "Hallo", "Titel", System.Windows.Forms.MessageBoxButtons.OKCancel, System.Windows.Forms.MessageBoxIcon.Hand));
+                //client.Send(new InstructionLibraryEssentials.RichMessageBox(client, null, "Hallo", "Titel", System.Windows.Forms.MessageBoxButtons.OKCancel, System.Windows.Forms.MessageBoxIcon.Hand));
+                
+                client.Send(new InstructionLibraryEssentials.ToOutputStream(client, null, "Hallo"));
+
+
 
                 Thread.Sleep(new Random().Next(500, 1000));
             }

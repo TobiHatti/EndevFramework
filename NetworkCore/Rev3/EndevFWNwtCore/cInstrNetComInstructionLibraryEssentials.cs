@@ -180,6 +180,17 @@ namespace EndevFWNwtCore
             }
         }
 
+        public class ToOutputStream : ISB
+        {
+            public ToOutputStream(NetComUser pSender, NetComUser pReceiver, string pMessage)
+                : base(pSender, pReceiver, pMessage, null) { }
+
+            public override void Execute()
+            {
+                (Receiver as NetComOperator).OutputStream.Add(value);
+            }
+        }
+
 
     }
 }

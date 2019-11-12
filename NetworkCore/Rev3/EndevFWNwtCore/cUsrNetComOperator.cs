@@ -37,9 +37,13 @@ namespace EndevFWNwtCore
         protected volatile Thread instructionProcessingThread = null;
         protected volatile Thread instructionSendingThread = null;
 
+        public List<string> OutputStream { get; } = new List<string>();
+
         protected volatile int threadIdleTime = 100;
 
         public static int queue = 0;
+
+
 
         public void SetDebugOutput(DebuggingOutput pOutput, params object[] pDebugParameters)
         {

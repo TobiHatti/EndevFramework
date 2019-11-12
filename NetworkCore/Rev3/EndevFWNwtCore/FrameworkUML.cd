@@ -73,6 +73,11 @@
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
+      <Class Name="EndevFWNwtCore.InstructionLibraryEssentials.ToOutputStream" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -107,8 +112,8 @@
     <Position X="7.25" Y="4.5" Width="2.75" />
     <InheritanceLine Type="EndevFWNwtCore.NetComOperator" FixedFromPoint="true">
       <Path>
-        <Point X="6.75" Y="5.411" />
-        <Point X="7.25" Y="5.411" />
+        <Point X="6.75" Y="5.747" />
+        <Point X="7.25" Y="5.747" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -137,7 +142,7 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAJAAAAQAAYCIAAAABAAAAAAAAQAAiAAABCAIJgBAg=</HashCode>
+      <HashCode>AAAJAAAAQAAYCIAAAABAEAAAAAAQAAiAAABCAIJgBAg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
