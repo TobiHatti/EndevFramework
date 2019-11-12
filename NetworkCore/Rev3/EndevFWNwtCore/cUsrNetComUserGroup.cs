@@ -10,19 +10,32 @@ namespace EndevFrameworkNetworkCore
     {
         public string Name { get; private set; } = null;
 
-        private List<NetComUser> LUsers = new List<NetComUser>();
+        internal List<NetComUser> OnlineMembers { get; } = new List<NetComUser>();
+        internal List<string> GroupMembers { get; } = new List<string>();
 
         public UserGroup(string pGroupName)
         {
             Name = pGroupName;
         }
 
+        
         public void AddUser(NetComUser pUser)
         {
-
+            if (!OnlineMembers.Contains(pUser)) OnlineMembers.Add(pUser);
+            if (!GroupMembers.Contains(pUser.Username)) GroupMembers.Add(pUser.Username);
         }
 
         public void AddUser(string pUsername)
+        {
+            if(!GroupMembers.Contains(pUsername)) GroupMembers.Add(pUsername);
+        }
+
+        public void Disconnect(NetComUser pUser)
+        { 
+        
+        }
+
+        public void Remove(string pUsername)
         {
 
         }

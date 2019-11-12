@@ -242,35 +242,45 @@ namespace EndevFrameworkNetworkCore
 
         public void ListSend(InstructionBase pInstruction, params NetComUser[] pUsers)
         {
-            lock (ConnectedClients)
+            for (int i = 0; i < pUsers.Length; i++)
             {
-                for (int i = 0; i < pUsers.Length; i++)
+                try
                 {
-                    try
-                    {
-                        InstructionBase tmpInstruction = pInstruction.Clone();
-                        tmpInstruction.Receiver = pUsers[i];
+                    InstructionBase tmpInstruction = pInstruction.Clone();
+                    tmpInstruction.Receiver = pUsers[i];
 
-                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
-                        outgoingInstructions.Add(tmpInstruction);
-                    }
-                    catch
-                    {
-                        Debug("ListSend-Error.");
-                        errorCtr++;
-                    }
+                    Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                    outgoingInstructions.Add(tmpInstruction);
+                }
+                catch
+                {
+                    Debug("ListSend-Error.");
+                    errorCtr++;
                 }
             }
         }
 
         public void GroupSend(InstructionBase pInstruction, UserGroup pGroup)
         {
+            lock (pGroup)
+            {
+                for (int i = 0; i < pGroup.OnlineMembers.Count; i++)
+                {
+                    try
+                    {
+                        InstructionBase tmpInstruction = pInstruction.Clone();
+                        tmpInstruction.Receiver = pGroup.OnlineMembers[i];
 
+                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                        outgoingInstructions.Add(tmpInstruction);
+                    }
+                    catch
+                    {
+                        Debug("GroupSend-Error.");
+                        errorCtr++;
+                    }
+                }
+            }
         }
-
-        // TODO:
-        // SendGroup() - An benutzergruppen senden
-
-
     }
 }

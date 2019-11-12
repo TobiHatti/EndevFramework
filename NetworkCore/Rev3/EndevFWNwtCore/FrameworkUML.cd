@@ -118,6 +118,14 @@
         </TypeIdentifier>
       </Delegate>
     </NestedTypes>
+    <InheritanceLine Type="EndevFrameworkNetworkCore.NetComUser" ManuallyRouted="true">
+      <Path>
+        <Point X="4.875" Y="3.017" />
+        <Point X="4.875" Y="7.104" />
+        <Point X="8" Y="7.104" />
+        <Point X="8" Y="9.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAIAAAAAAIAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>cUsrNetComCData.cs</FileName>
@@ -153,7 +161,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAABAAAAACSAAAAAQEAAAQAAAAAAgAAAAAAACAAgAAA=</HashCode>
+      <HashCode>AAABAAAAACSAAAQAQkAAAQAAAAAAgAAAAAAACAAgAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -225,7 +233,7 @@
   <Class Name="EndevFrameworkNetworkCore.UserGroup">
     <Position X="6" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAAAAAAAABAQAAAEAAAIgAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComUserGroup.cs</FileName>
     </TypeIdentifier>
   </Class>
