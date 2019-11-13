@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ISB = EndevFrameworkNetworkCore.InstructionBase;
 
 namespace EndevFrameworkNetworkCore
@@ -233,7 +235,7 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         public class RichMessageBox : ISB
         {
-            internal RichMessageBox(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
+            public RichMessageBox(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
                 : base(pSender, pReceiver, pValue, pParameters) { }
 
             public RichMessageBox(NetComUser pSender, NetComUser pReceiver, string pMessage, string pCaption, System.Windows.Forms.MessageBoxButtons pButtons, System.Windows.Forms.MessageBoxIcon pIcon)
@@ -338,24 +340,49 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// TODO:
         /// Shows a notification-bubble on the receiver's
         /// screen
         /// </summary>
         public class NofityIcon : ISB
         {
-            internal NofityIcon(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
+            public NofityIcon(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
                    : base(pSender, pReceiver, pValue, pParameters) { }
-            
-            public NofityIcon(NetComUser pSender, NetComUser pReceiver, string pMessage, string pCaption, System.Windows.Forms.MessageBoxButtons pButtons, System.Windows.Forms.MessageBoxIcon pIcon)
-                : base(pSender, pReceiver, pMessage, null)
-            {
 
+            public NofityIcon(NetComUser pSender, NetComUser pReceiver, string pText, string pTitle, int pDisplayDuration, ToolTipIcon pIcon)
+                : base(pSender, pReceiver, pText, null)
+            {
+                object[] prm = new object[3];
+
+                prm[0] = pTitle;
+                prm[1] = pDisplayDuration;
+
+                switch(pIcon)
+                {
+                    case ToolTipIcon.Error: prm[2] = "NI1"; break;
+                    case ToolTipIcon.Info: prm[2] = "NI2"; break;
+                    case ToolTipIcon.None: prm[2] = "NI3"; break;
+                    case ToolTipIcon.Warning: prm[2] = "NI4"; break;
+                }
+
+                parameters = prm;
             }
 
             public override void Execute()
             {
-                throw new NotImplementedException();
+                ToolTipIcon tooltip = ToolTipIcon.None;
+
+                switch (parameters[2].ToString())
+                {
+                    case "NI1": tooltip = ToolTipIcon.Error; break; 
+                    case "NI2": tooltip = ToolTipIcon.Info; break; 
+                    case "NI3": tooltip = ToolTipIcon.None; break; 
+                    case "NI4": tooltip = ToolTipIcon.Warning; break; 
+                }
+
+                NotifyIcon ballon = new NotifyIcon();
+                ballon.Visible = true;
+                ballon.Icon = SystemIcons.Application;
+                ballon.ShowBalloonTip(int.Parse(parameters[1].ToString()), parameters[0].ToString(), value, tooltip);
             }
         }
 

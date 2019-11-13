@@ -252,7 +252,7 @@ namespace EndevFrameworkNetworkCore
                         Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
                         outgoingInstructions.Add(tmpInstruction);
                     }
-                    catch
+                    catch(IndexOutOfRangeException)
                     {
                         Debug("Broadcast-Error.");
                         errorCtr++;

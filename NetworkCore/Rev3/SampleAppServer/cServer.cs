@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ILE = EndevFrameworkNetworkCore.InstructionLibraryExtension;
 namespace SampleAppServer
 {
@@ -29,9 +30,6 @@ namespace SampleAppServer
 
             server.Start();
 
-
-            
-
             // The server can send to a range of connected clients, wich can be selected in the server.ConnectedClients-Property
 
             Thread.Sleep(2000);
@@ -48,12 +46,13 @@ namespace SampleAppServer
 
                 //Thread.Sleep(1000);
 
-                //server.Broadcast(new ILE.TestSample(server, null));
-                //server.Broadcast(new ILE.TestSample(server, null));
+                //server.GroupSend(new ILE.RichMessageBox(server, null as NetComUser,"Hallo", "Caption", MessageBoxButtons.OK, MessageBoxIcon.Error),server.UserGroups["Awesome dudes"]);
+                
+                server.Broadcast(new ILE.NofityIcon(server, null, "I bin da text", "I bin da titel", 2000, ToolTipIcon.Warning));
 
-                server.GroupSend(new ILE.TestSample(server, null), server.UserGroups["Awesome dudes"]);
+                //server.GroupSend(new ILE.TestSample(server, null), server.UserGroups["Awesome dudes"]);
 
-                Thread.Sleep(1000);
+                Thread.Sleep(10000);
             }
 
 #pragma warning disable 0162
