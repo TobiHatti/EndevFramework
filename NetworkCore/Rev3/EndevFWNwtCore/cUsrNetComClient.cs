@@ -48,6 +48,10 @@ namespace EndevFrameworkNetworkCore
             Debug("Setting up client...");
             LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
+            Debug("Connecting to Server...");
+
+            TryConnect();
+
             Debug("Starting Background-Process: Instruction-Receiving...");
             instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
             instructionReceptionThread.Start();
@@ -55,10 +59,6 @@ namespace EndevFrameworkNetworkCore
             base.Start();
 
             Debug("Client setup complete!");
-
-            Debug("Connecting to Server...");
-
-            TryConnect();
         }
 
         private void TryConnect()

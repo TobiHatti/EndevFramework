@@ -65,6 +65,10 @@ namespace EndevFrameworkNetworkCore
             catch
             {
                 Debug("Client disconnected > Connection lost.");
+                current.Close();
+                UserGroups.Disconnect(current);
+                ConnectedClients.Remove(current);
+                return;
             }
 
             Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.");
@@ -164,6 +168,7 @@ namespace EndevFrameworkNetworkCore
                 Debug("Client disconnected > Connection lost.");
                 // Don't shutdown because the socket may be disposed and its disconnected anyway.
                 current.Close();
+                UserGroups.Disconnect(current);
                 ConnectedClients.Remove(current);
                 return;
             }
@@ -188,7 +193,7 @@ namespace EndevFrameworkNetworkCore
                 {
                     incommingInstructions.Add(instr);
 
-                    if(!groupAddRecords.Contains(instr.Sender.Username))
+                    if(instr.GetType() != typeof(InstructionLibraryEssentials.AuthenticationClient2Server) && !groupAddRecords.Contains(instr.Sender.Username))
                     {
                         groupAddRecords.Add(instr.Sender.Username);
                         UserGroups.TryGroupAdd(instr.Sender);
@@ -217,6 +222,7 @@ namespace EndevFrameworkNetworkCore
                 Debug("Client disconnected > Connection lost.");
                 // Don't shutdown because the socket may be disposed and its disconnected anyway.
                 current.Close();
+                UserGroups.Disconnect(current);
                 ConnectedClients.Remove(current);
                 return;
             }

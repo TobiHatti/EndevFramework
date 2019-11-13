@@ -33,16 +33,20 @@ namespace SampleAppServer
 
             Thread.Sleep(2000);
 
+            server.UserGroups.NewGroup("Awesome dudes");
+            server.UserGroups["Awesome dudes"].AddUser("Tobias");
+            server.UserGroups["Awesome dudes"].AddUser("Adam");
+
             while(true)
             {
-                server.Send(new ILE.TestSample(server, server.ConnectedClients[new Random().Next(0, server.ConnectedClients.Count)]));
+                //server.Send(new ILE.TestSample(server, server.ConnectedClients[new Random().Next(0, server.ConnectedClients.Count)]));
 
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
 
-                server.Broadcast(new ILE.TestSample(server, null));
-                server.Broadcast(new ILE.TestSample(server, null));
+                //server.Broadcast(new ILE.TestSample(server, null));
+                //server.Broadcast(new ILE.TestSample(server, null));
 
-                
+                server.GroupSend(new ILE.TestSample(server, null), server.UserGroups["Awesome dudes"]);
 
                 Thread.Sleep(1000);
             }

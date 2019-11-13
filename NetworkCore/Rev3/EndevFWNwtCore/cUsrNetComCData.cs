@@ -43,7 +43,7 @@ namespace EndevFrameworkNetworkCore
             if (Password == null || Username == null) return false;
 
             if (AuthLookup != null) authenticated = AuthLookup(Username, Password);
-            else throw new NetComAuthenticationException("*** The Authentication-Method has not been setin NetComCData ***");
+            else throw new NetComAuthenticationException("*** The Authentication-Method has not been set in NetComCData ***");
 
             return authenticated;
         }

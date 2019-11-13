@@ -37,13 +37,13 @@ namespace SampleAppClient
             
 
             Console.Write("Username: ");
-            //string username = Console.ReadLine();
+            string username = Console.ReadLine();
 
             Console.Write("Password: ");
-            //string password = Console.ReadLine();
+            string password = Console.ReadLine();
 
-            //client.Login(username, password);
-            client.Login("Tobias", "1");
+            client.Login(username, password);
+            //client.Login("Tobias", "1");
 
             client.SetDebugOutput(DebugOutput.ToConsole);
 

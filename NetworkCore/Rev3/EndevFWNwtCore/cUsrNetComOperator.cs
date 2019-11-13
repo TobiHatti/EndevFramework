@@ -101,7 +101,9 @@ namespace EndevFrameworkNetworkCore
         {
             while (true)
             {
+                AsyncLongTermNextCycle();
                 Thread.Sleep(longTermInstructionSleepInMinutes * 300000);
+                //Thread.Sleep(5000);
             }
         }
 

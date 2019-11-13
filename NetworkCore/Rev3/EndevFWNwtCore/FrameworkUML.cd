@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.Base64Handler">
-    <Position X="9.25" Y="0.5" Width="1.5" />
+    <Position X="9.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>cEncNetComBase64Handler.cs</FileName>
@@ -151,7 +151,7 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAJAAAAQAAYCIAAAABAEAAAAAAQAAiAgABCAIJgBAg=</HashCode>
+      <HashCode>AAAJAAAAQCAYKMAAAABAGAAAAgAQAAiAgABCAIJgBAg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -161,7 +161,7 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAABAAAAACSAAAQAQkAAAQAAAAAAgAAAAAAACAAgAAA=</HashCode>
+      <HashCode>AAEBAAAAACSAAAQAQkAACQAAAAAAgAAAAAAACAAgAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -217,7 +217,7 @@
   <Class Name="EndevFrameworkNetworkCore.NetComGroups">
     <Position X="6" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAIABAACAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAkIAAAAAIABAACAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComGroups.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -231,7 +231,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="EndevFrameworkNetworkCore.UserGroup">
-    <Position X="6" Y="3.5" Width="1.5" />
+    <Position X="6" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAABAQAAAEAAAIgAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComUserGroup.cs</FileName>

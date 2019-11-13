@@ -11,7 +11,7 @@ namespace NetComServerInstruction
     {
         static void Main(string[] args)
         {
-            // === SETTING UP THE SERVER ===
+            #region ========= SETTING UP THE SERVER =========
 
             // Define the tcp-port on which the communication should take place
             int tcpServerPort = 2225;
@@ -31,15 +31,16 @@ namespace NetComServerInstruction
             // Start the server and all its background-processes.
             server.Start();
 
+            #endregion
 
-            // === COMMUNICATE WITH CLIENTS ===
+            #region ========= COMMUNICATE WITH CLIENTS =========
 
             // Create the instruction you want to send. General purpose-instructions are defined in the 
             // InstructionLibraryEssentials-class. Additional Instructions are defined in the 
             // InstructionLibraryExtensions-class. Custom instructions can be created as shown in the 
             // "CustomInstructions"-Project
 
-            // 1) Send a message to a single connected client
+            #region ------ (1.) Send a message to a single connected client ------
 
             // Connected clients can be selected using the server.ConnectedClients-Property.
 
@@ -50,7 +51,9 @@ namespace NetComServerInstruction
             // sent out as soon as the instruction-preprocessing is done.
             server.Send(instruction1);
 
-            // 2) Send a message to all connected clients (Broadcast)
+            #endregion
+
+            #region ------ (2.) Send a message to all connected clients (Broadcast) ------
 
             // When creating a broadcast-message, the receiver-argument gets set to 'null'
 
@@ -59,7 +62,9 @@ namespace NetComServerInstruction
 
             server.Broadcast(instruction2);
 
-            // 3) Send a message to a list of clients 
+            #endregion
+
+            #region ------ (3.) Send a message to a list of clients ------
 
             // When creating a list-message, the receiver-argument gets set to 'null'
 
@@ -68,7 +73,11 @@ namespace NetComServerInstruction
 
             server.ListSend(instruction3, server.ConnectedClients[0], server.ConnectedClients["SampleUser01"]);
 
-            // 4) Send a message to a pre-defined group of clients 
+            #endregion
+
+            #region ------ (4.) Send a message to a pre-defined group of clients ------
+
+            #region ------ (4a) Creating and managing groups ------
 
             // Create a new user-group if not existent yet
             server.UserGroups.NewGroup("SampleUserGroup");
@@ -79,10 +88,12 @@ namespace NetComServerInstruction
             server.UserGroups["SampleUserGroup"].AddUser("SomeUsername");
 
             // Users can be directly added to a group when they are connected, 
-            //or they can be added using a username and get assigned to the group as soon as they connect.
+            // or they can be added using a username and get assigned to the group as soon as they connect.
 
             // To save and load groups from a file, use the NetcomGroups.Load-Method (before server.Start()) and 
             // the NetComGroups.Save()-Method
+
+            #endregion
 
             // When creating a group-message, the receiver-argument gets set to 'null'
 
@@ -91,6 +102,9 @@ namespace NetComServerInstruction
 
             server.GroupSend(instruction4, server.UserGroups["SampleUserGroup"]);
 
+            #endregion
+
+            #endregion
 
         }
     }
