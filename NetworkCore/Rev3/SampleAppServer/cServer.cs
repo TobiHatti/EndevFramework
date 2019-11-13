@@ -29,6 +29,9 @@ namespace SampleAppServer
 
             server.Start();
 
+
+            
+
             // The server can send to a range of connected clients, wich can be selected in the server.ConnectedClients-Property
 
             Thread.Sleep(2000);
@@ -37,7 +40,9 @@ namespace SampleAppServer
             server.UserGroups["Awesome dudes"].AddUser("Tobias");
             server.UserGroups["Awesome dudes"].AddUser("Adam");
 
-            while(true)
+            server.UserGroups.Load(@"C:\Users\zivi\Desktop\test.dat");
+
+            while (true)
             {
                 //server.Send(new ILE.TestSample(server, server.ConnectedClients[new Random().Next(0, server.ConnectedClients.Count)]));
 

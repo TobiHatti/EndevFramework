@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -33,11 +34,39 @@ namespace EndevFrameworkNetworkCore
 
         public void Save(string pPath)
         {
+            StreamWriter sw = new StreamWriter(pPath);
 
+            foreach(UserGroup group in userGroups)
+            {
+                sw.WriteLine($":{group.Name}");
+
+                foreach(string user in group.GroupMembers)
+                {
+                    sw.WriteLine($"!{user}");
+                }
+            }
+
+            sw.Close();
         }
 
         public void Load(string pPath)
         {
+            StreamReader sr = new StreamReader(pPath);
+            string line;
+            string currentLine = "";
+            while ((line = sr.ReadLine()) != null)
+            {
+                if(line.StartsWith(":"))
+                {
+                    userGroups.Add(new UserGroup(line.Remove(0, 1)));
+                    currentLine = line.Remove(0, 1);
+                }
+
+                if(line.StartsWith("!"))
+                {
+                    this[currentLine].AddUser(line.Remove(0, 1));
+                }
+            }
 
         }
 
