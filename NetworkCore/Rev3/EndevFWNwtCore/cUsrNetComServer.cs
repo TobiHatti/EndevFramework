@@ -20,6 +20,7 @@ namespace EndevFrameworkNetworkCore
     /// </summary>
     public class NetComServer : NetComOperator
     {
+        private List<string> groupAddRecords = new List<string>();
         public ClientList ConnectedClients { get; } = new ClientList();
         public NetComGroups UserGroups { get; } = new NetComGroups();
         internal NetComUser CurrentProcessingClient 
@@ -72,26 +73,28 @@ namespace EndevFrameworkNetworkCore
             outgoingInstructions.RemoveAt(0);
         }
 
+        protected override void AsyncLongTermNextCycle()
+        {
+            base.AsyncLongTermNextCycle();
+
+            // Clear groupAddRecords to check every sending client once again 
+            groupAddRecords.Clear();
+        }
+
         /// <summary>
         /// Initializes and Starts the Server
         /// </summary>
-        public void Start()
+        public override void Start()
         {
             Debug("Setting up server...");
-
             LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             LocalSocket.Bind(new IPEndPoint(IPAddress.Any, port));
             LocalSocket.Listen(0);
             LocalSocket.BeginAccept(AcceptCallback, null);
 
+            base.Start();
+
             Debug("Server setup complete!");
-
-
-            instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
-            instructionProcessingThread.Start();
-
-            instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
-            instructionSendingThread.Start();
         }
 
         /// <summary>
@@ -179,8 +182,20 @@ namespace EndevFrameworkNetworkCore
             try
             {
                 instructionList = InstructionOperations.Parse(this, current, text, ConnectedClients).ToArray();
+
+                // Check for group-Addignment
                 foreach (InstructionBase instr in instructionList)
+                {
                     incommingInstructions.Add(instr);
+
+                    if(!groupAddRecords.Contains(instr.Sender.Username))
+                    {
+                        groupAddRecords.Add(instr.Sender.Username);
+                        UserGroups.TryGroupAdd(instr.Sender);
+                    }
+                }
+                    
+               
             }
             catch(NetComAuthenticationException)
             {

@@ -24,7 +24,7 @@ namespace EndevFrameworkNetworkCore
         protected int errorCtr = 0;
         protected int processedCount = 0;
 
-        protected const int bufferSize = 10240000; // 100KB (KiB)
+        protected const int bufferSize = 102400; // 100KB (KiB)
         protected volatile byte[] buffer = new byte[bufferSize];
 
         protected volatile List<InstructionBase> incommingInstructions = new List<InstructionBase>();
@@ -36,14 +36,30 @@ namespace EndevFrameworkNetworkCore
 
         protected volatile Thread instructionProcessingThread = null;
         protected volatile Thread instructionSendingThread = null;
+        protected volatile Thread longTermOperationThread = null;
 
         internal List<string> OutputStream { get; } = new List<string>();
 
         protected volatile int threadIdleTime = 100;
 
+        protected volatile int longTermInstructionSleepInMinutes = 5;
+
         public static int queue = 0;
 
+        public virtual void Start()
+        {
+            Debug("Starting Background-Process: Instruction-Processing...");
+            instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
+            instructionProcessingThread.Start();
 
+            Debug("Starting Background-Process: Instruction-Sending...");
+            instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
+            instructionSendingThread.Start();
+
+            Debug("Starting Background-Process: Long-Term-Operations...");
+            longTermOperationThread = new Thread(AsyncLongTermInstructionLoop);
+            longTermOperationThread.Start();
+        }
 
         public void SetDebugOutput(DebuggingOutput pOutput, params object[] pDebugParameters)
         {
@@ -55,6 +71,7 @@ namespace EndevFrameworkNetworkCore
         {
             DebugCom(pMessage, debugParams);
         }
+
 
         protected void AsyncInstructionSendingLoop()
         {
@@ -80,6 +97,14 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        protected void AsyncLongTermInstructionLoop()
+        {
+            while (true)
+            {
+                Thread.Sleep(longTermInstructionSleepInMinutes * 300000);
+            }
+        }
+
         protected abstract void AsyncInstructionSendNext();
         protected virtual void AsyncInstructionProcessNext()
         {
@@ -87,6 +112,10 @@ namespace EndevFrameworkNetworkCore
             incommingInstructions.RemoveAt(0);
             processedCount++;
             Debug($"Processed Instruction ({processedCount} - Success-Rate: {(float)(1-((float)errorCtr / (float)processedCount)) * 100}%)");
+        }
+        protected virtual void AsyncLongTermNextCycle()
+        {
+
         }
 
         public string ReadOutputStream()

@@ -45,6 +45,17 @@ namespace EndevFrameworkNetworkCore
             userGroups.Add(new UserGroup(pGroupName));
         }
 
+        public IEnumerable<string> TryGroupAdd(NetComUser pUser)
+        {
+            foreach(UserGroup group in userGroups)
+                foreach(string username in group.GroupMembers)
+                    if (pUser.Username == username)
+                    {
+                        group.AddUser(pUser);
+                        yield return group.Name;
+                    }
+        }
+
         public IEnumerator GetEnumerator()
         {
             foreach (UserGroup group in userGroups)

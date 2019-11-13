@@ -31,13 +31,13 @@ namespace EndevFrameworkNetworkCore
         }
 
         public void Disconnect(NetComUser pUser)
-        { 
-        
+        {
+            if (OnlineMembers.Contains(pUser)) OnlineMembers.Remove(pUser);
         }
 
         public void Remove(string pUsername)
         {
-
+            if (!GroupMembers.Contains(pUsername)) GroupMembers.Add(pUsername);
         }
     }
 }

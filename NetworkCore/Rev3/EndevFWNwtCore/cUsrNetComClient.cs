@@ -43,27 +43,22 @@ namespace EndevFrameworkNetworkCore
             Password = pPassword;
         }
 
-        public void Start()
+        public override void Start()
         {
             Debug("Setting up client...");
             LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            Debug("Client setup complete!");
-
-            TryConnect();
-
-            Debug("Starting Background-Process: Instruction-Processing...");
-            instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
-            instructionProcessingThread.Start();
-
-            Debug("Starting Background-Process: Instruction-Sending...");
-            instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
-            instructionSendingThread.Start();
 
             Debug("Starting Background-Process: Instruction-Receiving...");
             instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
             instructionReceptionThread.Start();
 
-            Debug("Successfully started all background-processes!");
+            base.Start();
+
+            Debug("Client setup complete!");
+
+            Debug("Connecting to Server...");
+
+            TryConnect();
         }
 
         private void TryConnect()
