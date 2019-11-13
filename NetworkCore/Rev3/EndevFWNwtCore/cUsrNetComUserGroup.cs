@@ -22,12 +22,12 @@ namespace EndevFrameworkNetworkCore
         public void AddUser(NetComUser pUser)
         {
             if (!OnlineMembers.Contains(pUser)) OnlineMembers.Add(pUser);
-            if (!GroupMembers.Contains(pUser.Username)) GroupMembers.Add(pUser.Username);
+            if (!GroupMembers.Contains(pUser.Username)) GroupMembers.Add(pUser.Username.ToLower());
         }
 
         public void AddUser(string pUsername)
         {
-            if(!GroupMembers.Contains(pUsername)) GroupMembers.Add(pUsername);
+            if(!GroupMembers.Contains(pUsername)) GroupMembers.Add(pUsername.ToLower());
         }
 
         public void Disconnect(NetComUser pUser)
@@ -37,7 +37,7 @@ namespace EndevFrameworkNetworkCore
 
         public void Remove(string pUsername)
         {
-            if (!GroupMembers.Contains(pUsername)) GroupMembers.Add(pUsername);
+            if (!GroupMembers.Contains(pUsername)) GroupMembers.Add(pUsername.ToLower());
         }
     }
 }

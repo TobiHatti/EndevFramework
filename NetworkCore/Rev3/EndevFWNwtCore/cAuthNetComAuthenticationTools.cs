@@ -10,18 +10,18 @@ namespace EndevFrameworkNetworkCore
     {
         public static bool DebugAuth(string pUsername, string pPassword)
         {
-            switch(pUsername)
+            switch(pUsername.ToLower())
             {
-                case "Tobias":
+                case "tobias":
                     if (pPassword == "1") return true;
                     return false;
-                case "Adam":
+                case "adam":
                     if (pPassword == "2") return true;
                     return false;
-                case "Andrea":
+                case "andrea":
                     if (pPassword == "3") return true;
                     return false;
-                case "Christian":
+                case "christian":
                     if (pPassword == "4") return true;
                     return false;
                 default:

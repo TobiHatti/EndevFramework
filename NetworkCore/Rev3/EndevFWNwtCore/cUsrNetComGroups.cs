@@ -42,7 +42,7 @@ namespace EndevFrameworkNetworkCore
 
                 foreach(string user in group.GroupMembers)
                 {
-                    sw.WriteLine($"!{user}");
+                    sw.WriteLine($"!{user.ToLower()}");
                 }
             }
 
@@ -88,9 +88,9 @@ namespace EndevFrameworkNetworkCore
 
         public void TryGroupAdd(NetComUser pUser)
         {
-            foreach(UserGroup group in userGroups)
-                foreach(string username in group.GroupMembers)
-                    if (pUser.Username == username)
+            foreach (UserGroup group in userGroups)
+                foreach (string username in group.GroupMembers)
+                    if (pUser.Username.ToLower() == username.ToLower())
                     {
                         group.AddUser(pUser);
                         //yield return group.Name;
