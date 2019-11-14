@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAppServer", "SampleAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleStartupAssist", "SampleStartupAssist\SampleStartupAssist.csproj", "{30FAEDF9-F030-4BC3-888E-84C5EF8BE8AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetComServerInstruction", "NetComServerInstruction\NetComServerInstruction.csproj", "{658EA8D4-EC5A-4DD9-8518-63C08A10DF6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetComServerDemo", "NetComServerInstruction\NetComServerDemo.csproj", "{658EA8D4-EC5A-4DD9-8518-63C08A10DF6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

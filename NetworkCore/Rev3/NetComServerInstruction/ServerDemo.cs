@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetComServerInstruction
 {
-    class Program
+    class ServerDemo
     {
         static void Main(string[] args)
         {
