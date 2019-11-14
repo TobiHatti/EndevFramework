@@ -63,7 +63,6 @@ namespace EndevFrameworkNetworkCore
                     return false;
             }
         }
-
 #pragma warning restore IDE0060 // unused parameters
     }
 }

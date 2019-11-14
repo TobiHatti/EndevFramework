@@ -24,6 +24,7 @@ namespace EndevFrameworkNetworkCore
     public class InstructionLibraryEssentials
     {
         /// <summary>
+        /// [SERVER ONLY]
         /// For Internal use only.
         /// Sends the server's public key to the client.
         /// Required for RSA-Authentication.
@@ -44,6 +45,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT ONLY]
         /// For Internal use only.
         /// Sends the client's public key to the server.
         /// Required for RSA-Authentication.
@@ -60,6 +62,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [SERVER ONLY]
         /// For Internal use only.
         /// Provides the initial instruction to 
         /// authenticate the server on the client-side.
@@ -74,6 +77,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT ONLY]
         /// For Internal use only.
         /// Provides the initial instruction to 
         /// authenticate the client on the server-side.
@@ -87,6 +91,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT / SERVER]
         /// Basic Test-Instruction to check if 
         /// instruction reach the receiver.
         /// </summary>
@@ -101,6 +106,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT / SERVER]
         /// Writes a message directly to the console.
         /// </summary>
         public class ToConsole : ISB
@@ -115,6 +121,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT / SERVER]
         /// Writes a message to the Debug console window 
         /// (System.Diagnostics.Debug).
         /// </summary>
@@ -130,6 +137,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT / SERVER]
         /// Writes a message to the NetComUser's selected Debug-Output
         /// (NetComOperator.Debug).
         /// </summary>
@@ -145,6 +153,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT / SERVER]
         /// Writes a message directly to the console.
         /// Formats the text with a custom foreground- 
         /// and background-color.
@@ -258,6 +267,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT / SERVER]
         /// Sends a message to the output-stream 
         /// of the receiver.
         /// </summary>
@@ -273,6 +283,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT / SERVER]
         /// Shows a simple messagebox to the receiver.
         /// </summary>
         public class SimpleMessageBox : ISB
@@ -288,6 +299,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT / SERVER]
         /// Shows a formated messagebox to the receiver.
         /// </summary>
         public class RichMessageBox : ISB
@@ -397,6 +409,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// [CLIENT / SERVER]
         /// Shows a notification-bubble on the 
         /// receiver's screen.
         /// </summary>
@@ -447,5 +460,23 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// [CLIENT ONLY]
+        /// Sends a message from one client to 
+        /// another clients output-stream.
+        /// </summary>
+        public class Message : ISB
+        {
+            public Message(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters)
+                : base(pSender, pReceiver, pValue, pParameters) { }
+
+            public Message(NetComUser pSender, string pReceiverUsername, string pMessage)
+                : base(pSender, null, pReceiverUsername, new object[] { pMessage }) { }
+
+            public override void Execute()
+            {
+                (Receiver as NetComServer).Send(new InstructionLibraryEssentials.ToOutputStream(Receiver, (Receiver as NetComServer).ConnectedClients[value], parameters[0].ToString()));
+            }
+        }
     }
 }
