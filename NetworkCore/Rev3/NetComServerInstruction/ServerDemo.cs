@@ -81,22 +81,6 @@ namespace NetComServerInstruction
 
             #region ------ (4a) Creating and managing groups ------
 
-            // Create a new user-group if not existent yet
-            server.UserGroups.NewGroup("SampleUserGroup");
-
-            // Add users to the user-group
-            server.UserGroups["SampleUserGroup"].AddUser(server.ConnectedClients[0]);
-            server.UserGroups["SampleUserGroup"].AddUser(server.ConnectedClients[6]);
-            server.UserGroups["SampleUserGroup"].AddUser("SomeUsername");
-
-            // Users can be directly added to a group when they are connected, 
-            // or they can be added using a username and get assigned to the group as soon as they connect.
-
-            // To save and load groups from a file, use the NetcomGroups.Load-Method (before server.Start()) and 
-            // the NetComGroups.Save()-Method
-
-            #endregion
-
             // When creating a group-message, the receiver-argument gets set to 'null'
 
             var instruction4 = new InstructionLibraryEssentials.SimpleMessageBox
