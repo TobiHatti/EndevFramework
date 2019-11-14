@@ -11,7 +11,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAppServer", "SampleAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleStartupAssist", "SampleStartupAssist\SampleStartupAssist.csproj", "{30FAEDF9-F030-4BC3-888E-84C5EF8BE8AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetComServerDemo", "NetComServerInstruction\NetComServerDemo.csproj", "{658EA8D4-EC5A-4DD9-8518-63C08A10DF6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoServer", "NetComServerInstruction\DemoServer.csproj", "{658EA8D4-EC5A-4DD9-8518-63C08A10DF6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoClient", "NetComClientDemo\DemoClient.csproj", "{719C58FF-3E46-4245-BF57-EF1068C1F0C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoCustomInstructions", "DemoNetComCustomInstructions\DemoCustomInstructions.csproj", "{76B6430B-8681-4472-8F1E-FEF8F78BE09D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoUserGroups", "DemoNetComUserGroups\DemoUserGroups.csproj", "{BD1462B9-80C1-452B-A556-DE7DBB46322F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoCustomAuthentication", "DemoCustomAuthentication\DemoCustomAuthentication.csproj", "{0DF5DE06-09F7-43C6-B492-7D056115DCE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +47,22 @@ Global
 		{658EA8D4-EC5A-4DD9-8518-63C08A10DF6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{658EA8D4-EC5A-4DD9-8518-63C08A10DF6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{658EA8D4-EC5A-4DD9-8518-63C08A10DF6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{719C58FF-3E46-4245-BF57-EF1068C1F0C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{719C58FF-3E46-4245-BF57-EF1068C1F0C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{719C58FF-3E46-4245-BF57-EF1068C1F0C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{719C58FF-3E46-4245-BF57-EF1068C1F0C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B6430B-8681-4472-8F1E-FEF8F78BE09D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B6430B-8681-4472-8F1E-FEF8F78BE09D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B6430B-8681-4472-8F1E-FEF8F78BE09D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B6430B-8681-4472-8F1E-FEF8F78BE09D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD1462B9-80C1-452B-A556-DE7DBB46322F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD1462B9-80C1-452B-A556-DE7DBB46322F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD1462B9-80C1-452B-A556-DE7DBB46322F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD1462B9-80C1-452B-A556-DE7DBB46322F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF5DE06-09F7-43C6-B492-7D056115DCE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF5DE06-09F7-43C6-B492-7D056115DCE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF5DE06-09F7-43C6-B492-7D056115DCE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF5DE06-09F7-43C6-B492-7D056115DCE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

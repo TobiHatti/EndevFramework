@@ -1,0 +1,6 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComClientDemo\bin\Debug\NetComClientDemo.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComClientDemo\bin\Debug\NetComClientDemo.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComClientDemo\bin\Debug\NetComClientDemo.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComClientDemo\obj\Debug\DemoClient.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComClientDemo\obj\Debug\NetComClientDemo.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\NetComClientDemo\obj\Debug\NetComClientDemo.pdb

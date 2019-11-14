@@ -26,15 +26,21 @@ namespace EndevFrameworkNetworkCore
         /// <summary>
         /// Creates a new NetCom-client instance.
         /// </summary>
-        /// <param name="pServerIP">IP of the server</param>
+        /// <param name="pServerIP">IPv4-Address of the server</param>
         /// <param name="pPort">TCP port of the server</param>
         public NetComClient(string pServerIP, int pPort)
+            : this(IPAddress.Parse(pServerIP), pPort) { }
+
+        /// <summary>
+        /// Creates a new NetCom-client instance.
+        /// </summary>
+        /// <param name="pServerIP">IP of the server</param>
+        /// <param name="pPort">TCP port of the server</param>
+        public NetComClient(IPAddress pServerIP, int pPort)
         {
             RSAKeys = RSAHandler.GenerateKeyPair();
             port = pPort;
-            serverIP = IPAddress.Parse(pServerIP);
-
-
+            serverIP = pServerIP;
         }
 
         /// <summary>
