@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// Segment Complete [Last Modified 31.10.2019]
-
 namespace EndevFrameworkNetworkCore
 {
     /// <summary>
@@ -30,7 +28,7 @@ namespace EndevFrameworkNetworkCore
         /// <summary>
         /// Version of the currently used Instruction-Set (Instruction-Library)
         /// </summary>
-        public static string InstructionSetVersion { get; set; } = "1.0";
+        public static string InstructionSetVersion { get; set; } = "1.2";
 
         /// <summary>
         /// Current version of the Framework
@@ -71,11 +69,11 @@ namespace EndevFrameworkNetworkCore
 
             if(this.GetType() == typeof(InstructionLibraryEssentials.KeyExchangeServer2Client))
             {
-                return EncodeAuthenticationS2C();
+                return EncodeKeyExchangeS2C();
             }
             if(this.GetType() == typeof(InstructionLibraryEssentials.KeyExchangeClient2Server))
             {
-                return EncodeAuthenticationC2S();
+                return EncodeKeyExchangeC2S();
             }
 
 
@@ -127,7 +125,12 @@ namespace EndevFrameworkNetworkCore
             return sb.ToString();
         }
 
-        private string EncodeAuthenticationS2C()
+        /// <summary>
+        /// Encodes a key-exchange-instruction 
+        /// from server to client.
+        /// </summary>
+        /// <returns>The encoded string</returns>
+        private string EncodeKeyExchangeS2C()
         {
             StringBuilder innersb = new StringBuilder();
             StringBuilder sb = new StringBuilder();
@@ -144,7 +147,12 @@ namespace EndevFrameworkNetworkCore
             return sb.ToString();
         }
 
-        private string EncodeAuthenticationC2S()
+        /// <summary>
+        /// Encodes a key-exchange-instruction 
+        /// from client to server.
+        /// </summary>
+        /// <returns>The encoded string</returns>
+        private string EncodeKeyExchangeC2S()
         {
             StringBuilder innersb = new StringBuilder();
             StringBuilder sb = new StringBuilder();
@@ -215,6 +223,10 @@ namespace EndevFrameworkNetworkCore
             Receiver.SetUserData("", "", pPublicKey);
         }
 
+        /// <summary>
+        /// Clones the current instruction.
+        /// </summary>
+        /// <returns>New instance of the same instruction (clone)</returns>
         public InstructionBase Clone()
         {
             InstructionBase retInstr;

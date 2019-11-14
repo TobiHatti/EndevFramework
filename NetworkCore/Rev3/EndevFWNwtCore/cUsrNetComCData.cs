@@ -23,7 +23,7 @@ namespace EndevFrameworkNetworkCore
 
         
         /// <summary>
-        /// Authenticates the user when given a username and password
+        /// Authenticates the user when given a username and password.
         /// </summary>
         /// <param name="pPassword">Users Password</param>
         /// <param name="pUsername">Users Username</param>

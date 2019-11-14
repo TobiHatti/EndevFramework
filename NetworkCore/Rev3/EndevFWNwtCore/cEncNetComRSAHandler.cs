@@ -5,8 +5,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-// Segment Complete [Last Modified 30.10.2019]
-
 namespace EndevFrameworkNetworkCore
 {
     /// <summary>
@@ -35,7 +33,7 @@ namespace EndevFrameworkNetworkCore
         private static readonly UnicodeEncoding encoder = new UnicodeEncoding();
 
         /// <summary>
-        /// Generates a unique key-pair for RSA-encryption
+        /// Generates a unique key-pair for RSA-encryption.
         /// </summary>
         /// <returns>A Private/Public Key-Pair</returns>
         public static RSAKeyPair GenerateKeyPair()
@@ -51,7 +49,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// Encrypts a string using a public RSA-key
+        /// Encrypts a string using a public RSA-key.
         /// </summary>
         /// <param name="pPartnerPublicKey">Public key of the recepiant</param>
         /// <param name="pData">Data to be encrypted</param>
@@ -77,7 +75,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// Decrypts a RSA-encrypted string using a private-key
+        /// Decrypts a RSA-encrypted string using a private-key.
         /// </summary>
         /// <param name="pLocalPrivateKey">Private-key of the user (recepiant)</param>
         /// <param name="pData">RSA-encrypted data-string</param>
@@ -99,7 +97,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// Creates a SHA256-Based signature using the senders private key
+        /// Creates a SHA256-Based signature using the senders private key.
         /// </summary>
         /// <param name="pLocalPrivateKey">Private-Key of the sender</param>
         /// <param name="pData">String used for the signature</param>
@@ -125,7 +123,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// Checks if the signature of the partner is valid
+        /// Checks if the signature of the partner is valid.
         /// </summary>
         /// <param name="pPartnerPublicKey">Public-Key of the user (sender)</param>
         /// <param name="pOriginalMessage">Original, unencrypted signature</param>

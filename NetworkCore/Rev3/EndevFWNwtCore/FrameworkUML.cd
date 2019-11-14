@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="EndevFrameworkNetworkCore.DebugOutput">
-    <Position X="21" Y="11.25" Width="1.75" />
+    <Position X="20" Y="11.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>cDbgNetComDebugOutput.cs</FileName>
@@ -22,14 +22,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComException">
-    <Position X="23" Y="2" Width="3" />
+    <Position X="22" Y="2" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComNotImplementedException">
-    <Position X="22.25" Y="0.5" Width="3.75" />
+    <Position X="21.25" Y="0.5" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
@@ -38,57 +38,27 @@
   <Class Name="EndevFrameworkNetworkCore.InstructionBase">
     <Position X="13.5" Y="3.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAAAAAARgAAQECIAAAAAAAAAEAKAACAAAAACIABA=</HashCode>
+      <HashCode>AAAAAAAAAARgAAQMCIAAAAAAAAAECCAACAAAAACIABA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials">
-    <Position X="16.5" Y="0.5" Width="3.5" />
+    <Position X="16.5" Y="0.5" Width="2.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.AuthenticationClient2Server">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.AuthenticationClient2Server" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.TestSample">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.TestSample" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.AuthenticationServer2Client">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToConsole">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.NofityIcon">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.KeyExchangeServer2Client">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToOutputStream">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.SimpleMessageBox">
-        <TypeIdentifier>
-          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToNetComDebug">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToConsole" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -98,17 +68,47 @@
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToConsoleColored">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.KeyExchangeServer2Client" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.KeyExchangeClient2Server">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.RichMessageBox" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.RichMessageBox">
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToOutputStream" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.SimpleMessageBox" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.NofityIcon" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToNetComDebug" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToConsoleColored" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.KeyExchangeClient2Server" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.AuthenticationServer2Client" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -193,14 +193,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComSignatureException">
-    <Position X="20.5" Y="4" Width="3.5" />
+    <Position X="19.75" Y="4" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComAuthenticationException">
-    <Position X="20.5" Y="5.5" Width="3.75" />
+    <Position X="19.5" Y="5.5" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
@@ -214,23 +214,23 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComVersionException">
-    <Position X="21" Y="7" Width="3.25" />
+    <Position X="20" Y="7" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComParsingException">
-    <Position X="21.25" Y="8.5" Width="3.25" />
+    <Position X="20.25" Y="8.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.AuthenticationTools">
-    <Position X="23" Y="11.25" Width="1.75" />
+    <Position X="22" Y="11.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAEAAAAAAAAAAAAAAAAI=</HashCode>
       <FileName>cAuthNetComAuthenticationTools.cs</FileName>
     </TypeIdentifier>
   </Class>

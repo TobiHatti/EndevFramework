@@ -14,7 +14,7 @@ namespace EndevFrameworkNetworkCore
     /// SUB-PACKAGE: User-Objects               <para />
     /// =====================================   <para />
     /// DESCRIPTION:                            <para />
-    /// Basic object for NetCom-Users
+    /// Basic object for NetCom-Users.
     /// </summary>
     public class NetComUser
     {
@@ -23,11 +23,21 @@ namespace EndevFrameworkNetworkCore
         internal string Password { get; set; } = null;
         internal RSAKeyPair RSAKeys { get; set; }
 
+        /// <summary>
+        /// Sets the LocalSocket of the user.
+        /// </summary>
+        /// <param name="pSocket">Users socket</param>
         internal void SetUserSocket(Socket pSocket)
         {
             LocalSocket = pSocket;
         }
 
+        /// <summary>
+        /// Sets the users user-data.
+        /// </summary>
+        /// <param name="pUsername">Users username</param>
+        /// <param name="pPassword">Users password</param>
+        /// <param name="pPublicKey">Users public-key</param>
         internal void SetUserData(string pUsername, string pPassword, string pPublicKey = null)
         {
             Username = pUsername;
@@ -44,6 +54,10 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Returns the username of the user.
+        /// </summary>
+        /// <returns>Users username</returns>
         public override string ToString()
         {
             return Username;

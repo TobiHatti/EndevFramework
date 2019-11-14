@@ -9,10 +9,25 @@ using System.Threading.Tasks;
 
 namespace EndevFrameworkNetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: User-Objects               <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Groups users into managable groups.
+    /// Provides a basic manager for handling 
+    /// groups
+    /// </summary>
     public class NetComGroups : IEnumerable
     {
         private readonly List<UserGroup> userGroups = new List<UserGroup>();
 
+        /// <summary>
+        /// Returns a UserGroup by the group-index.
+        /// </summary>
+        /// <param name="idx">Index of the group</param>
+        /// <returns>UserGroup with fitting index</returns>
         public UserGroup this[int idx]
         {
             get
@@ -22,6 +37,11 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Returns a UserGroup by the group-name.
+        /// </summary>
+        /// <param name="pGroupName">Name of the group</param>
+        /// <returns>UserGroup with fitting name</returns>
         public UserGroup this[string pGroupName]
         {
             get
@@ -32,6 +52,10 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Saves the usergroup-config to a file.
+        /// </summary>
+        /// <param name="pPath">Target file</param>
         public void Save(string pPath)
         {
             StreamWriter sw = new StreamWriter(pPath);
@@ -49,6 +73,10 @@ namespace EndevFrameworkNetworkCore
             sw.Close();
         }
 
+        /// <summary>
+        /// Loads the usergroup-config from a file.
+        /// </summary>
+        /// <param name="pPath">Target file</param>
         public void Load(string pPath)
         {
             using (StreamReader sr = new StreamReader(pPath))
@@ -72,6 +100,10 @@ namespace EndevFrameworkNetworkCore
 
         }
 
+        /// <summary>
+        /// Disconnects a user from any groups he is currently connected to.
+        /// </summary>
+        /// <param name="pUserSocket">Socket of the user</param>
         public void Disconnect(Socket pUserSocket)
         {
             foreach (UserGroup group in userGroups)
@@ -83,6 +115,11 @@ namespace EndevFrameworkNetworkCore
                     }
         }
 
+        /// <summary>
+        /// Creates a new group with members (optional).
+        /// </summary>
+        /// <param name="pGroupName">Name of the group</param>
+        /// <param name="pUsers">Users to add to the group</param>
         public void NewGroup(string pGroupName, params NetComUser[] pUsers)
         {
             userGroups.Add(new UserGroup(pGroupName));
@@ -91,6 +128,11 @@ namespace EndevFrameworkNetworkCore
                 this[pGroupName].AddUser(user);
         }
 
+        /// <summary>
+        /// Tries to add a user to any groups 
+        /// that that it is a member of. 
+        /// </summary>
+        /// <param name="pUser"></param>
         public void TryGroupAdd(NetComUser pUser)
         {
             foreach (UserGroup group in userGroups)
@@ -102,6 +144,11 @@ namespace EndevFrameworkNetworkCore
                     }
         }
 
+        /// <summary>
+        /// Returns all UserGroups.
+        /// Required for IEnumerable-Interface.
+        /// </summary>
+        /// <returns>UserGroups enumerator</returns>
         public IEnumerator GetEnumerator()
         {
             foreach (UserGroup group in userGroups)

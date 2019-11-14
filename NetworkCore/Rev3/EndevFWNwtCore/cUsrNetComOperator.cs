@@ -46,6 +46,9 @@ namespace EndevFrameworkNetworkCore
 
         public static int queue = 0;
 
+        /// <summary>
+        /// Starts all tasks required for the Client and Server
+        /// </summary>
         public virtual void Start()
         {
             Debug("Starting Background-Process: Instruction-Processing...");
@@ -61,18 +64,30 @@ namespace EndevFrameworkNetworkCore
             longTermOperationThread.Start();
         }
 
+        /// <summary>
+        /// Sets the debug-output.
+        /// Pre-defined debug-outputs can be found in the DebugOutput-Class.
+        /// </summary>
+        /// <param name="pOutput">Delegate for the debug-output</param>
+        /// <param name="pDebugParameters">Optional parameters. See pOutput-Method for more info</param>
         public void SetDebugOutput(DebuggingOutput pOutput, params object[] pDebugParameters)
         {
             DebugCom = pOutput;
             debugParams = pDebugParameters;
         }
 
+        /// <summary>
+        /// Sends a debug-message to the selected debug-output.
+        /// </summary>
+        /// <param name="pMessage">Debug-Message</param>
         internal void Debug(string pMessage)
         {
             DebugCom(pMessage, debugParams);
         }
 
-
+        /// <summary>
+        /// Loop for executing the AsyncInstructionSendNext-Method.
+        /// </summary>
         protected void AsyncInstructionSendingLoop()
         {
             while (true)
@@ -84,6 +99,9 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Loop for executing the AsyncInstructionProcessNext-Method.
+        /// </summary>
         protected void AsyncInstructionProcessingLoop()
         {
             while (true)
@@ -97,6 +115,9 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Loop for executing the AsyncLongTermNextCycle-Method.
+        /// </summary>
         protected void AsyncLongTermInstructionLoop()
         {
             while (true)
@@ -107,7 +128,14 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Sends the next instruction from the outgoing-queue.
+        /// </summary>
         protected abstract void AsyncInstructionSendNext();
+
+        /// <summary>
+        /// Processes next instruction in the incomming-queue.
+        /// </summary>
         protected virtual void AsyncInstructionProcessNext()
         {
             incommingInstructions[0].Execute();
@@ -115,11 +143,20 @@ namespace EndevFrameworkNetworkCore
             processedCount++;
             Debug($"Processed Instruction ({processedCount} - Success-Rate: {(float)(1-((float)errorCtr / (float)processedCount)) * 100}%)");
         }
+
+        /// <summary>
+        /// Executes tasks every few minutes. Used for cleanup, improvements, etc.
+        /// </summary>
         protected virtual void AsyncLongTermNextCycle()
         {
 
         }
 
+        /// <summary>
+        /// Gets the next item in the outputstream-queue.
+        /// Returns null if queue is empty.
+        /// </summary>
+        /// <returns>First element of the queue</returns>
         public string ReadOutputStream()
         {
             if (OutputStream.Count == 0) return null;

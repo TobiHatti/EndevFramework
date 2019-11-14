@@ -62,7 +62,7 @@ namespace EndevFrameworkNetworkCore
         /// <summary>
         /// For Internal use only.
         /// Provides the initial instruction to 
-        /// authenticate the server on the client-side
+        /// authenticate the server on the client-side.
         /// </summary>
         internal class AuthenticationServer2Client : ISB
         {
@@ -76,7 +76,7 @@ namespace EndevFrameworkNetworkCore
         /// <summary>
         /// For Internal use only.
         /// Provides the initial instruction to 
-        /// authenticate the client on the server-side
+        /// authenticate the client on the server-side.
         /// </summary>
         internal class AuthenticationClient2Server : ISB
         {
@@ -88,7 +88,7 @@ namespace EndevFrameworkNetworkCore
 
         /// <summary>
         /// Basic Test-Instruction to check if 
-        /// instruction reach the receiver
+        /// instruction reach the receiver.
         /// </summary>
         public class TestSample : ISB
         {
@@ -115,8 +115,8 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// Writes a message to the Debug console window. 
-        /// (System.Diagnostics.Debug)
+        /// Writes a message to the Debug console window 
+        /// (System.Diagnostics.Debug).
         /// </summary>
         public class ToDebug : ISB
         {
@@ -131,7 +131,7 @@ namespace EndevFrameworkNetworkCore
 
         /// <summary>
         /// Writes a message to the NetComUser's selected Debug-Output
-        /// (NetComOperator.Debug)
+        /// (NetComOperator.Debug).
         /// </summary>
         public class ToNetComDebug : ISB
         {
@@ -288,7 +288,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// Shows a formated messagebox to the receiver
+        /// Shows a formated messagebox to the receiver.
         /// </summary>
         public class RichMessageBox : ISB
         {
@@ -398,7 +398,7 @@ namespace EndevFrameworkNetworkCore
 
         /// <summary>
         /// Shows a notification-bubble on the 
-        /// receiver's screen
+        /// receiver's screen.
         /// </summary>
         public class NofityIcon : ISB
         {

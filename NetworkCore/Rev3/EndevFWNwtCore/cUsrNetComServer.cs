@@ -23,6 +23,10 @@ namespace EndevFrameworkNetworkCore
         private readonly List<string> groupAddRecords = new List<string>();
         public ClientList ConnectedClients { get; } = new ClientList();
         public NetComGroups UserGroups { get; } = new NetComGroups();
+
+        /// <summary>
+        /// Gets the client of the currently processing instruction.
+        /// </summary>
         internal NetComUser CurrentProcessingClient 
         { 
             get
@@ -32,6 +36,10 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Creates a new instance of the NetCom-Server on a given port.
+        /// </summary>
+        /// <param name="pPort">Target TCP-Port</param>
         public NetComServer(int pPort)
         {
             port = pPort;
@@ -50,7 +58,9 @@ namespace EndevFrameworkNetworkCore
             NetComCData.AuthLookup = pLookupTool;
         }
 
-
+        /// <summary>
+        /// Sends the next instruction from the outgoing-queue.
+        /// </summary>
         protected override void AsyncInstructionSendNext()
         {
             Socket current = outgoingInstructions[0]?.Receiver.LocalSocket;
@@ -77,6 +87,9 @@ namespace EndevFrameworkNetworkCore
             outgoingInstructions.RemoveAt(0);
         }
 
+        /// <summary>
+        /// Executes tasks every few minutes. Used for cleanup, improvements, etc.
+        /// </summary>
         protected override void AsyncLongTermNextCycle()
         {
             base.AsyncLongTermNextCycle();
@@ -86,7 +99,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// Initializes and Starts the Server
+        /// Initializes and Starts the Server.
         /// </summary>
         public override void Start()
         {
@@ -103,7 +116,7 @@ namespace EndevFrameworkNetworkCore
 
         /// <summary>
         /// Properly closes all connections 
-        /// and shuts down the server
+        /// and shuts down the server.
         /// </summary>
         public void Shutdown()
         {
@@ -123,7 +136,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// Gets called when a connection is established
+        /// Gets called when a connection is established.
         /// </summary>
         /// <param name="AR">IAsyncResult</param>
         private void AcceptCallback(IAsyncResult AR)
@@ -151,7 +164,7 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// Gets called when a message is received
+        /// Gets called when a message is received.
         /// </summary>
         /// <param name="AR">IAsyncResult</param>
         private void ReceiveCallback(IAsyncResult AR)
@@ -229,6 +242,10 @@ namespace EndevFrameworkNetworkCore
 
         }
 
+        /// <summary>
+        /// Sends an instruction to a single client.
+        /// </summary>
+        /// <param name="pInstruction">Instruction to send. The receiver is set by the 'pReceiver'-parameter</param>
         public void Send(InstructionBase pInstruction)
         {
             if (pInstruction.Receiver != null)
@@ -238,6 +255,10 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Sends an instruction to all connected users.
+        /// </summary>
+        /// <param name="pInstruction">Instruction to send. Set the receiver-parameter to 'null'</param>
         public void Broadcast(InstructionBase pInstruction)
         {
             lock (ConnectedClients)
@@ -261,6 +282,11 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Sends an instruction to a range of users.
+        /// </summary>
+        /// <param name="pInstruction">Instruction to send. Set the receiver-parameter to 'null'</param>
+        /// <param name="pUsers">Target users</param>
         public void ListSend(InstructionBase pInstruction, params NetComUser[] pUsers)
         {
             for (int i = 0; i < pUsers.Length; i++)
@@ -281,6 +307,11 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Sends a instruction to a user-group.
+        /// </summary>
+        /// <param name="pInstruction">Instruction to send. Set the receiver-parameter to 'null'</param>
+        /// <param name="pGroup">Target group</param>
         public void GroupSend(InstructionBase pInstruction, UserGroup pGroup)
         {
             lock (pGroup)

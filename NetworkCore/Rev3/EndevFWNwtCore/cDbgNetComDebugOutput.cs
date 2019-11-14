@@ -6,8 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-// Segment Complete [Last Modified 30.10.2019]
-
 namespace EndevFrameworkNetworkCore
 {
     /// <summary>
@@ -23,14 +21,14 @@ namespace EndevFrameworkNetworkCore
     {
 #pragma warning disable IDE0060 // unused arguments
         /// <summary>
-        /// Disables all debug-outputs
+        /// Disables all debug-outputs.
         /// </summary>
         /// <param name="pMessage"></param>
         /// <param name="pParameters"></param>
         public static void Disable(string pMessage, params object[] pParameters) { }
 
         /// <summary>
-        /// Outputs the Debug-Messages to the system-console
+        /// Outputs the Debug-Messages to the system-console.
         /// </summary>
         /// <param name="pMessage">Debug-Message</param>
         /// <param name="pParameters">Output-Parameters [Not required for ToConsole-Method]</param>

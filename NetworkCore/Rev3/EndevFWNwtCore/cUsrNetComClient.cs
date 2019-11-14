@@ -37,12 +37,20 @@ namespace EndevFrameworkNetworkCore
 
         }
 
+        /// <summary>
+        /// Sets the username and password for authenticating at the server.
+        /// </summary>
+        /// <param name="pUsername">Clients username</param>
+        /// <param name="pPassword">Clients password</param>
         public void Login(string pUsername, string pPassword)
         {
             Username = pUsername;
             Password = pPassword;
         }
 
+        /// <summary>
+        /// Starts all tasks required for the Client
+        /// </summary>
         public override void Start()
         {
             Debug("Setting up client...");
@@ -61,6 +69,10 @@ namespace EndevFrameworkNetworkCore
             Debug("Client setup complete!");
         }
 
+        /// <summary>
+        /// Tries to connect to the server.
+        /// Returns if it was successfull.
+        /// </summary>
         private void TryConnect()
         {
             int attempts = 0;
@@ -77,6 +89,10 @@ namespace EndevFrameworkNetworkCore
             Debug($"Connection successfull! Required {attempts} attempts");
         }
 
+        /// <summary>
+        /// Sends an instruction to the server.
+        /// </summary>
+        /// <param name="pInstruction">Instruction to be sent. Set the receiver-parameter to 'null'</param>
         public void Send(InstructionBase pInstruction)
         {
             pInstruction.SetReceiverPublicKey(serverPublicKey);
@@ -84,11 +100,17 @@ namespace EndevFrameworkNetworkCore
             outgoingInstructions.Add(pInstruction);
         }
 
+        /// <summary>
+        /// Loop for executing the AsyncInstructionReceiveNext-Method.
+        /// </summary>
         protected void AsyncInstructionReceptionLoop()
         {
             while (true) AsyncInstructionReceiveNext();
         }
 
+        /// <summary>
+        /// Sends the next instruction from the outgoing-queue.
+        /// </summary>
         protected override void AsyncInstructionSendNext()
         {
             byte[] buffer;
@@ -103,6 +125,9 @@ namespace EndevFrameworkNetworkCore
             outgoingInstructions.RemoveAt(0);
         }
         
+        /// <summary>
+        /// Receives and adds the next incomming instruction to the incomming-queue.
+        /// </summary>
         protected void AsyncInstructionReceiveNext()
         {
             buffer = new byte[bufferSize];
@@ -132,6 +157,10 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Sets the RSA-PublicKey of the server.
+        /// </summary>
+        /// <param name="pPublicRSAKey">Servers public key</param>
         internal void SetServerRSA(string pPublicRSAKey)
         {
             serverPublicKey = pPublicRSAKey;

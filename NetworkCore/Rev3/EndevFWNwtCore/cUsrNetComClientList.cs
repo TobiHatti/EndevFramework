@@ -21,11 +21,19 @@ namespace EndevFrameworkNetworkCore
     {
         private readonly List<NetComCData> LClients = new List<NetComCData>();
 
+        /// <summary>
+        /// Gets the amount of clients in the list.
+        /// </summary>
         public int Count
         {
             get => LClients.Count;
         }
 
+        /// <summary>
+        /// Gets the Clients data by its index.
+        /// </summary>
+        /// <param name="idx">Index of the user</param>
+        /// <returns>ClientData-Object</returns>
         public NetComCData this[int idx]
         {
             get 
@@ -35,6 +43,11 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Gets the Clients data by its username.
+        /// </summary>
+        /// <param name="pUsername">Username of the user</param>
+        /// <returns>ClientData-Object</returns>
         public NetComCData this[string pUsername]
         {
             get
@@ -45,6 +58,11 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Gets the Clients data by its socket.
+        /// </summary>
+        /// <param name="pSocket">Socket of the user</param>
+        /// <returns>ClientData-Object</returns>
         public NetComCData this[Socket pSocket]
         {
             get
@@ -55,8 +73,25 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        /// <summary>
+        /// Adds a user.
+        /// </summary>
+        /// <param name="pSocket">Socket of the user</param>
         public void Add(Socket pSocket) => Add(pSocket, null, null);
+
+        /// <summary>
+        /// Adds a user.
+        /// </summary>
+        /// <param name="pSocket">Socket of the user</param>
+        /// <param name="pUsername">Username of the user</param>
         public void Add(Socket pSocket, string pUsername) => Add(pSocket, pUsername, null);
+
+        /// <summary>
+        /// Adds a user.
+        /// </summary>
+        /// <param name="pSocket">Socket of the user</param>
+        /// <param name="pUsername">Username of the user</param>
+        /// <param name="pPassword">Password of the user</param>
         public void Add(Socket pSocket, string pUsername, string pPassword)
         {
             NetComCData cData = new NetComCData();
@@ -65,24 +100,40 @@ namespace EndevFrameworkNetworkCore
             LClients.Add(cData);
         }
 
-
+        /// <summary>
+        /// Removes a user.
+        /// </summary>
+        /// <param name="pIndex">Index of the user</param>
         public void Remove(int pIndex)
         {
             LClients.RemoveAt(pIndex);
         }
 
+        /// <summary>
+        /// Removes a user.
+        /// </summary>
+        /// <param name="pUsername">Username of the user</param>
         public void Remove(string pUsername)
         {
             for (int i = 0; i < LClients.Count; i++)
                 if (LClients[i].Username == pUsername) LClients.RemoveAt(i);
         }
 
+        /// <summary>
+        /// Removes a user.
+        /// </summary>
+        /// <param name="pSocket">Socket of the user</param>
         public void Remove(Socket pSocket)
         {
             for (int i = 0; i < LClients.Count; i++)
                 if (LClients[i].LocalSocket == pSocket) LClients.RemoveAt(i);
         }
 
+        /// <summary>
+        /// Returns all clients from the list.
+        /// Required for IEnumerable-Interface.
+        /// </summary>
+        /// <returns>NetComCData enumerator</returns>
         public IEnumerator GetEnumerator()
         {
             foreach (NetComCData client in LClients)

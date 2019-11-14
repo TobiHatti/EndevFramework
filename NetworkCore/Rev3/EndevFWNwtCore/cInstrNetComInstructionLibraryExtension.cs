@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using ISB = EndevFrameworkNetworkCore.InstructionBase;
 
-// Segment Complete [Last Modified 30.10.2019]
-
 namespace EndevFrameworkNetworkCore
 {
     /// <summary>

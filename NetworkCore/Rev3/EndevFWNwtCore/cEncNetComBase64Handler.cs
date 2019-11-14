@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// Segment Complete [Last Modified 30.10.2019]
-
 namespace EndevFrameworkNetworkCore
 {
     /// <summary>
@@ -29,7 +27,7 @@ namespace EndevFrameworkNetworkCore
 
         /// <summary>
         /// Decodes a base64-encoded string into
-        /// a readable plain-text string
+        /// a readable plain-text string.
         /// </summary>
         /// <param name="pBase64String">Base64 string to be decoded</param>
         /// <param name="pOnErrorReturn">Return-Value in case an error occurs. Null will throw an exception.</param>

@@ -6,8 +6,43 @@ using System.Threading.Tasks;
 
 namespace EndevFrameworkNetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Authentication-Tools       <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Provides several tools to authenticate
+    /// clients on the server
+    /// </summary>
     public class AuthenticationTools
     {
+#pragma warning disable IDE0060 // unused parameters
+
+        /// <summary>
+        /// Always denies the entered user-data.
+        /// </summary>
+        /// <param name="pUsername">Username</param>
+        /// <param name="pPassword">Password</param>
+        /// <returns>True if the authentication was successfull</returns>
+        public static bool FullDeny(string pUsername, string pPassword)
+            => false;
+
+        /// <summary>
+        /// Always allows the entered user-data.
+        /// </summary>
+        /// <param name="pUsername">Username</param>
+        /// <param name="pPassword">Password</param>
+        /// <returns>True if the authentication was successfull</returns>
+        public static bool FullAllow(string pUsername, string pPassword)
+            => true;
+
+        /// <summary>
+        /// Provides a range of test-users for development and testing.
+        /// </summary>
+        /// <param name="pUsername">Username</param>
+        /// <param name="pPassword">Password</param>
+        /// <returns>True if the authentication was successfull</returns>
         public static bool DebugAuth(string pUsername, string pPassword)
         {
             switch(pUsername.ToLower())
@@ -28,5 +63,7 @@ namespace EndevFrameworkNetworkCore
                     return false;
             }
         }
+
+#pragma warning restore IDE0060 // unused parameters
     }
 }

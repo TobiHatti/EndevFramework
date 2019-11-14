@@ -6,8 +6,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-// Segment Complete [Last Modified 31.10.2019]
-
 namespace EndevFrameworkNetworkCore
 {
     /// <summary>
@@ -16,7 +14,7 @@ namespace EndevFrameworkNetworkCore
     /// SUB-PACKAGE: Instruction-Objects        <para />
     /// =====================================   <para />
     /// DESCRIPTION:                            <para />
-    /// Contains operations for manpulating 
+    /// Contains operations for manipulating 
     /// and changing instructions.
     /// </summary>
     public class InstructionOperations
@@ -26,7 +24,7 @@ namespace EndevFrameworkNetworkCore
 
         /// <summary>
         /// Parses an encoded instruction-string and returns 
-        /// all instruction-objects included in the string
+        /// all instruction-objects included in the string.
         /// </summary>
         /// <param name="pLocalUser">Local user</param>
         /// <param name="pReceptionSocket">Remote user, from which the instruction was received</param>
