@@ -12,6 +12,7 @@ namespace SampleAppServer
 {
     class Server
     {
+#pragma warning disable IDE0060 // unused parameters
         static void Main(string[] args)
         {
             Console.Title = "Server";
@@ -38,7 +39,7 @@ namespace SampleAppServer
             server.UserGroups["Awesome dudes"].AddUser("Tobias");
             server.UserGroups["Awesome dudes"].AddUser("Adam");
 
-            server.UserGroups.Load(@"C:\Users\zivi\Desktop\test.dat");
+            //server.UserGroups.Load(@"C:\Users\zivi\Desktop\test.dat");
 
             while (true)
             {
@@ -48,16 +49,17 @@ namespace SampleAppServer
 
                 //server.GroupSend(new ILE.RichMessageBox(server, null as NetComUser,"Hallo", "Caption", MessageBoxButtons.OK, MessageBoxIcon.Error),server.UserGroups["Awesome dudes"]);
                 
-                server.Broadcast(new ILE.NofityIcon(server, null, "I bin da text", "I bin da titel", 2000, ToolTipIcon.Warning));
+                //server.Broadcast(new ILE.NofityIcon(server, null, "I bin da text", "I bin da titel", 2000, ToolTipIcon.Warning));
 
-                //server.GroupSend(new ILE.TestSample(server, null), server.UserGroups["Awesome dudes"]);
+                server.GroupSend(new ILE.TestSample(server, null), server.UserGroups["Awesome dudes"]);
 
                 Thread.Sleep(10000);
             }
 
-#pragma warning disable 0162
+#pragma warning disable 0162 // unreachable code
             Console.ReadKey();
-#pragma warning restore 0162
+#pragma warning restore 0162 // unreachable code
         }
+#pragma warning restore IDE0060 // unused arguments
     }
 }

@@ -20,7 +20,7 @@ namespace EndevFrameworkNetworkCore
     /// </summary>
     public class NetComServer : NetComOperator
     {
-        private List<string> groupAddRecords = new List<string>();
+        private readonly List<string> groupAddRecords = new List<string>();
         public ClientList ConnectedClients { get; } = new ClientList();
         public NetComGroups UserGroups { get; } = new NetComGroups();
         internal NetComUser CurrentProcessingClient 
@@ -145,7 +145,7 @@ namespace EndevFrameworkNetworkCore
             Debug("New client connected.");
 
             //SendToClient(socket, new NCILib.PreAuth(this));
-            Send(new InstructionLibraryEssentials.AuthenticationServer2Client(this, ConnectedClients[socket]));
+            Send(new InstructionLibraryEssentials.KeyExchangeServer2Client(this, ConnectedClients[socket]));
 
             LocalSocket.BeginAccept(AcceptCallback, null);
         }
@@ -193,7 +193,7 @@ namespace EndevFrameworkNetworkCore
                 {
                     incommingInstructions.Add(instr);
 
-                    if(instr.GetType() != typeof(InstructionLibraryEssentials.AuthenticationClient2Server) && !groupAddRecords.Contains(instr.Sender.Username))
+                    if(instr.GetType() != typeof(InstructionLibraryEssentials.KeyExchangeClient2Server) && !groupAddRecords.Contains(instr.Sender.Username))
                     {
                         groupAddRecords.Add(instr.Sender.Username);
                         UserGroups.TryGroupAdd(instr.Sender);

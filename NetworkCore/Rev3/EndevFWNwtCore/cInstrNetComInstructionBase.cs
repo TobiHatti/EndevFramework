@@ -69,11 +69,11 @@ namespace EndevFrameworkNetworkCore
         public string Encode()
         {
 
-            if(this.GetType() == typeof(InstructionLibraryEssentials.AuthenticationServer2Client))
+            if(this.GetType() == typeof(InstructionLibraryEssentials.KeyExchangeServer2Client))
             {
                 return EncodeAuthenticationS2C();
             }
-            if(this.GetType() == typeof(InstructionLibraryEssentials.AuthenticationClient2Server))
+            if(this.GetType() == typeof(InstructionLibraryEssentials.KeyExchangeClient2Server))
             {
                 return EncodeAuthenticationC2S();
             }

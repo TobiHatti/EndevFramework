@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -24,40 +25,65 @@ namespace EndevFrameworkNetworkCore
     {
         /// <summary>
         /// For Internal use only.
-        /// Provides authentication-data for the 
-        /// client sent from the server.
+        /// Sends the server's public key to the client.
+        /// Required for RSA-Authentication.
         /// </summary>
-        internal class AuthenticationServer2Client : ISB
+        internal class KeyExchangeServer2Client : ISB
         {
-            public AuthenticationServer2Client(NetComUser pSender, NetComUser pReceiver, string pValue)
+            public KeyExchangeServer2Client(NetComUser pSender, NetComUser pReceiver, string pValue)
                 : base(pSender, pReceiver, pValue, null) { }
 
-            public AuthenticationServer2Client(NetComUser pSender, NetComUser pReceiver) 
+            public KeyExchangeServer2Client(NetComUser pSender, NetComUser pReceiver) 
                 : base(pSender, pReceiver, pSender.RSAKeys.PublicKey, null) { }
 
             public override void Execute()
             {
                 (Receiver as NetComClient).SetServerRSA(value);
-                (Receiver as NetComClient).Send(new InstructionLibraryEssentials.AuthenticationClient2Server(Receiver, null));
+                (Receiver as NetComClient).Send(new InstructionLibraryEssentials.KeyExchangeClient2Server(Receiver, null));
             }
         }
 
         /// <summary>
         /// For Internal use only.
-        /// Provides authentication-date for the 
-        /// server sent from the server.
+        /// Sends the client's public key to the server.
+        /// Required for RSA-Authentication.
+        /// </summary>
+        internal class KeyExchangeClient2Server : ISB
+        {
+            public KeyExchangeClient2Server(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters) 
+                : base(pSender, pReceiver, pValue, pParameters) { }
+            public KeyExchangeClient2Server(NetComUser pSender, NetComUser pReceiver) 
+                : base(pSender, pReceiver, pSender.RSAKeys.PublicKey, new object[] { pSender.Username }) { }
+
+            public override void Execute() 
+                => (Receiver as NetComServer).CurrentProcessingClient.SetUserData(parameters[0].ToString(), "", value);
+        }
+
+        /// <summary>
+        /// For Internal use only.
+        /// Provides the initial instruction to 
+        /// authenticate the server on the client-side
+        /// </summary>
+        internal class AuthenticationServer2Client : ISB
+        {
+            public AuthenticationServer2Client(NetComUser pSender, NetComUser pReceiver)
+               : base(pSender, pReceiver, null, null) { }
+
+            public override void Execute()  
+                => (Receiver as NetComClient).Send(new InstructionLibraryEssentials.AuthenticationClient2Server(Receiver, null));
+        }
+
+        /// <summary>
+        /// For Internal use only.
+        /// Provides the initial instruction to 
+        /// authenticate the client on the server-side
         /// </summary>
         internal class AuthenticationClient2Server : ISB
         {
-            public AuthenticationClient2Server(NetComUser pSender, NetComUser pReceiver, string pValue, object[] pParameters) 
-                : base(pSender, pReceiver, pValue, pParameters) { }
-            public AuthenticationClient2Server(NetComUser pSender, NetComUser pReceiver) 
-                : base(pSender, pReceiver, pSender.RSAKeys.PublicKey, new object[] { pSender.Username }) { }
+            public AuthenticationClient2Server(NetComUser pSender, NetComUser pReceiver)
+               : base(pSender, pReceiver, null, null) { }
 
-            public override void Execute()
-            {
-                (Receiver as NetComServer).CurrentProcessingClient.SetUserData(parameters[0].ToString(), "", value);
-            }
+            public override void Execute() { }
         }
 
         /// <summary>
@@ -79,11 +105,42 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         public class ToConsole : ISB
         {
-            public ToConsole(NetComUser pSender, NetComUser pReceiver, string pValue) : base(pSender, pReceiver, pValue, null) { }
+            public ToConsole(NetComUser pSender, NetComUser pReceiver, string pValue) 
+                : base(pSender, pReceiver, pValue, null) { }
 
             public override void Execute()
             {
                 Console.WriteLine(value);
+            }
+        }
+
+        /// <summary>
+        /// Writes a message to the Debug console window. 
+        /// (System.Diagnostics.Debug)
+        /// </summary>
+        public class ToDebug : ISB
+        {
+            public ToDebug(NetComUser pSender, NetComUser pReceiver, string pValue) 
+                : base(pSender, pReceiver, pValue, null) { }
+
+            public override void Execute()
+            {
+                Debug.Print(value);
+            }
+        }
+
+        /// <summary>
+        /// Writes a message to the NetComUser's selected Debug-Output
+        /// (NetComOperator.Debug)
+        /// </summary>
+        public class ToNetComDebug : ISB
+        {
+            public ToNetComDebug(NetComUser pSender, NetComUser pReceiver, string pValue) 
+                : base(pSender, pReceiver, pValue, null) { }
+
+            public override void Execute()
+            {
+                (Receiver as NetComOperator).Debug(value);
             }
         }
 
@@ -226,7 +283,7 @@ namespace EndevFrameworkNetworkCore
 
             public override void Execute()
             {
-                System.Windows.Forms.MessageBox.Show(value);
+                MessageBox.Show(value);
             }
         }
 
@@ -340,8 +397,8 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
-        /// Shows a notification-bubble on the receiver's
-        /// screen
+        /// Shows a notification-bubble on the 
+        /// receiver's screen
         /// </summary>
         public class NofityIcon : ISB
         {
@@ -373,16 +430,20 @@ namespace EndevFrameworkNetworkCore
 
                 switch (parameters[2].ToString())
                 {
-                    case "NI1": tooltip = ToolTipIcon.Error; break; 
-                    case "NI2": tooltip = ToolTipIcon.Info; break; 
-                    case "NI3": tooltip = ToolTipIcon.None; break; 
-                    case "NI4": tooltip = ToolTipIcon.Warning; break; 
+                    case "NI1": tooltip = ToolTipIcon.Error; break;
+                    case "NI2": tooltip = ToolTipIcon.Info; break;
+                    case "NI3": tooltip = ToolTipIcon.None; break;
+                    case "NI4": tooltip = ToolTipIcon.Warning; break;
                 }
 
-                NotifyIcon ballon = new NotifyIcon();
-                ballon.Visible = true;
-                ballon.Icon = SystemIcons.Application;
-                ballon.ShowBalloonTip(int.Parse(parameters[1].ToString()), parameters[0].ToString(), value, tooltip);
+                using (NotifyIcon ballon = new NotifyIcon
+                {
+                    Visible = true,
+                    Icon = SystemIcons.Application
+                })
+                {
+                    ballon.ShowBalloonTip(int.Parse(parameters[1].ToString()), parameters[0].ToString(), value, tooltip);
+                }
             }
         }
 

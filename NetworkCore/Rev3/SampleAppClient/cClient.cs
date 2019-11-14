@@ -58,17 +58,17 @@ namespace SampleAppClient
 
                 //client.Send(new InstructionLibraryEssentials.RichMessageBox(client, null, "Hallo", "Titel", System.Windows.Forms.MessageBoxButtons.OKCancel, System.Windows.Forms.MessageBoxIcon.Hand));
                 
-                client.Send(new InstructionLibraryEssentials.ToOutputStream(client, null, "Hallo"));
+                //client.Send(new InstructionLibraryEssentials.ToOutputStream(client, null, "Hallo"));
 
 
                 Thread.Sleep(new Random().Next(500, 1000));
             }
 
-#pragma warning disable 0162
+#pragma warning disable 0162 // unreachable code
             Console.WriteLine("Done.");
 
             Console.ReadKey();
-#pragma warning restore 0162
+#pragma warning restore 0162 // unreachable code
         }
     }
 }

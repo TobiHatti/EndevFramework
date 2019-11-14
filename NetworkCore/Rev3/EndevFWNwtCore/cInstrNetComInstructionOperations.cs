@@ -161,7 +161,7 @@ namespace EndevFrameworkNetworkCore
 
                         pServerClientList[pReceptionSocket].SetUserData(username, password, publicKey);
 
-                        if(instruction != typeof(InstructionLibraryEssentials.AuthenticationClient2Server).AssemblyQualifiedName
+                        if(instruction != typeof(InstructionLibraryEssentials.KeyExchangeClient2Server).AssemblyQualifiedName
                             && !pServerClientList[pReceptionSocket].Authenticate(password))
                             throw new NetComAuthenticationException("*** Authentication failed! Wrong username / password ***");
 

@@ -21,6 +21,7 @@ namespace EndevFrameworkNetworkCore
     /// </summary>
     public class DebugOutput
     {
+#pragma warning disable IDE0060 // unused arguments
         /// <summary>
         /// Disables all debug-outputs
         /// </summary>
@@ -52,5 +53,6 @@ namespace EndevFrameworkNetworkCore
             (pParameters[0] as TextBox).Text += pMessage + "\r\n";
             (pParameters[0] as TextBox).ScrollToCaret();
         }
+#pragma warning restore IDE0060 // unused arguments
     }
 }

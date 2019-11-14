@@ -12,6 +12,7 @@ namespace SampleStartupAssist
 {
     class Startup
     {
+#pragma warning disable IDE0060 // unused arguments
         static void Main(string[] args)
         {
             var clientPath = @"..\..\..\SampleAppClient\bin\Debug\SampleAppClient.exe";
@@ -33,9 +34,10 @@ namespace SampleStartupAssist
                 }
             }
 
-#pragma warning disable 0162
+#pragma warning disable 0162 // unreachable code
             Environment.Exit(0);
-#pragma warning restore 0162
+#pragma warning restore 0162 // unreachable code
         }
+#pragma warning restore IDE0060 // unused arguments
     }
 }

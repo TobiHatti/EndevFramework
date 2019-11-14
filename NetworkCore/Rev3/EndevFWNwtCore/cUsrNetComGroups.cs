@@ -51,20 +51,22 @@ namespace EndevFrameworkNetworkCore
 
         public void Load(string pPath)
         {
-            StreamReader sr = new StreamReader(pPath);
-            string line;
-            string currentLine = "";
-            while ((line = sr.ReadLine()) != null)
+            using (StreamReader sr = new StreamReader(pPath))
             {
-                if(line.StartsWith(":"))
+                string line;
+                string currentLine = "";
+                while ((line = sr.ReadLine()) != null)
                 {
-                    userGroups.Add(new UserGroup(line.Remove(0, 1)));
-                    currentLine = line.Remove(0, 1);
-                }
+                    if (line.StartsWith(":"))
+                    {
+                        userGroups.Add(new UserGroup(line.Remove(0, 1)));
+                        currentLine = line.Remove(0, 1);
+                    }
 
-                if(line.StartsWith("!"))
-                {
-                    this[currentLine].AddUser(line.Remove(0, 1));
+                    if (line.StartsWith("!"))
+                    {
+                        this[currentLine].AddUser(line.Remove(0, 1));
+                    }
                 }
             }
 
@@ -84,6 +86,9 @@ namespace EndevFrameworkNetworkCore
         public void NewGroup(string pGroupName, params NetComUser[] pUsers)
         {
             userGroups.Add(new UserGroup(pGroupName));
+
+            foreach(NetComUser user in pUsers)
+                this[pGroupName].AddUser(user);
         }
 
         public void TryGroupAdd(NetComUser pUser)
