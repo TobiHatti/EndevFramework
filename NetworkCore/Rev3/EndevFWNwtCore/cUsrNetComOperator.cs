@@ -25,6 +25,7 @@ namespace EndevFrameworkNetworkCore
         protected int processedCount = 0;
 
         protected bool AutoRestartOnCrash { get; set; } = true;
+        protected bool haltActive = false;
 
         protected const int bufferSize = 102400; // 100KB (KiB)
         protected volatile byte[] buffer = new byte[bufferSize];
@@ -104,7 +105,11 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash) RestartSystem();
+                if (AutoRestartOnCrash)
+                {
+                    // AUTORESTART
+                    // TODO
+                }
             }
         }
 
@@ -127,7 +132,10 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash) RestartSystem();
+                if (AutoRestartOnCrash)
+                {
+                    HaltAllThreads();
+                }
             }
         }
 
@@ -142,12 +150,14 @@ namespace EndevFrameworkNetworkCore
                 {
                     AsyncLongTermNextCycle();
                     Thread.Sleep(longTermInstructionSleepInMinutes * 300000);
-                    //Thread.Sleep(5000);
                 }
             }
             catch
             {
-                if (AutoRestartOnCrash) RestartSystem();
+                if (AutoRestartOnCrash)
+                {
+                    
+                }
             }
         }
 
@@ -189,13 +199,18 @@ namespace EndevFrameworkNetworkCore
             return retval;
         }
 
-        protected virtual void RestartSystem()
+        protected virtual void HaltAllThreads()
         {
             // Terminate threads
             try { instructionProcessingThread.Abort(); } catch { }
             try { instructionSendingThread.Abort(); } catch { }
             try { longTermOperationThread.Abort(); } catch { }
 
+            haltActive = true;
+        }
+
+        protected virtual void RestartSystem()
+        {
             Debug("Waiting 5 seconds before restart-attempt...");
             Thread.Sleep(5000);
 

@@ -78,7 +78,11 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash) RestartSystem();
+                if (AutoRestartOnCrash)
+                {
+                    // AUTORESTART
+                    // TODO
+                }
             }
         }
 
@@ -105,7 +109,11 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash) RestartSystem();
+                if (AutoRestartOnCrash)
+                {
+                    // AUTORESTART
+                    // TODO
+                }
             }
         }
 
@@ -135,7 +143,11 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash) RestartSystem();
+                if (AutoRestartOnCrash)
+                {
+                    // AUTORESTART
+                    // TODO
+                }
             }
         }
 
@@ -213,7 +225,11 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                RestartSystem();
+                if (AutoRestartOnCrash)
+                {
+                    // AUTORESTART
+                    // TODO
+                }
             }
         }
     }

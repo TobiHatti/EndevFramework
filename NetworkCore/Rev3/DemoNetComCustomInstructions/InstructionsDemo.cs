@@ -8,8 +8,11 @@ namespace DemoNetComCustomInstructions
 {
     class InstructionsDemo
     {
-        static void Main(string[] args)
-        {
-        }
+        #region ========= CREATING CUSTOM INSTRUCTIONS =========
+
+        // To create a custom instrucion, create a new public class that 
+        // inherits the InstructionBase-Class. It is recommended to 
+
+        #endregion
     }
 }
