@@ -9,6 +9,7 @@ The different modules are completely independend on each other, so the use of ju
 [&#9654; Source Code](https://github.com/TobiHatti/EndevFramework/tree/master/NetworkCore) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&#9654; Releases & Downloads](https://github.com/TobiHatti/EndevFramework/releases) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&#9654; NuGet-Install](#)
 
 __[ALPHA VERSION 1.2 Rev3] Send-Stability: 99,95% (± 0,05%)__
+
 The Endev-Network-Core allows you to communicate between application via the TCP-Protocol.
 The Module allows __one server__ and __multiple clients__. 
 The communication-system is based on __instructions__, to allow a wide range of functionalities. 
