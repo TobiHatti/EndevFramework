@@ -24,6 +24,8 @@ namespace EndevFrameworkNetworkCore
         protected int errorCtr = 0;
         protected int processedCount = 0;
 
+        protected bool AutoRestartOnCrash { get; set; } = true;
+
         protected const int bufferSize = 102400; // 100KB (KiB)
         protected volatile byte[] buffer = new byte[bufferSize];
 
@@ -38,7 +40,7 @@ namespace EndevFrameworkNetworkCore
         protected volatile Thread instructionSendingThread = null;
         protected volatile Thread longTermOperationThread = null;
 
-        internal List<string> OutputStream { get; } = new List<string>();
+        internal List<string> OutputStream { get; private set; } = new List<string>();
 
         protected volatile int threadIdleTime = 100;
 
@@ -90,12 +92,19 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected void AsyncInstructionSendingLoop()
         {
-            while (true)
+            try
             {
-                if (outgoingInstructions.Count > 0)
-                    AsyncInstructionSendNext();
-                else
-                    Thread.Sleep(threadIdleTime);
+                while (true)
+                {
+                    if (outgoingInstructions.Count > 0)
+                        AsyncInstructionSendNext();
+                    else
+                        Thread.Sleep(threadIdleTime);
+                }
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
             }
         }
 
@@ -104,14 +113,21 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected void AsyncInstructionProcessingLoop()
         {
-            while (true)
+            try
             {
-                queue = incommingInstructions.Count;
+                while (true)
+                {
+                    queue = incommingInstructions.Count;
 
-                if (incommingInstructions.Count > 0)
-                   AsyncInstructionProcessNext();
-                else
-                    Thread.Sleep(threadIdleTime);
+                    if (incommingInstructions.Count > 0)
+                        AsyncInstructionProcessNext();
+                    else
+                        Thread.Sleep(threadIdleTime);
+                }
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
             }
         }
 
@@ -120,11 +136,18 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected void AsyncLongTermInstructionLoop()
         {
-            while (true)
+            try
             {
-                AsyncLongTermNextCycle();
-                Thread.Sleep(longTermInstructionSleepInMinutes * 300000);
-                //Thread.Sleep(5000);
+                while (true)
+                {
+                    AsyncLongTermNextCycle();
+                    Thread.Sleep(longTermInstructionSleepInMinutes * 300000);
+                    //Thread.Sleep(5000);
+                }
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
             }
         }
 
@@ -166,5 +189,21 @@ namespace EndevFrameworkNetworkCore
             return retval;
         }
 
+        protected virtual void RestartSystem()
+        {
+            // Terminate threads
+            try { instructionProcessingThread.Abort(); } catch { }
+            try { instructionSendingThread.Abort(); } catch { }
+            try { longTermOperationThread.Abort(); } catch { }
+
+            Debug("Waiting 5 seconds before restart-attempt...");
+            Thread.Sleep(5000);
+
+            // Re-Define arrays and lists
+            buffer = new byte[bufferSize];
+            incommingInstructions = new List<InstructionBase>();
+            outgoingInstructions = new List<InstructionBase>();
+            OutputStream = new List<string>();
+        }
     }
 }

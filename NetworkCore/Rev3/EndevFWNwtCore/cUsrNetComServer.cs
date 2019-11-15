@@ -20,9 +20,9 @@ namespace EndevFrameworkNetworkCore
     /// </summary>
     public class NetComServer : NetComOperator
     {
-        private readonly List<string> groupAddRecords = new List<string>();
-        public ClientList ConnectedClients { get; } = new ClientList();
-        public NetComGroups UserGroups { get; } = new NetComGroups();
+        private List<string> groupAddRecords = new List<string>();
+        public ClientList ConnectedClients { get; private set; } = new ClientList();
+        public NetComGroups UserGroups { get; private set; } = new NetComGroups();
 
         /// <summary>
         /// Gets the client of the currently processing instruction.
@@ -63,28 +63,35 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected override void AsyncInstructionSendNext()
         {
-            Socket current = outgoingInstructions[0]?.Receiver.LocalSocket;
-            byte[] data;
-
-            data = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
-
             try
             {
-                current.Send(data);
+                Socket current = outgoingInstructions[0]?.Receiver.LocalSocket;
+                byte[] data;
+
+                data = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
+
+                try
+                {
+                    current.Send(data);
+                }
+                catch
+                {
+                    Debug("Client disconnected > Connection lost.");
+                    current.Close();
+                    UserGroups.Disconnect(current);
+                    ConnectedClients.Remove(current);
+                    return;
+                }
+
+                Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.");
+                Debug(outgoingInstructions[0].ToString());
+
+                outgoingInstructions.RemoveAt(0);
             }
             catch
             {
-                Debug("Client disconnected > Connection lost.");
-                current.Close();
-                UserGroups.Disconnect(current);
-                ConnectedClients.Remove(current);
-                return;
+                if (AutoRestartOnCrash) RestartSystem();
             }
-
-            Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.");
-            Debug(outgoingInstructions[0].ToString());
-
-            outgoingInstructions.RemoveAt(0);
         }
 
         /// <summary>
@@ -103,15 +110,22 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         public override void Start()
         {
-            Debug("Setting up server...");
-            LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            LocalSocket.Bind(new IPEndPoint(IPAddress.Any, port));
-            LocalSocket.Listen(0);
-            LocalSocket.BeginAccept(AcceptCallback, null);
+            try
+            {
+                Debug("Setting up server...");
+                LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                LocalSocket.Bind(new IPEndPoint(IPAddress.Any, port));
+                LocalSocket.Listen(0);
+                LocalSocket.BeginAccept(AcceptCallback, null);
 
-            base.Start();
+                base.Start();
 
-            Debug("Server setup complete!");
+                Debug("Server setup complete!");
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
+            }
         }
 
         /// <summary>
@@ -141,26 +155,33 @@ namespace EndevFrameworkNetworkCore
         /// <param name="AR">IAsyncResult</param>
         private void AcceptCallback(IAsyncResult AR)
         {
-            Socket socket;
-
             try
             {
-                socket = LocalSocket.EndAccept(AR);
+                Socket socket;
+
+                try
+                {
+                    socket = LocalSocket.EndAccept(AR);
+                }
+                catch (ObjectDisposedException)
+                {
+                    return;
+                }
+
+                ConnectedClients.Add(socket);
+
+                socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, socket);
+                Debug("New client connected.");
+
+                //SendToClient(socket, new NCILib.PreAuth(this));
+                Send(new InstructionLibraryEssentials.KeyExchangeServer2Client(this, ConnectedClients[socket]));
+
+                LocalSocket.BeginAccept(AcceptCallback, null);
             }
-            catch (ObjectDisposedException)
+            catch
             {
-                return;
+                if (AutoRestartOnCrash) RestartSystem();
             }
-
-            ConnectedClients.Add(socket);
-
-            socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, socket);
-            Debug("New client connected.");
-
-            //SendToClient(socket, new NCILib.PreAuth(this));
-            Send(new InstructionLibraryEssentials.KeyExchangeServer2Client(this, ConnectedClients[socket]));
-
-            LocalSocket.BeginAccept(AcceptCallback, null);
         }
 
         /// <summary>
@@ -169,77 +190,83 @@ namespace EndevFrameworkNetworkCore
         /// <param name="AR">IAsyncResult</param>
         private void ReceiveCallback(IAsyncResult AR)
         {
-            Socket current = (Socket)AR.AsyncState;
-            int received;
-
             try
             {
-                received = current.EndReceive(AR);
-            }
-            catch (SocketException)
-            {
-                Debug("Client disconnected > Connection lost.");
-                // Don't shutdown because the socket may be disposed and its disconnected anyway.
-                current.Close();
-                UserGroups.Disconnect(current);
-                ConnectedClients.Remove(current);
-                return;
-            }
+                Socket current = (Socket)AR.AsyncState;
+                int received;
 
-            byte[] recBuf = new byte[received];
-            Array.Copy(buffer, recBuf, received);
-            string text = Encoding.UTF8.GetString(recBuf);
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            //Debug("Received message: " + text);
-            Debug("Received message.");
-            Console.ForegroundColor = ConsoleColor.White;
-
-            InstructionBase[] instructionList = null;
-
-            try
-            {
-                instructionList = InstructionOperations.Parse(this, current, text, ConnectedClients).ToArray();
-
-                // Check for group-Addignment
-                foreach (InstructionBase instr in instructionList)
+                try
                 {
-                    incommingInstructions.Add(instr);
-
-                    if(instr.GetType() != typeof(InstructionLibraryEssentials.KeyExchangeClient2Server) && !groupAddRecords.Contains(instr.Sender.Username))
-                    {
-                        groupAddRecords.Add(instr.Sender.Username);
-                        UserGroups.TryGroupAdd(instr.Sender);
-                    }
+                    received = current.EndReceive(AR);
                 }
-                    
-               
-            }
-            catch(NetComAuthenticationException)
-            {
-                Debug("Authentication-Error (Instruction-Parsing).");
-            }
-            catch (Exception)
-            {
-                Debug($"Error occured (Instruction-Parsing). ({errorCtr})");
-                errorCtr++;
-            }
+                catch (SocketException)
+                {
+                    Debug("Client disconnected > Connection lost.");
+                    // Don't shutdown because the socket may be disposed and its disconnected anyway.
+                    current.Close();
+                    UserGroups.Disconnect(current);
+                    ConnectedClients.Remove(current);
+                    return;
+                }
+
+                byte[] recBuf = new byte[received];
+                Array.Copy(buffer, recBuf, received);
+                string text = Encoding.UTF8.GetString(recBuf);
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                //Debug("Received message: " + text);
+                Debug("Received message.");
+                Console.ForegroundColor = ConsoleColor.White;
+
+                InstructionBase[] instructionList = null;
+
+                try
+                {
+                    instructionList = InstructionOperations.Parse(this, current, text, ConnectedClients).ToArray();
+
+                    // Check for group-Addignment
+                    foreach (InstructionBase instr in instructionList)
+                    {
+                        incommingInstructions.Add(instr);
+
+                        if (instr.GetType() != typeof(InstructionLibraryEssentials.KeyExchangeClient2Server) && !groupAddRecords.Contains(instr.Sender.Username))
+                        {
+                            groupAddRecords.Add(instr.Sender.Username);
+                            UserGroups.TryGroupAdd(instr.Sender);
+                        }
+                    }
 
 
-            try
-            {
-                current.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, current);
-            }
-            catch (SocketException)
-            {
-                Debug("Client disconnected > Connection lost.");
-                // Don't shutdown because the socket may be disposed and its disconnected anyway.
-                current.Close();
-                UserGroups.Disconnect(current);
-                ConnectedClients.Remove(current);
-                return;
-            }
+                }
+                catch (NetComAuthenticationException)
+                {
+                    Debug("Authentication-Error (Instruction-Parsing).");
+                }
+                catch (Exception)
+                {
+                    Debug($"Error occured (Instruction-Parsing). ({errorCtr})");
+                    errorCtr++;
+                }
 
+
+                try
+                {
+                    current.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, current);
+                }
+                catch (SocketException)
+                {
+                    Debug("Client disconnected > Connection lost.");
+                    // Don't shutdown because the socket may be disposed and its disconnected anyway.
+                    current.Close();
+                    UserGroups.Disconnect(current);
+                    ConnectedClients.Remove(current);
+                    return;
+                }
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
+            }
         }
 
         /// <summary>
@@ -261,24 +288,32 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pInstruction">Instruction to send. Set the receiver-parameter to 'null'</param>
         public void Broadcast(InstructionBase pInstruction)
         {
-            lock (ConnectedClients)
+            try
             {
-                for(int i = 0; i < ConnectedClients.Count; i++)
+                lock (ConnectedClients)
                 {
-                    try
+                
+                    for (int i = 0; i < ConnectedClients.Count; i++)
                     {
-                        InstructionBase tmpInstruction = pInstruction.Clone();
-                        tmpInstruction.Receiver = ConnectedClients[i];
+                        try
+                        {
+                            InstructionBase tmpInstruction = pInstruction.Clone();
+                            tmpInstruction.Receiver = ConnectedClients[i];
 
-                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
-                        outgoingInstructions.Add(tmpInstruction);
-                    }
-                    catch(IndexOutOfRangeException)
-                    {
-                        Debug("Broadcast-Error.");
-                        errorCtr++;
+                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                            outgoingInstructions.Add(tmpInstruction);
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            Debug("Broadcast-Error.");
+                            errorCtr++;
+                        }
                     }
                 }
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
             }
         }
 
@@ -289,21 +324,28 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pUsers">Target users</param>
         public void ListSend(InstructionBase pInstruction, params NetComUser[] pUsers)
         {
-            for (int i = 0; i < pUsers.Length; i++)
+            try
             {
-                try
+                for (int i = 0; i < pUsers.Length; i++)
                 {
-                    InstructionBase tmpInstruction = pInstruction.Clone();
-                    tmpInstruction.Receiver = pUsers[i];
+                    try
+                    {
+                        InstructionBase tmpInstruction = pInstruction.Clone();
+                        tmpInstruction.Receiver = pUsers[i];
 
-                    Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
-                    outgoingInstructions.Add(tmpInstruction);
+                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                        outgoingInstructions.Add(tmpInstruction);
+                    }
+                    catch
+                    {
+                        Debug("ListSend-Error.");
+                        errorCtr++;
+                    }
                 }
-                catch
-                {
-                    Debug("ListSend-Error.");
-                    errorCtr++;
-                }
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
             }
         }
 
@@ -314,24 +356,55 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pGroup">Target group</param>
         public void GroupSend(InstructionBase pInstruction, UserGroup pGroup)
         {
-            lock (pGroup)
+            try
             {
-                for (int i = 0; i < pGroup.OnlineMembers.Count; i++)
+                lock (pGroup)
                 {
-                    try
+                    for (int i = 0; i < pGroup.OnlineMembers.Count; i++)
                     {
-                        InstructionBase tmpInstruction = pInstruction.Clone();
-                        tmpInstruction.Receiver = pGroup.OnlineMembers[i];
+                        try
+                        {
+                            InstructionBase tmpInstruction = pInstruction.Clone();
+                            tmpInstruction.Receiver = pGroup.OnlineMembers[i];
 
-                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
-                        outgoingInstructions.Add(tmpInstruction);
-                    }
-                    catch
-                    {
-                        Debug("GroupSend-Error.");
-                        errorCtr++;
+                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                            outgoingInstructions.Add(tmpInstruction);
+                        }
+                        catch
+                        {
+                            Debug("GroupSend-Error.");
+                            errorCtr++;
+                        }
                     }
                 }
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
+            }
+        }
+
+        protected override void RestartSystem()
+        {
+            try
+            {
+                Debug("A fatal error occured. Attempting to restart server...");
+
+                Shutdown();
+
+                groupAddRecords = new List<string>();
+                ConnectedClients = new ClientList();
+                UserGroups = new NetComGroups();
+
+                base.RestartSystem();
+
+                Start();
+
+                Debug("Server restart complete!");
+            }
+            catch
+            {
+                RestartSystem();
             }
         }
     }

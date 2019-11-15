@@ -1,0 +1,6 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComCustomInstructions\bin\Debug\DemoNetComCustomInstructions.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComCustomInstructions\bin\Debug\DemoNetComCustomInstructions.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComCustomInstructions\bin\Debug\DemoNetComCustomInstructions.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComCustomInstructions\obj\Debug\DemoCustomInstructions.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComCustomInstructions\obj\Debug\DemoNetComCustomInstructions.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComCustomInstructions\obj\Debug\DemoNetComCustomInstructions.pdb

@@ -59,20 +59,27 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         public override void Start()
         {
-            Debug("Setting up client...");
-            LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                Debug("Setting up client...");
+                LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            Debug("Connecting to Server...");
+                Debug("Connecting to Server...");
 
-            TryConnect();
+                TryConnect();
 
-            Debug("Starting Background-Process: Instruction-Receiving...");
-            instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
-            instructionReceptionThread.Start();
+                Debug("Starting Background-Process: Instruction-Receiving...");
+                instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
+                instructionReceptionThread.Start();
 
-            base.Start();
+                base.Start();
 
-            Debug("Client setup complete!");
+                Debug("Client setup complete!");
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
+            }
         }
 
         /// <summary>
@@ -81,18 +88,25 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         private void TryConnect()
         {
-            int attempts = 0;
-            while (!LocalSocket.Connected)
+            try
             {
-                try
+                int attempts = 0;
+                while (!LocalSocket.Connected)
                 {
-                    Debug("Connection attempt " + attempts++);
-                    LocalSocket.Connect(serverIP, port);
+                    try
+                    {
+                        Debug("Connection attempt " + attempts++);
+                        LocalSocket.Connect(serverIP, port);
+                    }
+                    catch (SocketException) { }
                 }
-                catch (SocketException) { }
-            }
 
-            Debug($"Connection successfull! Required {attempts} attempts");
+                Debug($"Connection successfull! Required {attempts} attempts");
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
+            }
         }
 
         /// <summary>
@@ -101,9 +115,13 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pInstruction">Instruction to be sent. Set the receiver-parameter to 'null'</param>
         public void Send(InstructionBase pInstruction)
         {
-            pInstruction.SetReceiverPublicKey(serverPublicKey);
+            try
+            {
+                pInstruction.SetReceiverPublicKey(serverPublicKey);
 
-            outgoingInstructions.Add(pInstruction);
+                outgoingInstructions.Add(pInstruction);
+            }
+            catch { }
         }
 
         /// <summary>
@@ -111,7 +129,14 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected void AsyncInstructionReceptionLoop()
         {
-            while (true) AsyncInstructionReceiveNext();
+            try
+            {
+                while (true) AsyncInstructionReceiveNext();
+            }
+            catch
+            {
+                if (AutoRestartOnCrash) RestartSystem();
+            }
         }
 
         /// <summary>
@@ -170,6 +195,26 @@ namespace EndevFrameworkNetworkCore
         internal void SetServerRSA(string pPublicRSAKey)
         {
             serverPublicKey = pPublicRSAKey;
+        }
+
+        protected override void RestartSystem()
+        {
+            try
+            {
+                Debug("A fatal error occured. Attempting to restart client...");
+
+                try { instructionReceptionThread.Abort(); } catch { }
+
+                base.RestartSystem();
+
+                Start();
+
+                Debug("Client restart complete!");
+            }
+            catch
+            {
+                RestartSystem();
+            }
         }
     }
 }

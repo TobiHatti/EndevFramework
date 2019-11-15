@@ -1,0 +1,8 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\bin\Debug\DemoNetComUserGroups.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\bin\Debug\DemoNetComUserGroups.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\bin\Debug\DemoNetComUserGroups.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\bin\Debug\EndevFrameworkNetworkCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\bin\Debug\EndevFrameworkNetworkCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\obj\Debug\DemoUserGroups.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\obj\Debug\DemoNetComUserGroups.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\obj\Debug\DemoNetComUserGroups.pdb

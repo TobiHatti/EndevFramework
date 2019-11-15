@@ -79,8 +79,6 @@ namespace NetComServerInstruction
 
             #region ------ (4.) Send a message to a pre-defined group of clients ------
 
-            #region ------ (4a) Creating and managing groups ------
-
             // When creating a group-message, the receiver-argument gets set to 'null'
 
             var instruction4 = new InstructionLibraryEssentials.SimpleMessageBox

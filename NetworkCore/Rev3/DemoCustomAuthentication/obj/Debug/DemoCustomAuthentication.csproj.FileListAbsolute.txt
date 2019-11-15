@@ -1,0 +1,6 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoCustomAuthentication\bin\Debug\DemoCustomAuthentication.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoCustomAuthentication\bin\Debug\DemoCustomAuthentication.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoCustomAuthentication\bin\Debug\DemoCustomAuthentication.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoCustomAuthentication\obj\Debug\DemoCustomAuthentication.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoCustomAuthentication\obj\Debug\DemoCustomAuthentication.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoCustomAuthentication\obj\Debug\DemoCustomAuthentication.pdb
