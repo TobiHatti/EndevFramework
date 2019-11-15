@@ -50,7 +50,7 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pUsername">Client's username</param>
         public void AddUser(string pUsername)
         {
-            if(!GroupMembers.Contains(pUsername)) GroupMembers.Add(pUsername.ToLower());
+            if(!GroupMembers.Contains(pUsername.ToLower())) GroupMembers.Add(pUsername.ToLower());
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pUsername">Client's username</param>
         public void Remove(string pUsername)
         {
-            if (!GroupMembers.Contains(pUsername)) GroupMembers.Add(pUsername.ToLower());
+            if (GroupMembers.Contains(pUsername.ToLower())) GroupMembers.Remove(pUsername.ToLower());
         }
     }
 }

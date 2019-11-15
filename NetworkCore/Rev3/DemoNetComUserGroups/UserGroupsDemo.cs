@@ -21,14 +21,12 @@ namespace DemoNetComUserGroups
             server.SetAuthenticationTool(AuthenticationTools.FullAllow);
 
             // Load previously created groups and their users into memory.
-            // If no groups are loaded, there simply are none.
             server.UserGroups.Load(@"Path\To\Your\Config\File");
             
             // Start the server
             server.Start();
 
-
-            // Create a new user-group (if not existent yet)
+            // Create a new user-group (if it doesn't existent yet)
             server.UserGroups.NewGroup("SampleUserGroup");
 
             // Add users to the user-group
@@ -43,15 +41,16 @@ namespace DemoNetComUserGroups
             server.UserGroups["SampleUserGroup"].AddUser("SomeUsername");
 
             // By using the Disconnect-Method, the user gets excluded from the group until
-            // he reconnects.
+            // he reconnects. This does not permanently remove the user from the group.
             server.UserGroups["SampleUserGroup"].Disconnect(server.ConnectedClients[2]);
 
-            // Users can be directly added to a group when they are connected, 
-            // or they can be added using a username and get assigned to the group as soon as they connect.
+            // To completely remove a user from a group, use the Remove-Method.
+            // When removing a user, it stays connected until it disconnects, but it will not get
+            // re-assigned to the group again.
+            server.UserGroups["SampleUserGroup"].Remove("AnotherUsername");
 
-            // To save and load groups from a file, use the NetcomGroups.Load-Method (before server.Start()) and 
-            // the NetComGroups.Save()-Method
-
+            // To save the group-configuration to a file, use the Save-Method
+            server.UserGroups.Save(@"Path\To\Your\Config\File");
         }
     }
 }
