@@ -61,28 +61,24 @@ namespace EndevFrameworkNetworkCore
         {
             try
             {
-                Debug("Setting up client...");
+                Debug("Setting up client...", DebugType.Info);
                 LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                Debug("Connecting to Server...");
+                Debug("Connecting to Server...", DebugType.Info);
 
                 TryConnect();
 
-                Debug("Starting Background-Process: Instruction-Receiving...");
+                Debug("Starting Background-Process: Instruction-Receiving...", DebugType.Info);
                 instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
                 instructionReceptionThread.Start();
 
                 base.Start();
 
-                Debug("Client setup complete!");
+                Debug("Client setup complete!", DebugType.Info);
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -99,21 +95,17 @@ namespace EndevFrameworkNetworkCore
                 {
                     try
                     {
-                        Debug("Connection attempt " + attempts++);
+                        Debug("Connection attempt " + attempts++, DebugType.Warning);
                         LocalSocket.Connect(serverIP, port);
                     }
                     catch (SocketException) { }
                 }
 
-                Debug($"Connection successfull! Required {attempts} attempts");
+                Debug($"Connection successfull! Required {attempts} attempts", DebugType.Info);
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -143,11 +135,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -162,8 +150,8 @@ namespace EndevFrameworkNetworkCore
 
             LocalSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
 
-            Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.");
-            Debug(outgoingInstructions[0].ToString());
+            Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.", DebugType.Info);
+            Debug(outgoingInstructions[0].ToString(), DebugType.Info);
 
             outgoingInstructions.RemoveAt(0);
         }
@@ -182,7 +170,7 @@ namespace EndevFrameworkNetworkCore
             Array.Copy(buffer, data, received);
             string text = Encoding.UTF8.GetString(data);
 
-            Debug("Received Message.");
+            Debug("Received Message.", DebugType.Info);
             try
             {
                 InstructionBase[] instructionList = InstructionOperations.Parse(this, null, text).ToArray();
@@ -191,11 +179,11 @@ namespace EndevFrameworkNetworkCore
             }
             catch (NetComAuthenticationException)
             {
-                Debug("Authentication-Error.");
+                Debug("Authentication-Error.", DebugType.Error);
             }
             catch (Exception)
             {
-                Debug($"Error occured. ({errorCtr})");
+                Debug($"Error occured. ({errorCtr})", DebugType.Error);
                 errorCtr++;
             }
         }
@@ -209,27 +197,35 @@ namespace EndevFrameworkNetworkCore
             serverPublicKey = pPublicRSAKey;
         }
 
+        /// <summary>
+        /// Halts all threads and prepares for a restart
+        /// </summary>
+        protected override void HaltAllThreads()
+        {
+            base.HaltAllThreads();
+
+            Debug("Halting Instruction-Reception...", DebugType.Fatal);
+            try { instructionReceptionThread.Abort(); } catch { }
+        }
+
+        /// <summary>
+        /// Restarts the system.
+        /// </summary>
         protected override void RestartSystem()
         {
             try
             {
-                Debug("A fatal error occured. Attempting to restart client...");
-
-                try { instructionReceptionThread.Abort(); } catch { }
+                Debug("Attempting to restart client...", DebugType.Info);
 
                 base.RestartSystem();
 
                 Start();
 
-                Debug("Client restart complete!");
+                Debug("Client restart complete!", DebugType.Info);
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
     }

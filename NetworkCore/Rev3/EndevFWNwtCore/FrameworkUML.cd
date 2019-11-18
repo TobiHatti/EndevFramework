@@ -157,9 +157,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComClient">
-    <Position X="3.75" Y="9.5" Width="2.75" />
+    <Position X="3.75" Y="9.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAABAAgAACAAAAAAAEAAAAAAAAIBAAQAAAAQAAgAEAA=</HashCode>
+      <HashCode>AAABAAgAACCAAAAAAEAAAAAAAAYBAAQAAAAQAAgAEAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -176,17 +176,17 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAJAAAAQCAYKMAAAABAGAAAAgAQAAiAgABCAIJgBAg=</HashCode>
+      <HashCode>AAAJAAAAQCCYKMAAAAAAGAIAAgQQAAiAgABCAIJgBBg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComServer">
-    <Position X="0.75" Y="9.5" Width="2.75" />
+    <Position X="0.75" Y="9.75" Width="2.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAEBAAAAACSAAAQAQkAACQAAAAAAgAAAAAAACAAgAAA=</HashCode>
+      <HashCode>AAEBAAAAACSAAAQAQkAACQAAAAQAgAAAAAAACAAgAAA=</HashCode>
       <FileName>cUsrNetComServer.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -240,7 +240,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComGroups">
-    <Position X="6" Y="0.5" Width="1.5" />
+    <Position X="6" Y="0.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAQAkIAAAAAIABAACAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComGroups.cs</FileName>
@@ -256,11 +256,25 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="EndevFrameworkNetworkCore.UserGroup">
-    <Position X="6" Y="3.75" Width="1.5" />
+    <Position X="6" Y="3.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAABAQAAAEAAAIgAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComUserGroup.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Struct Name="EndevFrameworkNetworkCore.RSAKeyPair">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cEncNetComRSAHandler.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="EndevFrameworkNetworkCore.DebugType">
+    <Position X="24" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAABAAAAAAAAAAAAAAAEAEAAA=</HashCode>
+      <FileName>cDbgNetComDebugOutput.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

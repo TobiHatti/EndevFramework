@@ -6,3 +6,4 @@ C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComU
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\obj\Debug\DemoUserGroups.csproj.CopyComplete
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\obj\Debug\DemoNetComUserGroups.exe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\obj\Debug\DemoNetComUserGroups.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev3\DemoNetComUserGroups\obj\Debug\DemoUserGroups.csprojAssemblyReference.cache

@@ -184,24 +184,24 @@ namespace EndevFrameworkNetworkCore
             if (Sender?.RSAKeys.PrivateKey != null) isRSASigned = true;
 
             sb.AppendLine("");
-            sb.AppendLine("=================================");
-            sb.AppendLine($"Endev NetCore {FrameworkVersion} Instruction");
-            sb.AppendLine($"Instruction-Set Version {InstructionSetVersion}");
-            sb.AppendLine("=================================");
-            sb.AppendLine($"RSA-Encrypted: {isRSAEncrypted}");
-            sb.AppendLine($"RSA-Signed: {isRSASigned}");
+            sb.AppendLine("\t=================================");
+            sb.AppendLine($"\tEndev NetCore {FrameworkVersion} Instruction");
+            sb.AppendLine($"\tInstruction-Set Version {InstructionSetVersion}");
+            sb.AppendLine("\t=================================");
+            sb.AppendLine($"\tRSA-Encrypted: {isRSAEncrypted}");
+            sb.AppendLine($"\tRSA-Signed: {isRSASigned}");
 
-            if (Sender?.Username != null) sb.AppendLine($"Username: {Sender?.Username}");
-            if (Sender?.Password != null) sb.AppendLine($"Password: {Sender?.Password}");
+            if (Sender?.Username != null) sb.AppendLine($"\tUsername: {Sender?.Username}");
+            if (Sender?.Password != null) sb.AppendLine($"\tPassword: {Sender?.Password}");
 
-            if (instruction != null) sb.AppendLine($"Instruction: {sInstruction}");
-            if (value != null) sb.AppendLine($"Value: {value}");
+            if (instruction != null) sb.AppendLine($"\tInstruction: {sInstruction}");
+            if (value != null) sb.AppendLine($"\tValue: {value}");
 
             if (parameters != null)
             {
-                sb.AppendLine($"Parameters: ");
+                sb.AppendLine($"\tParameters: ");
                 foreach (object param in parameters)
-                    sb.AppendLine($" - {param.ToString()} [{param.GetType().Name}]");
+                    sb.AppendLine($"\t - {param.ToString()} [{param.GetType().Name}]");
             }
 
             sb.AppendLine("");

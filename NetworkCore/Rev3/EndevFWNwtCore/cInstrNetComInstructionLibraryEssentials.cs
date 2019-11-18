@@ -101,7 +101,7 @@ namespace EndevFrameworkNetworkCore
 
             public override void Execute()
             {
-                (Receiver as NetComOperator).Debug($"SAMPLE-INSTRUCTION RECEIVED!");
+                (Receiver as NetComOperator).Debug($"SAMPLE-INSTRUCTION RECEIVED!", DebugType.Info);
             }
         }
 
@@ -148,7 +148,7 @@ namespace EndevFrameworkNetworkCore
 
             public override void Execute()
             {
-                (Receiver as NetComOperator).Debug(value);
+                (Receiver as NetComOperator).Debug(value, DebugType.Remote);
             }
         }
 

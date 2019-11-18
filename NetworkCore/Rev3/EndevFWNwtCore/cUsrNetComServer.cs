@@ -76,25 +76,21 @@ namespace EndevFrameworkNetworkCore
                 }
                 catch
                 {
-                    Debug("Client disconnected > Connection lost.");
+                    Debug("Client disconnected > Connection lost.", DebugType.Warning);
                     current.Close();
                     UserGroups.Disconnect(current);
                     ConnectedClients.Remove(current);
                     return;
                 }
 
-                Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.");
-                Debug(outgoingInstructions[0].ToString());
+                Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.", DebugType.Info);
+                Debug(outgoingInstructions[0].ToString(), DebugType.Info);
 
                 outgoingInstructions.RemoveAt(0);
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -116,7 +112,7 @@ namespace EndevFrameworkNetworkCore
         {
             try
             {
-                Debug("Setting up server...");
+                Debug("Setting up server...", DebugType.Info);
                 LocalSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 LocalSocket.Bind(new IPEndPoint(IPAddress.Any, port));
                 LocalSocket.Listen(0);
@@ -124,15 +120,11 @@ namespace EndevFrameworkNetworkCore
 
                 base.Start();
 
-                Debug("Server setup complete!");
+                Debug("Server setup complete!", DebugType.Info);
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -144,7 +136,7 @@ namespace EndevFrameworkNetworkCore
         {
             lock (ConnectedClients)
             {
-                Debug("Shutting down all connections...");
+                Debug("Shutting down all connections...", DebugType.Info);
                 foreach (NetComCData client in ConnectedClients)
                 {
                     client.LocalSocket.Shutdown(SocketShutdown.Both);
@@ -152,9 +144,9 @@ namespace EndevFrameworkNetworkCore
                 }
             }
 
-            Debug("Shutting down server...");
+            Debug("Shutting down server...", DebugType.Info);
             LocalSocket.Close();
-            Debug("Shutdown complete!");
+            Debug("Shutdown complete!", DebugType.Info);
         }
 
         /// <summary>
@@ -179,7 +171,7 @@ namespace EndevFrameworkNetworkCore
                 ConnectedClients.Add(socket);
 
                 socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, socket);
-                Debug("New client connected.");
+                Debug("New client connected.", DebugType.Info);
 
                 //SendToClient(socket, new NCILib.PreAuth(this));
                 Send(new InstructionLibraryEssentials.KeyExchangeServer2Client(this, ConnectedClients[socket]));
@@ -188,11 +180,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -213,7 +201,7 @@ namespace EndevFrameworkNetworkCore
                 }
                 catch (SocketException)
                 {
-                    Debug("Client disconnected > Connection lost.");
+                    Debug("Client disconnected > Connection lost.", DebugType.Warning);
                     // Don't shutdown because the socket may be disposed and its disconnected anyway.
                     current.Close();
                     UserGroups.Disconnect(current);
@@ -227,7 +215,7 @@ namespace EndevFrameworkNetworkCore
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 //Debug("Received message: " + text);
-                Debug("Received message.");
+                Debug("Received message.", DebugType.Info);
                 Console.ForegroundColor = ConsoleColor.White;
 
                 InstructionBase[] instructionList = null;
@@ -252,11 +240,11 @@ namespace EndevFrameworkNetworkCore
                 }
                 catch (NetComAuthenticationException)
                 {
-                    Debug("Authentication-Error (Instruction-Parsing).");
+                    Debug("Authentication-Error (Instruction-Parsing).", DebugType.Error);
                 }
                 catch (Exception)
                 {
-                    Debug($"Error occured (Instruction-Parsing). ({errorCtr})");
+                    Debug($"Error occured (Instruction-Parsing). ({errorCtr})", DebugType.Error);
                     errorCtr++;
                 }
 
@@ -267,7 +255,7 @@ namespace EndevFrameworkNetworkCore
                 }
                 catch (SocketException)
                 {
-                    Debug("Client disconnected > Connection lost.");
+                    Debug("Client disconnected > Connection lost.", DebugType.Warning);
                     // Don't shutdown because the socket may be disposed and its disconnected anyway.
                     current.Close();
                     UserGroups.Disconnect(current);
@@ -277,11 +265,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -293,7 +277,7 @@ namespace EndevFrameworkNetworkCore
         {
             if (pInstruction.Receiver != null)
             {
-                Debug($"Queueing message for {pInstruction.Receiver.ToString()}.");
+                Debug($"Queueing message for {pInstruction.Receiver.ToString()}.", DebugType.Info);
                 outgoingInstructions.Add(pInstruction);
             }
         }
@@ -308,7 +292,6 @@ namespace EndevFrameworkNetworkCore
             {
                 lock (ConnectedClients)
                 {
-                
                     for (int i = 0; i < ConnectedClients.Count; i++)
                     {
                         try
@@ -316,12 +299,12 @@ namespace EndevFrameworkNetworkCore
                             InstructionBase tmpInstruction = pInstruction.Clone();
                             tmpInstruction.Receiver = ConnectedClients[i];
 
-                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
                             outgoingInstructions.Add(tmpInstruction);
                         }
                         catch (IndexOutOfRangeException)
                         {
-                            Debug("Broadcast-Error.");
+                            Debug("Broadcast-Error.", DebugType.Error);
                             errorCtr++;
                         }
                     }
@@ -329,11 +312,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -353,23 +332,19 @@ namespace EndevFrameworkNetworkCore
                         InstructionBase tmpInstruction = pInstruction.Clone();
                         tmpInstruction.Receiver = pUsers[i];
 
-                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
                         outgoingInstructions.Add(tmpInstruction);
                     }
                     catch
                     {
-                        Debug("ListSend-Error.");
+                        Debug("ListSend-Error.", DebugType.Error);
                         errorCtr++;
                     }
                 }
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -391,12 +366,12 @@ namespace EndevFrameworkNetworkCore
                             InstructionBase tmpInstruction = pInstruction.Clone();
                             tmpInstruction.Receiver = pGroup.OnlineMembers[i];
 
-                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.");
+                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
                             outgoingInstructions.Add(tmpInstruction);
                         }
                         catch
                         {
-                            Debug("GroupSend-Error.");
+                            Debug("GroupSend-Error.", DebugType.Error);
                             errorCtr++;
                         }
                     }
@@ -404,39 +379,44 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
+        /// <summary>
+        /// Halts all threads and prepares for a restart.
+        /// </summary>
+        protected override void HaltAllThreads()
+        {
+            base.HaltAllThreads();
+
+            Debug("Shutting down all connections...", DebugType.Info);
+            Shutdown();
+
+            Debug("Redefining system-data...", DebugType.Info);
+            groupAddRecords = new List<string>();
+            ConnectedClients = new ClientList();
+            UserGroups = new NetComGroups();
+        }
+
+        /// <summary>
+        /// Restarts the system.
+        /// </summary>
         protected override void RestartSystem()
         {
             try
             {
-                Debug("A fatal error occured. Attempting to restart server...");
-
-                Shutdown();
-
-                groupAddRecords = new List<string>();
-                ConnectedClients = new ClientList();
-                UserGroups = new NetComGroups();
+                Debug("Attempting to restart server...", DebugType.Info);
 
                 base.RestartSystem();
 
                 Start();
 
-                Debug("Server restart complete!");
+                Debug("Server restart complete!", DebugType.Info);
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
     }

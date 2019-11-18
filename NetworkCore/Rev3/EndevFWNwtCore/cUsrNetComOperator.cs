@@ -33,7 +33,7 @@ namespace EndevFrameworkNetworkCore
         protected volatile List<InstructionBase> incommingInstructions = new List<InstructionBase>();
         protected volatile List<InstructionBase> outgoingInstructions = new List<InstructionBase>();
 
-        public delegate void DebuggingOutput(string pDebugMessage, params object[] pParameters);
+        public delegate void DebuggingOutput(string pDebugMessage, DebugType pType, params object[] pParameters);
         protected DebuggingOutput DebugCom = null;
         protected object[] debugParams = null;
 
@@ -44,27 +44,27 @@ namespace EndevFrameworkNetworkCore
         internal List<string> OutputStream { get; private set; } = new List<string>();
 
         protected volatile int threadIdleTime = 100;
-
-        protected volatile int longTermInstructionSleepInMinutes = 5;
-
-        public static int queue = 0;
+        protected volatile int longTermInstructionSleepInMinutes = 1;
 
         /// <summary>
         /// Starts all tasks required for the Client and Server
         /// </summary>
         public virtual void Start()
         {
-            Debug("Starting Background-Process: Instruction-Processing...");
+            Debug("Starting Background-Process: Instruction-Processing...", DebugType.Info);
             instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
             instructionProcessingThread.Start();
 
-            Debug("Starting Background-Process: Instruction-Sending...");
+            Debug("Starting Background-Process: Instruction-Sending...", DebugType.Info);
             instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
             instructionSendingThread.Start();
 
-            Debug("Starting Background-Process: Long-Term-Operations...");
-            longTermOperationThread = new Thread(AsyncLongTermInstructionLoop);
-            longTermOperationThread.Start();
+            if (!haltActive)
+            {
+                Debug("Starting Background-Process: Long-Term-Operations...", DebugType.Info);
+                longTermOperationThread = new Thread(AsyncLongTermInstructionLoop);
+                longTermOperationThread.Start();
+            }
         }
 
         /// <summary>
@@ -83,9 +83,9 @@ namespace EndevFrameworkNetworkCore
         /// Sends a debug-message to the selected debug-output.
         /// </summary>
         /// <param name="pMessage">Debug-Message</param>
-        internal void Debug(string pMessage)
+        internal void Debug(string pMessage, DebugType pDebugType = DebugType.Info)
         {
-            DebugCom(pMessage, debugParams);
+            DebugCom(pMessage, pDebugType, debugParams);
         }
 
         /// <summary>
@@ -105,11 +105,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    // AUTORESTART
-                    // TODO
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -122,8 +118,6 @@ namespace EndevFrameworkNetworkCore
             {
                 while (true)
                 {
-                    queue = incommingInstructions.Count;
-
                     if (incommingInstructions.Count > 0)
                         AsyncInstructionProcessNext();
                     else
@@ -132,10 +126,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
-                if (AutoRestartOnCrash)
-                {
-                    HaltAllThreads();
-                }
+                if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
 
@@ -144,20 +135,12 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected void AsyncLongTermInstructionLoop()
         {
-            try
+            Thread.Sleep(10000);
+            while (true)
             {
-                while (true)
-                {
-                    AsyncLongTermNextCycle();
-                    Thread.Sleep(longTermInstructionSleepInMinutes * 300000);
-                }
-            }
-            catch
-            {
-                if (AutoRestartOnCrash)
-                {
-                    
-                }
+                Debug("Executing Long-Term Operations...", DebugType.Info);
+                AsyncLongTermNextCycle();
+                Thread.Sleep(longTermInstructionSleepInMinutes * 60000);
             }
         }
 
@@ -174,7 +157,7 @@ namespace EndevFrameworkNetworkCore
             incommingInstructions[0].Execute();
             incommingInstructions.RemoveAt(0);
             processedCount++;
-            Debug($"Processed Instruction ({processedCount} - Success-Rate: {(float)(1-((float)errorCtr / (float)processedCount)) * 100}%)");
+            Debug($"Processed Instruction ({processedCount} - Success-Rate: {(float)(1-((float)errorCtr / (float)processedCount)) * 100}%)", DebugType.Info);
         }
 
         /// <summary>
@@ -182,7 +165,7 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected virtual void AsyncLongTermNextCycle()
         {
-
+            if (haltActive) RestartSystem();
         }
 
         /// <summary>
@@ -199,26 +182,32 @@ namespace EndevFrameworkNetworkCore
             return retval;
         }
 
+        /// <summary>
+        /// Halts all threads and prepares for a restart.
+        /// </summary>
         protected virtual void HaltAllThreads()
         {
-            // Terminate threads
-            try { instructionProcessingThread.Abort(); } catch { }
-            try { instructionSendingThread.Abort(); } catch { }
-            try { longTermOperationThread.Abort(); } catch { }
-
+            Debug("A fatal error occured. Attempting to halt all processes...", DebugType.Fatal);
             haltActive = true;
+
+            // Terminate threads
+            Debug("Halting Instruction-Processing...", DebugType.Fatal);
+            try { instructionProcessingThread.Abort(); } catch { }
+            Debug("Halting Instruction-Sending...", DebugType.Fatal);
+            try { instructionSendingThread.Abort(); } catch { }
         }
 
+        /// <summary>
+        /// Restarts the system.
+        /// </summary>
         protected virtual void RestartSystem()
         {
-            Debug("Waiting 5 seconds before restart-attempt...");
-            Thread.Sleep(5000);
+            haltActive = false;
 
             // Re-Define arrays and lists
             buffer = new byte[bufferSize];
             incommingInstructions = new List<InstructionBase>();
             outgoingInstructions = new List<InstructionBase>();
-            OutputStream = new List<string>();
         }
     }
 }

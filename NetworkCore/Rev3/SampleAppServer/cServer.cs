@@ -20,7 +20,7 @@ namespace SampleAppServer
             Console.WriteLine("===================================");
             Console.WriteLine("=            S E R V E R          =");
             Console.WriteLine("===================================\r\n");
-
+            Console.ForegroundColor = ConsoleColor.White;
 
 
             NetComServer server = new NetComServer(2225);

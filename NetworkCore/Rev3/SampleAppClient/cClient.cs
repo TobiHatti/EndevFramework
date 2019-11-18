@@ -28,11 +28,11 @@ namespace SampleAppClient
             Console.WriteLine("===================================");
             Console.WriteLine($"=           C L I E N T - {clientNr}       =");
             Console.WriteLine("===================================\r\n");
-
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(Dns.GetHostAddresses("endev.ddns.net")[0].ToString());
 
-            NetComClient client = new NetComClient(Dns.GetHostAddresses("endev.ddns.net")[0].ToString(), 2225);
-            //NetComClient client = new NetComClient("127.0.0.1", 2225);
+            //NetComClient client = new NetComClient(Dns.GetHostAddresses("endev.ddns.net")[0].ToString(), 2225);
+            NetComClient client = new NetComClient("127.0.0.1", 2225);
 
             
 
