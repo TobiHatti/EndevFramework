@@ -57,8 +57,12 @@ namespace EndevFrameworkNetworkCore
             public KeyExchangeClient2Server(NetComUser pSender, NetComUser pReceiver) 
                 : base(pSender, pReceiver, pSender.RSAKeys.PublicKey, new object[] { pSender.Username }) { }
 
-            public override void Execute() 
-                => (Receiver as NetComServer).CurrentProcessingClient.SetUserData(parameters[0].ToString(), "", value);
+            public override void Execute()
+            {
+                (Receiver as NetComServer).CurrentProcessingClient.SetUserData(parameters[0].ToString(), "", value);
+                (Receiver as NetComServer).Send(new InstructionLibraryEssentials.AuthenticationServer2Client(Receiver as NetComServer, Sender));
+            }
+       
         }
 
         /// <summary>
@@ -88,6 +92,20 @@ namespace EndevFrameworkNetworkCore
                : base(pSender, pReceiver, null, null) { }
 
             public override void Execute() { }
+        }
+
+        /// <summary>
+        /// [SERVER ONLY]
+        /// Sends a new authentication-request in case the 
+        /// initial authentication failed.
+        /// </summary>
+        internal class AuthenticationReminder : ISB
+        {
+            public AuthenticationReminder(NetComUser pSender, NetComUser pReceiver)
+                : base(pSender, pReceiver, null, null) { }
+
+            public override void Execute()
+                => (Receiver as NetComClient).Send(new InstructionLibraryEssentials.KeyExchangeClient2Server(Receiver, null));
         }
 
         /// <summary>

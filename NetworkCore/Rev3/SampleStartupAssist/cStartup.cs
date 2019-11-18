@@ -18,7 +18,7 @@ namespace SampleStartupAssist
             var clientPath = @"..\..\..\SampleAppClient\bin\Debug\SampleAppClient.exe";
             var serverPath = @"..\..\..\SampleAppServer\bin\Debug\SampleAppServer.exe";
 
-            Process.Start(serverPath);
+            //Process.Start(serverPath);
 
 
             while (true)

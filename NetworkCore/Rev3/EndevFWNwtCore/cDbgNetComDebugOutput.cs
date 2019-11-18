@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,7 +15,8 @@ namespace EndevFrameworkNetworkCore
         Warning,
         Error,
         Fatal,
-        Remote
+        Remote,
+        Exception
     }
 
 
@@ -44,7 +46,9 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pParameters">Output-Parameters [Not required for ToConsole-Method]</param>
         public static void ToConsole(string pMessage, DebugType pDebugType, params object[] pParameters)
         {
-            switch(pDebugType)
+            Console.Write($"({Thread.CurrentThread.ManagedThreadId.ToString("D3")})");
+
+            switch (pDebugType)
             {
                 case DebugType.Info:
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -96,6 +100,17 @@ namespace EndevFrameworkNetworkCore
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.WriteLine(pMessage);
                     
+                    break;
+                case DebugType.Exception:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.BackgroundColor = ConsoleColor.Black;
+
+                    Console.Write("[EXCEPT.] ");
+
+                    Console.WriteLine(pMessage);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+
                     break;
             }
         }

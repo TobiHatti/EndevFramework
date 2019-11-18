@@ -21,6 +21,7 @@ namespace EndevFrameworkNetworkCore
         public static AuthenticationTool AuthLookup = null;
         protected bool authenticated = false;
 
+        public bool Authenticated { get => authenticated; }
         
         /// <summary>
         /// Authenticates the user when given a username and password.

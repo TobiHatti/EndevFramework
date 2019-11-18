@@ -40,7 +40,7 @@ namespace EndevFrameworkNetworkCore
         public void AddUser(NetComUser pUser)
         {
             if (!OnlineMembers.Contains(pUser)) OnlineMembers.Add(pUser);
-            if (!GroupMembers.Contains(pUser.Username)) GroupMembers.Add(pUser.Username.ToLower());
+            if (!GroupMembers.Contains(pUser.Username.ToLower())) GroupMembers.Add(pUser.Username.ToLower());
         }
 
         /// <summary>

@@ -88,6 +88,11 @@
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.AuthenticationReminder" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
       <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.SimpleMessageBox" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
@@ -152,7 +157,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAIAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAgAAAAIAAAAAAIAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>cUsrNetComCData.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -176,7 +181,7 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAJAAAAQCCYKMAAAAAAGAIAAgQQAAiAgABCAIJgBBg=</HashCode>
+      <HashCode>AAAJAAAAQCCYKMAAAAAAGAIAAgQQAAiAgABCAIJgJBg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -272,7 +277,7 @@
   <Enum Name="EndevFrameworkNetworkCore.DebugType">
     <Position X="24" Y="11.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQAAAAAAABAAAAAAAAAAAAAAAEAEAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAQAQAAAAAAABAAAAAAAAAAAABAAEAEAAA=</HashCode>
       <FileName>cDbgNetComDebugOutput.cs</FileName>
     </TypeIdentifier>
   </Enum>

@@ -135,12 +135,11 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pUser"></param>
         public void TryGroupAdd(NetComUser pUser)
         {
-            foreach (UserGroup group in userGroups)
-                foreach (string username in group.GroupMembers)
-                    if (pUser.Username.ToLower() == username.ToLower())
+            for (int i = 0; i < userGroups.Count; i++)
+                for(int j = 0; j < userGroups[i].GroupMembers.Count; j++)
+                    if(pUser.Username.ToLower() == userGroups[i].GroupMembers[j].ToLower())
                     {
-                        group.AddUser(pUser);
-                        //yield return group.Name;
+                        userGroups[i].AddUser(pUser);
                     }
         }
 

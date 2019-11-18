@@ -65,31 +65,41 @@ namespace EndevFrameworkNetworkCore
         {
             try
             {
-                Socket current = outgoingInstructions[0]?.Receiver.LocalSocket;
-                byte[] data;
-
-                data = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
-
-                try
+                if ((outgoingInstructions[0].Receiver as NetComCData).Authenticated 
+                    || outgoingInstructions[0].GetType() != typeof(InstructionLibraryEssentials.KeyExchangeServer2Client) 
+                    || outgoingInstructions[0].GetType() != typeof(InstructionLibraryEssentials.AuthenticationServer2Client))
                 {
-                    current.Send(data);
-                }
-                catch
-                {
-                    Debug("Client disconnected > Connection lost.", DebugType.Warning);
-                    current.Close();
-                    UserGroups.Disconnect(current);
-                    ConnectedClients.Remove(current);
-                    return;
-                }
+                    Socket current = outgoingInstructions[0]?.Receiver.LocalSocket;
+                    byte[] data;
 
-                Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.", DebugType.Info);
-                Debug(outgoingInstructions[0].ToString(), DebugType.Info);
+                    data = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
+
+                    try
+                    {
+                        current.Send(data);
+                    }
+                    catch
+                    {
+                        Debug("Client disconnected > Connection lost.", DebugType.Warning);
+                        current.Close();
+                        UserGroups.Disconnect(current);
+                        ConnectedClients.Remove(current);
+                        return;
+                    }
+
+                    Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.", DebugType.Info);
+                    Debug(outgoingInstructions[0].ToString(), DebugType.Info);
+                }
+                else
+                {
+                    Debug($"Could not send Message to {outgoingInstructions[0].Receiver.ToString()}. Authentication not valid.", DebugType.Error);
+                }
 
                 outgoingInstructions.RemoveAt(0);
             }
             catch
             {
+                Debug("Halting (08)", DebugType.Warning);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -124,6 +134,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
+                Debug("Halting (07)", DebugType.Warning);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -134,19 +145,35 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         public void Shutdown()
         {
-            lock (ConnectedClients)
+            try
             {
-                Debug("Shutting down all connections...", DebugType.Info);
-                foreach (NetComCData client in ConnectedClients)
+                lock (ConnectedClients)
                 {
-                    client.LocalSocket.Shutdown(SocketShutdown.Both);
-                    client.LocalSocket.Close();
+                    Debug("Shutting down all connections...", DebugType.Info);
+                    foreach (NetComCData client in ConnectedClients)
+                    {
+                        try
+                        {
+                            client.LocalSocket.Shutdown(SocketShutdown.Both);
+                            client.LocalSocket.Close();
+                        }
+                        catch
+                        {
+                            Debug("Could not close clients socket.", DebugType.Error);
+                        }
+                    }
                 }
+
+                Debug("Shutting down server...", DebugType.Info);
+                LocalSocket.Close();
+                Debug("Shutdown complete!", DebugType.Info);
+            }
+            catch(Exception ex)
+            {
+                Debug("Shutdown could not be completed. Some connections might stay opened.", DebugType.Error);
+                if (ShowExceptions) Debug(ex.Message, DebugType.Exception);
             }
 
-            Debug("Shutting down server...", DebugType.Info);
-            LocalSocket.Close();
-            Debug("Shutdown complete!", DebugType.Info);
         }
 
         /// <summary>
@@ -180,6 +207,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
+                Debug("Halting (06)", DebugType.Warning);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -238,15 +266,18 @@ namespace EndevFrameworkNetworkCore
 
 
                 }
-                catch (NetComAuthenticationException)
+                catch (NetComAuthenticationException ex)
                 {
                     Debug("Authentication-Error (Instruction-Parsing).", DebugType.Error);
+                    if (ShowExceptions) Debug(ex.Message, DebugType.Exception);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Debug($"Error occured (Instruction-Parsing). ({errorCtr})", DebugType.Error);
-                    errorCtr++;
+                    Debug($"Error occured (Instruction-Parsing). ({_logErrorCount})", DebugType.Error);
+                    if (ShowExceptions) Debug(ex.Message, DebugType.Exception);
+                    _logErrorCount++;
                 }
+                
 
 
                 try
@@ -265,6 +296,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
+                Debug("Halting (05)", DebugType.Warning);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -275,11 +307,15 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pInstruction">Instruction to send. The receiver is set by the 'pReceiver'-parameter</param>
         public void Send(InstructionBase pInstruction)
         {
-            if (pInstruction.Receiver != null)
+            if (!haltActive)
             {
-                Debug($"Queueing message for {pInstruction.Receiver.ToString()}.", DebugType.Info);
-                outgoingInstructions.Add(pInstruction);
+                if (pInstruction.Receiver != null)
+                {
+                    Debug($"Queueing message for {pInstruction.Receiver.ToString()}.", DebugType.Info);
+                    outgoingInstructions.Add(pInstruction);
+                }
             }
+            else Debug("Could not send message. Server is in halt-mode.", DebugType.Error);
         }
 
         /// <summary>
@@ -288,32 +324,38 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pInstruction">Instruction to send. Set the receiver-parameter to 'null'</param>
         public void Broadcast(InstructionBase pInstruction)
         {
-            try
+            if (!haltActive)
             {
-                lock (ConnectedClients)
+                try
                 {
-                    for (int i = 0; i < ConnectedClients.Count; i++)
+                    lock (ConnectedClients)
                     {
-                        try
+                        for (int i = 0; i < ConnectedClients.Count; i++)
                         {
-                            InstructionBase tmpInstruction = pInstruction.Clone();
-                            tmpInstruction.Receiver = ConnectedClients[i];
+                            try
+                            {
+                                InstructionBase tmpInstruction = pInstruction.Clone();
+                                tmpInstruction.Receiver = ConnectedClients[i];
 
-                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
-                            outgoingInstructions.Add(tmpInstruction);
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            Debug("Broadcast-Error.", DebugType.Error);
-                            errorCtr++;
+                                Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
+                                outgoingInstructions.Add(tmpInstruction);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug("Broadcast-Error.", DebugType.Error);
+                                if (ShowExceptions) Debug(ex.Message, DebugType.Exception);
+                                _logErrorCount++;
+                            }
                         }
                     }
                 }
+                catch
+                {
+                    Debug("Halting (04)", DebugType.Warning);
+                    if (AutoRestartOnCrash) HaltAllThreads();
+                }
             }
-            catch
-            {
-                if (AutoRestartOnCrash) HaltAllThreads();
-            }
+            else Debug("Could not send message. Server is in halt-mode.", DebugType.Error);
         }
 
         /// <summary>
@@ -323,29 +365,35 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pUsers">Target users</param>
         public void ListSend(InstructionBase pInstruction, params NetComUser[] pUsers)
         {
-            try
+            if (!haltActive)
             {
-                for (int i = 0; i < pUsers.Length; i++)
+                try
                 {
-                    try
+                    for (int i = 0; i < pUsers.Length; i++)
                     {
-                        InstructionBase tmpInstruction = pInstruction.Clone();
-                        tmpInstruction.Receiver = pUsers[i];
+                        try
+                        {
+                            InstructionBase tmpInstruction = pInstruction.Clone();
+                            tmpInstruction.Receiver = pUsers[i];
 
-                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
-                        outgoingInstructions.Add(tmpInstruction);
-                    }
-                    catch
-                    {
-                        Debug("ListSend-Error.", DebugType.Error);
-                        errorCtr++;
+                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
+                            outgoingInstructions.Add(tmpInstruction);
+                        }
+                        catch(Exception ex)
+                        {
+                            Debug("ListSend-Error.", DebugType.Error);
+                            if (ShowExceptions) Debug(ex.Message, DebugType.Exception);
+                            _logErrorCount++;
+                        }
                     }
                 }
+                catch
+                {
+                    Debug("Halting (03)", DebugType.Warning);
+                    if (AutoRestartOnCrash) HaltAllThreads();
+                }
             }
-            catch
-            {
-                if (AutoRestartOnCrash) HaltAllThreads();
-            }
+            else Debug("Could not send message. Server is in halt-mode.", DebugType.Error);
         }
 
         /// <summary>
@@ -355,32 +403,38 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pGroup">Target group</param>
         public void GroupSend(InstructionBase pInstruction, UserGroup pGroup)
         {
-            try
+            if (!haltActive)
             {
-                lock (pGroup)
+                try
                 {
-                    for (int i = 0; i < pGroup.OnlineMembers.Count; i++)
+                    lock (pGroup)
                     {
-                        try
+                        for (int i = 0; i < pGroup.OnlineMembers.Count; i++)
                         {
-                            InstructionBase tmpInstruction = pInstruction.Clone();
-                            tmpInstruction.Receiver = pGroup.OnlineMembers[i];
+                            try
+                            {
+                                InstructionBase tmpInstruction = pInstruction.Clone();
+                                tmpInstruction.Receiver = pGroup.OnlineMembers[i];
 
-                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
-                            outgoingInstructions.Add(tmpInstruction);
-                        }
-                        catch
-                        {
-                            Debug("GroupSend-Error.", DebugType.Error);
-                            errorCtr++;
+                                Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
+                                outgoingInstructions.Add(tmpInstruction);
+                            }
+                            catch(Exception ex)
+                            {
+                                Debug("GroupSend-Error.", DebugType.Error);
+                                if (ShowExceptions) Debug(ex.Message, DebugType.Exception);
+                                _logErrorCount++;
+                            }
                         }
                     }
                 }
+                catch
+                {
+                    Debug("Halting (02)", DebugType.Warning);
+                    if (AutoRestartOnCrash) HaltAllThreads();
+                }
             }
-            catch
-            {
-                if (AutoRestartOnCrash) HaltAllThreads();
-            }
+            else Debug("Could not send message. Server is in halt-mode.", DebugType.Error);
         }
 
         /// <summary>
@@ -388,15 +442,13 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected override void HaltAllThreads()
         {
-            base.HaltAllThreads();
+            if (!haltActive)
+            {
+                base.HaltAllThreads();
 
-            Debug("Shutting down all connections...", DebugType.Info);
-            Shutdown();
-
-            Debug("Redefining system-data...", DebugType.Info);
-            groupAddRecords = new List<string>();
-            ConnectedClients = new ClientList();
-            UserGroups = new NetComGroups();
+                Debug("Shutting down all connections...", DebugType.Info);
+                Shutdown();
+            }
         }
 
         /// <summary>
@@ -408,6 +460,11 @@ namespace EndevFrameworkNetworkCore
             {
                 Debug("Attempting to restart server...", DebugType.Info);
 
+                Debug("Redefining system-data...", DebugType.Info);
+                groupAddRecords = new List<string>();
+                ConnectedClients = new ClientList();
+                UserGroups = new NetComGroups();
+
                 base.RestartSystem();
 
                 Start();
@@ -416,6 +473,8 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
+
+                Debug("Halting (01)", DebugType.Warning);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }

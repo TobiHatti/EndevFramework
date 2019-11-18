@@ -21,11 +21,13 @@ namespace EndevFrameworkNetworkCore
     {
         protected IPAddress serverIP = null;
         protected int port = 2225;
-        protected int errorCtr = 0;
-        protected int processedCount = 0;
+        protected int _logErrorCount = 0;
+        protected int _logTotalInstructionCount = 0;
 
-        protected bool AutoRestartOnCrash { get; set; } = true;
-        protected bool haltActive = false;
+        public bool AutoRestartOnCrash { get; set; } = true;
+        public bool ShowExceptions { get; set; } = true;
+
+        protected volatile bool haltActive = false;
 
         protected const int bufferSize = 102400; // 100KB (KiB)
         protected volatile byte[] buffer = new byte[bufferSize];
@@ -105,6 +107,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
+                Debug("Halting (10)", DebugType.Warning);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -126,6 +129,7 @@ namespace EndevFrameworkNetworkCore
             }
             catch
             {
+                Debug("Halting (09)", DebugType.Warning);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -140,7 +144,7 @@ namespace EndevFrameworkNetworkCore
             {
                 Debug("Executing Long-Term Operations...", DebugType.Info);
                 AsyncLongTermNextCycle();
-                Thread.Sleep(longTermInstructionSleepInMinutes * 60000);
+                Thread.Sleep(longTermInstructionSleepInMinutes * 1000 * 60);
             }
         }
 
@@ -156,8 +160,8 @@ namespace EndevFrameworkNetworkCore
         {
             incommingInstructions[0].Execute();
             incommingInstructions.RemoveAt(0);
-            processedCount++;
-            Debug($"Processed Instruction ({processedCount} - Success-Rate: {(float)(1-((float)errorCtr / (float)processedCount)) * 100}%)", DebugType.Info);
+            _logTotalInstructionCount++;
+            Debug($"Processed Instruction ({_logTotalInstructionCount} - Success-Rate: {(float)(1-((float)_logErrorCount / (float)_logTotalInstructionCount)) * 100}%)", DebugType.Info);
         }
 
         /// <summary>
@@ -165,7 +169,11 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected virtual void AsyncLongTermNextCycle()
         {
-            if (haltActive) RestartSystem();
+            if (haltActive)
+            {
+                haltActive = false;
+                RestartSystem();
+            }
         }
 
         /// <summary>
@@ -187,14 +195,27 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected virtual void HaltAllThreads()
         {
-            Debug("A fatal error occured. Attempting to halt all processes...", DebugType.Fatal);
-            haltActive = true;
+            if (!haltActive)
+            {
+                Debug("A fatal error occured. Attempting to halt all processes...", DebugType.Fatal);
 
-            // Terminate threads
-            Debug("Halting Instruction-Processing...", DebugType.Fatal);
-            try { instructionProcessingThread.Abort(); } catch { }
-            Debug("Halting Instruction-Sending...", DebugType.Fatal);
-            try { instructionSendingThread.Abort(); } catch { }
+                // Terminate threads
+                Debug("Halting Instruction-Processing...", DebugType.Fatal);
+                try
+                {
+                    instructionProcessingThread.Abort();
+                    Debug("Successfully stopped Instruction-Processing!", DebugType.Fatal);
+                }
+                catch { Debug("Could not stop Instruction-Processing!", DebugType.Fatal); }
+
+                Debug("Halting Instruction-Sending...", DebugType.Fatal);
+                try
+                {
+                    instructionSendingThread.Abort();
+                    Debug("Successfully stopped Instruction-Sending!", DebugType.Fatal);
+                }
+                catch { Debug("Could not stop Instruction-Sending!", DebugType.Fatal); }
+            }
         }
 
         /// <summary>
@@ -202,8 +223,6 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected virtual void RestartSystem()
         {
-            haltActive = false;
-
             // Re-Define arrays and lists
             buffer = new byte[bufferSize];
             incommingInstructions = new List<InstructionBase>();
