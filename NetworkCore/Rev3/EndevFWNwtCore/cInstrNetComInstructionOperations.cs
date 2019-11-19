@@ -37,7 +37,7 @@ namespace EndevFrameworkNetworkCore
 
             lock (pLocalUser)
             {
-                foreach (string encodedInstruction in pInstructionString.Split(';'))
+                foreach (string encodedInstruction in pInstructionString.Split('%'))
                 {
                     if (string.IsNullOrEmpty(encodedInstruction)) continue;
 
@@ -59,28 +59,31 @@ namespace EndevFrameworkNetworkCore
 
                     string encInstr = encodedInstruction;
 
-                    if(encInstr.StartsWith("RSA:"))
+                    if(encInstr.StartsWith("R:"))
                     {
                         rsaEncoded = true;
-                        encInstr = encInstr.Remove(0, 4);
+                        encInstr = encInstr.Remove(0, 2);
                     }
 
                     // <Base64>
                     string decodedInstruction;
                     try
                     {
-                        decodedInstruction = Base64Handler.Decode(encInstr);
+                        //decodedInstruction = Base64Handler.Decode(encInstr);
+                        decodedInstruction = encInstr;
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        Console.WriteLine("Could not parse instruction!");
+                        (pLocalUser as NetComOperator).Debug("Instruction-Parsing: Could not decode from Base64.", DebugType.Error);
+                        if ((pLocalUser as NetComOperator).ShowExceptions) (pLocalUser as NetComOperator).Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+
                         continue;
                     }
                       
 
                     // INS:B64,VAL:B64,PAR:B64#B64|B64#B64|,
 
-                    foreach (string encodedInstrSegment in decodedInstruction.Split(','))
+                    foreach (string encodedInstrSegment in decodedInstruction.Split('$'))
                     {
                         if (string.IsNullOrEmpty(encodedInstrSegment)) continue;
 
@@ -90,20 +93,20 @@ namespace EndevFrameworkNetworkCore
 
                         switch(encodedSegmentParts[0])
                         {
-                            case "FWV": frameworkVersion = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
-                            case "ISV": instructionsetVersion = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
-                            case "PUK": publicKey = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
+                            case "FWV": frameworkVersion = encodedSegmentParts[1]; break;
+                            case "ISV": instructionsetVersion = encodedSegmentParts[1]; break;
+                            case "PUK": publicKey = encodedSegmentParts[1]; break;
                             case "USR": username = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
                             case "PSW": 
                                 if(rsaEncoded)
                                     password = RSAHandler.Decrypt(pLocalUser.RSAKeys.PrivateKey, encodedSegmentParts[1]); 
                                 break;
-                            case "SGP": signaturePlain = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
+                            case "SGP": signaturePlain = encodedSegmentParts[1]; break;
                             case "SGC":
                                 if (rsaEncoded)
                                     signatureRSA = encodedSegmentParts[1]; 
                                 break;
-                            case "INS": instruction = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
+                            case "INS": instruction = encodedSegmentParts[1]; break;
                             case "VAL": value = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
                             case "PAR": 
                                     
@@ -113,7 +116,7 @@ namespace EndevFrameworkNetworkCore
 
                                     string[] paramParts = paramGroup.Split('#');
 
-                                    string paramTypeStr = Base64Handler.Decode(paramParts[0], "ERROR");
+                                    string paramTypeStr = paramParts[0];
                                     string paramValueStr = Base64Handler.Decode(paramParts[1], "ERROR");
 
                                     Type paramType = Type.GetType(paramTypeStr);
@@ -131,8 +134,12 @@ namespace EndevFrameworkNetworkCore
                                         parameters.Add(convParam);
 
                                     }
-                                    catch (NotSupportedException)
+                                    catch (NotSupportedException ex)
                                     {
+                                        (pLocalUser as NetComOperator).Debug("Broadcast-Error.", DebugType.Error);
+                                        if ((pLocalUser as NetComOperator).ShowExceptions) (pLocalUser as NetComOperator).Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+
+
                                         throw new NetComParsingException($"*** Could not parse the following parameter: Type: {paramTypeStr}, Value: {paramValueStr} ***");
                                     }
                                 }

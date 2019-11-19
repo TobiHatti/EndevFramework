@@ -83,19 +83,19 @@ namespace EndevFrameworkNetworkCore
             StringBuilder innersb = new StringBuilder();
             StringBuilder sb = new StringBuilder();
 
-            if (rsaEncryption) sb.Append("RSA:");
+            if (rsaEncryption) sb.Append("R:");
 
             // Version Data (Framework and instructionset)
-            innersb.Append($"FWV:{Base64Handler.Encode(FrameworkVersion)},");
-            innersb.Append($"ISV:{Base64Handler.Encode(InstructionSetVersion)},");
+            innersb.Append($"FWV:{FrameworkVersion}$");
+            innersb.Append($"ISV:{InstructionSetVersion}$");
 
             // User Data
-            if (Sender?.RSAKeys.PublicKey != null) innersb.Append($"PUK:{Base64Handler.Encode(Sender?.RSAKeys.PublicKey)},");
-            if (Sender?.Username != null) innersb.Append($"USR:{Base64Handler.Encode(Sender?.Username)},");
+            if (Sender?.RSAKeys.PublicKey != null) innersb.Append($"PUK:{Sender?.RSAKeys.PublicKey}$");
+            if (Sender?.Username != null) innersb.Append($"USR:{Base64Handler.Encode(Sender?.Username)}$");
             if (Sender?.Password != null)
             {
-                if(rsaEncryption) innersb.Append($"PSW:{RSAHandler.Encrypt(Receiver?.RSAKeys.PublicKey, Sender?.Password)},");
-                else innersb.Append($"PSW:{Base64Handler.Encode(Sender?.Password)},");
+                if(rsaEncryption) innersb.Append($"PSW:{RSAHandler.Encrypt(Receiver?.RSAKeys.PublicKey, Sender?.Password)}$");
+                else innersb.Append($"PSW:{Base64Handler.Encode(Sender?.Password)}$");
             }
             
             // Signature
@@ -103,24 +103,24 @@ namespace EndevFrameworkNetworkCore
             {
                 Guid signature = Guid.NewGuid();
 
-                innersb.Append($"SGP:{Base64Handler.Encode(signature.ToString())},");
-                innersb.Append($"SGC:{RSAHandler.Sign(Sender?.RSAKeys.PrivateKey, signature.ToString())},");
+                innersb.Append($"SGP:{signature.ToString()}$");
+                innersb.Append($"SGC:{RSAHandler.Sign(Sender?.RSAKeys.PrivateKey, signature.ToString())}$");
             }
 
             // Actuall data
-            if(instruction != null) innersb.Append($"INS:{Base64Handler.Encode(instruction)},");
-            if(value != null)       innersb.Append($"VAL:{Base64Handler.Encode(value)},");
+            if(instruction != null) innersb.Append($"INS:{instruction}$");
+            if(value != null)       innersb.Append($"VAL:{Base64Handler.Encode(value)}$");
 
             if (parameters != null)
             {
                 innersb.Append($"PAR:");
                 foreach (object param in parameters)
-                    innersb.Append($"{Base64Handler.Encode(param.GetType().AssemblyQualifiedName)}#{Base64Handler.Encode(param.ToString())}|");
-                innersb.Append($",");
+                    innersb.Append($"{param.GetType().AssemblyQualifiedName}#{Base64Handler.Encode(param.ToString())}|");
+                innersb.Append($"$");
             }
 
-            sb.Append(Base64Handler.Encode(innersb.ToString()));
-            sb.Append(";");
+            sb.Append(innersb.ToString());
+            sb.Append("%");
 
             return sb.ToString();
         }
@@ -135,14 +135,14 @@ namespace EndevFrameworkNetworkCore
             StringBuilder innersb = new StringBuilder();
             StringBuilder sb = new StringBuilder();
 
-            innersb.Append($"FWV:{Base64Handler.Encode(FrameworkVersion)},");
-            innersb.Append($"ISV:{Base64Handler.Encode(InstructionSetVersion)},");
-            innersb.Append($"PUK:{Base64Handler.Encode(Sender?.RSAKeys.PublicKey)},");
-            innersb.Append($"USR:{Base64Handler.Encode("Server")},");
-            innersb.Append($"INS:{Base64Handler.Encode(instruction)},");
+            innersb.Append($"FWV:{FrameworkVersion}$");
+            innersb.Append($"ISV:{InstructionSetVersion}$");
+            innersb.Append($"PUK:{Sender?.RSAKeys.PublicKey}$");
+            innersb.Append($"USR:{Base64Handler.Encode("Server")}$");
+            innersb.Append($"INS:{instruction}$");
 
-            sb.Append(Base64Handler.Encode(innersb.ToString()));
-            sb.Append(";");
+            sb.Append(innersb.ToString());
+            sb.Append("%");
 
             return sb.ToString();
         }
@@ -157,14 +157,14 @@ namespace EndevFrameworkNetworkCore
             StringBuilder innersb = new StringBuilder();
             StringBuilder sb = new StringBuilder();
 
-            innersb.Append($"FWV:{Base64Handler.Encode(FrameworkVersion)},");
-            innersb.Append($"ISV:{Base64Handler.Encode(InstructionSetVersion)},");
-            innersb.Append($"PUK:{Base64Handler.Encode(Sender?.RSAKeys.PublicKey)},");
-            innersb.Append($"USR:{Base64Handler.Encode(Sender?.Username)},");
-            innersb.Append($"INS:{Base64Handler.Encode(instruction)},");
+            innersb.Append($"FWV:{FrameworkVersion}$");
+            innersb.Append($"ISV:{InstructionSetVersion}$");
+            innersb.Append($"PUK:{Sender?.RSAKeys.PublicKey}$");
+            innersb.Append($"USR:{Base64Handler.Encode(Sender?.Username)}$");
+            innersb.Append($"INS:{instruction}$");
 
-            sb.Append(Base64Handler.Encode(innersb.ToString()));
-            sb.Append(";");
+            sb.Append(innersb.ToString());
+            sb.Append("%");
 
             return sb.ToString();
         }

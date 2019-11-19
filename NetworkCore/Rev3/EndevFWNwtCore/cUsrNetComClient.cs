@@ -76,9 +76,11 @@ namespace EndevFrameworkNetworkCore
 
                 Debug("Client setup complete!", DebugType.Info);
             }
-            catch
+            catch (Exception ex)
             {
                 Debug("Halting (14)", DebugType.Warning);
+                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -104,9 +106,10 @@ namespace EndevFrameworkNetworkCore
 
                 Debug($"Connection successfull! Required {attempts} attempts", DebugType.Info);
             }
-            catch
+            catch (Exception ex)
             {
                 Debug("Halting (13)", DebugType.Warning);
+                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -117,18 +120,18 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pInstruction">Instruction to be sent. Set the receiver-parameter to 'null'</param>
         public void Send(InstructionBase pInstruction)
         {
-            if(!haltActive)
-            { 
-                try
-                {
-                    pInstruction.SetReceiverPublicKey(serverPublicKey);
+            try
+            {
+                pInstruction.SetReceiverPublicKey(serverPublicKey);
 
-                    outgoingInstructions.Add(pInstruction);
-                }
-                catch { }
+                outgoingInstructions.Add(pInstruction);
             }
-            else Debug("Could not send message. Client is in halt-mode.", DebugType.Error);
-    }
+            catch (Exception ex)
+            {
+                Debug("Could not add instruction to send-queue.", DebugType.Error);
+                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+            }
+        }
 
         /// <summary>
         /// Loop for executing the AsyncInstructionReceiveNext-Method.
@@ -139,9 +142,10 @@ namespace EndevFrameworkNetworkCore
             {
                 while (true) AsyncInstructionReceiveNext();
             }
-            catch
+            catch (Exception ex)
             {
                 Debug("Halting (12)", DebugType.Warning);
+                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -151,16 +155,24 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected override void AsyncInstructionSendNext()
         {
-            byte[] buffer;
+            if (!haltActive)
+            {
+                byte[] buffer;
 
-            buffer = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
+                buffer = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
 
-            LocalSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+                LocalSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
 
-            Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.", DebugType.Info);
-            Debug(outgoingInstructions[0].ToString(), DebugType.Info);
+                Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.", DebugType.Info);
+                Debug(outgoingInstructions[0].ToString(), DebugType.Info);
 
-            outgoingInstructions.RemoveAt(0);
+                outgoingInstructions.RemoveAt(0);
+            }
+            else
+            {
+                Debug("Could not send message. Client is in halt-mode. Waiting for 5 seconds...", DebugType.Error);
+                Thread.Sleep(5000);
+            }
         }
         
         /// <summary>
@@ -187,12 +199,12 @@ namespace EndevFrameworkNetworkCore
             catch (NetComAuthenticationException ex)
             {
                 Debug("Authentication-Error.", DebugType.Error);
-                if (ShowExceptions) Debug(ex.Message, DebugType.Exception);
+                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
             }
             catch (Exception ex)
             {
                 Debug($"Error occured. ({_logErrorCount})", DebugType.Error);
-                if (ShowExceptions) Debug(ex.Message, DebugType.Exception);
+                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
                 _logErrorCount++;
             }
         }
@@ -221,7 +233,11 @@ namespace EndevFrameworkNetworkCore
                     instructionReceptionThread.Abort();
                     Debug("Successfully stopped Instruction-Reception!", DebugType.Fatal);
                 } 
-                catch { Debug("Could not stop Instruction-Reception!", DebugType.Fatal); }
+                catch (Exception ex)
+                { 
+                    Debug("Could not stop Instruction-Reception!", DebugType.Fatal);
+                    if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                }
             }
         }
 
@@ -240,9 +256,10 @@ namespace EndevFrameworkNetworkCore
 
                 Debug("Client restart complete!", DebugType.Info);
             }
-            catch
+            catch (Exception ex)
             {
                 Debug("Halting (11)", DebugType.Warning);
+                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }

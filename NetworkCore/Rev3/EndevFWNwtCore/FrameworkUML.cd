@@ -1,49 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="EndevFrameworkNetworkCore.DebugOutput">
-    <Position X="20" Y="11.25" Width="1.75" />
+    <Position X="6" Y="21" Width="1.75" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>cDbgNetComDebugOutput.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.Base64Handler">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Position X="6" Y="19.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>cEncNetComBase64Handler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.RSAHandler">
-    <Position X="9.5" Y="2" Width="2.5" />
+    <Position X="3.25" Y="19.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAARAQAAAAAAAAAAAAACAAAAAABQAAAAA=</HashCode>
       <FileName>cEncNetComRSAHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComException">
-    <Position X="22" Y="2" Width="3" />
+    <Position X="10" Y="11.25" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComNotImplementedException">
-    <Position X="21.25" Y="0.5" Width="3.75" />
+    <Position X="11.75" Y="13.25" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.InstructionBase">
-    <Position X="13.5" Y="3.75" Width="2.5" />
+    <Position X="3.25" Y="14" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAARgAAQMCIAAAAAAAAAECCAACAAAAACIABA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials">
-    <Position X="16.5" Y="0.5" Width="2.5" />
+    <Position X="0.5" Y="10.75" Width="2.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -130,14 +130,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.InstructionLibraryExtension">
-    <Position X="13.75" Y="0.5" Width="2.25" />
+    <Position X="3.25" Y="10.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionLibraryExtension.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComCData">
-    <Position X="6.75" Y="9.5" Width="2.5" />
+    <Position X="6" Y="0.5" Width="2.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -148,21 +148,20 @@
         </TypeIdentifier>
       </Delegate>
     </NestedTypes>
-    <InheritanceLine Type="EndevFrameworkNetworkCore.NetComUser" ManuallyRouted="true">
-      <Path>
-        <Point X="4.875" Y="3.017" />
-        <Point X="4.875" Y="7.104" />
-        <Point X="8" Y="7.104" />
-        <Point X="8" Y="9.5" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAgAAAAIAAAAAAIAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>cUsrNetComCData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComClient">
-    <Position X="3.75" Y="9.75" Width="2.75" />
+    <Position X="7" Y="4.75" Width="2.75" />
+    <InheritanceLine Type="EndevFrameworkNetworkCore.NetComOperator" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="3.75" Y="4.5" />
+        <Point X="8.375" Y="4.5" />
+        <Point X="8.375" Y="4.75" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAABAAgAACCAAAAAAEAAAAAAAAYBAAQAAAAQAAgAEAA=</HashCode>
       <FileName>cUsrNetComClient.cs</FileName>
@@ -181,12 +180,12 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAJAAAAQCCYKMAAAAAAGAIAAgQQAAiAgABCAIJgJBg=</HashCode>
+      <HashCode>AAAJAEAAQCCYKMAAAAAAGAIABgQAAAiAgABCAIJgJBg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComServer">
-    <Position X="0.75" Y="9.75" Width="2.75" />
+    <Position X="4" Y="4.75" Width="2.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -203,49 +202,49 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComSignatureException">
-    <Position X="19.75" Y="4" Width="3.5" />
+    <Position X="7.75" Y="13.25" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComAuthenticationException">
-    <Position X="19.5" Y="5.5" Width="3.75" />
+    <Position X="7.5" Y="14.75" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.InstructionOperations">
-    <Position X="13.25" Y="1.75" Width="2.75" />
+    <Position X="3.25" Y="12" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAgAgAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>cInstrNetComInstructionOperations.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComVersionException">
-    <Position X="20" Y="7" Width="3.25" />
+    <Position X="8" Y="16.25" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComParsingException">
-    <Position X="20.25" Y="8.5" Width="3.25" />
+    <Position X="8.25" Y="17.75" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cExcNetComExceptions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.AuthenticationTools">
-    <Position X="22" Y="11.25" Width="1.75" />
+    <Position X="8" Y="21" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAEAAAAAAAAAAAAAAAAI=</HashCode>
       <FileName>cAuthNetComAuthenticationTools.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EndevFrameworkNetworkCore.NetComGroups">
-    <Position X="6" Y="0.5" Width="2.75" />
+    <Position X="10" Y="0.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAQAkIAAAAAIABAACAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComGroups.cs</FileName>
@@ -253,7 +252,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="EndevFrameworkNetworkCore.ClientList">
-    <Position X="9.5" Y="9.5" Width="3" />
+    <Position X="10" Y="6.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAABAACAAABAQAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComClientList.cs</FileName>
@@ -261,23 +260,23 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="EndevFrameworkNetworkCore.UserGroup">
-    <Position X="6" Y="3.75" Width="2.75" />
+    <Position X="10" Y="3.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAABAQAAAEAAAIgAAAAAAAAAAA=</HashCode>
       <FileName>cUsrNetComUserGroup.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="EndevFrameworkNetworkCore.RSAKeyPair">
-    <Position X="9.5" Y="4.75" Width="1.5" />
+    <Position X="7.75" Y="19.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cEncNetComRSAHandler.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Enum Name="EndevFrameworkNetworkCore.DebugType">
-    <Position X="24" Y="11.25" Width="1.5" />
+    <Position X="10" Y="21" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAQAAAAAAABAAAAAAAAAAAABAAEAEAAA=</HashCode>
+      <HashCode>AAAAACAAAAAQAQAAAAAAABAAAAAAAAAAAABAAEAEAAA=</HashCode>
       <FileName>cDbgNetComDebugOutput.cs</FileName>
     </TypeIdentifier>
   </Enum>

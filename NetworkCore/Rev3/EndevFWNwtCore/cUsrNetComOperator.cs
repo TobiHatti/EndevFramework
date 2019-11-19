@@ -105,9 +105,10 @@ namespace EndevFrameworkNetworkCore
                         Thread.Sleep(threadIdleTime);
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 Debug("Halting (10)", DebugType.Warning);
+                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -127,9 +128,10 @@ namespace EndevFrameworkNetworkCore
                         Thread.Sleep(threadIdleTime);
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 Debug("Halting (09)", DebugType.Warning);
+                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
                 if (AutoRestartOnCrash) HaltAllThreads();
             }
         }
@@ -142,7 +144,7 @@ namespace EndevFrameworkNetworkCore
             Thread.Sleep(10000);
             while (true)
             {
-                Debug("Executing Long-Term Operations...", DebugType.Info);
+                Debug("Executing Long-Term Operations...", DebugType.Cronjob);
                 AsyncLongTermNextCycle();
                 Thread.Sleep(longTermInstructionSleepInMinutes * 1000 * 60);
             }
@@ -169,11 +171,14 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected virtual void AsyncLongTermNextCycle()
         {
+            Debug("Checking halting-state...", DebugType.Cronjob);
             if (haltActive)
             {
+                Debug("Halting active! Restarting system...", DebugType.Cronjob);
                 haltActive = false;
                 RestartSystem();
             }
+            else Debug("Halting disabled. Continuing regular operation.", DebugType.Cronjob);
         }
 
         /// <summary>
@@ -197,6 +202,8 @@ namespace EndevFrameworkNetworkCore
         {
             if (!haltActive)
             {
+                haltActive = true;
+
                 Debug("A fatal error occured. Attempting to halt all processes...", DebugType.Fatal);
 
                 // Terminate threads
@@ -206,7 +213,11 @@ namespace EndevFrameworkNetworkCore
                     instructionProcessingThread.Abort();
                     Debug("Successfully stopped Instruction-Processing!", DebugType.Fatal);
                 }
-                catch { Debug("Could not stop Instruction-Processing!", DebugType.Fatal); }
+                catch (Exception ex)
+                { 
+                    Debug("Could not stop Instruction-Processing!", DebugType.Fatal);
+                    if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                }
 
                 Debug("Halting Instruction-Sending...", DebugType.Fatal);
                 try
@@ -214,7 +225,11 @@ namespace EndevFrameworkNetworkCore
                     instructionSendingThread.Abort();
                     Debug("Successfully stopped Instruction-Sending!", DebugType.Fatal);
                 }
-                catch { Debug("Could not stop Instruction-Sending!", DebugType.Fatal); }
+                catch (Exception ex)
+                { 
+                    Debug("Could not stop Instruction-Sending!", DebugType.Fatal);
+                    if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                }
             }
         }
 

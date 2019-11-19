@@ -16,7 +16,8 @@ namespace EndevFrameworkNetworkCore
         Error,
         Fatal,
         Remote,
-        Exception
+        Exception,
+        Cronjob,
     }
 
 
@@ -65,6 +66,16 @@ namespace EndevFrameworkNetworkCore
                     Console.BackgroundColor = ConsoleColor.Black;
 
                     Console.Write("[WARNING] ");
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine(pMessage);
+                    break;
+                case DebugType.Cronjob:
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.BackgroundColor = ConsoleColor.Black;
+
+                    Console.Write("[CRONJOB] ");
 
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.BackgroundColor = ConsoleColor.Black;
