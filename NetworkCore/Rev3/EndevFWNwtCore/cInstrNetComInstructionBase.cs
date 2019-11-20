@@ -19,7 +19,8 @@ namespace EndevFrameworkNetworkCore
     {
         public NetComUser Sender { get; private set; } = null;
         public NetComUser Receiver { get; set; } = null;
-        
+
+        public string ID = null;
         protected string instruction = null;
         protected string sInstruction = null;
         protected string value = null;
@@ -53,6 +54,7 @@ namespace EndevFrameworkNetworkCore
 
             instruction = this.GetType().AssemblyQualifiedName;
             sInstruction = this.GetType().Name;
+            ID = Guid.NewGuid().ToString();
         }
 
         /// <summary>
@@ -84,6 +86,9 @@ namespace EndevFrameworkNetworkCore
             StringBuilder sb = new StringBuilder();
 
             if (rsaEncryption) sb.Append("R:");
+
+            // Instruction-ID
+            innersb.Append($"IID:{ID}$");
 
             // Version Data (Framework and instructionset)
             innersb.Append($"FWV:{FrameworkVersion}$");

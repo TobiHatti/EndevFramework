@@ -67,14 +67,14 @@ namespace EndevFrameworkNetworkCore
             {
                 try
                 {
-                    if ((outgoingInstructions[0].Receiver as NetComCData).Authenticated
-                        || outgoingInstructions[0].GetType() != typeof(InstructionLibraryEssentials.KeyExchangeServer2Client)
-                        || outgoingInstructions[0].GetType() != typeof(InstructionLibraryEssentials.AuthenticationServer2Client))
+                    if ((OutgoingInstructions[0].Receiver as NetComCData).Authenticated
+                        || OutgoingInstructions[0].GetType() != typeof(InstructionLibraryEssentials.KeyExchangeServer2Client)
+                        || OutgoingInstructions[0].GetType() != typeof(InstructionLibraryEssentials.AuthenticationServer2Client))
                     {
-                        Socket current = outgoingInstructions[0]?.Receiver.LocalSocket;
+                        Socket current = OutgoingInstructions[0]?.Receiver.LocalSocket;
                         byte[] data;
 
-                        data = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
+                        data = Encoding.UTF8.GetBytes(OutgoingInstructions[0].Encode());
 
                         try
                         {
@@ -89,15 +89,24 @@ namespace EndevFrameworkNetworkCore
                             return;
                         }
 
-                        Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.", DebugType.Info);
-                        Debug(outgoingInstructions[0].ToString(), DebugType.Info);
+                        Debug($"Sent Message to {OutgoingInstructions[0].Receiver.ToString()}.", DebugType.Info);
+                        Debug(OutgoingInstructions[0].ToString(), DebugType.Info);
+                        OutgoingInstructions.RemoveAt(0);
                     }
                     else
                     {
-                        Debug($"Could not send Message to {outgoingInstructions[0].Receiver.ToString()}. Authentication not valid.", DebugType.Error);
+                        Debug($"Could not send Message to {OutgoingInstructions[0].Receiver.ToString()}. Authentication not valid.", DebugType.Error);
+                        Debug($"Sending Authentication-Reminder...", DebugType.Info);
+
+                        // Queues a authentication-reminder
+                        Send(new InstructionLibraryEssentials.AuthenticationReminder(this, OutgoingInstructions[0].Receiver));
+
+                        // moves the current instruction to the back
+                        OutgoingInstructions.Add(OutgoingInstructions[0].Clone());
+                        OutgoingInstructions.RemoveAt(0);
                     }
 
-                    outgoingInstructions.RemoveAt(0);
+                    
                 }
                 catch (Exception ex)
                 {
@@ -323,7 +332,7 @@ namespace EndevFrameworkNetworkCore
             if (pInstruction.Receiver != null)
             {
                 Debug($"Queueing message for {pInstruction.Receiver.ToString()}.", DebugType.Info);
-                outgoingInstructions.Add(pInstruction);
+                OutgoingInstructions.Add(pInstruction);
             }
         }
 
@@ -345,7 +354,7 @@ namespace EndevFrameworkNetworkCore
                             tmpInstruction.Receiver = ConnectedClients[i];
 
                             Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
-                            outgoingInstructions.Add(tmpInstruction);
+                            OutgoingInstructions.Add(tmpInstruction);
                         }
                         catch (Exception ex)
                         {
@@ -381,7 +390,7 @@ namespace EndevFrameworkNetworkCore
                         tmpInstruction.Receiver = pUsers[i];
 
                         Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
-                        outgoingInstructions.Add(tmpInstruction);
+                        OutgoingInstructions.Add(tmpInstruction);
                     }
                     catch (Exception ex)
                     {
@@ -418,7 +427,7 @@ namespace EndevFrameworkNetworkCore
                             tmpInstruction.Receiver = pGroup.OnlineMembers[i];
 
                             Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
-                            outgoingInstructions.Add(tmpInstruction);
+                            OutgoingInstructions.Add(tmpInstruction);
                         }
                         catch (Exception ex)
                         {

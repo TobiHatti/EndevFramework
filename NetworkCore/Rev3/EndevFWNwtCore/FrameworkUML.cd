@@ -38,7 +38,7 @@
   <Class Name="EndevFrameworkNetworkCore.InstructionBase">
     <Position X="3.25" Y="14" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAARgAAQMCIAAAAAAAAAECCAACAAAAACIABA=</HashCode>
+      <HashCode>AAAAAAAAAARggAQMCIAAAAAAAAAECCAACAAAAACIABA=</HashCode>
       <FileName>cInstrNetComInstructionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -84,6 +84,11 @@
         </TypeIdentifier>
       </Class>
       <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ToOutputStream" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="EndevFrameworkNetworkCore.InstructionLibraryEssentials.ReceptionConfirmation" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>cInstrNetComInstructionLibraryEssentials.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -157,8 +162,8 @@
     <Position X="7" Y="4.75" Width="2.75" />
     <InheritanceLine Type="EndevFrameworkNetworkCore.NetComOperator" ManuallyRouted="true" FixedFromPoint="true">
       <Path>
-        <Point X="3.75" Y="4.5" />
-        <Point X="8.375" Y="4.5" />
+        <Point X="3.75" Y="4.438" />
+        <Point X="8.375" Y="4.438" />
         <Point X="8.375" Y="4.75" />
       </Path>
     </InheritanceLine>
@@ -180,7 +185,7 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAJAEAAQCCYKMAAAAAAGAIABgQAAAiAgABCAIJgJBg=</HashCode>
+      <HashCode>AAIJAEAAQCCYKMAAAAAAGAJABgQAAAiAgABCIIJgJBg=</HashCode>
       <FileName>cUsrNetComOperator.cs</FileName>
     </TypeIdentifier>
   </Class>

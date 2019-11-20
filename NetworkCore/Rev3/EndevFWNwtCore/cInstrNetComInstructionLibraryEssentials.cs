@@ -109,6 +109,29 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        ///  [CLIENT / SERVER]
+        ///  Confirms the reception and 
+        ///  execution of an instruction.
+        /// </summary>
+        internal class ReceptionConfirmation : ISB
+        {
+            public ReceptionConfirmation(NetComUser pSender, NetComUser pReceiver, string pInstructionID)
+               : base(pSender, pReceiver, pInstructionID, null) { }
+
+            public override void Execute()
+            {
+                (Receiver as NetComOperator).ConfirmExecution(value);
+            }
+        }
+
+        //===========================================================================================
+        //= /\  /\  /\  /\  /\  /\  /\  /\          INTERNAL         /\  /\  /\  /\  /\  /\  /\  /\ =
+        //===========================================================================================
+        //= \/  \/  \/  \/  \/  \/  \/  \/           PUBLIC          \/  \/  \/  \/  \/  \/  \/  \/ =
+        //===========================================================================================
+
+
+        /// <summary>
         /// [CLIENT / SERVER]
         /// Basic Test-Instruction to check if 
         /// instruction reach the receiver.

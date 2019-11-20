@@ -41,6 +41,7 @@ namespace EndevFrameworkNetworkCore
                 {
                     if (string.IsNullOrEmpty(encodedInstruction)) continue;
 
+                    string instructionID = null;
                     string frameworkVersion = null;
                     string instructionsetVersion = null;
                     string username = null;
@@ -59,7 +60,7 @@ namespace EndevFrameworkNetworkCore
 
                     string encInstr = encodedInstruction;
 
-                    if(encInstr.StartsWith("R:"))
+                    if (encInstr.StartsWith("R:"))
                     {
                         rsaEncoded = true;
                         encInstr = encInstr.Remove(0, 2);
@@ -79,7 +80,7 @@ namespace EndevFrameworkNetworkCore
 
                         continue;
                     }
-                      
+
 
                     // INS:B64,VAL:B64,PAR:B64#B64|B64#B64|,
 
@@ -91,26 +92,27 @@ namespace EndevFrameworkNetworkCore
 
                         string[] encodedSegmentParts = encodedInstrSegment.Split(':');
 
-                        switch(encodedSegmentParts[0])
+                        switch (encodedSegmentParts[0])
                         {
+                            case "IID": instructionID = encodedSegmentParts[1]; break;
                             case "FWV": frameworkVersion = encodedSegmentParts[1]; break;
                             case "ISV": instructionsetVersion = encodedSegmentParts[1]; break;
                             case "PUK": publicKey = encodedSegmentParts[1]; break;
                             case "USR": username = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
-                            case "PSW": 
-                                if(rsaEncoded)
-                                    password = RSAHandler.Decrypt(pLocalUser.RSAKeys.PrivateKey, encodedSegmentParts[1]); 
+                            case "PSW":
+                                if (rsaEncoded)
+                                    password = RSAHandler.Decrypt(pLocalUser.RSAKeys.PrivateKey, encodedSegmentParts[1]);
                                 break;
                             case "SGP": signaturePlain = encodedSegmentParts[1]; break;
                             case "SGC":
                                 if (rsaEncoded)
-                                    signatureRSA = encodedSegmentParts[1]; 
+                                    signatureRSA = encodedSegmentParts[1];
                                 break;
                             case "INS": instruction = encodedSegmentParts[1]; break;
                             case "VAL": value = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
-                            case "PAR": 
-                                    
-                                foreach(string paramGroup in encodedSegmentParts[1].Split('|'))
+                            case "PAR":
+
+                                foreach (string paramGroup in encodedSegmentParts[1].Split('|'))
                                 {
                                     if (string.IsNullOrEmpty(paramGroup)) continue;
 
@@ -147,7 +149,22 @@ namespace EndevFrameworkNetworkCore
                                 break;
                         }
                     }
-                    
+
+                    // Check if the instruction has been processed before
+                    if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
+                    {
+                        if ((pLocalUser as NetComOperator).InstructionLogIncomming.Contains(instructionID))
+                        {
+                            if (pLocalUser.GetType() == typeof(NetComClient))
+                                (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
+
+                            if (pLocalUser.GetType() == typeof(NetComServer))
+                                (pLocalUser as NetComServer).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, (pLocalUser as NetComServer).ConnectedClients[pReceptionSocket], instructionID));
+
+                            continue;
+                        }
+                    }
+
                     // Check instructionset-version
                     if (ForceInstructionsetVersion && InstructionBase.InstructionSetVersion != instructionsetVersion)
                         throw new NetComVersionException($"*** The received package uses a different verion of the Instruction-Set! Local version: {InstructionBase.InstructionSetVersion} - Senders version: {instructionsetVersion} ***");
@@ -157,16 +174,16 @@ namespace EndevFrameworkNetworkCore
                         throw new NetComVersionException($"*** The received package was built using a different verion of the Framework! Local version: {InstructionBase.FrameworkVersion} - Senders version: {frameworkVersion} ***");
 
                     // Check signature
-                    if (rsaEncoded && !RSAHandler.Verify(publicKey, signaturePlain, signatureRSA)) 
+                    if (rsaEncoded && !RSAHandler.Verify(publicKey, signaturePlain, signatureRSA))
                         throw new NetComSignatureException("*** The received packets signature is invalid! ***");
 
-                    if(pServerClientList != null)
+                    if (pServerClientList != null)
                     {
                         // Server -> Assign received data to clientlist
 
                         pServerClientList[pReceptionSocket].SetUserData(username, password, publicKey);
 
-                        if(instruction != typeof(InstructionLibraryEssentials.KeyExchangeClient2Server).AssemblyQualifiedName
+                        if (instruction != typeof(InstructionLibraryEssentials.KeyExchangeClient2Server).AssemblyQualifiedName
                             && !pServerClientList[pReceptionSocket].Authenticate(password))
                             throw new NetComAuthenticationException("*** Authentication failed! Wrong username / password ***");
 
@@ -186,6 +203,18 @@ namespace EndevFrameworkNetworkCore
                         yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value);
                     else
                         yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value, parameters.ToArray());
+
+                    // Send confirmation (if the instruction is not a confirmation itself)
+                    if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
+                    {
+                        (pLocalUser as NetComOperator).InstructionLogIncomming.Add(instructionID);
+
+                        if (pLocalUser.GetType() == typeof(NetComClient))
+                            (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
+
+                        if (pLocalUser.GetType() == typeof(NetComServer))
+                            (pLocalUser as NetComServer).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, (pLocalUser as NetComServer).ConnectedClients[pReceptionSocket], instructionID));
+                    }
                 }
             }
         }

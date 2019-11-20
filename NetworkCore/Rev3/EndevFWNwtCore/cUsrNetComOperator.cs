@@ -33,7 +33,13 @@ namespace EndevFrameworkNetworkCore
         protected volatile byte[] buffer = new byte[bufferSize];
 
         protected volatile List<InstructionBase> incommingInstructions = new List<InstructionBase>();
-        protected volatile List<InstructionBase> outgoingInstructions = new List<InstructionBase>();
+        internal volatile List<InstructionBase> OutgoingInstructions = new List<InstructionBase>();
+
+        // Stores the ID's of all incomming instructions
+        internal volatile List<string> InstructionLogIncomming = new List<string>();
+
+        // Stores a copy of every instruction that gets sent in case it needs to be re-send
+        protected volatile InstructionOutLog instructionLogOutgoing = new InstructionOutLog();
 
         public delegate void DebuggingOutput(string pDebugMessage, DebugType pType, params object[] pParameters);
         protected DebuggingOutput DebugCom = null;
@@ -53,19 +59,31 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         public virtual void Start()
         {
-            Debug("Starting Background-Process: Instruction-Processing...", DebugType.Info);
-            instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
-            instructionProcessingThread.Start();
+            if (instructionProcessingThread?.IsAlive == false)
+            {
+                Debug("Starting Background-Process: Instruction-Processing...", DebugType.Info);
+                instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
+                instructionProcessingThread.Start();
+            }
+            else Debug("Instruction-Processing is already active.", DebugType.Warning);
 
-            Debug("Starting Background-Process: Instruction-Sending...", DebugType.Info);
-            instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
-            instructionSendingThread.Start();
+            if (instructionSendingThread?.IsAlive == false)
+            {
+                Debug("Starting Background-Process: Instruction-Sending...", DebugType.Info);
+                instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
+                instructionSendingThread.Start();
+            }
+            else Debug("Instruction-Sending is already active.", DebugType.Warning);
 
             if (!haltActive)
             {
-                Debug("Starting Background-Process: Long-Term-Operations...", DebugType.Info);
-                longTermOperationThread = new Thread(AsyncLongTermInstructionLoop);
-                longTermOperationThread.Start();
+                if (instructionSendingThread?.IsAlive == false)
+                {
+                    Debug("Starting Background-Process: Long-Term-Operations...", DebugType.Info);
+                    longTermOperationThread = new Thread(AsyncLongTermInstructionLoop);
+                    longTermOperationThread.Start();
+                }
+                else Debug("Background-Worker is already active.", DebugType.Warning);
             }
         }
 
@@ -99,7 +117,7 @@ namespace EndevFrameworkNetworkCore
             {
                 while (true)
                 {
-                    if (outgoingInstructions.Count > 0)
+                    if (OutgoingInstructions.Count > 0)
                         AsyncInstructionSendNext();
                     else
                         Thread.Sleep(threadIdleTime);
@@ -153,7 +171,13 @@ namespace EndevFrameworkNetworkCore
         /// <summary>
         /// Sends the next instruction from the outgoing-queue.
         /// </summary>
-        protected abstract void AsyncInstructionSendNext();
+        protected virtual void AsyncInstructionSendNext()
+        {
+            if (!haltActive)
+            {
+                instructionLogOutgoing.Add(OutgoingInstructions[0].Clone());
+            }
+        }
 
         /// <summary>
         /// Processes next instruction in the incomming-queue.
@@ -171,14 +195,8 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected virtual void AsyncLongTermNextCycle()
         {
-            Debug("Checking halting-state...", DebugType.Cronjob);
-            if (haltActive)
-            {
-                Debug("Halting active! Restarting system...", DebugType.Cronjob);
-                haltActive = false;
-                RestartSystem();
-            }
-            else Debug("Halting disabled. Continuing regular operation.", DebugType.Cronjob);
+            CheckHaltingState();
+            CheckInstructionIntegrity();
         }
 
         /// <summary>
@@ -193,6 +211,35 @@ namespace EndevFrameworkNetworkCore
             string retval = OutputStream[0];
             OutputStream.RemoveAt(0);
             return retval;
+        }
+
+        protected void CheckHaltingState()
+        {
+            Debug("Checking halting-state...", DebugType.Cronjob);
+            if (haltActive)
+            {
+                Debug("Halting active! Restarting system...", DebugType.Cronjob);
+                haltActive = false;
+                RestartSystem();
+            }
+            else Debug("Halting disabled. Continuing regular operation.", DebugType.Cronjob);
+        }
+
+        protected void CheckInstructionIntegrity()
+        {
+            Debug("Checking instruction-integrity...", DebugType.Cronjob);
+
+            // Remove instruction that failed to be resent 5 times
+            for (int i = instructionLogOutgoing.Count - 1; i >= 0; i--)
+                if (instructionLogOutgoing.GetAttempts(i) > 5)
+                    instructionLogOutgoing.RemoveAt(i);
+
+            // Re-Send every instruction that is still in the outgoing-log
+            for (int i = 0; i < instructionLogOutgoing.Count; i++)
+            {
+                OutgoingInstructions.Add(instructionLogOutgoing[i].Clone());
+                instructionLogOutgoing.AddAttempt(i);
+            }
         }
 
         /// <summary>
@@ -234,6 +281,20 @@ namespace EndevFrameworkNetworkCore
         }
 
         /// <summary>
+        /// Confirms that the instruction reached the receiver and therefor 
+        /// can be removed from the outgoing-log
+        /// </summary>
+        /// <param name="pInstructionID">ID of the Instruction</param>
+        internal void ConfirmExecution(string pInstructionID)
+        {
+            for (int i = 0; i < instructionLogOutgoing.Count; i++)
+                if (instructionLogOutgoing[i].ID == pInstructionID)
+                {
+                    instructionLogOutgoing.RemoveAt(i);
+                }      
+        }
+
+        /// <summary>
         /// Restarts the system.
         /// </summary>
         protected virtual void RestartSystem()
@@ -241,7 +302,7 @@ namespace EndevFrameworkNetworkCore
             // Re-Define arrays and lists
             buffer = new byte[bufferSize];
             incommingInstructions = new List<InstructionBase>();
-            outgoingInstructions = new List<InstructionBase>();
+            OutgoingInstructions = new List<InstructionBase>();
         }
     }
 }

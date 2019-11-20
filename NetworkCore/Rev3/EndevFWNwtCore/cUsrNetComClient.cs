@@ -68,9 +68,13 @@ namespace EndevFrameworkNetworkCore
 
                 TryConnect();
 
-                Debug("Starting Background-Process: Instruction-Receiving...", DebugType.Info);
-                instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
-                instructionReceptionThread.Start();
+                if (instructionReceptionThread?.IsAlive == false)
+                {
+                    Debug("Starting Background-Process: Instruction-Receiving...", DebugType.Info);
+                    instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
+                    instructionReceptionThread.Start();
+                }
+                else Debug("Instruction-Receiving is already active.", DebugType.Warning);
 
                 base.Start();
 
@@ -124,7 +128,7 @@ namespace EndevFrameworkNetworkCore
             {
                 pInstruction.SetReceiverPublicKey(serverPublicKey);
 
-                outgoingInstructions.Add(pInstruction);
+                OutgoingInstructions.Add(pInstruction);
             }
             catch (Exception ex)
             {
@@ -159,14 +163,14 @@ namespace EndevFrameworkNetworkCore
             {
                 byte[] buffer;
 
-                buffer = Encoding.UTF8.GetBytes(outgoingInstructions[0].Encode());
+                buffer = Encoding.UTF8.GetBytes(OutgoingInstructions[0].Encode());
 
                 LocalSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
 
-                Debug($"Sent Message to {outgoingInstructions[0].Receiver.ToString()}.", DebugType.Info);
-                Debug(outgoingInstructions[0].ToString(), DebugType.Info);
+                Debug($"Sent Message to {OutgoingInstructions[0].Receiver.ToString()}.", DebugType.Info);
+                Debug(OutgoingInstructions[0].ToString(), DebugType.Info);
 
-                outgoingInstructions.RemoveAt(0);
+                OutgoingInstructions.RemoveAt(0);
             }
             else
             {

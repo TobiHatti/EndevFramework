@@ -23,7 +23,6 @@ namespace SampleStartupAssist
 
             while (true)
             {
-
                 Console.Write("Amount of clients: ");
                 var clientCount = Convert.ToInt32(Console.ReadLine());
 
