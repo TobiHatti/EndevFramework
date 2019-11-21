@@ -63,6 +63,8 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected override void AsyncInstructionSendNext()
         {
+            base.AsyncInstructionSendNext();
+
             if (!haltActive)
             {
                 try
@@ -82,7 +84,7 @@ namespace EndevFrameworkNetworkCore
                         }
                         catch (Exception)
                         {
-                            Debug("Client disconnected > Connection lost.", DebugType.Warning);
+                            Debug("Client disconnected > Connection lost. (101)", DebugType.Warning);
                             current.Close();
                             UserGroups.Disconnect(current);
                             ConnectedClients.Remove(current);
@@ -250,7 +252,7 @@ namespace EndevFrameworkNetworkCore
                 }
                 catch (SocketException)
                 {
-                    Debug("Client disconnected > Connection lost.", DebugType.Warning);
+                    Debug("Client disconnected > Connection lost. (102)", DebugType.Warning);
                     // Don't shutdown because the socket may be disposed and its disconnected anyway.
                     current.Close();
                     UserGroups.Disconnect(current);
@@ -307,7 +309,7 @@ namespace EndevFrameworkNetworkCore
                 }
                 catch (SocketException)
                 {
-                    Debug("Client disconnected > Connection lost.", DebugType.Warning);
+                    Debug("Client disconnected > Connection lost. (103)", DebugType.Warning);
                     // Don't shutdown because the socket may be disposed and its disconnected anyway.
                     current.Close();
                     UserGroups.Disconnect(current);

@@ -140,6 +140,7 @@ namespace EndevFrameworkNetworkCore
             StringBuilder innersb = new StringBuilder();
             StringBuilder sb = new StringBuilder();
 
+            innersb.Append($"IID:{ID}$");
             innersb.Append($"FWV:{FrameworkVersion}$");
             innersb.Append($"ISV:{InstructionSetVersion}$");
             innersb.Append($"PUK:{Sender?.RSAKeys.PublicKey}$");
@@ -162,6 +163,7 @@ namespace EndevFrameworkNetworkCore
             StringBuilder innersb = new StringBuilder();
             StringBuilder sb = new StringBuilder();
 
+            innersb.Append($"IID:{ID}$");
             innersb.Append($"FWV:{FrameworkVersion}$");
             innersb.Append($"ISV:{InstructionSetVersion}$");
             innersb.Append($"PUK:{Sender?.RSAKeys.PublicKey}$");
@@ -193,6 +195,7 @@ namespace EndevFrameworkNetworkCore
             sb.AppendLine($"\tEndev NetCore {FrameworkVersion} Instruction");
             sb.AppendLine($"\tInstruction-Set Version {InstructionSetVersion}");
             sb.AppendLine("\t=================================");
+            sb.AppendLine($"\tInstruction-ID: {ID}");
             sb.AppendLine($"\tRSA-Encrypted: {isRSAEncrypted}");
             sb.AppendLine($"\tRSA-Signed: {isRSASigned}");
 
@@ -242,6 +245,7 @@ namespace EndevFrameworkNetworkCore
             else
                 retInstr = (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), Sender, Receiver, value, parameters);
 
+            retInstr.ID = ID;
             retInstr.instruction = instruction;
             retInstr.sInstruction = sInstruction;
             retInstr.Sender = Sender;

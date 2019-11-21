@@ -68,13 +68,17 @@ namespace EndevFrameworkNetworkCore
 
                 TryConnect();
 
-                if (instructionReceptionThread?.IsAlive == false)
-                {
-                    Debug("Starting Background-Process: Instruction-Receiving...", DebugType.Info);
-                    instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
-                    instructionReceptionThread.Start();
-                }
-                else Debug("Instruction-Receiving is already active.", DebugType.Warning);
+                //if (instructionReceptionThread?.IsAlive == false)
+                //{
+                //    Debug("Starting Background-Process: Instruction-Receiving...", DebugType.Info);
+                //    instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
+                //    instructionReceptionThread.Start();
+                //}
+                //else Debug("Instruction-Receiving is already active.", DebugType.Warning);
+
+                Debug("Starting Background-Process: Instruction-Receiving...", DebugType.Info);
+                instructionReceptionThread = new Thread(AsyncInstructionReceptionLoop);
+                instructionReceptionThread.Start();
 
                 base.Start();
 
@@ -159,6 +163,8 @@ namespace EndevFrameworkNetworkCore
         /// </summary>
         protected override void AsyncInstructionSendNext()
         {
+            base.AsyncInstructionSendNext();
+
             if (!haltActive)
             {
                 byte[] buffer;

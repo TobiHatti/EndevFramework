@@ -43,14 +43,17 @@ namespace SampleAppServer
 
             while (true)
             {
+                Console.Title = $"Server  -  Send: {server.TotalSendCounter}     Receive: {server.TotalReceiveCounter}";
                 server.Send(new ILE.TestSample(server, server.ConnectedClients[new Random().Next(0, server.ConnectedClients.Count)]));
 
                 Thread.Sleep(2000);
 
+                Console.Title = $"Server  -  Send: {server.TotalSendCounter}     Receive: {server.TotalReceiveCounter}";
                 server.GroupSend(new ILE.TestSample(server, null),server.UserGroups["Awesome dudes"]);
 
                 Thread.Sleep(2000);
 
+                Console.Title = $"Server  -  Send: {server.TotalSendCounter}     Receive: {server.TotalReceiveCounter}";
                 server.Broadcast(new ILE.TestSample(server, null));
 
                 Thread.Sleep(2000);

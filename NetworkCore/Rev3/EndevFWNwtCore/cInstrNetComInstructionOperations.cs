@@ -35,6 +35,8 @@ namespace EndevFrameworkNetworkCore
         {
             //  RSA:<Base64>;RSA:<Base64>;
 
+            List<InstructionBase> retInstr = new List<InstructionBase>();
+
             lock (pLocalUser)
             {
                 foreach (string encodedInstruction in pInstructionString.Split('%'))
@@ -153,16 +155,23 @@ namespace EndevFrameworkNetworkCore
                     // Check if the instruction has been processed before
                     if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
                     {
+                        (pLocalUser as NetComOperator).Debug($"-------> Checking if instruction has been processed before. {instructionID}", DebugType.Info);
+
                         if ((pLocalUser as NetComOperator).InstructionLogIncomming.Contains(instructionID))
                         {
+                            (pLocalUser as NetComOperator).Debug($"-------> Instruction is already known Sending Confirmation. {instructionID}", DebugType.Info);
+
                             if (pLocalUser.GetType() == typeof(NetComClient))
                                 (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
 
                             if (pLocalUser.GetType() == typeof(NetComServer))
                                 (pLocalUser as NetComServer).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, (pLocalUser as NetComServer).ConnectedClients[pReceptionSocket], instructionID));
 
+                            (pLocalUser as NetComOperator).Debug($"-------> Terminating instructionSending. {instructionID}", DebugType.Info);
+
                             continue;
                         }
+                        else (pLocalUser as NetComOperator).Debug($"-------> New instruction!. {instructionID}", DebugType.Info);
                     }
 
                     // Check instructionset-version
@@ -184,9 +193,10 @@ namespace EndevFrameworkNetworkCore
                         pServerClientList[pReceptionSocket].SetUserData(username, password, publicKey);
 
                         if (instruction != typeof(InstructionLibraryEssentials.KeyExchangeClient2Server).AssemblyQualifiedName
+                            && instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName
                             && !pServerClientList[pReceptionSocket].Authenticate(password))
                             throw new NetComAuthenticationException("*** Authentication failed! Wrong username / password ***");
-
+               
                         user = pServerClientList[pReceptionSocket];
                     }
                     else
@@ -197,26 +207,45 @@ namespace EndevFrameworkNetworkCore
                         user.SetUserData(username, password, publicKey);
                     }
 
-                    if (value == null && parameters.Count == 0)
-                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser);
-                    else if (parameters.Count == 0)
-                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value);
-                    else
-                        yield return (InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value, parameters.ToArray());
-
-                    // Send confirmation (if the instruction is not a confirmation itself)
-                    if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
+                    try
                     {
-                        (pLocalUser as NetComOperator).InstructionLogIncomming.Add(instructionID);
+                        if (instruction == typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
+                            retInstr.Add((InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value));
+                        else if (value == null && parameters.Count == 0)
+                            retInstr.Add((InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser));
+                        else if (parameters.Count == 0)
+                            retInstr.Add((InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value));
+                        else
+                            retInstr.Add((InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value, parameters.ToArray()));
 
-                        if (pLocalUser.GetType() == typeof(NetComClient))
-                            (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
+                        // Increment the total receive counter
+                        (pLocalUser as NetComOperator).TotalReceiveCounter++;
 
-                        if (pLocalUser.GetType() == typeof(NetComServer))
-                            (pLocalUser as NetComServer).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, (pLocalUser as NetComServer).ConnectedClients[pReceptionSocket], instructionID));
+                        // Send confirmation (if the instruction is not a confirmation itself)
+                        if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
+                        {
+                            (pLocalUser as NetComOperator).Debug($"-------> Instruction was successfully rebuilt. {instructionID}", DebugType.Info);
+                            (pLocalUser as NetComOperator).Debug($"-------> Adding instruction to incomming-log. {instructionID}", DebugType.Info);
+                            (pLocalUser as NetComOperator).InstructionLogIncomming.Add(instructionID);
+
+                            (pLocalUser as NetComOperator).Debug($"-------> Sending Reception-Confirmation for. {instructionID}", DebugType.Info);
+
+                            if (pLocalUser.GetType() == typeof(NetComClient))
+                                (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
+
+                            if (pLocalUser.GetType() == typeof(NetComServer))
+                                (pLocalUser as NetComServer).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, (pLocalUser as NetComServer).ConnectedClients[pReceptionSocket], instructionID));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        (pLocalUser as NetComOperator).Debug("Could not recreate the instruction.", DebugType.Error);
+                        if ((pLocalUser as NetComOperator).ShowExceptions) (pLocalUser as NetComOperator).Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
                     }
                 }
             }
+
+            return retInstr.ToArray();
         }
     }
 }

@@ -120,6 +120,7 @@ namespace EndevFrameworkNetworkCore
 
             public override void Execute()
             {
+                (Receiver as NetComOperator).Debug($"Instruction-Confirmation received! [{value}] : [InsType: {(Receiver as NetComOperator).InstructionLogOutgoing[value]?.GetType()?.Name}]", DebugType.Confirmation);
                 (Receiver as NetComOperator).ConfirmExecution(value);
             }
         }

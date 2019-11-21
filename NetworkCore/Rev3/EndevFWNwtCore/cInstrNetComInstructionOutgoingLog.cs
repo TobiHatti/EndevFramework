@@ -25,6 +25,16 @@ namespace EndevFrameworkNetworkCore
             }
         }
 
+        public InstructionBase this[string pInstructionID]
+        {
+            get
+            {
+                foreach (InstructionBase ib in instructions)
+                    if (ib.ID == pInstructionID) return ib;
+                return null;
+            }
+        }
+
         public void Add(InstructionBase pInstruction)
         {
             instructions.Add(pInstruction);

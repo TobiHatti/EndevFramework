@@ -18,6 +18,7 @@ namespace EndevFrameworkNetworkCore
         Remote,
         Exception,
         Cronjob,
+        Confirmation,
     }
 
 
@@ -76,6 +77,16 @@ namespace EndevFrameworkNetworkCore
                     Console.BackgroundColor = ConsoleColor.Black;
 
                     Console.Write("[CRONJOB] ");
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine(pMessage);
+                    break;
+                case DebugType.Confirmation:
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.BackgroundColor = ConsoleColor.Black;
+
+                    Console.Write("[CONFIRM] ");
 
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.BackgroundColor = ConsoleColor.Black;
