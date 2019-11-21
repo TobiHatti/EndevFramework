@@ -21,11 +21,14 @@ namespace EndevFrameworkNetworkCore
     {
         protected IPAddress serverIP = null;
         protected int port = 2225;
-        protected int _logErrorCount = 0;
-        protected int _logTotalInstructionCount = 0;
+        protected ulong _logErrorCount = 0;
+        protected ulong _logTotalInstructionCount = 0;
 
-        public int TotalSendCounter { get; internal set; } = 0;
-        public int TotalReceiveCounter { get; internal set; } = 0;
+        // Funfact: ulong and 100KB allows 1,8 Yottabytes (1.800.000.000.000.000 GB) 
+        //to be sent before an overflow-exception gets thrown.
+
+        public ulong TotalSendCounter { get; internal set; } = 0;
+        public ulong TotalReceiveCounter { get; internal set; } = 0;
 
         public bool AutoRestartOnCrash { get; set; } = true;
         public bool ShowExceptions { get; set; } = true;
@@ -253,7 +256,7 @@ namespace EndevFrameworkNetworkCore
 
             // Remove instruction that failed to be resent 5 times
             for (int i = InstructionLogOutgoing.Count - 1; i >= 0; i--)
-                if (InstructionLogOutgoing.GetAttempts(i) > 5)
+                if (InstructionLogOutgoing.GetAttempts(i) > 20)
                     InstructionLogOutgoing.RemoveAt(i);
 
             // Re-Send every instruction that is still in the outgoing-log

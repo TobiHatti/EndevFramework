@@ -155,23 +155,15 @@ namespace EndevFrameworkNetworkCore
                     // Check if the instruction has been processed before
                     if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
                     {
-                        (pLocalUser as NetComOperator).Debug($"-------> Checking if instruction has been processed before. {instructionID}", DebugType.Info);
-
                         if ((pLocalUser as NetComOperator).InstructionLogIncomming.Contains(instructionID))
                         {
-                            (pLocalUser as NetComOperator).Debug($"-------> Instruction is already known Sending Confirmation. {instructionID}", DebugType.Info);
-
                             if (pLocalUser.GetType() == typeof(NetComClient))
                                 (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
 
                             if (pLocalUser.GetType() == typeof(NetComServer))
                                 (pLocalUser as NetComServer).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, (pLocalUser as NetComServer).ConnectedClients[pReceptionSocket], instructionID));
-
-                            (pLocalUser as NetComOperator).Debug($"-------> Terminating instructionSending. {instructionID}", DebugType.Info);
-
                             continue;
                         }
-                        else (pLocalUser as NetComOperator).Debug($"-------> New instruction!. {instructionID}", DebugType.Info);
                     }
 
                     // Check instructionset-version
@@ -224,11 +216,7 @@ namespace EndevFrameworkNetworkCore
                         // Send confirmation (if the instruction is not a confirmation itself)
                         if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
                         {
-                            (pLocalUser as NetComOperator).Debug($"-------> Instruction was successfully rebuilt. {instructionID}", DebugType.Info);
-                            (pLocalUser as NetComOperator).Debug($"-------> Adding instruction to incomming-log. {instructionID}", DebugType.Info);
                             (pLocalUser as NetComOperator).InstructionLogIncomming.Add(instructionID);
-
-                            (pLocalUser as NetComOperator).Debug($"-------> Sending Reception-Confirmation for. {instructionID}", DebugType.Info);
 
                             if (pLocalUser.GetType() == typeof(NetComClient))
                                 (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
