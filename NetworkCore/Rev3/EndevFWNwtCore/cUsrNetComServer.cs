@@ -24,6 +24,8 @@ namespace EndevFrameworkNetworkCore
         public ClientList ConnectedClients { get; private set; } = new ClientList();
         public NetComGroups UserGroups { get; private set; } = new NetComGroups();
 
+        private Thread fullRestartThread = null;
+
         /// <summary>
         /// Gets the client of the currently processing instruction.
         /// </summary>
@@ -331,10 +333,13 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pInstruction">Instruction to send. The receiver is set by the 'pReceiver'-parameter</param>
         public void Send(InstructionBase pInstruction)
         {
-            if (pInstruction.Receiver != null)
+            if (!haltActive)
             {
-                Debug($"Queueing message for {pInstruction.Receiver.ToString()}.", DebugType.Info);
-                OutgoingInstructions.Add(pInstruction);
+                if (pInstruction.Receiver != null)
+                {
+                    Debug($"Queueing message for {pInstruction.Receiver.ToString()}.", DebugType.Info);
+                    OutgoingInstructions.Add(pInstruction);
+                }
             }
         }
 
@@ -344,34 +349,40 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pInstruction">Instruction to send. Set the receiver-parameter to 'null'</param>
         public void Broadcast(InstructionBase pInstruction)
         {
-            try
+            if (!haltActive)
             {
-                lock (ConnectedClients)
+                try
                 {
-                    for (int i = 0; i < ConnectedClients.Count; i++)
+                    lock (ConnectedClients)
                     {
-                        try
+                        for (int i = 0; i < ConnectedClients.Count; i++)
                         {
-                            InstructionBase tmpInstruction = pInstruction.Clone();
-                            tmpInstruction.Receiver = ConnectedClients[i];
+                            if (!string.IsNullOrEmpty(ConnectedClients[i].Username) && !string.IsNullOrEmpty(ConnectedClients[i].Password))
+                            {
+                                try
+                                {
+                                    InstructionBase tmpInstruction = pInstruction.Clone();
+                                    tmpInstruction.Receiver = ConnectedClients[i];
 
-                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
-                            OutgoingInstructions.Add(tmpInstruction);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug("Broadcast-Error.", DebugType.Error);
-                            if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
-                            _logErrorCount++;
+                                    Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
+                                    OutgoingInstructions.Add(tmpInstruction);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug("Broadcast-Error.", DebugType.Error);
+                                    if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                                    _logErrorCount++;
+                                }
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug("Halting (04)", DebugType.Warning);
-                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
-                if (AutoRestartOnCrash) HaltAllThreads();
+                catch (Exception ex)
+                {
+                    Debug("Halting (04)", DebugType.Warning);
+                    if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                    if (AutoRestartOnCrash) HaltAllThreads();
+                }
             }
         }
 
@@ -382,31 +393,37 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pUsers">Target users</param>
         public void ListSend(InstructionBase pInstruction, params NetComUser[] pUsers)
         {
-            try
+            if (!haltActive)
             {
-                for (int i = 0; i < pUsers.Length; i++)
+                try
                 {
-                    try
+                    for (int i = 0; i < pUsers.Length; i++)
                     {
-                        InstructionBase tmpInstruction = pInstruction.Clone();
-                        tmpInstruction.Receiver = pUsers[i];
+                        if (!string.IsNullOrEmpty(pUsers[i].Username) && !string.IsNullOrEmpty(pUsers[i].Password))
+                        {
+                            try
+                            {
+                                InstructionBase tmpInstruction = pInstruction.Clone();
+                                tmpInstruction.Receiver = pUsers[i];
 
-                        Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
-                        OutgoingInstructions.Add(tmpInstruction);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug("ListSend-Error.", DebugType.Error);
-                        if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
-                        _logErrorCount++;
+                                Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
+                                OutgoingInstructions.Add(tmpInstruction);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug("ListSend-Error.", DebugType.Error);
+                                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                                _logErrorCount++;
+                            }
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug("Halting (03)", DebugType.Warning);
-                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
-                if (AutoRestartOnCrash) HaltAllThreads();
+                catch (Exception ex)
+                {
+                    Debug("Halting (03)", DebugType.Warning);
+                    if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                    if (AutoRestartOnCrash) HaltAllThreads();
+                }
             }
         }
 
@@ -417,34 +434,40 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pGroup">Target group</param>
         public void GroupSend(InstructionBase pInstruction, UserGroup pGroup)
         {
-            try
+            if (!haltActive)
             {
-                lock (pGroup)
+                try
                 {
-                    for (int i = 0; i < pGroup.OnlineMembers.Count; i++)
+                    lock (pGroup)
                     {
-                        try
+                        for (int i = 0; i < pGroup.OnlineMembers.Count; i++)
                         {
-                            InstructionBase tmpInstruction = pInstruction.Clone();
-                            tmpInstruction.Receiver = pGroup.OnlineMembers[i];
+                            if (!string.IsNullOrEmpty(pGroup.OnlineMembers[i].Username) && !string.IsNullOrEmpty(pGroup.OnlineMembers[i].Password))
+                            {
+                                try
+                                {
+                                    InstructionBase tmpInstruction = pInstruction.Clone();
+                                    tmpInstruction.Receiver = pGroup.OnlineMembers[i];
 
-                            Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
-                            OutgoingInstructions.Add(tmpInstruction);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug("GroupSend-Error.", DebugType.Error);
-                            if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
-                            _logErrorCount++;
+                                    Debug($"Queueing message for {tmpInstruction.Receiver.ToString()}.", DebugType.Info);
+                                    OutgoingInstructions.Add(tmpInstruction);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug("GroupSend-Error.", DebugType.Error);
+                                    if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                                    _logErrorCount++;
+                                }
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug("Halting (02)", DebugType.Warning);
-                if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
-                if (AutoRestartOnCrash) HaltAllThreads();
+                catch (Exception ex)
+                {
+                    Debug("Halting (02)", DebugType.Warning);
+                    if (ShowExceptions) Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                    if (AutoRestartOnCrash) HaltAllThreads();
+                }
             }
         }
 
