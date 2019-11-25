@@ -1,0 +1,5 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\cHdlrNetComHandler\bin\Debug\EndevFramework.NetworkCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\cHdlrNetComHandler\bin\Debug\EndevFramework.NetworkCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\cHdlrNetComHandler\obj\Debug\EndevFrameworkNetworkCore.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\cHdlrNetComHandler\obj\Debug\EndevFramework.NetworkCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\cHdlrNetComHandler\obj\Debug\EndevFramework.NetworkCore.pdb

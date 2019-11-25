@@ -55,10 +55,12 @@
     <Compile Include="cInstrNetComInstructionOutgoingLog.cs" />
     <Compile Include="cUsrNetComCData.cs" />
     <Compile Include="cUsrNetComClient.cs" />
+    <Compile Include="cUsrNetComClientHandler.cs" />
     <Compile Include="cUsrNetComClientList.cs" />
     <Compile Include="cUsrNetComGroups.cs" />
     <Compile Include="cUsrNetComOperator.cs" />
     <Compile Include="cUsrNetComServer.cs" />
+    <Compile Include="cUsrNetComServerHandler.cs" />
     <Compile Include="cUsrNetComUser.cs" />
     <Compile Include="cUsrNetComUserGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
