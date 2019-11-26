@@ -31,7 +31,7 @@ namespace EndevFrameworkNetworkCore
         /// <param name="pInstructionString">Encoded instruction-string. Can contain multiple instructions.</param>
         /// <param name="pServerClientList">Client-List for authentication (NetComServer only!)</param>
         /// <returns></returns>
-        public static IEnumerable<InstructionBase> Parse(NetComUser pLocalUser, Socket pReceptionSocket, string pInstructionString, ClientList pServerClientList = null)
+        internal static IEnumerable<InstructionBase> Parse(NetComUser pLocalUser, Socket pReceptionSocket, string pInstructionString, ClientList pServerClientList = null)
         {
             //  RSA:<Base64>;RSA:<Base64>;
 

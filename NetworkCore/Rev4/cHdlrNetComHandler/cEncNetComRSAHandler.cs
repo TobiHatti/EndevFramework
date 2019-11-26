@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
+    // ╔════╤════════════════════════════════════════════════════════╗
+    // ║ 7  │ S T R U C T S                                          ║
+    // ╚════╧════════════════════════════════════════════════════════╝  
+
+    #region ═╣ S T R U C T S ╠═ 
+
     /// <summary>
     /// Contains the public and the 
     /// private key of an user
@@ -15,6 +22,8 @@ namespace EndevFramework.NetworkCore
         public string PrivateKey;
         public string PublicKey;
     }
+
+    #endregion
 
     /// <summary>
     /// =====================================   <para />

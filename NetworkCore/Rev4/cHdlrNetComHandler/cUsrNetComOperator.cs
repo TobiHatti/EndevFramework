@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
-    public class NetComOperator : NetComUser
+    public abstract class NetComOperator : NetComUser
     {
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
@@ -70,21 +70,21 @@ namespace EndevFramework.NetworkCore
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4b │ M E T H O D S   ( I N T E R N A L )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( I N T E R N A L ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4c │ M E T H O D S   ( P R O T E C T E D )                  ║
+        // ║ 4b │ M E T H O D S   ( P R O T E C T E D )                  ║
         // ╟────┴────────────────────────────────────────────────────────╢ 
         // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
         // ╚═════════════════════════════════════════════════════════════╝ 
 
         #region ═╣ M E T H O D S   ( P R O T E C T E D ) ╠═ 
+        #endregion
+
+        // ╔════╤════════════════════════════════════════════════════════╗
+        // ║ 4c │ M E T H O D S   ( I N T E R N A L )                    ║
+        // ╟────┴────────────────────────────────────────────────────────╢ 
+        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
+        // ╚═════════════════════════════════════════════════════════════╝ 
+
+        #region ═╣ M E T H O D S   ( I N T E R N A L ) ╠═ 
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗

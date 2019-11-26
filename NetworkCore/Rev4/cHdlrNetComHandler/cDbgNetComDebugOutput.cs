@@ -1,11 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace EndevFramework.NetworkCore
 {
+    // ╔════╤════════════════════════════════════════════════════════╗
+    // ║ 6  │ E N U M E R A T O R S                                  ║
+    // ╚════╧════════════════════════════════════════════════════════╝  
+
+    #region ═╣ E N U M E R A T O R S ╠═ 
+
     public enum DebugType
     {
         Info,
@@ -17,6 +26,8 @@ namespace EndevFramework.NetworkCore
         Cronjob,
         Confirmation,
     }
+
+    #endregion
 
     /// <summary>
     /// =====================================   <para />
@@ -30,6 +41,15 @@ namespace EndevFramework.NetworkCore
     public class DebugOutput
     {
 #pragma warning disable IDE0060 // unused arguments
+
+        // ╔════╤════════════════════════════════════════════════════════╗
+        // ║ 4d │ M E T H O D S   ( P U B L I C )                        ║
+        // ╟────┴────────────────────────────────────────────────────────╢ 
+        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
+        // ╚═════════════════════════════════════════════════════════════╝ 
+
+        #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
+
         /// <summary>
         /// Disables all debug-outputs.
         /// </summary>
@@ -150,6 +170,9 @@ namespace EndevFramework.NetworkCore
             (pParameters[0] as TextBox).Text += pMessage + "\r\n";
             (pParameters[0] as TextBox).ScrollToCaret();
         }
+
+        #endregion
+
 #pragma warning restore IDE0060 // unused arguments
     }
 }

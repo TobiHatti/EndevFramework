@@ -8,6 +8,12 @@ namespace EndevFramework.NetworkCore
 {
     public class NetComExceptions
     {
+        // ╔════╤════════════════════════════════════════════════════════╗
+        // ║ 5a │ C L A S S E S   ( I N T E R N A L )                    ║
+        // ╚════╧════════════════════════════════════════════════════════╝ 
+
+        #region ═╣ C L A S S E S   ( I N T E R N A L ) ╠═
+
         /// <summary>
         /// =====================================   <para />
         /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
@@ -16,7 +22,7 @@ namespace EndevFramework.NetworkCore
         /// DESCRIPTION:                            <para />
         /// Provides a basic Runtime-Exception.
         /// </summary>
-        public class NetComException : Exception
+        internal class NetComException : Exception
         {
             public NetComException() { }
             public NetComException(string message) : base(message) { }
@@ -32,7 +38,7 @@ namespace EndevFramework.NetworkCore
         /// Provides a basic
         /// NotImplemented-Exception.
         /// </summary>
-        public class NetComNotImplementedException : NotImplementedException
+        internal class NetComNotImplementedException : NotImplementedException
         {
             public NetComNotImplementedException() { }
             public NetComNotImplementedException(string message) : base(message) { }
@@ -48,7 +54,7 @@ namespace EndevFramework.NetworkCore
         /// Provides a exception that can be thrown
         /// when a packets signature is invalid
         /// </summary>
-        public class NetComSignatureException : NetComException
+        internal class NetComSignatureException : NetComException
         {
             public NetComSignatureException() { }
             public NetComSignatureException(string message) : base(message) { }
@@ -64,7 +70,7 @@ namespace EndevFramework.NetworkCore
         /// Provides a exception that can be thrown
         /// when a client-authentication fails
         /// </summary>
-        public class NetComAuthenticationException : NetComException
+        internal class NetComAuthenticationException : NetComException
         {
             public NetComAuthenticationException() { }
             public NetComAuthenticationException(string message) : base(message) { }
@@ -80,7 +86,7 @@ namespace EndevFramework.NetworkCore
         /// Provides a exception that can be thrown
         /// when a parsing error occures
         /// </summary>
-        public class NetComParsingException : NetComException
+        internal class NetComParsingException : NetComException
         {
             public NetComParsingException() { }
             public NetComParsingException(string message) : base(message) { }
@@ -96,11 +102,13 @@ namespace EndevFramework.NetworkCore
         /// Provides a exception that can be thrown
         /// when version error or violation occures
         /// </summary>
-        public class NetComVersionException : NetComException
+        internal class NetComVersionException : NetComException
         {
             public NetComVersionException() { }
             public NetComVersionException(string message) : base(message) { }
             public NetComVersionException(string message, Exception innerException) : base(message, innerException) { }
         }
+
+        #endregion
     }
 }

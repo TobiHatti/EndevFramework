@@ -20,7 +20,7 @@ namespace EndevFrameworkNetworkCore
         public NetComUser Sender { get; private set; } = null;
         public NetComUser Receiver { get; set; } = null;
 
-        public string ID = null;
+        internal string ID = null;
         protected string instruction = null;
         protected string sInstruction = null;
         protected string value = null;

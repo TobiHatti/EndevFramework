@@ -19,6 +19,14 @@ namespace EndevFramework.NetworkCore
     {
 #pragma warning disable IDE0060 // unused parameters
 
+        // ╔════╤════════════════════════════════════════════════════════╗
+        // ║ 4d │ M E T H O D S   ( P U B L I C )                        ║
+        // ╟────┴────────────────────────────────────────────────────────╢ 
+        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
+        // ╚═════════════════════════════════════════════════════════════╝ 
+
+        #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
+
         /// <summary>
         /// Always denies the entered user-data.
         /// </summary>
@@ -63,6 +71,9 @@ namespace EndevFramework.NetworkCore
                     return false;
             }
         }
+
+        #endregion
+
 #pragma warning restore IDE0060 // unused parameters
     }
 }

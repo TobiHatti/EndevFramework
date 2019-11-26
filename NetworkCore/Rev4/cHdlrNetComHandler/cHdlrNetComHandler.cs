@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
-    public class NetComHandler
+    public abstract class NetComHandler
     {
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║

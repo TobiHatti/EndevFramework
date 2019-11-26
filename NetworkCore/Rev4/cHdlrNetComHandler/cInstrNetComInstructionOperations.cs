@@ -1,49 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using static EndevFramework.NetworkCore.NetComExceptions;
 
 namespace EndevFramework.NetworkCore
 {
     public class InstructionOperations
     {
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ F I E L D S   ( P R I V A T E ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1b │ F I E L D S   ( P R O T E C T E D )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ F I E L D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1c │ D E L E G A T E S                                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ D E L E G A T E S ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2a │ P R O P E R T I E S   ( I N T E R N A L )              ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ P R O P E R T I E S   ( I N T E R N A L ) ╠═ 
-        #endregion
-
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 2b │ P R O P E R T I E S   ( P U B L I C )                  ║
         // ╟────┴────────────────────────────────────────────────────────╢ 
@@ -51,49 +18,234 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝  
 
         #region ═╣ P R O P E R T I E S   ( P U B L I C ) ╠═ 
+
+        public static bool ForceInstructionsetVersion { get; set; } = false;
+        public static bool ForceFrameworkVersion { get; set; } = false;
+
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 3  │ C O N S T R U C T O R S                                ║
-        // ╚════╧════════════════════════════════════════════════════════╝  
-
-        #region ═╣ C O N S T R U C T O R S ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4a │ M E T H O D S   ( P R I V A T E )                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ M E T H O D S   ( P R I V A T E ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4b │ M E T H O D S   ( I N T E R N A L )                    ║
+        // ║ 4c │ M E T H O D S   ( I N T E R N A L )                    ║
         // ╟────┴────────────────────────────────────────────────────────╢ 
         // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
         // ╚═════════════════════════════════════════════════════════════╝ 
 
         #region ═╣ M E T H O D S   ( I N T E R N A L ) ╠═ 
-        #endregion
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4c │ M E T H O D S   ( P R O T E C T E D )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
+        /// <summary>
+        /// Parses an encoded instruction-string and returns 
+        /// all instruction-objects included in the string.
+        /// </summary>
+        /// <param name="pLocalUser">Local user</param>
+        /// <param name="pReceptionSocket">Remote user, from which the instruction was received</param>
+        /// <param name="pInstructionString">Encoded instruction-string. Can contain multiple instructions.</param>
+        /// <param name="pServerClientList">Client-List for authentication (NetComServer only!)</param>
+        /// <returns></returns>
+        internal static IEnumerable<InstructionBase> Parse(NetComUser pLocalUser, Socket pReceptionSocket, string pInstructionString, ClientList pServerClientList = null)
+        {
+            //  RSA:<Base64>;RSA:<Base64>;
 
-        #region ═╣ M E T H O D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
+            List<InstructionBase> retInstr = new List<InstructionBase>();
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4d │ M E T H O D S   ( P U B L I C )                        ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
+            lock (pLocalUser)
+            {
+                foreach (string encodedInstruction in pInstructionString.Split('%'))
+                {
+                    if (string.IsNullOrEmpty(encodedInstruction)) continue;
 
-        #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
+                    string instructionID = null;
+                    string frameworkVersion = null;
+                    string instructionsetVersion = null;
+                    string username = null;
+                    string password = null;
+                    string instruction = null;
+                    string value = null;
+                    List<object> parameters = new List<object>();
+                    string signaturePlain = null;
+                    string signatureRSA = null;
+                    string publicKey = null;
+                    NetComUser user = null;
+
+                    // RSA:<Base64>
+
+                    bool rsaEncoded = false;
+
+                    string encInstr = encodedInstruction;
+
+                    if (encInstr.StartsWith("R:"))
+                    {
+                        rsaEncoded = true;
+                        encInstr = encInstr.Remove(0, 2);
+                    }
+
+                    // <Base64>
+                    string decodedInstruction;
+                    try
+                    {
+                        //decodedInstruction = Base64Handler.Decode(encInstr);
+                        decodedInstruction = encInstr;
+                    }
+                    catch (Exception ex)
+                    {
+                        (pLocalUser as NetComOperator).Debug("Instruction-Parsing: Could not decode from Base64.", DebugType.Error);
+                        if ((pLocalUser as NetComOperator).ShowExceptions) (pLocalUser as NetComOperator).Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+
+                        continue;
+                    }
+
+
+                    // INS:B64,VAL:B64,PAR:B64#B64|B64#B64|,
+
+                    foreach (string encodedInstrSegment in decodedInstruction.Split('$'))
+                    {
+                        if (string.IsNullOrEmpty(encodedInstrSegment)) continue;
+
+                        // INS:B64 / PAR:B64#B64|B64#B64| 
+
+                        string[] encodedSegmentParts = encodedInstrSegment.Split(':');
+
+                        switch (encodedSegmentParts[0])
+                        {
+                            case "IID": instructionID = encodedSegmentParts[1]; break;
+                            case "FWV": frameworkVersion = encodedSegmentParts[1]; break;
+                            case "ISV": instructionsetVersion = encodedSegmentParts[1]; break;
+                            case "PUK": publicKey = encodedSegmentParts[1]; break;
+                            case "USR": username = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
+                            case "PSW":
+                                if (rsaEncoded)
+                                    password = RSAHandler.Decrypt(pLocalUser.RSAKeys.PrivateKey, encodedSegmentParts[1]);
+                                break;
+                            case "SGP": signaturePlain = encodedSegmentParts[1]; break;
+                            case "SGC":
+                                if (rsaEncoded)
+                                    signatureRSA = encodedSegmentParts[1];
+                                break;
+                            case "INS": instruction = encodedSegmentParts[1]; break;
+                            case "VAL": value = Base64Handler.Decode(encodedSegmentParts[1], "ERROR"); break;
+                            case "PAR":
+
+                                foreach (string paramGroup in encodedSegmentParts[1].Split('|'))
+                                {
+                                    if (string.IsNullOrEmpty(paramGroup)) continue;
+
+                                    string[] paramParts = paramGroup.Split('#');
+
+                                    string paramTypeStr = paramParts[0];
+                                    string paramValueStr = Base64Handler.Decode(paramParts[1], "ERROR");
+
+                                    Type paramType = Type.GetType(paramTypeStr);
+
+                                    try
+                                    {
+                                        object convParam = null;
+                                        TypeConverter converter = TypeDescriptor.GetConverter(paramType);
+                                        if (converter != null)
+                                        {
+                                            convParam = converter.ConvertFromString(paramValueStr);
+                                        }
+                                        else convParam = null;
+
+                                        parameters.Add(convParam);
+
+                                    }
+                                    catch (NotSupportedException ex)
+                                    {
+                                        (pLocalUser as NetComOperator).Debug("Broadcast-Error.", DebugType.Error);
+                                        if ((pLocalUser as NetComOperator).ShowExceptions) (pLocalUser as NetComOperator).Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+
+
+                                        throw new NetComParsingException($"*** Could not parse the following parameter: Type: {paramTypeStr}, Value: {paramValueStr} ***");
+                                    }
+                                }
+
+                                break;
+                        }
+                    }
+
+                    // Check if the instruction has been processed before
+                    if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
+                    {
+                        if ((pLocalUser as NetComOperator).InstructionLogIncomming.Contains(instructionID))
+                        {
+                            if (pLocalUser.GetType() == typeof(NetComClient))
+                                (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
+
+                            if (pLocalUser.GetType() == typeof(NetComServer))
+                                (pLocalUser as NetComServer).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, (pLocalUser as NetComServer).ConnectedClients[pReceptionSocket], instructionID));
+                            continue;
+                        }
+                    }
+
+                    // Check instructionset-version
+                    if (ForceInstructionsetVersion && InstructionBase.InstructionSetVersion != instructionsetVersion)
+                        throw new NetComVersionException($"*** The received package uses a different verion of the Instruction-Set! Local version: {InstructionBase.InstructionSetVersion} - Senders version: {instructionsetVersion} ***");
+
+                    // Check framework-version
+                    if (ForceFrameworkVersion && InstructionBase.FrameworkVersion != frameworkVersion)
+                        throw new NetComVersionException($"*** The received package was built using a different verion of the Framework! Local version: {InstructionBase.FrameworkVersion} - Senders version: {frameworkVersion} ***");
+
+                    // Check signature
+                    if (rsaEncoded && !RSAHandler.Verify(publicKey, signaturePlain, signatureRSA))
+                        throw new NetComSignatureException("*** The received packets signature is invalid! ***");
+
+                    if (pServerClientList != null)
+                    {
+                        // Server -> Assign received data to clientlist
+
+                        pServerClientList[pReceptionSocket].SetUserData(username, password, publicKey);
+
+                        if (instruction != typeof(InstructionLibraryEssentials.KeyExchangeClient2Server).AssemblyQualifiedName
+                            && instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName
+                            && !pServerClientList[pReceptionSocket].Authenticate(password))
+                            throw new NetComAuthenticationException("*** Authentication failed! Wrong username / password ***");
+
+                        user = pServerClientList[pReceptionSocket];
+                    }
+                    else
+                    {
+                        // Client -> Ignore authentication-data
+
+                        user = new NetComUser();
+                        user.SetUserData(username, password, publicKey);
+                    }
+
+                    try
+                    {
+                        if (instruction == typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
+                            retInstr.Add((InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value));
+                        else if (value == null && parameters.Count == 0)
+                            retInstr.Add((InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser));
+                        else if (parameters.Count == 0)
+                            retInstr.Add((InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value));
+                        else
+                            retInstr.Add((InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value, parameters.ToArray()));
+
+                        // Increment the total receive counter
+                        (pLocalUser as NetComOperator).TotalReceiveCounter++;
+
+                        // Send confirmation (if the instruction is not a confirmation itself)
+                        if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
+                        {
+                            (pLocalUser as NetComOperator).InstructionLogIncomming.Add(instructionID);
+
+                            if (pLocalUser.GetType() == typeof(NetComClient))
+                                (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
+
+                            if (pLocalUser.GetType() == typeof(NetComServer))
+                                (pLocalUser as NetComServer).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, (pLocalUser as NetComServer).ConnectedClients[pReceptionSocket], instructionID));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        (pLocalUser as NetComOperator).Debug("Could not recreate the instruction.", DebugType.Error);
+                        if ((pLocalUser as NetComOperator).ShowExceptions) (pLocalUser as NetComOperator).Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                    }
+                }
+            }
+
+            return retInstr.ToArray();
+        }
+
         #endregion
     }
 }
