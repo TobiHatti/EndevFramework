@@ -1,11 +1,23 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: User-Objects               <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Groups users into managable groups.
+    /// Provides a basic manager for handling 
+    /// groups
+    /// </summary>
     public class NetComGroups : IEnumerable
     {
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -15,33 +27,9 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝    
 
         #region ═╣ F I E L D S   ( P R I V A T E ) ╠═ 
-        #endregion
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1b │ F I E L D S   ( P R O T E C T E D )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
+        private readonly List<UserGroup> userGroups = new List<UserGroup>();
 
-        #region ═╣ F I E L D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1c │ D E L E G A T E S                                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ D E L E G A T E S ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2a │ P R O P E R T I E S   ( I N T E R N A L )              ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ P R O P E R T I E S   ( I N T E R N A L ) ╠═ 
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -51,40 +39,36 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝  
 
         #region ═╣ P R O P E R T I E S   ( P U B L I C ) ╠═ 
-        #endregion
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 3  │ C O N S T R U C T O R S                                ║
-        // ╚════╧════════════════════════════════════════════════════════╝  
+        /// <summary>
+        /// Returns a UserGroup by the group-index.
+        /// </summary>
+        /// <param name="idx">Index of the group</param>
+        /// <returns>UserGroup with fitting index</returns>
+        public UserGroup this[int idx]
+        {
+            get
+            {
+                if (userGroups.Count > idx) return userGroups[idx];
+                else return null;
+            }
+        }
 
-        #region ═╣ C O N S T R U C T O R S ╠═ 
-        #endregion
+        /// <summary>
+        /// Returns a UserGroup by the group-name.
+        /// </summary>
+        /// <param name="pGroupName">Name of the group</param>
+        /// <returns>UserGroup with fitting name</returns>
+        public UserGroup this[string pGroupName]
+        {
+            get
+            {
+                foreach (UserGroup group in userGroups)
+                    if (group.Name == pGroupName) return group;
+                return null;
+            }
+        }
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4a │ M E T H O D S   ( P R I V A T E )                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ M E T H O D S   ( P R I V A T E ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4b │ M E T H O D S   ( P R O T E C T E D )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4c │ M E T H O D S   ( I N T E R N A L )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( I N T E R N A L ) ╠═ 
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -94,6 +78,109 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝ 
 
         #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
+
+        /// <summary>
+        /// Saves the usergroup-config to a file.
+        /// </summary>
+        /// <param name="pPath">Target file</param>
+        public void Save(string pPath)
+        {
+            StreamWriter sw = new StreamWriter(pPath);
+
+            foreach (UserGroup group in userGroups)
+            {
+                sw.WriteLine($":{group.Name}");
+
+                foreach (string user in group.GroupMembers)
+                {
+                    sw.WriteLine($"!{user.ToLower()}");
+                }
+            }
+
+            sw.Close();
+        }
+
+        /// <summary>
+        /// Loads the usergroup-config from a file.
+        /// </summary>
+        /// <param name="pPath">Target file</param>
+        public void Load(string pPath)
+        {
+            using (StreamReader sr = new StreamReader(pPath))
+            {
+                string line;
+                string currentLine = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line.StartsWith(":"))
+                    {
+                        userGroups.Add(new UserGroup(line.Remove(0, 1)));
+                        currentLine = line.Remove(0, 1);
+                    }
+
+                    if (line.StartsWith("!"))
+                    {
+                        this[currentLine].AddUser(line.Remove(0, 1));
+                    }
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Disconnects a user from any groups he is currently connected to.
+        /// </summary>
+        /// <param name="pUserSocket">Socket of the user</param>
+        public void Disconnect(Socket pUserSocket)
+        {
+            foreach (UserGroup group in userGroups)
+                for (int i = 0; i < group.OnlineMembers.Count; i++)
+                    if (group.OnlineMembers[i].LocalSocket == pUserSocket)
+                    {
+                        group.OnlineMembers.Remove(group.OnlineMembers[i]);
+                        //yield return group.Name;
+                    }
+        }
+
+        /// <summary>
+        /// Creates a new group with members (optional).
+        /// </summary>
+        /// <param name="pGroupName">Name of the group</param>
+        /// <param name="pUsers">Users to add to the group</param>
+        public void NewGroup(string pGroupName, params NetComUser[] pUsers)
+        {
+            userGroups.Add(new UserGroup(pGroupName));
+
+            foreach (NetComUser user in pUsers)
+                this[pGroupName].AddUser(user);
+        }
+
+        /// <summary>
+        /// Tries to add a user to any groups 
+        /// that that it is a member of. 
+        /// </summary>
+        /// <param name="pUser"></param>
+        public void TryGroupAdd(NetComUser pUser)
+        {
+            for (int i = 0; i < userGroups.Count; i++)
+                for (int j = 0; j < userGroups[i].GroupMembers.Count; j++)
+                    if (pUser.Username.ToLower() == userGroups[i].GroupMembers[j].ToLower())
+                    {
+                        userGroups[i].AddUser(pUser);
+                    }
+        }
+
+        /// <summary>
+        /// Returns all UserGroups.
+        /// Required for IEnumerable-Interface.
+        /// </summary>
+        /// <returns>UserGroups enumerator</returns>
+        public IEnumerator GetEnumerator()
+        {
+            foreach (UserGroup group in userGroups)
+                yield return group;
+        }
+
         #endregion
     }
 }

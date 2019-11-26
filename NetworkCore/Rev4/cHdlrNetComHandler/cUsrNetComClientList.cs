@@ -1,11 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: User-Objects               <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Stores multiple connected clients 
+    /// connected to the server
+    /// </summary>
     public class ClientList : IEnumerable
     {
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -15,33 +26,9 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝    
 
         #region ═╣ F I E L D S   ( P R I V A T E ) ╠═ 
-        #endregion
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1b │ F I E L D S   ( P R O T E C T E D )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
+        private readonly List<NetComCData> LClients = new List<NetComCData>();
 
-        #region ═╣ F I E L D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1c │ D E L E G A T E S                                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ D E L E G A T E S ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2a │ P R O P E R T I E S   ( I N T E R N A L )              ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ P R O P E R T I E S   ( I N T E R N A L ) ╠═ 
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -51,40 +38,59 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝  
 
         #region ═╣ P R O P E R T I E S   ( P U B L I C ) ╠═ 
-        #endregion
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 3  │ C O N S T R U C T O R S                                ║
-        // ╚════╧════════════════════════════════════════════════════════╝  
+        /// <summary>
+        /// Gets the amount of clients in the list.
+        /// </summary>
+        public int Count
+        {
+            get => LClients.Count;
+        }
 
-        #region ═╣ C O N S T R U C T O R S ╠═ 
-        #endregion
+        /// <summary>
+        /// Gets the Clients data by its index.
+        /// </summary>
+        /// <param name="idx">Index of the user</param>
+        /// <returns>ClientData-Object</returns>
+        public NetComCData this[int idx]
+        {
+            get
+            {
+                if (LClients.Count > idx) return LClients[idx];
+                else return null;
+            }
+        }
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4a │ M E T H O D S   ( P R I V A T E )                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
+        /// <summary>
+        /// Gets the Clients data by its username.
+        /// </summary>
+        /// <param name="pUsername">Username of the user</param>
+        /// <returns>ClientData-Object</returns>
+        public NetComCData this[string pUsername]
+        {
+            get
+            {
+                foreach (NetComCData client in LClients)
+                    if (client.Username == pUsername) return client;
+                return null;
+            }
+        }
 
-        #region ═╣ M E T H O D S   ( P R I V A T E ) ╠═ 
-        #endregion
+        /// <summary>
+        /// Gets the Clients data by its socket.
+        /// </summary>
+        /// <param name="pSocket">Socket of the user</param>
+        /// <returns>ClientData-Object</returns>
+        public NetComCData this[Socket pSocket]
+        {
+            get
+            {
+                foreach (NetComCData client in LClients)
+                    if (client.LocalSocket == pSocket) return client;
+                return null;
+            }
+        }
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4b │ M E T H O D S   ( P R O T E C T E D )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4c │ M E T H O D S   ( I N T E R N A L )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( I N T E R N A L ) ╠═ 
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -94,6 +100,74 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝ 
 
         #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
+
+        /// <summary>
+        /// Adds a user.
+        /// </summary>
+        /// <param name="pSocket">Socket of the user</param>
+        public void Add(Socket pSocket) => Add(pSocket, null, null);
+
+        /// <summary>
+        /// Adds a user.
+        /// </summary>
+        /// <param name="pSocket">Socket of the user</param>
+        /// <param name="pUsername">Username of the user</param>
+        public void Add(Socket pSocket, string pUsername) => Add(pSocket, pUsername, null);
+
+        /// <summary>
+        /// Adds a user.
+        /// </summary>
+        /// <param name="pSocket">Socket of the user</param>
+        /// <param name="pUsername">Username of the user</param>
+        /// <param name="pPassword">Password of the user</param>
+        public void Add(Socket pSocket, string pUsername, string pPassword)
+        {
+            NetComCData cData = new NetComCData();
+            cData.SetUserData(pUsername, pPassword);
+            cData.SetUserSocket(pSocket);
+            LClients.Add(cData);
+        }
+
+        /// <summary>
+        /// Removes a user.
+        /// </summary>
+        /// <param name="pIndex">Index of the user</param>
+        public void Remove(int pIndex)
+        {
+            LClients.RemoveAt(pIndex);
+        }
+
+        /// <summary>
+        /// Removes a user.
+        /// </summary>
+        /// <param name="pUsername">Username of the user</param>
+        public void Remove(string pUsername)
+        {
+            for (int i = 0; i < LClients.Count; i++)
+                if (LClients[i].Username == pUsername) LClients.RemoveAt(i);
+        }
+
+        /// <summary>
+        /// Removes a user.
+        /// </summary>
+        /// <param name="pSocket">Socket of the user</param>
+        public void Remove(Socket pSocket)
+        {
+            for (int i = 0; i < LClients.Count; i++)
+                if (LClients[i].LocalSocket == pSocket) LClients.RemoveAt(i);
+        }
+
+        /// <summary>
+        /// Returns all clients from the list.
+        /// Required for IEnumerable-Interface.
+        /// </summary>
+        /// <returns>NetComCData enumerator</returns>
+        public IEnumerator GetEnumerator()
+        {
+            foreach (NetComCData client in LClients)
+                yield return client;
+        }
+
         #endregion
     }
 }

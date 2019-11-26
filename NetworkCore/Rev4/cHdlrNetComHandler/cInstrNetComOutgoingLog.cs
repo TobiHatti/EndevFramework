@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Instruction-Objects        <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Logs all outgoing instructions, counting 
+    /// how many times it tried to re-send an 
+    /// instruction.
+    /// </summary>
     public class OutgoingLog
     {
         // ╔════╤════════════════════════════════════════════════════════╗

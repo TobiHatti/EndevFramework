@@ -9,6 +9,15 @@ using static EndevFramework.NetworkCore.NetComExceptions;
 
 namespace EndevFramework.NetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Instruction-Objects        <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Contains operations for manipulating 
+    /// and changing instructions.
+    /// </summary>
     public class InstructionOperations
     {
         // ╔════╤════════════════════════════════════════════════════════╗

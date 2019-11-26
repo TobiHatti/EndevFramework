@@ -6,6 +6,15 @@ using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: User-Objects               <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Basic object for NetCom-Operators 
+    /// (Client/Server)
+    /// </summary>
     public abstract class NetComOperator : NetComUser
     {
         // ╔════╤════════════════════════════════════════════════════════╗

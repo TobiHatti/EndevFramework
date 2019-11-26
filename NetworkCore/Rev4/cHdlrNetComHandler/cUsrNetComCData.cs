@@ -11,17 +11,17 @@ using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: User-Objects               <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Stores all necesary informations for a Server
+    /// to communicate with the client.
+    /// </summary>
     public class NetComCData : NetComUser
     {
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ F I E L D S   ( P R I V A T E ) ╠═ 
-        #endregion
-
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 1b │ F I E L D S   ( P R O T E C T E D )                    ║
         // ╟────┴────────────────────────────────────────────────────────╢ 
@@ -29,6 +29,9 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝    
 
         #region ═╣ F I E L D S   ( P R O T E C T E D ) ╠═ 
+
+        protected bool authenticated = false;
+
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -38,15 +41,9 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝    
 
         #region ═╣ D E L E G A T E S ╠═ 
-        #endregion
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2a │ P R O P E R T I E S   ( I N T E R N A L )              ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
+        public delegate bool AuthenticationTool(string pUsername, string pPassword);
 
-        #region ═╣ P R O P E R T I E S   ( I N T E R N A L ) ╠═ 
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -56,40 +53,10 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝  
 
         #region ═╣ P R O P E R T I E S   ( P U B L I C ) ╠═ 
-        #endregion
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 3  │ C O N S T R U C T O R S                                ║
-        // ╚════╧════════════════════════════════════════════════════════╝  
+        public static AuthenticationTool AuthLookup { get; set; } = null;
+        public bool Authenticated { get => authenticated; }
 
-        #region ═╣ C O N S T R U C T O R S ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4a │ M E T H O D S   ( P R I V A T E )                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ M E T H O D S   ( P R I V A T E ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4b │ M E T H O D S   ( P R O T E C T E D )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4c │ M E T H O D S   ( I N T E R N A L )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( I N T E R N A L ) ╠═ 
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -99,6 +66,33 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝ 
 
         #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
+
+        /// <summary>
+        /// Authenticates the user when given a username and password.
+        /// </summary>
+        /// <param name="pPassword">Users Password</param>
+        /// <param name="pUsername">Users Username</param>
+        /// <returns>True if the authentication was sucessfull</returns>
+        public bool Authenticate(string pPassword, string pUsername = null)
+        {
+            if (Password == pPassword && Username == pUsername && authenticated) return true;
+
+            if (Password != pPassword) authenticated = false;
+
+            if (pUsername != null && Username != pUsername) authenticated = false;
+
+            if (pUsername != null) Username = pUsername;
+
+            Password = pPassword;
+
+            if (Password == null || Username == null) return false;
+
+            if (AuthLookup != null) authenticated = AuthLookup(Username, Password);
+            else throw new NetComAuthenticationException("*** The Authentication-Method has not been set in NetComCData ***");
+
+            return authenticated;
+        }
+
         #endregion
     }
 }

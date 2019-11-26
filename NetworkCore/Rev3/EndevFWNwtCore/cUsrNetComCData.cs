@@ -18,7 +18,7 @@ namespace EndevFrameworkNetworkCore
     public class NetComCData : NetComUser
     {
         public delegate bool AuthenticationTool(string pUsername, string pPassword);
-        public static AuthenticationTool AuthLookup = null;
+        public static AuthenticationTool AuthLookup { get; set; } = null;
         protected bool authenticated = false;
 
         public bool Authenticated { get => authenticated; }

@@ -6,6 +6,15 @@ using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Exceptions                 <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Provides a range of exceptions 
+    /// for internal use.
+    /// </summary>
     public class NetComExceptions
     {
         // ╔════╤════════════════════════════════════════════════════════╗

@@ -8,6 +8,16 @@ using ISB = EndevFramework.NetworkCore.InstructionBase;
 
 namespace EndevFramework.NetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Instruction-Objects        <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Contains basic use instructions.        <para />
+    /// Instructions must inherit ISB 
+    /// (InstructionBase) class
+    /// </summary>
     public class InstructionLibraryEssentials
     {
         // ╔════╤════════════════════════════════════════════════════════╗

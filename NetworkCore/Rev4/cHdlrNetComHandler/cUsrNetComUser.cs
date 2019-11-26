@@ -1,40 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: User-Objects               <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Basic object for NetCom-Users.
+    /// </summary>
     public class NetComUser
     {
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ F I E L D S   ( P R I V A T E ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1b │ F I E L D S   ( P R O T E C T E D )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ F I E L D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1c │ D E L E G A T E S                                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ D E L E G A T E S ╠═ 
-        #endregion
-
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 2a │ P R O P E R T I E S   ( I N T E R N A L )              ║
         // ╟────┴────────────────────────────────────────────────────────╢ 
@@ -42,40 +24,12 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝  
 
         #region ═╣ P R O P E R T I E S   ( I N T E R N A L ) ╠═ 
-        #endregion
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2b │ P R O P E R T I E S   ( P U B L I C )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
+        internal Socket LocalSocket { get; set; } = null;
+        internal string Username { get; set; } = null;
+        internal string Password { get; set; } = null;
+        internal RSAKeyPair RSAKeys { get; set; }
 
-        #region ═╣ P R O P E R T I E S   ( P U B L I C ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 3  │ C O N S T R U C T O R S                                ║
-        // ╚════╧════════════════════════════════════════════════════════╝  
-
-        #region ═╣ C O N S T R U C T O R S ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4a │ M E T H O D S   ( P R I V A T E )                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ M E T H O D S   ( P R I V A T E ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4b │ M E T H O D S   ( P R O T E C T E D )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( P R O T E C T E D ) ╠═ 
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -85,6 +39,38 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝ 
 
         #region ═╣ M E T H O D S   ( I N T E R N A L ) ╠═ 
+
+        /// <summary>
+        /// Sets the LocalSocket of the user.
+        /// </summary>
+        /// <param name="pSocket">Users socket</param>
+        internal void SetUserSocket(Socket pSocket)
+        {
+            LocalSocket = pSocket;
+        }
+
+        /// <summary>
+        /// Sets the users user-data.
+        /// </summary>
+        /// <param name="pUsername">Users username</param>
+        /// <param name="pPassword">Users password</param>
+        /// <param name="pPublicKey">Users public-key</param>
+        internal void SetUserData(string pUsername, string pPassword, string pPublicKey = null)
+        {
+            Username = pUsername;
+            Password = pPassword;
+
+            if (pPublicKey != null)
+            {
+                RSAKeyPair keys = new RSAKeyPair
+                {
+                    PublicKey = pPublicKey,
+                    PrivateKey = null
+                };
+                RSAKeys = keys;
+            }
+        }
+
         #endregion
 
         // ╔════╤════════════════════════════════════════════════════════╗
@@ -94,6 +80,16 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝ 
 
         #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
+
+        /// <summary>
+        /// Returns the username of the user.
+        /// </summary>
+        /// <returns>Users username</returns>
+        public override string ToString()
+        {
+            return Username;
+        }
+
         #endregion
     }
 }
