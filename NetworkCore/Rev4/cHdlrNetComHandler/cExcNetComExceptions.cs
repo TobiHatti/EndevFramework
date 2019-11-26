@@ -8,92 +8,99 @@ namespace EndevFramework.NetworkCore
 {
     public class NetComExceptions
     {
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
+        /// <summary>
+        /// =====================================   <para />
+        /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+        /// SUB-PACKAGE: Exceptions                 <para />
+        /// =====================================   <para />
+        /// DESCRIPTION:                            <para />
+        /// Provides a basic Runtime-Exception.
+        /// </summary>
+        public class NetComException : Exception
+        {
+            public NetComException() { }
+            public NetComException(string message) : base(message) { }
+            public NetComException(string message, Exception innerException) : base(message, innerException) { }
+        }
 
-        #region ═╣ F I E L D S   ( P R I V A T E ) ╠═ 
-        #endregion
+        /// <summary>
+        /// =====================================   <para />
+        /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+        /// SUB-PACKAGE: Exceptions                 <para />
+        /// =====================================   <para />
+        /// DESCRIPTION:                            <para />
+        /// Provides a basic
+        /// NotImplemented-Exception.
+        /// </summary>
+        public class NetComNotImplementedException : NotImplementedException
+        {
+            public NetComNotImplementedException() { }
+            public NetComNotImplementedException(string message) : base(message) { }
+            public NetComNotImplementedException(string message, Exception innerException) : base(message, innerException) { }
+        }
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1b │ F I E L D S   ( P R O T E C T E D )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
+        /// <summary>
+        /// =====================================   <para />
+        /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+        /// SUB-PACKAGE: Exceptions                 <para />
+        /// =====================================   <para />
+        /// DESCRIPTION:                            <para />
+        /// Provides a exception that can be thrown
+        /// when a packets signature is invalid
+        /// </summary>
+        public class NetComSignatureException : NetComException
+        {
+            public NetComSignatureException() { }
+            public NetComSignatureException(string message) : base(message) { }
+            public NetComSignatureException(string message, Exception innerException) : base(message, innerException) { }
+        }
 
-        #region ═╣ F I E L D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
+        /// <summary>
+        /// =====================================   <para />
+        /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+        /// SUB-PACKAGE: Exceptions                 <para />
+        /// =====================================   <para />
+        /// DESCRIPTION:                            <para />
+        /// Provides a exception that can be thrown
+        /// when a client-authentication fails
+        /// </summary>
+        public class NetComAuthenticationException : NetComException
+        {
+            public NetComAuthenticationException() { }
+            public NetComAuthenticationException(string message) : base(message) { }
+            public NetComAuthenticationException(string message, Exception innerException) : base(message, innerException) { }
+        }
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1c │ D E L E G A T E S                                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
+        /// <summary>
+        /// =====================================   <para />
+        /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+        /// SUB-PACKAGE: Exceptions                 <para />
+        /// =====================================   <para />
+        /// DESCRIPTION:                            <para />
+        /// Provides a exception that can be thrown
+        /// when a parsing error occures
+        /// </summary>
+        public class NetComParsingException : NetComException
+        {
+            public NetComParsingException() { }
+            public NetComParsingException(string message) : base(message) { }
+            public NetComParsingException(string message, Exception innerException) : base(message, innerException) { }
+        }
 
-        #region ═╣ D E L E G A T E S ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2a │ P R O P E R T I E S   ( I N T E R N A L )              ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ P R O P E R T I E S   ( I N T E R N A L ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2b │ P R O P E R T I E S   ( P U B L I C )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ P R O P E R T I E S   ( P U B L I C ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 3  │ C O N S T R U C T O R S                                ║
-        // ╚════╧════════════════════════════════════════════════════════╝  
-
-        #region ═╣ C O N S T R U C T O R S ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4a │ M E T H O D S   ( P R I V A T E )                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ M E T H O D S   ( P R I V A T E ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4b │ M E T H O D S   ( I N T E R N A L )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( I N T E R N A L ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4c │ M E T H O D S   ( P R O T E C T E D )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4d │ M E T H O D S   ( P U B L I C )                        ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
-        #endregion
+        /// <summary>
+        /// =====================================   <para />
+        /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+        /// SUB-PACKAGE: Exceptions                 <para />
+        /// =====================================   <para />
+        /// DESCRIPTION:                            <para />
+        /// Provides a exception that can be thrown
+        /// when version error or violation occures
+        /// </summary>
+        public class NetComVersionException : NetComException
+        {
+            public NetComVersionException() { }
+            public NetComVersionException(string message) : base(message) { }
+            public NetComVersionException(string message, Exception innerException) : base(message, innerException) { }
+        }
     }
 }

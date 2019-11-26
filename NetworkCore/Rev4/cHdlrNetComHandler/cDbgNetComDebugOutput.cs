@@ -6,94 +6,150 @@ using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
+    public enum DebugType
+    {
+        Info,
+        Warning,
+        Error,
+        Fatal,
+        Remote,
+        Exception,
+        Cronjob,
+        Confirmation,
+    }
+
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Debugging-Tools            <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Provides several options for
+    /// displaying the Debug-Output.
+    /// </summary>
     public class DebugOutput
     {
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
+#pragma warning disable IDE0060 // unused arguments
+        /// <summary>
+        /// Disables all debug-outputs.
+        /// </summary>
+        /// <param name="pMessage"></param>
+        /// <param name="pParameters"></param>
+        public static void Disable(string pMessage, DebugType pDebugType, params object[] pParameters) { }
 
-        #region ═╣ F I E L D S   ( P R I V A T E ) ╠═ 
-        #endregion
+        /// <summary>
+        /// Outputs the Debug-Messages to the system-console.
+        /// </summary>
+        /// <param name="pMessage">Debug-Message</param>
+        /// <param name="pParameters">Output-Parameters [Not required for ToConsole-Method]</param>
+        public static void ToConsole(string pMessage, DebugType pDebugType, params object[] pParameters)
+        {
+            Console.Write($"({Thread.CurrentThread.ManagedThreadId.ToString("D3")})");
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1b │ F I E L D S   ( P R O T E C T E D )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
+            switch (pDebugType)
+            {
+                case DebugType.Info:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.BackgroundColor = ConsoleColor.Black;
 
-        #region ═╣ F I E L D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
+                    Console.Write("[ ~INFO ] ");
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1c │ D E L E G A T E S                                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine(pMessage);
+                    break;
+                case DebugType.Warning:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.BackgroundColor = ConsoleColor.Black;
 
-        #region ═╣ D E L E G A T E S ╠═ 
-        #endregion
+                    Console.Write("[WARNING] ");
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2a │ P R O P E R T I E S   ( I N T E R N A L )              ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine(pMessage);
+                    break;
+                case DebugType.Cronjob:
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.BackgroundColor = ConsoleColor.Black;
 
-        #region ═╣ P R O P E R T I E S   ( I N T E R N A L ) ╠═ 
-        #endregion
+                    Console.Write("[CRONJOB] ");
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2b │ P R O P E R T I E S   ( P U B L I C )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine(pMessage);
+                    break;
+                case DebugType.Confirmation:
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.BackgroundColor = ConsoleColor.Black;
 
-        #region ═╣ P R O P E R T I E S   ( P U B L I C ) ╠═ 
-        #endregion
+                    Console.Write("[CONFIRM] ");
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 3  │ C O N S T R U C T O R S                                ║
-        // ╚════╧════════════════════════════════════════════════════════╝  
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine(pMessage);
+                    break;
+                case DebugType.Error:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.BackgroundColor = ConsoleColor.Black;
 
-        #region ═╣ C O N S T R U C T O R S ╠═ 
-        #endregion
+                    Console.Write("[ ERROR ] ");
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4a │ M E T H O D S   ( P R I V A T E )                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
+                    Console.WriteLine(pMessage);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    break;
+                case DebugType.Fatal:
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.BackgroundColor = ConsoleColor.DarkRed;
 
-        #region ═╣ M E T H O D S   ( P R I V A T E ) ╠═ 
-        #endregion
+                    Console.Write("[ FATAL ] ");
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4b │ M E T H O D S   ( I N T E R N A L )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
+                    Console.WriteLine(pMessage);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    break;
+                case DebugType.Remote:
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.BackgroundColor = ConsoleColor.Black;
 
-        #region ═╣ M E T H O D S   ( I N T E R N A L ) ╠═ 
-        #endregion
+                    Console.Write("[~REMOTE] ");
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4c │ M E T H O D S   ( P R O T E C T E D )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine(pMessage);
 
-        #region ═╣ M E T H O D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
+                    break;
+                case DebugType.Exception:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.BackgroundColor = ConsoleColor.Black;
 
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4d │ M E T H O D S   ( P U B L I C )                        ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
+                    Console.Write("[EXCEPT.] ");
 
-        #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
-        #endregion
+                    Console.WriteLine(pMessage);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Outputs the Debug-Messages to the debug-console. 
+        /// </summary>
+        /// <param name="pMessage">Debug-Message</param>
+        /// <param name="pParameters">Output-Parameters [Not required for ToDebug-Method]</param>
+        public static void ToDebug(string pMessage, DebugType pDebugType, params object[] pParameters) => Debug.Print(pMessage);
+
+        /// <summary>
+        /// Outputs the Debug-Messages to a given WinForms-Textbox. 
+        /// </summary>
+        /// <param name="pMessage">Debug-Message</param>
+        /// <param name="pParameters">Output-Parameters - First parameter: the target textbox-instance</param>
+        public static void ToTextbox(string pMessage, DebugType pDebugType, params object[] pParameters)
+        {
+            (pParameters[0] as TextBox).Text += pMessage + "\r\n";
+            (pParameters[0] as TextBox).ScrollToCaret();
+        }
+#pragma warning restore IDE0060 // unused arguments
     }
 }

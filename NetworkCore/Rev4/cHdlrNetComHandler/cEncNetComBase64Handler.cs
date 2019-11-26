@@ -6,87 +6,16 @@ using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
+    /// <summary>
+    /// =====================================   <para />
+    /// FRAMEWORK: EndevFrameworkNetworkCore    <para />
+    /// SUB-PACKAGE: Encoding-Handlers          <para />
+    /// =====================================   <para />
+    /// DESCRIPTION:                            <para />
+    /// Encodes / Decodes Base64-Strings
+    /// </summary>
     public class Base64Handler
     {
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ F I E L D S   ( P R I V A T E ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1b │ F I E L D S   ( P R O T E C T E D )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ F I E L D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 1c │ D E L E G A T E S                                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝    
-
-        #region ═╣ D E L E G A T E S ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2a │ P R O P E R T I E S   ( I N T E R N A L )              ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ P R O P E R T I E S   ( I N T E R N A L ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 2b │ P R O P E R T I E S   ( P U B L I C )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ P R O P E R T I E S   ( P U B L I C ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 3  │ C O N S T R U C T O R S                                ║
-        // ╚════╧════════════════════════════════════════════════════════╝  
-
-        #region ═╣ C O N S T R U C T O R S ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4a │ M E T H O D S   ( P R I V A T E )                      ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝  
-
-        #region ═╣ M E T H O D S   ( P R I V A T E ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4b │ M E T H O D S   ( I N T E R N A L )                    ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( I N T E R N A L ) ╠═ 
-        #endregion
-
-        // ╔════╤════════════════════════════════════════════════════════╗
-        // ║ 4c │ M E T H O D S   ( P R O T E C T E D )                  ║
-        // ╟────┴────────────────────────────────────────────────────────╢ 
-        // ║ N O N - S T A T I C   &   S T A T I C                       ║ 
-        // ╚═════════════════════════════════════════════════════════════╝ 
-
-        #region ═╣ M E T H O D S   ( P R O T E C T E D ) ╠═ 
-        #endregion
-
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 4d │ M E T H O D S   ( P U B L I C )                        ║
         // ╟────┴────────────────────────────────────────────────────────╢ 
@@ -94,6 +23,33 @@ namespace EndevFramework.NetworkCore
         // ╚═════════════════════════════════════════════════════════════╝ 
 
         #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
+
+        /// <summary>
+        /// Converts a string into a 
+        /// Base64-encoded string.
+        /// </summary>
+        /// <param name="pPlainText">Plain text to be encoded</param>
+        /// <returns>Base64-Encoded string</returns>
+        public static string Encode(string pPlainText)
+            => Convert.ToBase64String(Encoding.UTF8.GetBytes(pPlainText));
+
+        /// <summary>
+        /// Decodes a base64-encoded string into
+        /// a readable plain-text string.
+        /// </summary>
+        /// <param name="pBase64String">Base64 string to be decoded</param>
+        /// <param name="pOnErrorReturn">Return-Value in case an error occurs. Null will throw an exception.</param>
+        /// <returns>Plain text string</returns>
+        public static string Decode(string pBase64String, string pOnErrorReturn = null)
+        {
+            if (pOnErrorReturn == null) return Encoding.UTF8.GetString(Convert.FromBase64String(pBase64String));
+            else
+            {
+                try { return Encoding.UTF8.GetString(Convert.FromBase64String(pBase64String)); }
+                catch { return pOnErrorReturn; }
+            }
+        }
+
         #endregion
     }
 }
