@@ -16,7 +16,7 @@ namespace EndevFramework.NetworkCore
     /// how many times it tried to re-send an 
     /// instruction.
     /// </summary>
-    public class OutgoingLog
+    public class InstructionOutgoingLog
     {
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
@@ -26,8 +26,8 @@ namespace EndevFramework.NetworkCore
 
         #region ═╣ F I E L D S   ( P R I V A T E ) ╠═ 
 
-        private List<InstructionBase> instructions = new List<InstructionBase>();
-        private List<int> resendAttempts = new List<int>();
+        private readonly List<InstructionBase> instructions = new List<InstructionBase>();
+        private readonly List<int> resendAttempts = new List<int>();
 
         #endregion
 

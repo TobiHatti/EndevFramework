@@ -8,6 +8,31 @@ namespace EndevFramework.NetworkCore
 {
     public class ClientHandler : NetComHandler
     {
+        protected override void NetComOperatorExecutor()
+        {
+            ncOperator = new NetComClient(this, handlerData);
+            ncOperator.Start();
+        }
+
+        /*
+        public NetComClient(string pServerIP, int pPort)
+            : this(IPAddress.Parse(pServerIP), pPort) { }
+
+        /// <summary>
+        /// Creates a new NetCom-client instance.
+        /// </summary>
+        /// <param name="pServerIP">IP of the server</param>
+        /// <param name="pPort">TCP port of the server</param>
+        public NetComClient(IPAddress pServerIP, int pPort)
+        {
+            RSAKeys = RSAHandler.GenerateKeyPair();
+            port = pPort;
+            serverIP = pServerIP;
+        }
+
+        */
+
+
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
         // ╟────┴────────────────────────────────────────────────────────╢ 
@@ -95,5 +120,6 @@ namespace EndevFramework.NetworkCore
 
         #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
         #endregion
+
     }
 }

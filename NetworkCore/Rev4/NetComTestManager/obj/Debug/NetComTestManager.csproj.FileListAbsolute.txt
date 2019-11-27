@@ -7,3 +7,12 @@ C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestM
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\NetComTestManager\obj\Debug\NetComTestManager.csproj.GenerateResource.cache
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\NetComTestManager\obj\Debug\NetComTestManager.exe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\NetComTestManager\obj\Debug\NetComTestManager.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\bin\Debug\NetComTestManager.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\bin\Debug\NetComTestManager.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\bin\Debug\NetComTestManager.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\obj\Debug\NetComTestManager.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\obj\Debug\NetComTestManager.Form1.resources
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\obj\Debug\NetComTestManager.Properties.Resources.resources
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\obj\Debug\NetComTestManager.csproj.GenerateResource.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\obj\Debug\NetComTestManager.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\obj\Debug\NetComTestManager.pdb

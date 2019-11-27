@@ -6,8 +6,24 @@ using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
-    public class ServerHandler
+    public class ServerHandler : NetComHandler
     {
+        protected override void NetComOperatorExecutor()
+        {
+            ncOperator = new NetComServer(this, handlerData);
+            ncOperator.Start();
+        }
+
+        /// <summary>
+        /// Sets the tool used for authenticating users.
+        /// </summary>
+        /// <param name="pLookupTool">Lookup-Method for user-authentication</param>
+        public void SetAuthenticationTool(NetComCData.AuthenticationTool pLookupTool)
+        {
+            NetComCData.AuthLookup = pLookupTool;
+        }
+
+
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
         // ╟────┴────────────────────────────────────────────────────────╢ 
@@ -95,5 +111,6 @@ namespace EndevFramework.NetworkCore
 
         #region ═╣ M E T H O D S   ( P U B L I C ) ╠═ 
         #endregion
+
     }
 }

@@ -24,7 +24,7 @@ namespace EndevFrameworkNetworkCore
         {
             try
             {
-                server = new NetComServer(port, rsaKeys);
+                server = new NetComServer(port);
                 server.Start();
             }
             catch

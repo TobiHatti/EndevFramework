@@ -2,12 +2,128 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
 {
     public abstract class NetComHandler
     {
+        protected volatile HandlerData handlerData = null;
+        protected volatile NetComOperator ncOperator = null;
+
+        protected Thread cronjobThread = null;
+        protected Thread operationThread = null;
+        protected Thread checkupThread = null;
+
+        public delegate void DebuggingOutput(string pDebugMessage, DebugType pType, params object[] pParameters);
+        protected DebuggingOutput DebugCom = null;
+        protected object[] debugParams = null;
+
+        public virtual void Start()
+        {
+            cronjobThread = new Thread(AsyncCronjobLoop);
+            cronjobThread.Start();
+
+            checkupThread = new Thread(AsyncCheckupLoop);
+            checkupThread.Start();
+        }
+
+        protected void AsyncCronjobLoop() { while (true) AsyncCronjobCycle(); }
+
+        protected virtual void AsyncCronjobCycle()
+        {
+
+        }
+
+        protected void AsyncCheckupLoop() { while (true) AsyncCheckupCycle(); }
+
+        protected virtual void AsyncCheckupCycle()
+        {
+            if (!cronjobThread.IsAlive)
+            {
+                try { operationThread.Abort(); }
+                catch { }
+
+                operationThread = new Thread(NetComOperatorExecutor);
+                operationThread.Start();
+                    
+            }
+            else Thread.Sleep(60000);
+        }
+
+        protected abstract void NetComOperatorExecutor();
+
+
+        /// <summary>
+        /// Sets the debug-output.
+        /// Pre-defined debug-outputs can be found in the DebugOutput-Class.
+        /// </summary>
+        /// <param name="pOutput">Delegate for the debug-output</param>
+        /// <param name="pDebugParameters">Optional parameters. See pOutput-Method for more info</param>
+        public void SetDebugOutput(DebuggingOutput pOutput, params object[] pDebugParameters)
+        {
+            DebugCom = pOutput;
+            debugParams = pDebugParameters;
+        }
+
+        /// <summary>
+        /// Sends a debug-message to the selected debug-output.
+        /// </summary>
+        /// <param name="pMessage">Debug-Message</param>
+        internal void Debug(string pMessage, DebugType pDebugType = DebugType.Info)
+        {
+            DebugCom(pMessage, pDebugType, debugParams);
+        }
+
+        public string ReadOutputStream()
+        {
+            if (handlerData.OutputStream.Count == 0) return null;
+
+            string retval = handlerData.OutputStream[0];
+            handlerData.OutputStream.RemoveAt(0);
+            return retval;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
         // ╟────┴────────────────────────────────────────────────────────╢ 

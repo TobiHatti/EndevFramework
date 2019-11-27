@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static EndevFramework.NetworkCore.NetComExceptions;
 
 //    ____        __           ____                                   __
 //   / __/__  ___/ /__ _  __  / __/___ __ ___ _  ___ _ __ __ __  ____/ /__

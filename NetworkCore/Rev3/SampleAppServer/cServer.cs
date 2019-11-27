@@ -23,12 +23,9 @@ namespace SampleAppServer
             Console.ForegroundColor = ConsoleColor.White;
 
 
-            NetComServerHandler serverHandler = new NetComServerHandler(2225);
-            NetComServer server = serverHandler.GetServer();
+            //NetComServerHandler serverHandler = new NetComServerHandler(2225);
+            //NetComServer server = serverHandler.GetServer();
 
-
-
-            /*
 
             NetComServer server = new NetComServer(2225);
 
@@ -66,7 +63,7 @@ namespace SampleAppServer
                 Thread.Sleep(2000);
             }
 
-            */
+      
 
 #pragma warning disable 0162 // unreachable code
             Console.ReadKey();

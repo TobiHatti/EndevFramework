@@ -96,8 +96,8 @@ namespace EndevFramework.NetworkCore
                     }
                     catch (Exception ex)
                     {
-                        (pLocalUser as NetComOperator).Debug("Instruction-Parsing: Could not decode from Base64.", DebugType.Error);
-                        if ((pLocalUser as NetComOperator).ShowExceptions) (pLocalUser as NetComOperator).Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                        (pLocalUser as NetComOperator).Handler.Debug("Instruction-Parsing: Could not decode from Base64.", DebugType.Error);
+                        if ((pLocalUser as NetComOperator).HandlerData.ShowExceptions) (pLocalUser as NetComOperator).Handler.Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
 
                         continue;
                     }
@@ -159,8 +159,8 @@ namespace EndevFramework.NetworkCore
                                     }
                                     catch (NotSupportedException ex)
                                     {
-                                        (pLocalUser as NetComOperator).Debug("Broadcast-Error.", DebugType.Error);
-                                        if ((pLocalUser as NetComOperator).ShowExceptions) (pLocalUser as NetComOperator).Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                                        (pLocalUser as NetComOperator).Handler.Debug("Broadcast-Error.", DebugType.Error);
+                                        if ((pLocalUser as NetComOperator).HandlerData.ShowExceptions) (pLocalUser as NetComOperator).Handler.Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
 
 
                                         throw new NetComParsingException($"*** Could not parse the following parameter: Type: {paramTypeStr}, Value: {paramValueStr} ***");
@@ -174,7 +174,7 @@ namespace EndevFramework.NetworkCore
                     // Check if the instruction has been processed before
                     if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
                     {
-                        if ((pLocalUser as NetComOperator).InstructionLogIncomming.Contains(instructionID))
+                        if ((pLocalUser as NetComOperator).HandlerData.LogIncommingInstructions.Contains(instructionID))
                         {
                             if (pLocalUser.GetType() == typeof(NetComClient))
                                 (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
@@ -230,12 +230,12 @@ namespace EndevFramework.NetworkCore
                             retInstr.Add((InstructionBase)Activator.CreateInstance(Type.GetType(instruction), user, pLocalUser, value, parameters.ToArray()));
 
                         // Increment the total receive counter
-                        (pLocalUser as NetComOperator).TotalReceiveCounter++;
+                        (pLocalUser as NetComOperator).HandlerData.LogReceiveCounter++;
 
                         // Send confirmation (if the instruction is not a confirmation itself)
                         if (instruction != typeof(InstructionLibraryEssentials.ReceptionConfirmation).AssemblyQualifiedName)
                         {
-                            (pLocalUser as NetComOperator).InstructionLogIncomming.Add(instructionID);
+                            (pLocalUser as NetComOperator).HandlerData.LogIncommingInstructions.Add(instructionID);
 
                             if (pLocalUser.GetType() == typeof(NetComClient))
                                 (pLocalUser as NetComClient).Send(new InstructionLibraryEssentials.ReceptionConfirmation(pLocalUser, null, instructionID));
@@ -246,8 +246,8 @@ namespace EndevFramework.NetworkCore
                     }
                     catch (Exception ex)
                     {
-                        (pLocalUser as NetComOperator).Debug("Could not recreate the instruction.", DebugType.Error);
-                        if ((pLocalUser as NetComOperator).ShowExceptions) (pLocalUser as NetComOperator).Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
+                        (pLocalUser as NetComOperator).Handler.Debug("Could not recreate the instruction.", DebugType.Error);
+                        if ((pLocalUser as NetComOperator).HandlerData.ShowExceptions) (pLocalUser as NetComOperator).Handler.Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
                     }
                 }
             }

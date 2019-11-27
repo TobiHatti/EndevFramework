@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EndevFramework.NetworkCore
@@ -17,6 +18,12 @@ namespace EndevFramework.NetworkCore
     /// </summary>
     public class NetComClient : NetComOperator
     {
+        private volatile Thread instructionReceptionThread = null;
+        private string serverPublicKey = null;
+
+        public NetComClient(NetComHandler pHandler, HandlerData pHandlerData) : base(pHandler, pHandlerData) { }
+
+
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║
         // ╟────┴────────────────────────────────────────────────────────╢ 

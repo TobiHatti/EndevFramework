@@ -31,7 +31,7 @@ namespace EndevFrameworkNetworkCore
         {
             try
             {
-                client = new NetComClient(serverIP, port, rsaKeys);
+                client = new NetComClient(serverIP, port);
                 client.Start();
             }
             catch
