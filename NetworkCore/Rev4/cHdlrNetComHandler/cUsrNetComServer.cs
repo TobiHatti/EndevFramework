@@ -6,9 +6,9 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static EndevFramework.NetworkCore.NetComExceptions;
+using static EndevFrameworkNetworkCore.NetComExceptions;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// =====================================   <para />
@@ -21,7 +21,7 @@ namespace EndevFramework.NetworkCore
     /// </summary>
     public class NetComServer : NetComOperator
     {
-        private List<string> groupAddRecords = new List<string>();
+        internal List<string> GroupAddRecords { get; set; } = new List<string>();
         public ClientList ConnectedClients { get; private set; } = new ClientList();
         public NetComGroups UserGroups { get; private set; } = new NetComGroups();
 
@@ -53,7 +53,7 @@ namespace EndevFramework.NetworkCore
         {
             base.AsyncInstructionSendNext();
 
-            if (!haltActive)
+            if (!HandlerData.HaltActive)
             {
                 try
                 {
@@ -110,17 +110,6 @@ namespace EndevFramework.NetworkCore
                 Handler.Debug("Could not send message. Server is in halt-mode. Waiting for 5 seconds...", DebugType.Error);
                 Thread.Sleep(5000);
             }
-        }
-
-        /// <summary>
-        /// Executes tasks every few minutes. Used for cleanup, improvements, etc.
-        /// </summary>
-        protected override void AsyncLongTermNextCycle()
-        {
-            base.AsyncLongTermNextCycle();
-
-            // Clear groupAddRecords to check every sending client once again 
-            groupAddRecords.Clear();
         }
 
         /// <summary>
@@ -268,9 +257,9 @@ namespace EndevFramework.NetworkCore
                     {
                         HandlerData.IncommingInstructions.Add(instr);
 
-                        if (instr.GetType() != typeof(InstructionLibraryEssentials.KeyExchangeClient2Server) && !groupAddRecords.Contains(instr.Sender.Username))
+                        if (instr.GetType() != typeof(InstructionLibraryEssentials.KeyExchangeClient2Server) && !GroupAddRecords.Contains(instr.Sender.Username))
                         {
-                            groupAddRecords.Add(instr.Sender.Username);
+                            GroupAddRecords.Add(instr.Sender.Username);
                             UserGroups.TryGroupAdd(instr.Sender);
                         }
                     }
@@ -319,7 +308,7 @@ namespace EndevFramework.NetworkCore
         /// <param name="pInstruction">Instruction to send. The receiver is set by the 'pReceiver'-parameter</param>
         public void Send(InstructionBase pInstruction)
         {
-            if (!haltActive)
+            if (!HandlerData.HaltActive)
             {
                 if (pInstruction.Receiver != null)
                 {
@@ -335,7 +324,7 @@ namespace EndevFramework.NetworkCore
         /// <param name="pInstruction">Instruction to send. Set the receiver-parameter to 'null'</param>
         public void Broadcast(InstructionBase pInstruction)
         {
-            if (!haltActive)
+            if (!HandlerData.HaltActive)
             {
                 try
                 {
@@ -379,7 +368,7 @@ namespace EndevFramework.NetworkCore
         /// <param name="pUsers">Target users</param>
         public void ListSend(InstructionBase pInstruction, params NetComUser[] pUsers)
         {
-            if (!haltActive)
+            if (!HandlerData.HaltActive)
             {
                 try
                 {
@@ -420,7 +409,7 @@ namespace EndevFramework.NetworkCore
         /// <param name="pGroup">Target group</param>
         public void GroupSend(InstructionBase pInstruction, UserGroup pGroup)
         {
-            if (!haltActive)
+            if (!HandlerData.HaltActive)
             {
                 try
                 {
@@ -462,7 +451,7 @@ namespace EndevFramework.NetworkCore
         /// </summary>
         protected override void HaltAllThreads()
         {
-            if (!haltActive)
+            if (!HandlerData.HaltActive)
             {
                 base.HaltAllThreads();
 
@@ -470,43 +459,6 @@ namespace EndevFramework.NetworkCore
                 Shutdown();
             }
         }
-
-        /// <summary>
-        /// Restarts the system.
-        /// </summary>
-        protected override void RestartSystem()
-        {
-            try
-            {
-                Handler.Debug("Attempting to restart server...", DebugType.Info);
-
-                Handler.Debug("Redefining system-data...", DebugType.Info);
-                groupAddRecords = new List<string>();
-                ConnectedClients = new ClientList();
-                UserGroups = new NetComGroups();
-
-                base.RestartSystem();
-
-                Start();
-
-                Handler.Debug("Server restart complete!", DebugType.Info);
-            }
-            catch (Exception ex)
-            {
-
-                Handler.Debug("Halting (01)", DebugType.Warning);
-                if (HandlerData.ShowExceptions) Handler.Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
-                if (HandlerData.TryRestartOnCrash) HaltAllThreads();
-            }
-        }
-
-
-
-
-
-
-
-
 
 
 

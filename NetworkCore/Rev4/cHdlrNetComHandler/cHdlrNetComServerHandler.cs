@@ -1,18 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     public class ServerHandler : NetComHandler
     {
-        protected override void NetComOperatorExecutor()
+        public ServerHandler(int pPort) : base()
+        {
+            handlerData.Port = pPort;
+            handlerData.ServerIP = IPAddress.Any;
+        }
+
+        public override void Start()
+        {
+            base.Start();
+        }
+
+        public NetComServer GetServer() => ncOperator as NetComServer;
+
+        protected override void AsyncCronjobCycle()
+        {
+            base.AsyncCronjobCycle();
+           
+            (ncOperator as NetComServer)?.GroupAddRecords.Clear();
+        }
+
+        protected override void AsyncOperationCycle()
         {
             ncOperator = new NetComServer(this, handlerData);
-            ncOperator.Start();
+            base.AsyncOperationCycle();
         }
+
 
         /// <summary>
         /// Sets the tool used for authenticating users.
@@ -22,7 +44,6 @@ namespace EndevFramework.NetworkCore
         {
             NetComCData.AuthLookup = pLookupTool;
         }
-
 
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║

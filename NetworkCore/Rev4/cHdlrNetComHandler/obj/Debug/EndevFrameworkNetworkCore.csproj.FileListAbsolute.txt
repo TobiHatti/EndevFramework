@@ -4,5 +4,7 @@ C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestM
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\cHdlrNetComHandler\obj\Debug\EndevFramework.NetworkCore.dll
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\NetComTestManager\cHdlrNetComHandler\obj\Debug\EndevFramework.NetworkCore.pdb
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\cHdlrNetComHandler\obj\Debug\EndevFrameworkNetworkCore.csprojAssemblyReference.cache
-C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\cHdlrNetComHandler\obj\Debug\EndevFramework.NetworkCore.dll
-C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\cHdlrNetComHandler\obj\Debug\EndevFramework.NetworkCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\cHdlrNetComHandler\bin\Debug\EndevFrameworkNetworkCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\cHdlrNetComHandler\bin\Debug\EndevFrameworkNetworkCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\cHdlrNetComHandler\obj\Debug\EndevFrameworkNetworkCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\cHdlrNetComHandler\obj\Debug\EndevFrameworkNetworkCore.pdb

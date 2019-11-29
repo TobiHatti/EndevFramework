@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// =====================================   <para />

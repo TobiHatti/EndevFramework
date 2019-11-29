@@ -5,55 +5,87 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     public abstract class NetComHandler
     {
-        protected volatile HandlerData handlerData = null;
+        protected volatile HandlerData handlerData = new HandlerData();
         protected volatile NetComOperator ncOperator = null;
 
         protected Thread cronjobThread = null;
         protected Thread operationThread = null;
-        protected Thread checkupThread = null;
 
         public delegate void DebuggingOutput(string pDebugMessage, DebugType pType, params object[] pParameters);
         protected DebuggingOutput DebugCom = null;
         protected object[] debugParams = null;
+
+        public HandlerData HandlerData { get => handlerData; }
+
+        public NetComHandler()
+        {
+            handlerData.RSAKeys = RSAHandler.GenerateKeyPair();
+        }
 
         public virtual void Start()
         {
             cronjobThread = new Thread(AsyncCronjobLoop);
             cronjobThread.Start();
 
-            checkupThread = new Thread(AsyncCheckupLoop);
-            checkupThread.Start();
+            operationThread = new Thread(AsyncOperationLoop);
+            operationThread.Start();
         }
 
-        protected void AsyncCronjobLoop() { while (true) AsyncCronjobCycle(); }
+        protected void AsyncCronjobLoop() { while (true) { AsyncCronjobCycle(); Thread.Sleep(10000); } }
+
+        protected void AsyncOperationLoop() { while(true) { AsyncOperationCycle(); } }
 
         protected virtual void AsyncCronjobCycle()
         {
-
+            //CheckHaltingState();
+            CheckInstructionIntegrity();
         }
 
-        protected void AsyncCheckupLoop() { while (true) AsyncCheckupCycle(); }
-
-        protected virtual void AsyncCheckupCycle()
+        protected virtual void AsyncOperationCycle()
         {
-            if (!cronjobThread.IsAlive)
-            {
-                try { operationThread.Abort(); }
-                catch { }
+            ncOperator.Start();
 
-                operationThread = new Thread(NetComOperatorExecutor);
-                operationThread.Start();
-                    
-            }
-            else Thread.Sleep(60000);
+            ncOperator.InstructionProcessingThread.Join();
+            ncOperator.InstructionSendingThread.Join();
         }
 
-        protected abstract void NetComOperatorExecutor();
+        //protected void CheckHaltingState()
+        //{
+        //    Debug("Checking halting-state...", DebugType.Cronjob);
+        //    if (handlerData.HaltActive)
+        //    {
+        //        Debug("Halting active! Restarting system...", DebugType.Cronjob);
+        //        //handlerData.HaltActive = false;
+        //        //RestartSystem();
+        //    }
+        //    else Debug("Halting disabled. Continuing regular operation.", DebugType.Cronjob);
+        //}
 
+        protected void CheckInstructionIntegrity()
+        {
+            Debug("Checking instruction-integrity...", DebugType.Cronjob);
+
+            int msgCtr = 0;
+
+            // Remove instruction that failed to be resent 5 times
+            for (int i = handlerData.LogOutgoingInstructions.Count - 1; i >= 0; i--)
+                if (handlerData.LogOutgoingInstructions.GetAttempts(i) > 20)
+                    handlerData.LogOutgoingInstructions.RemoveAt(i);
+
+            // Re-Send every instruction that is still in the outgoing-log
+            for (int i = 0; i < handlerData.LogOutgoingInstructions.Count; i++)
+            {
+                handlerData.OutgoingInstructions.Add(handlerData.LogOutgoingInstructions[i].Clone());
+                handlerData.LogOutgoingInstructions.AddAttempt(i);
+                msgCtr++;
+            }
+
+            Debug($"Integrity-Check done. Re-Sent {msgCtr} message(s)", DebugType.Cronjob);
+        }
 
         /// <summary>
         /// Sets the debug-output.

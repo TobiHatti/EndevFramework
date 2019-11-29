@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     public class HandlerData
     {
@@ -19,13 +19,17 @@ namespace EndevFramework.NetworkCore
 
         private volatile IPAddress serverIP = IPAddress.Loopback;
         private volatile int port = 2225;
-        private readonly RSAKeyPair rsaKeys = RSAHandler.GenerateKeyPair();
+        private RSAKeyPair rsaKeys = RSAHandler.GenerateKeyPair();
+
+        private volatile string username = null;
+        private volatile string password = null;
 
         private volatile uint logErrorCounter = 0;
         private volatile uint logProcessCounter = 0;
         private volatile uint logSendCounter = 0;
         private volatile uint logReceiveCounter = 0;
 
+        private volatile bool haltActive = false;
         private volatile bool tryRestartOnCrash = true;
         private volatile bool showExceptions = true;
 
@@ -48,7 +52,10 @@ namespace EndevFramework.NetworkCore
 
         internal IPAddress ServerIP { get => serverIP; set => serverIP = value; }
         internal int Port { get => port; set => port = value; } 
-        internal RSAKeyPair RSAKeys { get => rsaKeys; }
+        internal RSAKeyPair RSAKeys { get => rsaKeys; set => rsaKeys = value; }
+
+        internal string Username { get => username; set => username = value; }
+        internal string Password { get => password; set => password = value; }
 
         internal List<InstructionBase> IncommingInstructions { get => incommingInstructions; }
         internal List<InstructionBase> OutgoingInstructions { get => outgoingInstructions; } 
@@ -70,6 +77,7 @@ namespace EndevFramework.NetworkCore
         public uint LogSendCounter { get => logSendCounter; internal set => logSendCounter = value; }
         public uint LogReceiveCounter { get => logReceiveCounter; internal set => logReceiveCounter = value; }
 
+        internal bool HaltActive { get => haltActive; set => haltActive = value; }
         public bool TryRestartOnCrash { get => tryRestartOnCrash; set => tryRestartOnCrash = value; }
         public bool ShowExceptions { get  => showExceptions; set => showExceptions = value; } 
 

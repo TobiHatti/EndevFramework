@@ -1,37 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     public class ClientHandler : NetComHandler
     {
-        protected override void NetComOperatorExecutor()
-        {
-            ncOperator = new NetComClient(this, handlerData);
-            ncOperator.Start();
-        }
-
-        /*
-        public NetComClient(string pServerIP, int pPort)
+        public ClientHandler(string pServerIP, int pPort)
             : this(IPAddress.Parse(pServerIP), pPort) { }
 
-        /// <summary>
-        /// Creates a new NetCom-client instance.
-        /// </summary>
-        /// <param name="pServerIP">IP of the server</param>
-        /// <param name="pPort">TCP port of the server</param>
-        public NetComClient(IPAddress pServerIP, int pPort)
+        public ClientHandler(IPAddress pServerIP, int pPort) : base()
         {
-            RSAKeys = RSAHandler.GenerateKeyPair();
-            port = pPort;
-            serverIP = pServerIP;
+            handlerData.Port = pPort;
+            handlerData.ServerIP = pServerIP;
         }
 
-        */
 
+
+        public NetComClient GetClient() => ncOperator as NetComClient;
+
+        protected override void AsyncCronjobCycle()
+        {
+            base.AsyncCronjobCycle();
+        }
+
+        protected override void AsyncOperationCycle()
+        {
+            ncOperator = new NetComClient(this, handlerData);
+            base.AsyncOperationCycle();
+            (ncOperator as NetComClient).InstructionReceptionThread.Join();
+        }
+
+        /// <summary>
+        /// Sets the username and password for authenticating at the server.
+        /// </summary>
+        /// <param name="pUsername">Clients username</param>
+        /// <param name="pPassword">Clients password</param>
+        public void Login(string pUsername, string pPassword)
+        {
+            handlerData.Username = pUsername;
+            handlerData.Password = pPassword;
+        }
 
         // ╔════╤════════════════════════════════════════════════════════╗
         // ║ 1a │ F I E L D S   ( P R I V A T E )                        ║

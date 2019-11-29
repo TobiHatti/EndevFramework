@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     // ╔════╤════════════════════════════════════════════════════════╗
     // ║ 7  │ S T R U C T S                                          ║

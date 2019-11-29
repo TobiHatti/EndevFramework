@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// =====================================   <para />
@@ -21,10 +21,8 @@ namespace EndevFramework.NetworkCore
         internal NetComHandler Handler { get; set; } = null;
         internal HandlerData HandlerData { get; set; } = null;
 
-        protected volatile Thread instructionProcessingThread = null;
-        protected volatile Thread instructionSendingThread = null;
-
-        protected volatile bool haltActive = false;
+        internal Thread InstructionProcessingThread { get; set; } = null;
+        internal Thread InstructionSendingThread { get; set; } = null;
 
         protected const int bufferSize = 102400; // 100KB (KiB)
         protected volatile byte[] buffer = new byte[bufferSize];
@@ -36,6 +34,11 @@ namespace EndevFramework.NetworkCore
         {
             Handler = pHandler;
             HandlerData = pHandlerData;
+
+            HandlerData.HaltActive = false;
+
+            Username = HandlerData.Username;
+            Password = HandlerData.Password;
         }
 
         /// <summary>
@@ -44,12 +47,12 @@ namespace EndevFramework.NetworkCore
         public virtual void Start()
         {
             Handler.Debug("Starting Background-Process: Instruction-Processing...", DebugType.Info);
-            instructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
-            instructionProcessingThread.Start();
+            InstructionProcessingThread = new Thread(AsyncInstructionProcessingLoop);
+            InstructionProcessingThread.Start();
 
             Handler.Debug("Starting Background-Process: Instruction-Sending...", DebugType.Info);
-            instructionSendingThread = new Thread(AsyncInstructionSendingLoop);
-            instructionSendingThread.Start();
+            InstructionSendingThread = new Thread(AsyncInstructionSendingLoop);
+            InstructionSendingThread.Start();
         }
 
         
@@ -63,7 +66,7 @@ namespace EndevFramework.NetworkCore
         {
             try
             {
-                while (true)
+                while (!HandlerData.HaltActive)
                 {
                     if (HandlerData.OutgoingInstructions.Count > 0)
                         AsyncInstructionSendNext();
@@ -77,6 +80,8 @@ namespace EndevFramework.NetworkCore
                 if (HandlerData.ShowExceptions) Handler.Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
                 if (HandlerData.TryRestartOnCrash) HaltAllThreads();
             }
+
+            return;
         }
 
         /// <summary>
@@ -86,7 +91,7 @@ namespace EndevFramework.NetworkCore
         {
             try
             {
-                while (true)
+                while (!HandlerData.HaltActive)
                 {
                     if (HandlerData.IncommingInstructions.Count > 0)
                         AsyncInstructionProcessNext();
@@ -100,6 +105,8 @@ namespace EndevFramework.NetworkCore
                 if (HandlerData.ShowExceptions) Handler.Debug($"({ex.GetType().Name}) {ex.Message}", DebugType.Exception);
                 if (HandlerData.TryRestartOnCrash) HaltAllThreads();
             }
+
+            return;
         }
 
 
@@ -108,7 +115,7 @@ namespace EndevFramework.NetworkCore
         /// </summary>
         protected virtual void AsyncInstructionSendNext()
         {
-            if (!haltActive)
+            if (!HandlerData.HaltActive)
             {
                 HandlerData.LogSendCounter++;
                 if (HandlerData.OutgoingInstructions[0].GetType() != typeof(InstructionLibraryEssentials.ReceptionConfirmation))
@@ -128,63 +135,13 @@ namespace EndevFramework.NetworkCore
         }
 
         /// <summary>
-        /// Executes tasks every few minutes. Used for cleanup, improvements, etc.
-        /// </summary>
-        protected virtual void AsyncLongTermNextCycle()
-        {
-            CheckHaltingState();
-            CheckInstructionIntegrity();
-        }
-
-        /// <summary>
-        /// Gets the next item in the outputstream-queue.
-        /// Returns null if queue is empty.
-        /// </summary>
-        /// <returns>First element of the queue</returns>
-        
-
-        protected void CheckHaltingState()
-        {
-            Handler.Debug("Checking halting-state...", DebugType.Cronjob);
-            if (haltActive)
-            {
-                Handler.Debug("Halting active! Restarting system...", DebugType.Cronjob);
-                haltActive = false;
-                RestartSystem();
-            }
-            else Handler.Debug("Halting disabled. Continuing regular operation.", DebugType.Cronjob);
-        }
-
-        protected void CheckInstructionIntegrity()
-        {
-            Handler.Debug("Checking instruction-integrity...", DebugType.Cronjob);
-
-            int msgCtr = 0;
-
-            // Remove instruction that failed to be resent 5 times
-            for (int i = HandlerData.LogOutgoingInstructions.Count - 1; i >= 0; i--)
-                if (HandlerData.LogOutgoingInstructions.GetAttempts(i) > 20)
-                    HandlerData.LogOutgoingInstructions.RemoveAt(i);
-
-            // Re-Send every instruction that is still in the outgoing-log
-            for (int i = 0; i < HandlerData.LogOutgoingInstructions.Count; i++)
-            {
-                HandlerData.OutgoingInstructions.Add(HandlerData.LogOutgoingInstructions[i].Clone());
-                HandlerData.LogOutgoingInstructions.AddAttempt(i);
-                msgCtr++;
-            }
-
-            Handler.Debug($"Integrity-Check done. Re-Sent {msgCtr} message(s)", DebugType.Cronjob);
-        }
-
-        /// <summary>
         /// Halts all threads and prepares for a restart.
         /// </summary>
         protected virtual void HaltAllThreads()
         {
-            if (!haltActive)
+            if (!HandlerData.HaltActive)
             {
-                haltActive = true;
+                HandlerData.HaltActive = true;
 
                 Handler.Debug("A fatal error occured. Attempting to halt all processes...", DebugType.Fatal);
 
@@ -192,7 +149,7 @@ namespace EndevFramework.NetworkCore
                 Handler.Debug("Halting Instruction-Processing...", DebugType.Fatal);
                 try
                 {
-                    instructionProcessingThread.Abort();
+                    InstructionProcessingThread.Abort();
                     Handler.Debug("Successfully stopped Instruction-Processing!", DebugType.Fatal);
                 }
                 catch (Exception ex)
@@ -204,7 +161,7 @@ namespace EndevFramework.NetworkCore
                 Handler.Debug("Halting Instruction-Sending...", DebugType.Fatal);
                 try
                 {
-                    instructionSendingThread.Abort();
+                    InstructionSendingThread.Abort();
                     Handler.Debug("Successfully stopped Instruction-Sending!", DebugType.Fatal);
                 }
                 catch (Exception ex)
@@ -228,18 +185,6 @@ namespace EndevFramework.NetworkCore
                     HandlerData.LogOutgoingInstructions.RemoveAt(i);
                 }
         }
-
-        /// <summary>
-        /// Restarts the system.
-        /// </summary>
-        protected virtual void RestartSystem()
-        {
-            // Re-Define arrays and lists
-            buffer = new byte[bufferSize];
-            //HandlerData.IncommingInstructions = new List<InstructionBase>();
-            //HandlerData.OutgoingInstructions = new List<InstructionBase>();
-        }
-
 
 
 

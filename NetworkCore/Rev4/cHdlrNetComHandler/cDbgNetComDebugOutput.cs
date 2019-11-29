@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     // ╔════╤════════════════════════════════════════════════════════╗
     // ║ 6  │ E N U M E R A T O R S                                  ║

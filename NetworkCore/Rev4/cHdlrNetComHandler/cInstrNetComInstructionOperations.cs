@@ -5,9 +5,9 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using static EndevFramework.NetworkCore.NetComExceptions;
+using static EndevFrameworkNetworkCore.NetComExceptions;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// =====================================   <para />

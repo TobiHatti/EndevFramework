@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ISB = EndevFramework.NetworkCore.InstructionBase;
+using ISB = EndevFrameworkNetworkCore.InstructionBase;
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// =====================================   <para />
@@ -125,7 +125,7 @@ namespace EndevFramework.NetworkCore
 
             public override void Execute()
             {
-                (Receiver as NetComOperator).Debug($"Instruction-Confirmation received! [{value}] : [InsType: {(Receiver as NetComOperator).InstructionLogOutgoing[value]?.GetType()?.Name}]", DebugType.Confirmation);
+                (Receiver as NetComOperator).Handler.Debug($"Instruction-Confirmation received! [{value}] : [InsType: {(Receiver as NetComOperator).HandlerData.LogOutgoingInstructions[value]?.GetType()?.Name}]", DebugType.Confirmation);
                 (Receiver as NetComOperator).ConfirmExecution(value);
             }
         }
@@ -149,7 +149,7 @@ namespace EndevFramework.NetworkCore
 
             public override void Execute()
             {
-                (Receiver as NetComOperator).Debug($"SAMPLE-INSTRUCTION RECEIVED!", DebugType.Info);
+                (Receiver as NetComOperator).Handler.Debug($"SAMPLE-INSTRUCTION RECEIVED!", DebugType.Info);
             }
         }
 
@@ -196,7 +196,7 @@ namespace EndevFramework.NetworkCore
 
             public override void Execute()
             {
-                (Receiver as NetComOperator).Debug(value, DebugType.Remote);
+                (Receiver as NetComOperator).Handler.Debug(value, DebugType.Remote);
             }
         }
 
@@ -326,7 +326,7 @@ namespace EndevFramework.NetworkCore
 
             public override void Execute()
             {
-                (Receiver as NetComOperator).OutputStream.Add(value);
+                (Receiver as NetComOperator).HandlerData.OutputStream.Add(value);
             }
         }
 

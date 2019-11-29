@@ -1,0 +1,9 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SourceTestProject\obj\Debug\SourceTestProject.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SourceTestProject\bin\Debug\SourceTestProject.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SourceTestProject\bin\Debug\SourceTestProject.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SourceTestProject\bin\Debug\SourceTestProject.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SourceTestProject\obj\Debug\SourceTestProject.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SourceTestProject\obj\Debug\SourceTestProject.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SourceTestProject\bin\Debug\EndevFrameworkNetworkCore.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SourceTestProject\bin\Debug\EndevFrameworkNetworkCore.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SourceTestProject\obj\Debug\SourceTestProject.csproj.CopyComplete

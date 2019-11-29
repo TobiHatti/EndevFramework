@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static EndevFramework.NetworkCore.NetComExceptions;
+using static EndevFrameworkNetworkCore.NetComExceptions;
 
 //    ____        __           ____                                   __
 //   / __/__  ___/ /__ _  __  / __/___ __ ___ _  ___ _ __ __ __  ____/ /__
 //  / _// _ \/ _  / -_) |/ / / _// __/ _ `/  ' \/ -_) |/|/ / _ \/ __/  '_/
 // /___/_//_/\_,_/\__/|___/ /_/ /_/  \_,_/_/_/_/\__/|__,__/\___/_/ /_/\_\ 
 
-namespace EndevFramework.NetworkCore
+namespace EndevFrameworkNetworkCore
 {
     /// <summary>
     /// =====================================   <para />
