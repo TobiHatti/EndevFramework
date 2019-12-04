@@ -1,0 +1,5 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\NetCoreSR\bin\Debug\NetCoreSR.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\NetCoreSR\bin\Debug\NetCoreSR.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\NetCoreSR\obj\Debug\NetCoreSR.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\NetCoreSR\obj\Debug\NetCoreSR.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\NetCoreSR\obj\Debug\NetCoreSR.csprojAssemblyReference.cache

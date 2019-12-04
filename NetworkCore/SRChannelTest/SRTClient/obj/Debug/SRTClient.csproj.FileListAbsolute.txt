@@ -1,0 +1,9 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTClient\bin\Debug\SRTClient.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTClient\bin\Debug\SRTClient.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTClient\bin\Debug\SRTClient.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTClient\bin\Debug\NetCoreSR.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTClient\bin\Debug\NetCoreSR.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTClient\obj\Debug\SRTClient.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTClient\obj\Debug\SRTClient.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTClient\obj\Debug\SRTClient.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTClient\obj\Debug\SRTClient.pdb

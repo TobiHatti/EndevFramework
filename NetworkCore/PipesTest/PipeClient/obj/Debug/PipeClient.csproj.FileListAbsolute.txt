@@ -1,0 +1,6 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\PipesTest\PipeClient\bin\Debug\PipeClient.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\PipesTest\PipeClient\bin\Debug\PipeClient.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\PipesTest\PipeClient\bin\Debug\PipeClient.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\PipesTest\PipeClient\obj\Debug\PipeClient.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\PipesTest\PipeClient\obj\Debug\PipeClient.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\PipesTest\PipeClient\obj\Debug\PipeClient.csprojAssemblyReference.cache

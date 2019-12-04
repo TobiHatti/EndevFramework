@@ -1,0 +1,6 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRChannelTest\bin\Debug\SRChannelTest.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRChannelTest\bin\Debug\SRChannelTest.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRChannelTest\bin\Debug\SRChannelTest.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRChannelTest\obj\Debug\SRChannelTest.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRChannelTest\obj\Debug\SRChannelTest.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRChannelTest\obj\Debug\SRChannelTest.pdb
