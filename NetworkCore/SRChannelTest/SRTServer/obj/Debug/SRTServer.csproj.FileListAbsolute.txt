@@ -1,0 +1,5 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTServer\bin\Debug\SRTServer.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTServer\bin\Debug\SRTServer.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTServer\bin\Debug\SRTServer.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTServer\obj\Debug\SRTServer.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\SRChannelTest\SRTServer\obj\Debug\SRTServer.pdb

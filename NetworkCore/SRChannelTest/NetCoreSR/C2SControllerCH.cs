@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreSR
 {
-    public class C2SController
+    public class C2SControllerCH
     {
         private static readonly Socket ClientSocket = new Socket
             (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
