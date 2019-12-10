@@ -51,6 +51,8 @@ namespace NetComRMQ
             );
         }
 
+        public void ReceiveEvent(event )
+
         public bool Send(string pRoutingKey, string pMessage, string pExchange = "")
         {
             try
@@ -64,34 +66,10 @@ namespace NetComRMQ
 
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
         }
-    }
-
-    public class rtest
-    {
-        static void Main()
-        {
-            RMQServer server = new RMQServer("localhost");
-
-            server.DeclareQueue("Queue1");
-            server.DeclareQueue("Queue2");
-
-            server.Consumer.Received += Consumer_Received;
-
-            server.ConsumeQueue("Queue2");
-
-            server.Send("Queue1", "Hallo");
-        }
-
-        private static void Consumer_Received(object sender, BasicDeliverEventArgs e)
-        {
-            Console.WriteLine(Encoding.UTF8.GetString(e.Body));
-        }
-
-
     }
 }
