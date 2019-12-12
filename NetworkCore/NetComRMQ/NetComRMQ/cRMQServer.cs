@@ -8,66 +8,16 @@ using System.Threading.Tasks;
 
 namespace NetComRMQ
 {
-    public class RMQServer
+    public class RMQServer : RMQOperator
     {
-        private ConnectionFactory factory = null;
-        private IConnection connection = null;
-        private IModel channel = null;
-        private IBasicProperties basicProperties = null;
-        public EventingBasicConsumer consumer = null;
-
-        public RMQServer(string pHostname)
+        public RMQServer(string pHostname) : base(pHostname)
         {
-            factory = new ConnectionFactory();
-            factory.HostName = pHostname;
+            factory.UserName = "RMQServer";
+            factory.Password = "adgjl";
+
             connection = factory.CreateConnection();
             channel = connection.CreateModel();
             basicProperties = channel.CreateBasicProperties();
-        }
-
-        public void DeclareQueue(string pQueueName, bool pIsDurable = false, bool pIsExclusive = false, bool pAutoDelete = false, IDictionary<string, object> pArguments = null)
-        {
-            channel.QueueDeclare(
-                queue: pQueueName,
-                durable: pIsDurable,
-                exclusive: pIsExclusive,
-                autoDelete: pAutoDelete,
-                arguments: pArguments
-            );
-        }
-
-        public void ConsumeQueue(string pQueueName, bool pAutoAck = false)
-        {
-            channel.BasicConsume(
-                queue: pQueueName,
-                autoAck: pAutoAck,
-                consumer: consumer
-            );
-        }
-
-        public void ReceiveEvent(EventHandler<BasicDeliverEventArgs> pReceiveEvent)
-        {
-            consumer = new EventingBasicConsumer(channel);
-            consumer.Received += pReceiveEvent;
-        }
-
-        public bool Send(string pRoutingKey, string pMessage, string pExchange = "")
-        {
-            try
-            {
-                channel.BasicPublish(
-                    exchange: pExchange,
-                    routingKey: pRoutingKey,
-                    basicProperties: basicProperties,
-                    body: Encoding.UTF8.GetBytes(pMessage)
-                );
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
         }
     }
 }
