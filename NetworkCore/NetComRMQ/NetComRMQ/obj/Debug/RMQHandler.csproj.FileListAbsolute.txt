@@ -1,0 +1,9 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\NetComRMQ\bin\Debug\NetComRMQ.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\NetComRMQ\bin\Debug\NetComRMQ.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\NetComRMQ\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\NetComRMQ\bin\Debug\RabbitMQ.Client.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\NetComRMQ\bin\Debug\RabbitMQ.Client.xml
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\NetComRMQ\obj\Debug\RMQHandler.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\NetComRMQ\obj\Debug\RMQHandler.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\NetComRMQ\obj\Debug\NetComRMQ.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\NetComRMQ\obj\Debug\NetComRMQ.pdb

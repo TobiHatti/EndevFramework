@@ -16,12 +16,6 @@ namespace NetComRMQ
         private IBasicProperties basicProperties = null;
         public EventingBasicConsumer consumer = null;
 
-        public EventingBasicConsumer Consumer
-        {
-            get => consumer;
-            set => consumer = value;
-        }
-
         public RMQServer(string pHostname)
         {
             factory = new ConnectionFactory();
@@ -51,7 +45,11 @@ namespace NetComRMQ
             );
         }
 
-        public void ReceiveEvent(event )
+        public void ReceiveEvent(EventHandler<BasicDeliverEventArgs> pReceiveEvent)
+        {
+            consumer = new EventingBasicConsumer(channel);
+            consumer.Received += pReceiveEvent;
+        }
 
         public bool Send(string pRoutingKey, string pMessage, string pExchange = "")
         {

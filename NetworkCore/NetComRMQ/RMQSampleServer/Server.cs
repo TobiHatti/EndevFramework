@@ -1,4 +1,5 @@
 ﻿using NetComRMQ;
+using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,11 @@ namespace RMQSampleServer
             server.DeclareQueue("Client2Server");
 
             server.ReceiveEvent(OnReceive);
+
+            server.ConsumeQueue("Client2Server");
+
+            while(true)
+                server.Send("Server2Client", "Hallo von S nach C");
         }
     
         public static void OnReceive(object sender, BasicDeliverEventArgs e)
