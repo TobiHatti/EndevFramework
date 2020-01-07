@@ -13,9 +13,3 @@ C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SampleStart
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SampleStartupAssist\bin\Debug\EndevFrameworkNetworkCore.dll
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SampleStartupAssist\bin\Debug\EndevFrameworkNetworkCore.pdb
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\Rev4\SampleStartupAssist\obj\Debug\SampleStartupAssist.csproj.CopyComplete
-C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\SampleStartupAssist\bin\Debug\SampleStartupAssist.exe.config
-C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\SampleStartupAssist\bin\Debug\SampleStartupAssist.exe
-C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\SampleStartupAssist\bin\Debug\SampleStartupAssist.pdb
-C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\SampleStartupAssist\obj\Debug\SampleStartupAssist.csprojAssemblyReference.cache
-C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\SampleStartupAssist\obj\Debug\SampleStartupAssist.exe
-C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\SampleStartupAssist\obj\Debug\SampleStartupAssist.pdb

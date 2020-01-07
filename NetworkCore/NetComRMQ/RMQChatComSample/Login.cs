@@ -14,6 +14,7 @@ namespace RMQChatComSample
     {
         public string Username { get; set; } = null;
         public string Password { get; set; } = null;
+        public bool LoginAsClient { get; set; } = false;
 
         public Login()
         {
@@ -31,6 +32,9 @@ namespace RMQChatComSample
             {
                 Username = txbUsername.Text;
                 Password = txbPassword.Text;
+
+                if (rbnLoginClient.Checked) LoginAsClient = true;
+                else LoginAsClient = false;
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();

@@ -39,9 +39,8 @@
             this.txbMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txbMessage.Location = new System.Drawing.Point(12, 511);
-            this.txbMessage.Multiline = true;
             this.txbMessage.Name = "txbMessage";
-            this.txbMessage.Size = new System.Drawing.Size(191, 21);
+            this.txbMessage.Size = new System.Drawing.Size(191, 20);
             this.txbMessage.TabIndex = 0;
             // 
             // cbxType
@@ -72,6 +71,7 @@
             this.btnSendMessage.TabIndex = 3;
             this.btnSendMessage.Text = "Send";
             this.btnSendMessage.UseVisualStyleBackColor = true;
+            this.btnSendMessage.Click += new System.EventHandler(this.btnSendMessage_Click);
             // 
             // ChatWindow
             // 
