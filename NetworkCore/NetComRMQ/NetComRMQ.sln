@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQSimulation", "RMQSimulat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleStartupAssist", "SampleStartupAssist\SampleStartupAssist.csproj", "{30FAEDF9-F030-4BC3-888E-84C5EF8BE8AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMQChatComSample", "RMQChatComSample\RMQChatComSample.csproj", "{6F881086-A4A9-4833-860A-AC3D4ABC21EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{30FAEDF9-F030-4BC3-888E-84C5EF8BE8AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30FAEDF9-F030-4BC3-888E-84C5EF8BE8AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30FAEDF9-F030-4BC3-888E-84C5EF8BE8AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F881086-A4A9-4833-860A-AC3D4ABC21EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F881086-A4A9-4833-860A-AC3D4ABC21EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F881086-A4A9-4833-860A-AC3D4ABC21EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F881086-A4A9-4833-860A-AC3D4ABC21EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

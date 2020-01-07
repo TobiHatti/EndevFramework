@@ -1,0 +1,10 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQChatComSample\bin\Debug\RMQChatComSample.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQChatComSample\bin\Debug\RMQChatComSample.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQChatComSample\bin\Debug\RMQChatComSample.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQChatComSample\obj\Debug\RMQChatComSample.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQChatComSample\obj\Debug\RMQChatComSample.Properties.Resources.resources
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQChatComSample\obj\Debug\RMQChatComSample.csproj.GenerateResource.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQChatComSample\obj\Debug\RMQChatComSample.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQChatComSample\obj\Debug\RMQChatComSample.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQChatComSample\obj\Debug\RMQChatComSample.ChatWindow.resources
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQChatComSample\obj\Debug\RMQChatComSample.Login.resources
