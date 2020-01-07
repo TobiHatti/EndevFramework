@@ -8,13 +8,19 @@ using System.Threading.Tasks;
 
 namespace NetComRMQ
 {
-    public class RMQOperator
+    public abstract class RMQOperator
     {
         protected ConnectionFactory factory = null;
         protected IConnection connection = null;
         protected IModel channel = null;
         protected IBasicProperties basicProperties = null;
         protected EventingBasicConsumer consumer = null;
+
+        protected string localQueue = null;
+
+        protected const string excFullBroadcast = "LHFullBroadcast";
+        protected const string excServerBroadcast = "LHServerBroadcast";
+        protected const string excClientBroadcast = "LHClientBroadcast";
 
         public RMQOperator(string pHostname)
         {
@@ -62,6 +68,19 @@ namespace NetComRMQ
         {
             consumer = new EventingBasicConsumer(channel);
             consumer.Received += pReceiveEvent;
+        }
+
+        public void BasicConsume()
+        {
+            ConsumeQueue(localQueue);
+        }
+
+        public virtual void BasicExchanges(params string[] pAdditionalExchanges)
+        {
+            QueueBind(localQueue, excFullBroadcast);
+
+            foreach(string exc in pAdditionalExchanges)
+                QueueBind(localQueue, exc);
         }
 
         public bool Send(string pRoutingKey, string pMessage, string pExchange = "")

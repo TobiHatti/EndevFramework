@@ -10,14 +10,39 @@ namespace NetComRMQ
 {
     public class RMQServer : RMQOperator
     {
-        public RMQServer(string pHostname) : base(pHostname)
+        public RMQServer(string pHostname, string pUsername, string pPassword) : base(pHostname)
         {
-            factory.UserName = "RMQServer";
-            factory.Password = "adgjl";
+            // Set the username and password
+            factory.UserName = pUsername;
+            factory.Password = pPassword;
 
-            connection = factory.CreateConnection();
+
+            // Try to connect to the broker
+            try
+            {
+                connection = factory.CreateConnection();
+            }
+            catch
+            {
+                throw new ApplicationException("*** Could not initialize. Check if the Username and/or Password are correct and if the server is set correctly. ***");
+            }
+
+            // Initialize the communication channel
             channel = connection.CreateModel();
             basicProperties = channel.CreateBasicProperties();
+
+            // Declare name of local queue
+            localQueue = "Q.Server";
+
+            // Declare the Server-Queue
+            DeclareQueue(localQueue, true, false, false);
+        }
+
+        public override void BasicExchanges(params string[] pAdditionalExchanges)
+        {
+            base.BasicExchanges(pAdditionalExchanges);
+
+            QueueBind(localQueue, excServerBroadcast);
         }
     }
 }

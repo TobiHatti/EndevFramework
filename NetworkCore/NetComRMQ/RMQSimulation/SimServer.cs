@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace RMQSimulation
 {
-    public partial class Form1 : Form
+    public partial class SimServer : Form
     {
-        public Form1()
+        public SimServer()
         {
             InitializeComponent();
-        }
-
-        private void btnSpawnServer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSpawnClient_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

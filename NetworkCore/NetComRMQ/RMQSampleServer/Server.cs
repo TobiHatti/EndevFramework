@@ -10,27 +10,22 @@ namespace RMQSampleServer
     {
         static void Main(string[] args)
         {
-            RMQServer server = new RMQServer("localhost");
-            
-            server.DeclareQueue("Server2Client");
-            server.DeclareQueue("Client2Server");
-
-          
+            RMQServer server = new RMQServer("localhost", "RMQServer", "adgjl");
 
             server.ReceiveEvent(OnReceive);
 
-            server.ConsumeQueue("Client2Server");
+            server.BasicConsume();
 
-            server.DeclareExchange("BROADCAST", "fanout");
+            server.BasicExchanges();
 
-            server.QueueBind("Server2Client", "BROADCAST");
+            server.QueueBind("Q.Server", "LHFullBroadcast");
 
             while(true)
             {
                 Thread.Sleep(500);
-                server.Send("Server2Client", $"Hallo von S nach C at {DateTime.Now.ToLongTimeString()}", "BROADCAST");
+                server.Send("*", $"Hallo von S nach C at {DateTime.Now.ToLongTimeString()}", "LHFullBroadcast");
                 Thread.Sleep(500);
-                server.Send("Server2Client", $"Hallo von S nach C at {DateTime.Now.ToLongDateString()}", "BROADCAST");
+                server.Send("*", $"Hallo von S nach C at {DateTime.Now.ToLongDateString()}", "LHFullBroadcast");
             }
                 
         }

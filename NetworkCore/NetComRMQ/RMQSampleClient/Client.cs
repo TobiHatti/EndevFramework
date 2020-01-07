@@ -10,23 +10,22 @@ namespace RMQSampleClient
     {
         static void Main(string[] args)
         {
-            RMQClient server = new RMQClient("localhost");
+            RMQClient client = new RMQClient("localhost", "RMQClient", "adgjl");
 
-            server.DeclareQueue("Server2Client");
-            server.DeclareQueue("Client2Server");
+            client.ReceiveEvent(OnReceive);
 
-            server.ReceiveEvent(OnReceive);
+            client.BasicConsume();
 
-            server.ConsumeQueue("Server2Client");
+            client.BasicExchanges();
 
             while (true)
             {
                 Thread.Sleep(333);
-                server.Send("Client2Server", $"Hallo von C nach S at {DateTime.Now.ToLongTimeString()}");
+                client.Send("", $"Hallo von C nach S at {DateTime.Now.ToLongTimeString()}", "LHFullBroadcast");
                 Thread.Sleep(333);
-                server.Send("Client2Server", $"Hallo von C nach S at {DateTime.Now.ToLongDateString()}");
+                client.Send("", $"Hallo von C nach S at {DateTime.Now.ToLongDateString()}", "LHFullBroadcast");
                 Thread.Sleep(333);
-                server.Send("Client2Server", $"Hallo von C nach S at {DateTime.Now.ToUniversalTime()}");
+                client.Send("", $"Hallo von C nach S at {DateTime.Now.ToUniversalTime()}", "LHFullBroadcast");
             }
                 
         }
