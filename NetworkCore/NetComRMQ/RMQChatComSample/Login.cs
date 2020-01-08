@@ -37,7 +37,7 @@ namespace RMQChatComSample
                 else LoginAsClient = false;
 
                 this.DialogResult = DialogResult.OK;
-                this.Close();
+                this.Dispose();
             }
             else MessageBox.Show("Please enter Username and Password!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }

@@ -42,23 +42,29 @@ namespace RMQChatComSample
                 }
 
                 cbxType.Items.Add("Broadcast");
-
-                if (login.LoginAsClient) cbxType.Items.Add("Broadcast Clients");
-                else cbxType.Items.Add("Broadcast Servers");
-
+                cbxType.Items.Add("Broadcast Clients");
+                cbxType.Items.Add("Broadcast Servers");
                 cbxType.SelectedIndex = 0;
+
+                if (login.LoginAsClient) this.Text = "Logged in as Client";
+                else this.Text = "Logged in as Server";
             }
         }
 
         private void OnReceiveEvent(object sender, BasicDeliverEventArgs e)
         {
-            txbChat.Text += Encoding.UTF8.GetString(e.Body);
+            txbChat.Text += "Received> " + Encoding.UTF8.GetString(e.Body) + Environment.NewLine;
             txbChat.ScrollToCaret();
         }
 
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
-            switch(cbxType.SelectedItem.ToString())
+            Send();
+        }
+
+        private void Send()
+        {
+            switch (cbxType.SelectedItem.ToString())
             {
                 case "Broadcast":
                     op.Send("*", txbMessage.Text, "LHFullBroadcast");
@@ -71,8 +77,17 @@ namespace RMQChatComSample
                     break;
             }
 
-            txbChat.Text += "Sent: " + txbMessage.Text;
+            txbChat.Text += "Sent> " + txbMessage.Text + Environment.NewLine;
             txbMessage.Text = "";
+            txbChat.ScrollToCaret();
+
+            txbMessage.Focus();
+        }
+
+        private void txbMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+                Send();
         }
     }
 }

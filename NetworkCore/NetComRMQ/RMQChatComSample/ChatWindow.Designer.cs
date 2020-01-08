@@ -42,6 +42,7 @@
             this.txbMessage.Name = "txbMessage";
             this.txbMessage.Size = new System.Drawing.Size(191, 20);
             this.txbMessage.TabIndex = 0;
+            this.txbMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbMessage_KeyDown);
             // 
             // cbxType
             // 
