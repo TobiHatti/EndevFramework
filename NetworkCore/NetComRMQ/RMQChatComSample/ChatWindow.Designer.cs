@@ -61,6 +61,7 @@
             this.txbChat.Location = new System.Drawing.Point(12, 12);
             this.txbChat.Multiline = true;
             this.txbChat.Name = "txbChat";
+            this.txbChat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txbChat.Size = new System.Drawing.Size(295, 493);
             this.txbChat.TabIndex = 2;
             // 
@@ -85,6 +86,7 @@
             this.Controls.Add(this.txbMessage);
             this.Name = "ChatWindow";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChatWindow_FormClosing);
             this.Load += new System.EventHandler(this.ChatWindow_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

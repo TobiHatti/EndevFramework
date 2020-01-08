@@ -89,5 +89,10 @@ namespace RMQChatComSample
             if (e.KeyData == Keys.Enter)
                 Send();
         }
+
+        private void ChatWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            op.Close();
+        }
     }
 }

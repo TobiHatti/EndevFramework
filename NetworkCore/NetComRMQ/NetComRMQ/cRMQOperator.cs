@@ -28,6 +28,12 @@ namespace NetComRMQ
             factory.HostName = pHostname;
         }
 
+        public void Close()
+        {
+            channel.Close();
+            connection.Close();
+        }
+
         public void DeclareExchange(string pExchangeName, string pExchangeType)
         {
             channel.ExchangeDeclare(
