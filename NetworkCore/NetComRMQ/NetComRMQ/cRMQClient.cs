@@ -11,28 +11,14 @@ namespace NetComRMQ
     public class RMQClient : RMQOperator
     {
 
-
-        public RMQClient(string pHostname, string pUsername, string pPassword) : base(pHostname)
-        {
-            // Set the username and password
-            factory.UserName = pUsername;
-            factory.Password = pPassword;
-
-
-            // Try to connect to the broker
-            try
-            {
-                connection = factory.CreateConnection();
-            }
-            catch
-            {
-                throw new ApplicationException("*** Could not initialize. Check if the Username and/or Password are correct and if the server is set correctly. ***");
-            }
-
-            // Initialize the communication channel
-            channel = connection.CreateModel();
-            basicProperties = channel.CreateBasicProperties();
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pHostname"></param>
+        /// <param name="pUsername"></param>
+        /// <param name="pPassword"></param>
+        public RMQClient(string pHostname, string pUsername, string pPassword) : base(pHostname, pUsername, pPassword)
+        { 
             // Declare name of local queue
             // One client can create multiple queues, so the queue auto-deletes.
             // Client-queues have an additional ID
