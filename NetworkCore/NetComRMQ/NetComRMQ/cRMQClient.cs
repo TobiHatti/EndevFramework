@@ -12,11 +12,13 @@ namespace NetComRMQ
     {
 
         /// <summary>
-        /// 
+        /// Creates a new Rabbit-MQ client.
+        /// A single user can log into multiple 
+        /// client-instances without any problems.
         /// </summary>
-        /// <param name="pHostname"></param>
-        /// <param name="pUsername"></param>
-        /// <param name="pPassword"></param>
+        /// <param name="pHostname">Hostname of the RabbitMQ-Broker</param>
+        /// <param name="pUsername">RMQ-Username</param>
+        /// <param name="pPassword">RMQ-Password</param>
         public RMQClient(string pHostname, string pUsername, string pPassword) : base(pHostname, pUsername, pPassword)
         { 
             // Declare name of local queue
@@ -28,6 +30,12 @@ namespace NetComRMQ
             DeclareQueue(localQueue, true, false, true);
         }
 
+        /// <summary>
+        /// Binds the clients own queue to default and additional exchanges. 
+        /// By default, the client subscribes to the Broadcast and ClientBroadcast
+        /// exchanges
+        /// </summary>
+        /// <param name="pAdditionalExchanges">Names of additional exchanges</param>
         public override void BasicExchanges(params string[] pAdditionalExchanges)
         {
             base.BasicExchanges(pAdditionalExchanges);

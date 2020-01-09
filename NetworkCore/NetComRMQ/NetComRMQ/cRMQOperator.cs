@@ -138,9 +138,9 @@ namespace NetComRMQ
         }
 
         /// <summary>
-        /// Binds the operators own queue to the given exchanges
+        /// Binds the operators own queue to the given exchanges. 
         /// </summary>
-        /// <param name="pAdditionalExchanges">Names of the exchanges</param>
+        /// <param name="pAdditionalExchanges">Names of additional exchanges</param>
         public virtual void BasicExchanges(params string[] pAdditionalExchanges)
         {
             QueueBind(localQueue, excFullBroadcast);
