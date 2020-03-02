@@ -25,6 +25,9 @@ namespace NetComRMQ
 
             // Declare the Server-Queue
             DeclareQueue(localQueue, true, false, false);
+
+            // Consume the local queue
+            ConsumeQueue(localQueue);
         }
 
         /// <summary>
@@ -33,11 +36,12 @@ namespace NetComRMQ
         /// exchanges
         /// </summary>
         /// <param name="pAdditionalExchanges">Names of additional exchanges</param>
+        [Obsolete("This Method should not be used anymore. Too static use-case")]
         public override void BasicExchanges(params string[] pAdditionalExchanges)
         {
             base.BasicExchanges(pAdditionalExchanges);
 
-            QueueBind(localQueue, excServerBroadcast);
+            ExchangeSubscribe(excServerBroadcast, localQueue);
         }
     }
 }

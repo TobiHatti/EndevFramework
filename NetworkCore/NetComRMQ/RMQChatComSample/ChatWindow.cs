@@ -33,7 +33,7 @@ namespace RMQChatComSample
                     else op = new RMQServer(host, login.Username, login.Password);
                 
                     op.ReceiveEvent(OnReceiveEvent);
-                    op.BasicConsume();
+                    op.SelfConsume();
                     op.BasicExchanges();
                 }
                 catch(Exception ex)
@@ -67,13 +67,13 @@ namespace RMQChatComSample
             switch (cbxType.SelectedItem.ToString())
             {
                 case "Broadcast":
-                    op.Send("*", txbMessage.Text, "LHFullBroadcast");
+                    op.SendTo(txbMessage.Text, "LHFullBroadcast", "*");
                     break;
                 case "Broadcast Servers":
-                    op.Send("*", txbMessage.Text, "LHServerBroadcast");
+                    op.SendTo(txbMessage.Text, "LHServerBroadcast", "*");
                     break;
                 case "Broadcast Clients":
-                    op.Send("*", txbMessage.Text, "LHClientBroadcast");
+                    op.SendTo(txbMessage.Text, "LHClientBroadcast", "*");
                     break;
             }
 

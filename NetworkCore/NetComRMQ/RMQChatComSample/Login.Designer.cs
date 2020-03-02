@@ -75,6 +75,7 @@
             this.txbUsername.Name = "txbUsername";
             this.txbUsername.Size = new System.Drawing.Size(100, 20);
             this.txbUsername.TabIndex = 1;
+            this.txbUsername.Text = "guest";
             this.txbUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbUsername_KeyDown);
             // 
             // txbPassword
@@ -83,6 +84,7 @@
             this.txbPassword.Name = "txbPassword";
             this.txbPassword.Size = new System.Drawing.Size(100, 20);
             this.txbPassword.TabIndex = 2;
+            this.txbPassword.Text = "guest";
             this.txbPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbPassword_KeyDown);
             // 
             // label2

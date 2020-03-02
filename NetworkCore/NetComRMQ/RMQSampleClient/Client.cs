@@ -13,15 +13,15 @@ namespace RMQSampleClient
             RMQClient client = new RMQClient("localhost", "RMQClient", "adgjl");
 
             client.ReceiveEvent(OnReceive);
-            client.BasicConsume();
+            client.SelfConsume();
             client.BasicExchanges();
 
             while (true)
             {
                 Thread.Sleep(500);
-                client.Send("", $"Hallo von C nach S at {DateTime.Now.ToLongTimeString()}", "LHFullBroadcast");
+                client.SendTo($"Hallo von C nach S at {DateTime.Now.ToLongTimeString()}", "LHFullBroadcast", "*");
                 Thread.Sleep(500);
-                client.Send("", $"Hallo von C nach S at {DateTime.Now.ToLongDateString()}", "LHClientBroadcast");
+                client.SendTo($"Hallo von C nach S at {DateTime.Now.ToLongTimeString()}", "LHFullBroadcast", "*");
             }
                 
         }

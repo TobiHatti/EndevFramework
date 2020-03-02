@@ -14,18 +14,18 @@ namespace RMQSampleServer
 
             server.ReceiveEvent(OnReceive);
 
-            server.BasicConsume();
+            server.SelfConsume();
 
             server.BasicExchanges();
 
-            server.QueueBind("Q.Server", "LHFullBroadcast");
+            server.ExchangeSubscribe("LHFullBroadcast", "Q.Server");
 
             while(true)
             {
                 Thread.Sleep(500);
-                server.Send("*", $"Hallo von S nach C at {DateTime.Now.ToLongTimeString()}", "LHFullBroadcast");
+                server.SendTo("*", $"Hallo von S nach C at {DateTime.Now.ToLongTimeString()}", "LHFullBroadcast");
                 Thread.Sleep(500);
-                server.Send("*", $"Hallo von S nach C at {DateTime.Now.ToLongDateString()}", "LHFullBroadcast");
+                server.SendTo("*", $"Hallo von S nach C at {DateTime.Now.ToLongDateString()}", "LHFullBroadcast");
             }
                 
         }

@@ -1,0 +1,13 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\bin\Debug\DOC_RMQ-Client.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\bin\Debug\DOC_RMQ-Client.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\bin\Debug\DOC_RMQ-Client.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\bin\Debug\NetComRMQ.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\bin\Debug\RabbitMQ.Client.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\bin\Debug\NetComRMQ.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\bin\Debug\RabbitMQ.Client.xml
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\obj\Debug\DOC_RMQ-Client.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\obj\Debug\DOC_RMQ-Client.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\obj\Debug\DOC_RMQ-Client.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\DOC_RMQ-Client\obj\Debug\DOC_RMQ-Client.csprojAssemblyReference.cache

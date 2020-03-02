@@ -18,10 +18,6 @@ namespace NetComRMQ
 
         protected string localQueue = null;
 
-        protected const string excFullBroadcast = "LHFullBroadcast";
-        protected const string excServerBroadcast = "LHServerBroadcast";
-        protected const string excClientBroadcast = "LHClientBroadcast";
-
         /// <summary>
         /// Creates a new RabbitMQ-Operator. Connects to the broker, logs the user in and initializes the com-channel.
         /// </summary>
@@ -44,6 +40,10 @@ namespace NetComRMQ
             // Initialize the communication channel
             channel = connection.CreateModel();
             basicProperties = channel.CreateBasicProperties();
+
+            // Set the receive-event for incomming messages or requests
+            consumer = new EventingBasicConsumer(channel);
+            consumer.Received += ReceiveMessageOperationFilter;
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace NetComRMQ
         /// <param name="pQueueName">Name of the queue</param>
         /// <param name="pExchangeName">Name of the exchange</param>
         /// <param name="pRoutingKey">Optional. Routing-Key for additional and complex message routing</param>
-        public void QueueBind(string pQueueName, string pExchangeName, string pRoutingKey = "")
+        public void ExchangeSubscribe(string pExchangeName, string pQueueName, string pRoutingKey = "")
         {
             channel.QueueBind(queue: pQueueName,
                   exchange: pExchangeName,
@@ -119,35 +119,89 @@ namespace NetComRMQ
             );
         }
 
-        /// <summary>
-        /// Sets the event when a message is received.
-        /// </summary>
-        /// <param name="pReceiveEvent">Receive-Event</param>
-        public void ReceiveEvent(EventHandler<BasicDeliverEventArgs> pReceiveEvent)
+        public void ExchangeSubscribeSelf(string pExchangeName, string pRoutingKey = "")
         {
-            consumer = new EventingBasicConsumer(channel);
-            consumer.Received += pReceiveEvent;
+            channel.QueueBind(queue: localQueue,
+                  exchange: pExchangeName,
+                  routingKey: pRoutingKey
+            );
         }
 
-        /// <summary>
-        /// Consumes the Operators own queue (default use scenario)
-        /// </summary>
-        public void BasicConsume()
+        private const string messagePrefix = "[MSG:]";
+        private const string requestPrefix = "[RQT:]";
+        private const string replyPrefix  =  "[RPY:]";
+
+        private void ReceiveMessageOperationFilter(object sender, BasicDeliverEventArgs e)
         {
-            ConsumeQueue(localQueue);
+            string message = Encoding.UTF8.GetString(e.Body);
+
+            if (message.StartsWith(messagePrefix)) receiveMessageEvent(message.Substring(messagePrefix.Length - 1, message.Length));
+            else if (message.StartsWith(requestPrefix))
+            {
+                string senderQueue = "";
+                string requestID = "";
+                string requestReply = null;
+                int replyStatusCode = 100;
+
+                // Remove Request-Header
+                message = message.Substring(requestPrefix.Length);
+
+                // Check if a Sender-Queue-Tag exists
+                if(message.StartsWith("[SQ:"))
+                {
+                    // Get Sender-Queue
+                    senderQueue = message.Substring(4, message.IndexOf(']') - 4);
+
+                    // Remove Sender-Queue from Message
+                    message = message.Substring(message.IndexOf(']') + 1);
+                }
+
+                if(message.StartsWith("[MID:"))
+                {
+                    // Get Request-ID
+                    requestID = message.Substring(5, message.IndexOf(']') - 5);
+
+                    // Remove Request-ID from Message
+                    message = message.Substring(message.IndexOf(']') + 1);
+                }
+
+                try
+                {
+                    requestReply = receiveRequestEvent(message);
+                    if(string.IsNullOrEmpty(requestReply)) replyStatusCode = 200;
+                }
+                catch(Exception ex)
+                {
+                    replyStatusCode = 999;
+                }
+                finally
+                {
+                    SendTo($"{replyPrefix}[RSC:{Convert.ToString(replyStatusCode)}][MID:{requestID}]{Convert.ToString(requestReply)}", "", senderQueue);
+                }
+            }
+            else if (message.StartsWith(replyPrefix))
+            {
+                System.Windows.Forms.MessageBox.Show("Received Reply: " + message);
+            }
+            else throw new ApplicationException("Error: No Messagetype-Prefix detected. Please ensure that both connected clients use the same version of this library");
         }
 
-        /// <summary>
-        /// Binds the operators own queue to the given exchanges. 
-        /// </summary>
-        /// <param name="pAdditionalExchanges">Names of additional exchanges</param>
-        public virtual void BasicExchanges(params string[] pAdditionalExchanges)
-        {
-            QueueBind(localQueue, excFullBroadcast);
+        public delegate void MessageReceiveEvent(string pIncommingMessage);
+        public delegate string RequestReceiveEvent(string pIncommingMessage);
+        private MessageReceiveEvent receiveMessageEvent = null;
+        private RequestReceiveEvent receiveRequestEvent = null;
 
-            foreach(string exc in pAdditionalExchanges)
-                QueueBind(localQueue, exc);
+        public void ReceiveMessageEvent(MessageReceiveEvent pReceiveEvent)
+        {
+            receiveMessageEvent = pReceiveEvent;
         }
+
+        public void ReceiveRequestEvent(RequestReceiveEvent pReceiveEvent)
+        {
+            receiveRequestEvent = pReceiveEvent;
+        }
+
+        
 
         /// <summary>
         /// Sends a message to an exchange or directly to another queue
@@ -156,7 +210,7 @@ namespace NetComRMQ
         /// <param name="pMessage">Message to be sent</param>
         /// <param name="pExchange">Target exchange to distribute the message</param>
         /// <returns>True in case the send-process was successfull</returns>
-        public bool Send(string pMessage, string pExchange = "", string pRoutingKey = "")
+        public bool SendTo(string pMessage, string pExchange = "", string pRoutingKey = "")
         {
             try
             {
@@ -169,10 +223,57 @@ namespace NetComRMQ
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
                 return false;
             }
         }
+
+        #region Obsolete Methods
+
+        protected const string excFullBroadcast = "LHFullBroadcast";
+        protected const string excServerBroadcast = "LHServerBroadcast";
+        protected const string excClientBroadcast = "LHClientBroadcast";
+
+        /// <summary>
+        /// Consumes the Operators own queue (default use scenario)
+        /// </summary>
+        [Obsolete("This Method is deprecated. Binding already occurs on initialisation.")]
+        public void SelfConsume()
+        {
+            ConsumeQueue(localQueue);
+        }
+
+        /// <summary>
+        /// Binds the operators own queue to the given exchanges. 
+        /// </summary>
+        /// <param name="pAdditionalExchanges">Names of additional exchanges</param>
+        [Obsolete("This Method should not be used anymore. Too static use-case")]
+        public virtual void BasicExchanges(params string[] pAdditionalExchanges)
+        {
+            DeclareExchange(excFullBroadcast, "fanout", true, false);
+            ExchangeSubscribe(excFullBroadcast, localQueue);
+
+            foreach (string exc in pAdditionalExchanges)
+            {
+                DeclareExchange(localQueue, "fanout", true, false);
+                ExchangeSubscribe(exc, localQueue);
+            }
+        }
+
+        /// <summary>
+        /// Sets the event when a message is received. This method checks if the message is a 
+        /// simple-message, request or reply and passes on the processing.
+        /// </summary>
+        /// <param name="pReceiveEvent">Receive-Event</param>
+        [Obsolete("This Method is deprecated. Default Receive-Event is already set in constructor. Use ReceiveMessageEvent and ReceiveRequestEvent instead")]
+        public void ReceiveEvent(EventHandler<BasicDeliverEventArgs> pReceiveEvent)
+        {
+            consumer = new EventingBasicConsumer(channel);
+            consumer.Received += pReceiveEvent;
+        }
+        #endregion
+
     }
 }

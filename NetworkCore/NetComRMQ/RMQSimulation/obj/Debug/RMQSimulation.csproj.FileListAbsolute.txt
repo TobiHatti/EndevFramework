@@ -1,0 +1,10 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQSimulation\bin\Debug\RMQSimulation.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQSimulation\bin\Debug\RMQSimulation.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQSimulation\bin\Debug\RMQSimulation.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQSimulation\obj\Debug\RMQSimulation.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQSimulation\obj\Debug\RMQSimulation.Form1.resources
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQSimulation\obj\Debug\RMQSimulation.Properties.Resources.resources
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQSimulation\obj\Debug\RMQSimulation.SimServer.resources
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQSimulation\obj\Debug\RMQSimulation.csproj.GenerateResource.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQSimulation\obj\Debug\RMQSimulation.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\RMQSimulation\obj\Debug\RMQSimulation.pdb
