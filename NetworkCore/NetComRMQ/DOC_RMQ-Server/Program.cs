@@ -60,20 +60,26 @@ namespace DOC_RMQ_Server
             // Both of the following events need to be set to ensure propper use.
 
             // To set the receive-event for simple-messages, use
-            //server.ReceiveMessageEvent(MyMessageReceiveEvent);
+            server.ReceiveMessageEvent(MyMessageReceiveEvent);
 
             // To set the receive-event for request-messages, use
-            //server.ReceiveRequestEvent(MyRequestReceiveEvent);
+            server.ReceiveRequestEvent(MyRequestReceiveEvent);
 
             // *** End of Startup- and Setup-Section ***
 
 
             // ====== RMQ-Send Events ======
+           
+            // Send a simple message without a reply to a remote node:
             server.SendTo("MyMessageToSend", "Broadcast");
 
-            //string myReply = server.RequestFrom("MyThingIWantToRequest", "UserIWantToRequestFrom");
+            // Send a request to a remote node. Waits until a reply is received OR the request times out.
+            // Default Timeout-Duration is 5 seconds.
+            string myReply = server.RequestFrom("MyThingIWantToRequest", "UserIWantToRequestFrom");
 
-
+            // In case of slow internet-connections, large transfer files or intensive processing 
+            // at the remote node, the timeout-duration can be increased. Time in Miliseconds
+            RMQServer.TimeoutDuration = 10000;
 
 
             // ====== Closing an RMQ-Client ======
@@ -81,6 +87,19 @@ namespace DOC_RMQ_Server
             // Closing the RMQ-Client is required to properly shut down any existing 
             // connections and to avoid errors upon the next start of the program.
             server.Close();
+
+
+            Console.WriteLine("Done");
+        }
+
+        private static string MyRequestReceiveEvent(string pIncommingMessage)
+        {
+            return pIncommingMessage.ToUpper();
+        }
+
+        private static void MyMessageReceiveEvent(string pIncommingMessage)
+        {
+            Console.WriteLine(pIncommingMessage);
         }
     }
 }

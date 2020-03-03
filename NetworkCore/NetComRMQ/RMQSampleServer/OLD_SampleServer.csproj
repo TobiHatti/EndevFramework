@@ -57,9 +57,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NetComRMQ\RMQHandler.csproj">
+    <ProjectReference Include="..\NetComRMQ\cRMQHandler.csproj">
       <Project>{8736BE5C-8694-4900-B18A-E2915C124670}</Project>
-      <Name>RMQHandler</Name>
+      <Name>cRMQHandler</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
