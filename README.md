@@ -10,7 +10,7 @@ The different modules are completely independend on each other, so the use of ju
 
 __[ALPHA VERSION 1.2 Rev3] Send-Stability: 99,999% (± 0,001%) Pure C#__
 
-__[ALPHA VERSION 2.1] Send-Stability: 100% - Using Rabbit-MQ __
+**[ALPHA VERSION 2.1] Send-Stability: 100% - Using Rabbit-MQ**
 
 The Endev-Network-Core allows you to communicate between application via the TCP-Protocol.
 The Module allows __one server__ and __multiple clients__. 
