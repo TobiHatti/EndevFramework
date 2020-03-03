@@ -8,3 +8,4 @@ C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RM
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Client\obj\Debug\EXA_RMQ-Client.csproj.CopyComplete
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Client\obj\Debug\EXA_RMQ-Client.exe
 C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Client\obj\Debug\EXA_RMQ-Client.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Client\obj\Debug\EXA_RMQ-Client.csprojAssemblyReference.cache

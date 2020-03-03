@@ -15,6 +15,9 @@ namespace EXA_RMQ_Server
 
             RMQServer server = new RMQServer("localhost", "RMQServer", "adgjl");
 
+            server.ReceiveMessageEvent(OnMessageReceive);
+            server.ReceiveRequestEvent(OnRequestReceive);
+
             if (createRMQInfrastructure)
             {
                 server.DeclareExchange("Broadcast", "fanout", true, false);
@@ -24,9 +27,6 @@ namespace EXA_RMQ_Server
 
             server.ExchangeSubscribeSelf("Broadcast");
             server.ExchangeSubscribeSelf("BCPublishers");
-
-            server.ReceiveMessageEvent(OnMessageReceive);
-            server.ReceiveRequestEvent(OnRequestReceive);
 
             /* END OF SETUP */
             /* START OF SENDING */

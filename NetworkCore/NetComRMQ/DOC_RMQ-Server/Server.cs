@@ -21,6 +21,21 @@ namespace DOC_RMQ_Server
             // On initialization, the server automatically creates a queue AND consumes it.
             RMQServer server = new RMQServer("localhost", "sampleUser", "samplePassword");
 
+            // ====== RMQ-Receive Events ======
+
+            // This handler can send 2 general types of messages:
+            // 1) Simple-Messages: Gets sent from A To B, B does not reply and A 
+            //    does not wait until a reply is received
+            // 2) Request-Message: A sends a request to B, B replies to A. 
+            //    A is halted until the reply is received.
+            // Both of the following events need to be set to ensure propper use.
+
+            // To set the receive-event for simple-messages, use
+            server.ReceiveMessageEvent(MyMessageReceiveEvent);
+
+            // To set the receive-event for request-messages, use
+            server.ReceiveRequestEvent(MyRequestReceiveEvent);
+
             // ====== Initialising RMQ-Infrastructure ======
 
             // Define an exchange to distribute messages.
@@ -49,21 +64,6 @@ namespace DOC_RMQ_Server
 
             // To bind another queue to an exchange named "Broadcast", use
             server.ExchangeSubscribe("Broadcast", "SecondServerQueue");
-
-            // ====== RMQ-Receive Events ======
-
-            // This handler can send 2 general types of messages:
-            // 1) Simple-Messages: Gets sent from A To B, B does not reply and A 
-            //    does not wait until a reply is received
-            // 2) Request-Message: A sends a request to B, B replies to A. 
-            //    A is halted until the reply is received.
-            // Both of the following events need to be set to ensure propper use.
-
-            // To set the receive-event for simple-messages, use
-            server.ReceiveMessageEvent(MyMessageReceiveEvent);
-
-            // To set the receive-event for request-messages, use
-            server.ReceiveRequestEvent(MyRequestReceiveEvent);
 
             // *** End of Startup- and Setup-Section ***
 

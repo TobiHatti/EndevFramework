@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EXA_RMQ_Client
@@ -15,6 +16,9 @@ namespace EXA_RMQ_Client
 
             RMQClient client = new RMQClient("localhost", "RMQClient", "adgjl");
 
+            client.ReceiveMessageEvent(OnMessageReceive);
+            client.ReceiveRequestEvent(OnRequestReceive);
+
             if (createRMQInfrastructure)
             {
                 client.DeclareExchange("Broadcast", "fanout", true, false);
@@ -25,18 +29,27 @@ namespace EXA_RMQ_Client
             client.ExchangeSubscribeSelf("Broadcast");
             client.ExchangeSubscribeSelf("BCSubscribers");
 
-            client.ReceiveMessageEvent(OnMessageReceive);
-            client.ReceiveRequestEvent(OnRequestReceive);
-
             /* END OF SETUP */
             /* START OF SENDING */
 
-            Console.WriteLine("Sending Message to Server...");
-            client.SendTo("Hello Server!", "", client.ServerQueue);
+            Thread.Sleep(5000);
 
-            Console.WriteLine("Requesting Time from Server...");
-            string time = client.RequestFrom("GetTime", client.ServerQueue);
-            Console.WriteLine("Reply from Server: " + Convert.ToString(time));
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine("Sending Message to Server...");
+                client.SendTo("Hello Server!", "", client.ServerQueue);
+
+                Thread.Sleep(300);
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine("Requesting Time from Server...");
+                string time = client.RequestFrom("GetTime", client.ServerQueue);
+                Console.WriteLine("Reply from Server: " + Convert.ToString(time));
+
+                Thread.Sleep(300);
+            }
 
             /* END OF SENDING */
 
