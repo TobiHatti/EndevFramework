@@ -10,6 +10,7 @@ namespace NetComRMQ
 {
     public class RMQClient : RMQOperator
     {
+        public string ServerQueue { get; } = "Q.Server";
 
         /// <summary>
         /// Creates a new Rabbit-MQ client.

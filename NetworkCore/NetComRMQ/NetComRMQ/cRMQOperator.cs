@@ -204,7 +204,7 @@ namespace NetComRMQ
                 }
                 finally
                 {
-                    SendTo($"{replyPrefix}[RSC:{Convert.ToString(replyStatusCode)}][MID:{requestID}]{Convert.ToString(requestReply)}", "", senderQueue);
+                    SendReply($"[RSC:{Convert.ToString(replyStatusCode)}][MID:{requestID}]{Convert.ToString(requestReply)}", "", senderQueue);
                 }
             }
             else if (message.StartsWith(replyPrefix))
@@ -292,6 +292,34 @@ namespace NetComRMQ
             }
         }
 
+        private bool SendReply(string pMessage, string pExchange = "", string pRoutingKey = "")
+        {
+            // Check if either an exchange or a routing key is provided
+            if (string.IsNullOrEmpty(pExchange) && string.IsNullOrEmpty(pRoutingKey))
+                throw new ApplicationException("Error in SendTo(): Please provide either a Exchange OR a RoutingKey, leaving both parameters blank is not possible");
+
+            // Re-Format message to fit protocol
+            pMessage = $"{replyPrefix}{pMessage}";
+
+            // Try to send the message
+            try
+            {
+                channel.BasicPublish(
+                    exchange: pExchange,
+                    routingKey: pRoutingKey,
+                    basicProperties: basicProperties,
+                    body: Encoding.UTF8.GetBytes(pMessage)
+                );
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
         /// <summary>
         /// Requests a value or object from a remote node.
         /// </summary>
@@ -299,23 +327,19 @@ namespace NetComRMQ
         /// <param name="pRoutingKey">Routing-Key for additional and complex message routing, or to send directly to another queue</param>
         /// <param name="pExchange">Target exchange to distribute the message</param>
         /// <returns>Returns the result of the request</returns>
-        public string RequestFrom(string pRequestInstruction, string pExchange = "", string pRoutingKey = "")
+        public string RequestFrom(string pRequestInstruction, string pRoutingKey)
         {
-            // Check if either an exchange or a routing key is provided
-            if (string.IsNullOrEmpty(pExchange) && string.IsNullOrEmpty(pRoutingKey))
-                throw new ApplicationException("Error in RequestFrom(): Please provide either a Exchange OR a RoutingKey, leaving both parameters blank is not possible");
-
             // Generate unique ID for request
             Guid requestID = Guid.NewGuid();
 
             // Re-Format message to fit protocol
-            pRequestInstruction = $"{messagePrefix}[SQ:{this.localQueue}][MID:{requestID}]{pRequestInstruction}";
+            pRequestInstruction = $"{requestPrefix}[SQ:{this.localQueue}][MID:{requestID}]{pRequestInstruction}";
 
             // Try to send the message
             try
             {
                 channel.BasicPublish(
-                    exchange: pExchange,
+                    exchange: "",
                     routingKey: pRoutingKey,
                     basicProperties: basicProperties,
                     body: Encoding.UTF8.GetBytes(pRequestInstruction)

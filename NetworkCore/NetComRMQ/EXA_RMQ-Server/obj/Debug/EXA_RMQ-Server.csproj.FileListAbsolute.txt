@@ -1,0 +1,11 @@
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\bin\Debug\EXA_RMQ-Server.exe.config
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\bin\Debug\EXA_RMQ-Server.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\bin\Debug\EXA_RMQ-Server.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\bin\Debug\NetComRMQ.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\bin\Debug\RabbitMQ.Client.dll
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\bin\Debug\NetComRMQ.pdb
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\bin\Debug\RabbitMQ.Client.xml
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\obj\Debug\EXA_RMQ-Server.csprojAssemblyReference.cache
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\obj\Debug\EXA_RMQ-Server.csproj.CopyComplete
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\obj\Debug\EXA_RMQ-Server.exe
+C:\Users\zivi\Desktop\Projects (GIT)\EndevFramework\NetworkCore\NetComRMQ\EXA_RMQ-Server\obj\Debug\EXA_RMQ-Server.pdb

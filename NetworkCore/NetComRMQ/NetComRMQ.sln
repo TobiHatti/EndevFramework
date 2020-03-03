@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOC_RMQ-Server", "DOC_RMQ-S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOC_RMQ-Client", "DOC_RMQ-Client\DOC_RMQ-Client.csproj", "{56C0A647-7A28-4D3A-9BF2-FB6DF68D1195}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXA_RMQ-Server", "EXA_RMQ-Server\EXA_RMQ-Server.csproj", "{1D61C334-C365-43C4-85DB-76C1430D27A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EXA_RMQ-Client", "EXA_RMQ-Client\EXA_RMQ-Client.csproj", "{A5D057C7-CFC5-4844-BE27-8059B6C1B7AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{56C0A647-7A28-4D3A-9BF2-FB6DF68D1195}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56C0A647-7A28-4D3A-9BF2-FB6DF68D1195}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56C0A647-7A28-4D3A-9BF2-FB6DF68D1195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D61C334-C365-43C4-85DB-76C1430D27A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D61C334-C365-43C4-85DB-76C1430D27A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D61C334-C365-43C4-85DB-76C1430D27A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D61C334-C365-43C4-85DB-76C1430D27A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5D057C7-CFC5-4844-BE27-8059B6C1B7AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5D057C7-CFC5-4844-BE27-8059B6C1B7AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5D057C7-CFC5-4844-BE27-8059B6C1B7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5D057C7-CFC5-4844-BE27-8059B6C1B7AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

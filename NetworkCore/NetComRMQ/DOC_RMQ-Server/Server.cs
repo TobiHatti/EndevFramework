@@ -6,20 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DOC_RMQ_Client
+namespace DOC_RMQ_Server
 {
-    class Program
+    class Server
     {
         static void Main(string[] args)
         {
-            // Setting up the Rabbit-MQ Client (Subscriber-Client)
-            // • The client receives messages only if it is online.
-            //   Messages that get sent to the client get lost when 
-            //   the client is offline.
+            // Setting up the Rabbit-MQ Server (Publisher-Client)
+            // • The server receives messages, even if it is offline.
+            //   the received messages get processed once the server
+            //   is started again.
 
-            // Initializing the Client (Consumer)
-            // On initialization, the client automatically creates a queue AND consumes it.
-            RMQClient client = new RMQClient("localhost", "sampleUser", "samplePassword");
+            // Initializing the Server (Publisher)
+            // On initialization, the server automatically creates a queue AND consumes it.
+            RMQServer server = new RMQServer("localhost", "sampleUser", "samplePassword");
 
             // ====== Initialising RMQ-Infrastructure ======
 
@@ -29,26 +29,26 @@ namespace DOC_RMQ_Client
             //           The following line creates an exchange named "Broadcast" which distributes
             //           messages to all connected clients (if they are subscribed to this exchange).
             // The server does not receive messages from this exchange yet.
-            client.DeclareExchange("Broadcast", "fanout", true, false);
+            server.DeclareExchange("Broadcast", "fanout", true, false);
 
             // The server already has a queue which gets consumed. if however another queue
             // is required, it can be done as shown below.
             // The following example creates a new queue named "SecondServerQueue".
             // The server does not consume the queue yet.
-            client.DeclareQueue("SecondServerQueue", false, false, true);
+            server.DeclareQueue("SecondServerQueue", false, false, true);
 
             // ====== Binding RMQ-Infrastructure ======
 
-            // To get messages from another queue besides the clients own queue, 
-            // it needs to be consumed by the client:
-            client.ConsumeQueue("SecondServerQueue");
+            // To get messages from another queue besides the servers own queue, 
+            // it needs to be consumed by the server:
+            server.ConsumeQueue("SecondServerQueue");
 
             // To receive messages from an exchange (subscribe), it needs to be bound to a queue.
             // To bind the servers own queue to an exchange named "Broadcast", use:
-            client.ExchangeSubscribeSelf("Broadcast");
+            server.ExchangeSubscribeSelf("Broadcast");
 
             // To bind another queue to an exchange named "Broadcast", use
-            client.ExchangeSubscribe("Broadcast", "SecondServerQueue");
+            server.ExchangeSubscribe("Broadcast", "SecondServerQueue");
 
             // ====== RMQ-Receive Events ======
 
@@ -60,22 +60,22 @@ namespace DOC_RMQ_Client
             // Both of the following events need to be set to ensure propper use.
 
             // To set the receive-event for simple-messages, use
-            client.ReceiveMessageEvent(MyMessageReceiveEvent);
+            server.ReceiveMessageEvent(MyMessageReceiveEvent);
 
             // To set the receive-event for request-messages, use
-            client.ReceiveRequestEvent(MyRequestReceiveEvent);
+            server.ReceiveRequestEvent(MyRequestReceiveEvent);
 
             // *** End of Startup- and Setup-Section ***
 
 
             // ====== RMQ-Send Events ======
-
+           
             // Send a simple message without a reply to a remote node:
-            client.SendTo("MyMessageToSend", "Broadcast");
+            server.SendTo("MyMessageToSend", "Broadcast");
 
             // Send a request to a remote node. Waits until a reply is received OR the request times out.
             // Default Timeout-Duration is 5 seconds.
-            string myReply = client.RequestFrom("MyThingIWantToRequest", "UserIWantToRequestFrom");
+            string myReply = server.RequestFrom("MyThingIWantToRequest", "UserIWantToRequestFrom");
 
             // In case of slow internet-connections, large transfer files or intensive processing 
             // at the remote node, the timeout-duration can be increased. Time in Miliseconds
@@ -86,7 +86,7 @@ namespace DOC_RMQ_Client
 
             // Closing the RMQ-Client is required to properly shut down any existing 
             // connections and to avoid errors upon the next start of the program.
-            client.Close();
+            server.Close();
 
 
             Console.WriteLine("Done");

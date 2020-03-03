@@ -21,7 +21,7 @@ namespace NetComRMQ
         public RMQServer(string pHostname, string pUsername, string pPassword) : base(pHostname, pUsername, pPassword)
         {
             // Declare name of local queue
-            localQueue = "Q.Server." + pUsername.ToLower();
+            localQueue = "Q.Server";
 
             // Declare the Server-Queue
             DeclareQueue(localQueue, true, false, false);
