@@ -8,13 +8,16 @@ The different modules are completely independend on each other, so the use of ju
 ## <i class="fas fa-server"></i> Endev-Network-Core
 [&#9654; Source Code](https://github.com/TobiHatti/EndevFramework/tree/master/NetworkCore) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&#9654; Releases & Downloads](https://github.com/TobiHatti/EndevFramework/releases) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&#9654; NuGet-Install](#)
 
-__[ALPHA VERSION 1.2 Rev3] Send-Stability: 99,999% (± 0,001%)__
+__[ALPHA VERSION 1.2 Rev3] Send-Stability: 99,999% (± 0,001%) Pure C#__
+
+__[ALPHA VERSION 2.1] Send-Stability: 100% - Using Rabbit-MQ __
 
 The Endev-Network-Core allows you to communicate between application via the TCP-Protocol.
 The Module allows __one server__ and __multiple clients__. 
 The communication-system is based on __instructions__, to allow a wide range of functionalities. 
 To provide a secure communication between users, confidential data gets automaticaly encryptet using RSA-Encryption. 
 The module is easily expandable and custom instructions or authentication-checks can quickly be added or modified.
+
 
 
 __KEY FEATURES__
