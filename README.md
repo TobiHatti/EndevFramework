@@ -1,4 +1,12 @@
-# Endev-Framework : C# Port 
+# Endev-Framework : C# Port
+
+![GitHub](https://img.shields.io/github/license/TobiHatti/EndevFramework)
+[![GitHub Release Date](https://img.shields.io/github/release-date/TobiHatti/EndevFramework)](https://github.com/TobiHatti/EndevFramework/releases)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/TobiHatti/EndevFramework?include_prereleases)](https://github.com/TobiHatti/EndevFramework/releases)
+[![GitHub last commit](https://img.shields.io/github/last-commit/TobiHatti/EndevFramework)](https://github.com/TobiHatti/EndevFramework/commits/master)
+[![GitHub issues](https://img.shields.io/github/issues-raw/TobiHatti/EndevFramework)](https://github.com/TobiHatti/EndevFramework/issues)
+[![GitHub language count](https://img.shields.io/github/languages/count/TobiHatti/EndevFramework)](https://github.com/TobiHatti/EndevFramework)
+
 
 The _[Endev-Framework](https://github.com/TobiHatti/EndevFramework)_ provides several easy to use components you can include into your projects to simplify and accelerate your development-experience.
 
