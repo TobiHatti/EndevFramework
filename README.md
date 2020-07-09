@@ -1,12 +1,15 @@
+<img align="right" width="80" height="80" data-rmimg src="https://endev.at/content/projects/Endev-Framework/EndevLibsLogo.svg">
+
 # Endev-Framework : C# Port
 
 ![GitHub](https://img.shields.io/github/license/TobiHatti/EndevFramework)
-[![GitHub Release Date](https://img.shields.io/github/release-date/TobiHatti/EndevFramework)](https://github.com/TobiHatti/EndevFramework/releases)
+[![GitHub Release Date](https://img.shields.io/github/release-date-pre/TobiHatti/EndevFramework)](https://github.com/TobiHatti/EndevFramework/releases)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/TobiHatti/EndevFramework?include_prereleases)](https://github.com/TobiHatti/EndevFramework/releases)
 [![GitHub last commit](https://img.shields.io/github/last-commit/TobiHatti/EndevFramework)](https://github.com/TobiHatti/EndevFramework/commits/master)
 [![GitHub issues](https://img.shields.io/github/issues-raw/TobiHatti/EndevFramework)](https://github.com/TobiHatti/EndevFramework/issues)
 [![GitHub language count](https://img.shields.io/github/languages/count/TobiHatti/EndevFramework)](https://github.com/TobiHatti/EndevFramework)
 
+![image](https://endev.at/content/projects/Endev-Framework/EndevFramework_Banner_300.svg)
 
 The _[Endev-Framework](https://github.com/TobiHatti/EndevFramework)_ provides several easy to use components you can include into your projects to simplify and accelerate your development-experience.
 
